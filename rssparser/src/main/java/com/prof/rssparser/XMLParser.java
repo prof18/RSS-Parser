@@ -103,6 +103,7 @@ public class XMLParser extends Observable {
                            Document doc = Jsoup.parse(htmlData);
                            try {
 
+                               //choose the first image found in the article
                                String pic = doc.select("img").first().attr("abs:src");
                                currentArticle.setImage(pic);
 
