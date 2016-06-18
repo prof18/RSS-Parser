@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
             android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(MainActivity.this).create();
             alertDialog.setTitle(R.string.app_name);
             alertDialog.setMessage(Html.fromHtml(MainActivity.this.getString(R.string.info_text) +
-                    " <a href='http://github.com/prof18/RSSParser'>GitHub.</a>" +
+                    " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
                     MainActivity.this.getString(R.string.author)));
             alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {
