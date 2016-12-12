@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RSSParser.iml" filepath="$PROJECT_DIR$/RSSParser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/RSS-Parser.iml" filepath="$PROJECT_DIR$/RSS-Parser.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rssparser/rssparser.iml" filepath="$PROJECT_DIR$/rssparser/rssparser.iml" />
     </modules>
