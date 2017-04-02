@@ -1,7 +1,6 @@
 # RSS Parser
-[ ![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg) ]
-(https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](http://opensource.org/licenses/MIT) 
+[![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
 This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
@@ -15,15 +14,15 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 <li> Publication Date
 </ul>
 
-##How to
-####Import:
+## How to
+#### Import:
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
   compile 'com.prof.rssparser:rssparser:1.0'
 }
 ```
-####Use:
+#### Use:
 ```Java
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
@@ -46,7 +45,7 @@ parser.onFinish(new Parser.OnTaskCompleted() {
     }
 });
 ```
-##Sample app
+## Sample app
 I wrote a simple app that shows articles from Android Central. If in the article's content there isn't a image, a placeholder
 will be load. 
 
@@ -55,7 +54,7 @@ will be load.
 You can browse the code <a href="https://github.com/prof18/RSS-Parser/tree/master/app"> in this repo.</a> 
 You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
 
-##License
+## License
 ```
    Copyright 2016 Marco Gomiero
 
