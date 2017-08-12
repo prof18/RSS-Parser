@@ -35,23 +35,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pnikosis.materialishprogress.ProgressWheel;
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
-import com.prof.rssparser.XMLParser;
 
 import java.util.ArrayList;
 
-import okhttp3.OkHttpClient;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private ArticleAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private ProgressWheel progressWheel;
+    private ProgressBar progressBar;
     private String urlString = "http://www.androidcentral.com/feed";
 
     @Override
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        progressWheel = (ProgressWheel) findViewById(R.id.progress_wheel);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadFeed() {
 
         if (!mSwipeRefreshLayout.isRefreshing())
-            progressWheel.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
 
         Parser parser = new Parser();
         parser.execute(urlString);
@@ -123,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                 //set the adapter to recycler view
                 mAdapter = new ArticleAdapter(list, R.layout.row, MainActivity.this);
                 mRecyclerView.setAdapter(mAdapter);
-                progressWheel.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 mSwipeRefreshLayout.setRefreshing(false);
 
             }
@@ -135,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        progressWheel.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
                         mSwipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(MainActivity.this, "Unable to load data. Swipe down to retry.",
                                 Toast.LENGTH_SHORT).show();
