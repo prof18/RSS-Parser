@@ -54,6 +54,10 @@ will be load.
 You can browse the code <a href="https://github.com/prof18/RSS-Parser/tree/master/app"> in this repo.</a> 
 You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
 
+## Changelog
+- 12 August 2017 - Fixed the Library Manifest and updated the dependencies - Version 1.1
+- 18 June 2016 - First release  - Version 1.0
+
 ## License
 ```
    Copyright 2016 Marco Gomiero
