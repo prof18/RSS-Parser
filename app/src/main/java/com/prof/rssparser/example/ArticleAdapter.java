@@ -96,6 +96,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         viewHolder.pubDate.setText(pubDateString);
 
+        String categories = "";
+        for (int i = 0; i < currentArticle.getCategories().size() ; i++) {
+            if (i == currentArticle.getCategories().size()-1) {
+                categories = categories + currentArticle.getCategories().get(i);
+            } else {
+                categories = categories + currentArticle.getCategories().get(i) + ", ";
+            }
+        }
+
+        viewHolder.category.setText(categories);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
@@ -141,9 +151,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public TextView pubDate;
+        TextView title;
+        TextView pubDate;
         ImageView image;
+        TextView category;
 
         public ViewHolder(View itemView) {
 
@@ -152,6 +163,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             title = (TextView) itemView.findViewById(R.id.title);
             pubDate = (TextView) itemView.findViewById(R.id.pubDate);
             image = (ImageView)itemView.findViewById(R.id.image);
+            category = (TextView) itemView.findViewById(R.id.categories);
         }
     }
 }

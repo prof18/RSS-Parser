@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(true);
                 loadFeed();
-
             }
         });
 

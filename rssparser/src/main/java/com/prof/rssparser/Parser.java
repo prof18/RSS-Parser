@@ -31,7 +31,7 @@ import okhttp3.Response;
 /**
  * Created by marco on 6/17/16.
  */
-public class Parser extends AsyncTask<String, Void, String> implements Observer{
+public class Parser extends AsyncTask<String, Void, String> implements Observer {
 
     XMLParser xmlParser;
     static ArrayList<Article> articles = new ArrayList<>();
@@ -44,12 +44,12 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer{
         xmlParser.addObserver(this);
     }
 
-    public interface OnTaskCompleted{
+    public interface OnTaskCompleted {
         void onTaskCompleted(ArrayList<Article> list);
         void onError();
     }
 
-    public void onFinish (OnTaskCompleted onComplete ) {
+    public void onFinish(OnTaskCompleted onComplete) {
         this.onComplete = onComplete;
     }
 
@@ -63,17 +63,12 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer{
                 .build();
 
         try {
-
             response = client.newCall(request).execute();
             return response.body().string();
-
         } catch (IOException e) {
-
             e.printStackTrace();
             onComplete.onError();
-
         }
-
         return null;
     }
 
@@ -81,25 +76,19 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer{
     protected void onPostExecute(String result) {
 
         try {
-
             xmlParser.parseXML(result);
             Log.i("RSS Parser ", "RSS parsed correctly!");
-
         } catch (Exception e) {
-
             e.printStackTrace();
             onComplete.onError();
-
         }
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void update(Observable observable, Object data) {
-
         articles = (ArrayList<Article>) data;
         onComplete.onTaskCompleted(articles);
-
     }
 
 }
