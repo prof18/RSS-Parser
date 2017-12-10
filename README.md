@@ -12,14 +12,17 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 <li> Main Image
 <li> Link
 <li> Publication Date
+<li> Categories
 </ul>
+
+**Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; ![Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
 
 ## How to
 #### Import:
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.1'
+  compile 'com.prof.rssparser:rssparser:1.2'
 }
 ```
 #### Use:
@@ -46,8 +49,7 @@ parser.onFinish(new Parser.OnTaskCompleted() {
 });
 ```
 ## Sample app
-I wrote a simple app that shows articles from Android Central. If in the article's content there isn't a image, a placeholder
-will be load. 
+I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't a image, a placeholder will be load. 
 
 <img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
 
@@ -57,6 +59,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
+- 10 December 2017 - Added support for the categories - Version 1.2
 - 12 August 2017 - Fixed the Library Manifest and updated the dependencies - Version 1.1
 - 18 June 2016 - First release  - Version 1.0
 
