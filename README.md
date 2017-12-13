@@ -59,6 +59,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
+- 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2
 - 12 August 2017 - Fixed the Library Manifest and updated the dependencies - Version 1.1
 - 18 June 2016 - First release  - Version 1.0
