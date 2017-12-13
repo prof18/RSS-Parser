@@ -33,8 +33,8 @@ import okhttp3.Response;
  */
 public class Parser extends AsyncTask<String, Void, String> implements Observer {
 
-    XMLParser xmlParser;
-    static ArrayList<Article> articles = new ArrayList<>();
+    private XMLParser xmlParser;
+    private static ArrayList<Article> articles = new ArrayList<>();
 
     private OnTaskCompleted onComplete;
 

@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
     }
     buildTypes {
         release {
@@ -31,7 +31,7 @@ dependencies {
 
 
 group = 'com.prof.rssparser'
-version = '1.2'
+version = '1.3'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -53,16 +53,16 @@ generateJavadocsJar.dependsOn generateJavadocs
 
 bintray {
     user = 'prof18'
-    key = 'API_KEY'
+    key = 'd99380ce5683a27ce5105b7915fbbccfbc830214'
     pkg {
         repo = 'maven'
         name = 'RSS-Parser'
 
         version {
-            name = '1.2'
+            name = '1.3'
             desc = 'A library to parse RSS feed'
             released = new Date()
-            vcsTag = '1.2'
+            vcsTag = '1.3'
         }
 
         licenses = ['Apache-2.0']
