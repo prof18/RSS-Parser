@@ -44,6 +44,9 @@ import com.prof.rssparser.Parser;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Marco Gomiero on 12/02/2015.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;

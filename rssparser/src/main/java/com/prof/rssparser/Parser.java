@@ -29,7 +29,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by marco on 6/17/16.
+ * Created by Marco Gomiero on 6/17/16.
  */
 public class Parser extends AsyncTask<String, Void, String> implements Observer {
 
@@ -46,6 +46,7 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
 
     public interface OnTaskCompleted {
         void onTaskCompleted(ArrayList<Article> list);
+
         void onError();
     }
 
@@ -64,7 +65,8 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
 
         try {
             response = client.newCall(request).execute();
-            return response.body().string();
+            if (response.isSuccessful())
+                return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
             onComplete.onError();
@@ -75,13 +77,16 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
     @Override
     protected void onPostExecute(String result) {
 
-        try {
-            xmlParser.parseXML(result);
-            Log.i("RSS Parser ", "RSS parsed correctly!");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (result != null) {
+            try {
+                xmlParser.parseXML(result);
+                Log.i("RSS Parser ", "RSS parsed correctly!");
+            } catch (Exception e) {
+                e.printStackTrace();
+                onComplete.onError();
+            }
+        } else
             onComplete.onError();
-        }
     }
 
     @Override
