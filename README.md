@@ -15,7 +15,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 <li> Categories
 </ul>
 
-**Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; ![Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
+**Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; [Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
 
 ## How to
 #### Import:
@@ -59,6 +59,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
+- 14 December2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2
 - 12 August 2017 - Fixed the Library Manifest and updated the dependencies - Version 1.1
