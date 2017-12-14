@@ -53,7 +53,7 @@ generateJavadocsJar.dependsOn generateJavadocs
 
 bintray {
     user = 'prof18'
-    key = 'd99380ce5683a27ce5105b7915fbbccfbc830214'
+    key = 'API_KEY'
     pkg {
         repo = 'maven'
         name = 'RSS-Parser'
