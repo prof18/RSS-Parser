@@ -22,7 +22,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.2'
+  compile 'com.prof.rssparser:rssparser:1.3.1'
 }
 ```
 #### Use:
