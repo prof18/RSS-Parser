@@ -51,9 +51,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     public ArticleAdapter(ArrayList<Article> list, int rowLayout, Context context) {
 
-         this.articles = list;
-         this.rowLayout = rowLayout;
-         this.mContext = context;
+        this.articles = list;
+        this.rowLayout = rowLayout;
+        this.mContext = context;
     }
 
 
@@ -62,7 +62,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         // TODO Auto-generated method stub
         return item;
     }
-    public void clearData(){
+
+    public void clearData() {
         if (articles != null)
             articles.clear();
     }
@@ -74,9 +75,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position)  {
+    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-       Article currentArticle = articles.get(position);
+        Article currentArticle = articles.get(position);
 
         Locale.setDefault(Locale.getDefault());
         Date date = currentArticle.getPubDate();
@@ -97,11 +98,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         viewHolder.pubDate.setText(pubDateString);
 
         String categories = "";
-        for (int i = 0; i < currentArticle.getCategories().size() ; i++) {
-            if (i == currentArticle.getCategories().size()-1) {
-                categories = categories + currentArticle.getCategories().get(i);
-            } else {
-                categories = categories + currentArticle.getCategories().get(i) + ", ";
+        if (currentArticle.getCategories() != null) {
+            for (int i = 0; i < currentArticle.getCategories().size(); i++) {
+                if (i == currentArticle.getCategories().size() - 1) {
+                    categories = categories + currentArticle.getCategories().get(i);
+                } else {
+                    categories = categories + currentArticle.getCategories().get(i) + ", ";
+                }
             }
         }
 
@@ -125,20 +128,20 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
                 articleView.setWebChromeClient(new WebChromeClient());
                 articleView.loadDataWithBaseURL(null, "<style>img{display: inline; height: auto; max-width: 100%;} " +
 
-                        "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n"  + content, null, "utf-8", null);
+                        "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n" + content, null, "utf-8", null);
 
                 android.support.v7.app.AlertDialog alertDialog = new android.support.v7.app.AlertDialog.Builder(mContext).create();
-                    alertDialog.setTitle(title);
-                    alertDialog.setView(articleView);
-                    alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
+                alertDialog.setTitle(title);
+                alertDialog.setView(articleView);
+                alertDialog.setButton(android.support.v7.app.AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
 
-                    ((TextView) alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                ((TextView) alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
             }
         });
     }
@@ -162,7 +165,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
             title = (TextView) itemView.findViewById(R.id.title);
             pubDate = (TextView) itemView.findViewById(R.id.pubDate);
-            image = (ImageView)itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.image);
             category = (TextView) itemView.findViewById(R.id.categories);
         }
     }
