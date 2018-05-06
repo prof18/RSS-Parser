@@ -22,7 +22,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.3.1'
+  compile 'com.prof.rssparser:rssparser:1.4'
 }
 ```
 #### Use:
@@ -59,7 +59,8 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
-- 14 December2017 - Little fixes on Error Management - Version 1.3.1
+- 6 May 2018 - Add more sources for the featured image - Version 1.4
+- 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2
 - 12 August 2017 - Fixed the Library Manifest and updated the dependencies - Version 1.1
