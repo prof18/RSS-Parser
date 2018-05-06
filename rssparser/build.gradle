@@ -3,15 +3,16 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 5
         versionName "1.3.1"
     } 
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,17 +22,17 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'org.jsoup:jsoup:1.8.1'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'org.jsoup:jsoup:1.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
 
 
 group = 'com.prof.rssparser'
-version = '1.3.1'
+version = '1.4'
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -59,10 +60,10 @@ bintray {
         name = 'RSS-Parser'
 
         version {
-            name = '1.3.1'
+            name = '1.4'
             desc = 'A library to parse RSS feed'
             released = new Date()
-            vcsTag = '1.3.1'
+            vcsTag = '1.4'
         }
 
         licenses = ['Apache-2.0']

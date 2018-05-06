@@ -1,21 +1,23 @@
 /*
-*   Copyright 2016 Marco Gomiero
-*
-*   Licensed under the Apache License, Version 2.0 (the "License");
-*   you may not use this file except in compliance with the License.
-*   You may obtain a copy of the License at
-*
-*       http://www.apache.org/licenses/LICENSE-2.0
-*
-*   Unless required by applicable law or agreed to in writing, software
-*   distributed under the License is distributed on an "AS IS" BASIS,
-*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-*   See the License for the specific language governing permissions and
-*   limitations under the License.
-*
-*/
+ *   Copyright 2016 Marco Gomiero
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ *
+ */
 
 package com.prof.rssparser;
+
+import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -90,26 +92,45 @@ public class XMLParser extends Observable {
                         currentArticle.addCategory(category);
                     }
 
-                } else if (xmlPullParser.getName().equalsIgnoreCase("content:encoded")) {
+                } else if (xmlPullParser.getName().equalsIgnoreCase("media:thumbnail")) {
 
                     if (insideItem) {
-                        String htmlData = xmlPullParser.nextText();
-                        Document doc = Jsoup.parse(htmlData);
-                        try {
-                            //choose the first image found in the article
-                            String pic = doc.select("img").first().attr("abs:src");
-                            currentArticle.setImage(pic);
-                        } catch (NullPointerException e) {
-                            currentArticle.setImage(null);
-                        }
-                        currentArticle.setContent(htmlData);
+                        String img = xmlPullParser.getAttributeValue(null, "url");
+                        currentArticle.setImage(img);
                     }
 
                 } else if (xmlPullParser.getName().equalsIgnoreCase("description")) {
 
                     if (insideItem) {
                         String description = xmlPullParser.nextText();
+                        if (currentArticle.getImage() == null) {
+                            Document doc = Jsoup.parse(description);
+                            try {
+                                //choose the first image found in the description
+                                String pic = doc.select("img").first().attr("abs:src");
+                                currentArticle.setImage(pic);
+                            } catch (NullPointerException e) {
+                                currentArticle.setImage(null);
+                            }
+                        }
                         currentArticle.setDescription(description);
+                    }
+
+                } else if (xmlPullParser.getName().equalsIgnoreCase("content:encoded")) {
+
+                    if (insideItem) {
+                        String htmlData = xmlPullParser.nextText();
+                        if (currentArticle.getImage() == null) {
+                            Document doc = Jsoup.parse(htmlData);
+                            try {
+                                //choose the first image found in the article
+                                String pic = doc.select("img").first().attr("abs:src");
+                                currentArticle.setImage(pic);
+                            } catch (NullPointerException e) {
+                                currentArticle.setImage(null);
+                            }
+                        }
+                        currentArticle.setContent(htmlData);
                     }
 
                 } else if (xmlPullParser.getName().equalsIgnoreCase("pubDate")) {
