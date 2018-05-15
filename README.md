@@ -3,6 +3,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
+### Due to a bug, release 1.4 isn't available. Please use 1.3.1 until next update
+
 This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
 <ul>
 <li> Title
@@ -22,7 +24,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.4'
+  compile 'com.prof.rssparser:rssparser:1.3.1'
 }
 ```
 #### Use:
