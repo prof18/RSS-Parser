@@ -4,14 +4,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        minSdkVersion 15
+        minSdkVersion 14
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.4"
-    } 
+        versionCode 7
+        versionName "1.4.1"
+    }
 
     buildTypes {
         release {
@@ -22,35 +21,35 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'org.jsoup:jsoup:1.8.1'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
-    implementation 'com.google.code.gson:gson:2.8.2'
 }
 
 
 group = 'com.prof.rssparser'
-version = '1.4'
+version = '1.4.1'
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+afterEvaluate {
+    javadoc.classpath += files(android.libraryVariants.collect { variant ->
+        variant.javaCompiler.classpath.files
+    })
+}
 
 task generateSourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier 'sources'
 }
 
-task generateJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath()
-            .join(File.pathSeparator))
-}
-
 task generateJavadocsJar(type: Jar) {
-    from generateJavadocs.destinationDir
+    from javadoc.destinationDir
     classifier 'javadoc'
 }
 
-generateJavadocsJar.dependsOn generateJavadocs
+generateJavadocsJar.dependsOn javadoc
 
 bintray {
     user = 'prof18'
@@ -60,10 +59,10 @@ bintray {
         name = 'RSS-Parser'
 
         version {
-            name = '1.4'
+            name = '1.4.1'
             desc = 'A library to parse RSS feed'
             released = new Date()
-            vcsTag = '1.4'
+            vcsTag = '1.4.1'
         }
 
         licenses = ['Apache-2.0']
