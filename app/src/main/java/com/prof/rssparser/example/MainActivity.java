@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private ArticleAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressBar progressBar;
-    //private String urlString = "https://feeds.bbci.co.uk/news/health/rss.xml";
     private String urlString = "https://www.androidauthority.com/feed";
 
     @Override
