@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
+
 
 android {
     compileSdkVersion 27
@@ -25,55 +24,5 @@ dependencies {
 }
 
 
-group = 'com.prof.rssparser'
-version = '1.4.1'
+apply from: 'publish.gradle'
 
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-afterEvaluate {
-    javadoc.classpath += files(android.libraryVariants.collect { variant ->
-        variant.javaCompiler.classpath.files
-    })
-}
-
-task generateSourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier 'sources'
-}
-
-task generateJavadocsJar(type: Jar) {
-    from javadoc.destinationDir
-    classifier 'javadoc'
-}
-
-generateJavadocsJar.dependsOn javadoc
-
-bintray {
-    user = 'prof18'
-    key = 'API_KEY'
-    pkg {
-        repo = 'maven'
-        name = 'RSS-Parser'
-
-        version {
-            name = '1.4.1'
-            desc = 'A library to parse RSS feed'
-            released = new Date()
-            vcsTag = '1.4.1'
-        }
-
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/prof18/RSS-Parser.git'
-        websiteUrl = 'https://github.com/prof18/RSS-Parser'
-    }
-    configurations = ['archives']
-
-}
-
-artifacts {
-    archives generateJavadocsJar
-    archives generateSourcesJar
-}
