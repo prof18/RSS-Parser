@@ -6,6 +6,8 @@
 ## Important Notice
 Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to version 1.4.4
 
+## About
+
 This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
 <ul>
 <li> Title
