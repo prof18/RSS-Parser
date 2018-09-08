@@ -3,6 +3,11 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
+## Important Notice
+Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to version 1.4.4
+
+## About
+
 This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
 <ul>
 <li> Title
@@ -22,7 +27,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.4.1'
+  compile 'com.prof.rssparser:rssparser:1.4.4'
 }
 ```
 #### Use:
@@ -59,8 +64,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
-- 18 May 2018 - Removed unused resources and improved the parsing of the image - Version 1.4.1
-- 6 May 2018 - Add more sources for the featured image - Version 1.4 (Not available anymore)
+- 7 Semptember 2018 - Add more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2
