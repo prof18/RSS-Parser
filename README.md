@@ -65,8 +65,6 @@ Please use the issues tracker only to report issues. If you have any kind of que
 
 ## Changelog
 - 7 Semptember 2018 - Add more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
-- 18 May 2018 - Removed unused resources and improved the parsing of the image - Version 1.4.1
-- 6 May 2018 - Add more sources for the featured image - Version 1.4 (Not available anymore)
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2
