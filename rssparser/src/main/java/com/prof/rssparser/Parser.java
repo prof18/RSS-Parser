@@ -47,7 +47,7 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
     public interface OnTaskCompleted {
         void onTaskCompleted(ArrayList<Article> list);
 
-        void onError();
+        void onError(Exception exception);
     }
 
     public void onFinish(OnTaskCompleted onComplete) {
@@ -69,7 +69,7 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
                 return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
-            onComplete.onError();
+            onComplete.onError(e);
         }
         return null;
     }
@@ -83,10 +83,10 @@ public class Parser extends AsyncTask<String, Void, String> implements Observer 
                 Log.i("RSS Parser ", "RSS parsed correctly!");
             } catch (Exception e) {
                 e.printStackTrace();
-                onComplete.onError();
+                onComplete.onError(e);
             }
         } else
-            onComplete.onError();
+            onComplete.onError(new Exception("RSS parse operation returned null"));
     }
 
     @Override
