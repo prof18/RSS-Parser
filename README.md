@@ -64,6 +64,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
 
 ## Changelog
+- 8 December 2018 - Include thrown exception in onError() callback (PR #22) - Version 1.4.5
 - 7 Semptember 2018 - Add more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
