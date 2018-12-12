@@ -1,1 +1,1 @@
-include ':app', ':rssparser'
+include ':app', ':rssparser', ':samplekotlin', ':samplejava'
