@@ -17,10 +17,9 @@
 
 package com.prof.rssparser.sample.java;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,38 +33,34 @@ import com.prof.rssparser.Article;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by Marco Gomiero on 12/02/2015.
- */
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
     private List<Article> articles;
 
-    private int rowLayout;
     private Context mContext;
     private WebView articleView;
 
-    public ArticleAdapter(List<Article> list, int rowLayout, Context context) {
+    public ArticleAdapter(List<Article> list, Context context) {
         this.articles = list;
-        this.rowLayout = rowLayout;
         this.mContext = context;
     }
 
-    public void clearData() {
-        if (articles != null)
-            articles.clear();
+    public List<Article> getArticleList() {
+        return articles;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(rowLayout, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.row, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -76,7 +71,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         Locale.setDefault(Locale.getDefault());
         Date date = currentArticle.getPubDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
         final String pubDateString = sdf.format(date);
 
         viewHolder.title.setText(currentArticle.getTitle());
@@ -88,21 +83,20 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         viewHolder.pubDate.setText(pubDateString);
 
-        String categories = "";
-        if (currentArticle.getCategories() != null) {
-            for (int i = 0; i < currentArticle.getCategories().size(); i++) {
-                if (i == currentArticle.getCategories().size() - 1) {
-                    categories = categories + currentArticle.getCategories().get(i);
-                } else {
-                    categories = categories + currentArticle.getCategories().get(i) + ", ";
-                }
+        StringBuilder categories = new StringBuilder();
+        for (int i = 0; i < currentArticle.getCategories().size(); i++) {
+            if (i == currentArticle.getCategories().size() - 1) {
+                categories.append(currentArticle.getCategories().get(i));
+            } else {
+                categories.append(currentArticle.getCategories().get(i)).append(", ");
             }
         }
 
-        viewHolder.category.setText(categories);
+        viewHolder.category.setText(categories.toString());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
+            @SuppressLint("SetJavaScriptEnabled")
             @Override
             public void onClick(View view) {
 
@@ -139,9 +133,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-
         return articles == null ? 0 : articles.size();
-
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -17,6 +17,7 @@
 -->
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardView.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
             android:layout_marginTop="24dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:textColor="#DE000000"
+            tools:text="This is simple a fake title"
             app:layout_constraintEnd_toStartOf="@+id/image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +52,7 @@
             android:layout_marginTop="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#8A000000"
+            tools:text="15 December 2018"
             app:layout_constraintEnd_toStartOf="@+id/image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -61,6 +64,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
+            tools:background="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,6 +77,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:textColor="#DE000000"
+            tools:text="Keyword1, keyword2, keyword3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
