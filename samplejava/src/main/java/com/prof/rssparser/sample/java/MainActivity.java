@@ -40,9 +40,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prof.rssparser.Article;
+import com.prof.rssparser.OnTaskCompleted;
 import com.prof.rssparser.Parser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -110,11 +112,16 @@ public class MainActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
         Parser parser = new Parser();
-        parser.execute(urlString);
-        parser.onFinish(new Parser.OnTaskCompleted() {
+
+//        parser.getArticles();
+
+
+        parser.onFinish(new OnTaskCompleted() {
+
+
             //what to do when the parsing is done
             @Override
-            public void onTaskCompleted(ArrayList<Article> list) {
+            public void onTaskCompleted(List<Article> list) {
                 //list is an Array List with all article's information
                 //set the adapter to recycler view
                 mAdapter = new ArticleAdapter(list, R.layout.row, MainActivity.this);
@@ -126,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
             //what to do in case of error
             @Override
-            public void onError(Exception exception) {
+            public void onError(final Exception exception) {
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -135,11 +142,15 @@ public class MainActivity extends AppCompatActivity {
                         mSwipeRefreshLayout.setRefreshing(false);
                         Toast.makeText(MainActivity.this, "Unable to load data.",
                                 Toast.LENGTH_LONG).show();
+                        Log.d("UNABLE TO LOAD", exception.toString());
                         Log.i("Unable to load ", "articles");
                     }
                 });
             }
         });
+
+        parser.execute(urlString);
+
     }
 
     public boolean isNetworkAvailable() {
