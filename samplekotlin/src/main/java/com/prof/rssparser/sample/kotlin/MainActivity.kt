@@ -33,6 +33,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -68,6 +69,14 @@ class MainActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE
                 swipe_layout.isRefreshing = false
+            }
+
+        })
+
+        viewModel.snackbar.observe(this, Observer { value ->
+            value?.let {
+                Snackbar.make(root_layout, value, Snackbar.LENGTH_LONG).show()
+                viewModel.onSnackbarShowed ()
             }
 
         })

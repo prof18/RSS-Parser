@@ -21,6 +21,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_layout"
     android:paddingTop="50dp">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

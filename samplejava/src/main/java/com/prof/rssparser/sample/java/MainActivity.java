@@ -24,12 +24,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.prof.rssparser.Article;
 
 import java.util.List;
@@ -51,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressBar progressBar;
     private MainViewModel viewModel;
+    private RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
 
+        relativeLayout = findViewById(R.id.root_layout);
+
         viewModel.getArticleList().observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(List<Article> articles) {
@@ -81,6 +87,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        viewModel.getSnackbar().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                if (s != null) {
+                    Snackbar.make(relativeLayout, s, Snackbar.LENGTH_LONG).show();
+                    viewModel.onSnackbarShowed();
+                }
+            }
+        });
 
         mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);

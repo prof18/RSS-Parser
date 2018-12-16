@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -32,6 +33,8 @@ public class MainViewModel extends ViewModel {
 
     private MutableLiveData<List<Article>> articleListLive = null;
     private String urlString = "https://www.androidauthority.com/feed";
+
+    private MutableLiveData<String> snackbar = new MutableLiveData<>();
 
     public MutableLiveData<List<Article>> getArticleList() {
         if (articleListLive == null) {
@@ -42,6 +45,14 @@ public class MainViewModel extends ViewModel {
 
     private void setArticleList(List<Article> articleList) {
         this.articleListLive.postValue(articleList);
+    }
+
+    public LiveData<String> getSnackbar() {
+        return snackbar;
+    }
+
+    public void onSnackbarShowed() {
+        snackbar.setValue(null);
     }
 
     public void fetchFeed() {
@@ -62,13 +73,12 @@ public class MainViewModel extends ViewModel {
                     @Override
                     public void onError(Exception e) {
                         setArticleList(new ArrayList<Article>());
+                        e.printStackTrace();
+                        snackbar.postValue("An error has occurred. Please try again");
                     }
                 });
                 parser.execute(urlString);
             }
         });
-
-
     }
-
 }

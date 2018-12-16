@@ -1,11 +1,14 @@
 package com.prof.rssparser.sample.kotlin
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.prof.rssparser.Article
 import com.prof.rssparser.Parser
-import kotlinx.coroutines.*
-import java.lang.Exception
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class MainViewModel : ViewModel(), CoroutineScope {
@@ -17,6 +20,15 @@ class MainViewModel : ViewModel(), CoroutineScope {
         get() = Dispatchers.Main + viewModelJob
 
     private lateinit var articleListLive: MutableLiveData<MutableList<Article>>
+
+    private val _snackbar = MutableLiveData<String>()
+
+    val snackbar: LiveData<String>
+        get() = _snackbar
+
+    fun onSnackbarShowed() {
+        _snackbar.value = null
+    }
 
     fun getArticleList(): MutableLiveData<MutableList<Article>> {
         if (!::articleListLive.isInitialized) {
@@ -42,10 +54,9 @@ class MainViewModel : ViewModel(), CoroutineScope {
                 setArticleList(articleList)
             } catch (e: Exception) {
                 e.printStackTrace()
+                _snackbar.value = "An error has occurred. Please retry"
                 setArticleList(mutableListOf())
             }
         }
     }
-
-
 }
