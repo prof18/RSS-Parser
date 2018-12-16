@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter(private val articles: ArrayList<Article>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class ArticleAdapter(   val articles: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
 
     override fun getItemCount() = articles.size

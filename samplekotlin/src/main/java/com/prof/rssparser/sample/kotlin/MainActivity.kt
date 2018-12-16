@@ -19,44 +19,29 @@ package com.prof.rssparser.sample.kotlin
 
 
 import android.content.Context
-import android.content.DialogInterface
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.widget.Toolbar
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
-
-import com.prof.rssparser.Article
-import com.prof.rssparser.Parser
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-
-import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    //    private var mRecyclerView: RecyclerView? = null
-//    private var mAdapter: ArticleAdapter? = null
-//    private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
-//    private var progressBar: ProgressBar? = null
-    private val urlString = "https://www.androidauthority.com/feed"
+    private lateinit var adapter: ArticleAdapter
+    private lateinit var viewModel: MainViewModel
 
-    private lateinit var mAdapter: ArticleAdapter
-
-    val isNetworkAvailable: Boolean
+    private val isNetworkAvailable: Boolean
         get() {
             val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetworkInfo = connectivityManager.activeNetworkInfo
@@ -66,20 +51,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
+        viewModel = ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
+
         setSupportActionBar(toolbar)
 
-        list.layoutManager = LinearLayoutManager(this)
-        list.itemAnimator = DefaultItemAnimator()
-        list.setHasFixedSize(true)
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.itemAnimator = DefaultItemAnimator()
+        recycler_view.setHasFixedSize(true)
 
+        viewModel.getArticleList().observe(this, Observer { articles ->
 
-        container.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
-        container.canChildScrollUp()
-        container.setOnRefreshListener {
-            mAdapter.notifyDataSetChanged()
-            container.isRefreshing = true
-            loadFeed()
+            if (articles != null) {
+                adapter = ArticleAdapter(articles)
+                recycler_view.adapter = adapter
+                adapter.notifyDataSetChanged()
+                progressBar.visibility = View.GONE
+                swipe_layout.isRefreshing = false
+            }
+
+        })
+
+        swipe_layout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
+        swipe_layout.canChildScrollUp()
+        swipe_layout.setOnRefreshListener {
+            adapter.articles.clear()
+            adapter.notifyDataSetChanged()
+            swipe_layout.isRefreshing = true
+            viewModel.fetchFeed()
         }
 
         if (!isNetworkAvailable) {
@@ -95,46 +94,11 @@ class MainActivity : AppCompatActivity() {
             alert.show()
 
         } else if (isNetworkAvailable) {
-            loadFeed()
+            viewModel.fetchFeed()
         }
     }
 
-    fun loadFeed() {
-
-        if (!container.isRefreshing)
-            progressBar!!.visibility = View.VISIBLE
-
-        val parser = Parser()
-        parser.execute(urlString)
-        parser.onFinish(object : Parser.OnTaskCompleted {
-            //what to do when the parsing is done
-            override fun onTaskCompleted(articleList: ArrayList<Article>) {
-                //list is an Array List with all article's information
-                //set the adapter to recycler view
-                mAdapter = ArticleAdapter(articleList)
-                list.adapter = mAdapter
-                progressBar!!.visibility = View.GONE
-                container.isRefreshing = false
-
-            }
-
-            //what to do in case of error
-            override fun onError(exception: Exception) {
-
-                runOnUiThread {
-                    progressBar!!.visibility = View.GONE
-                    container.isRefreshing = false
-                    Toast.makeText(this@MainActivity, "Unable to load data.",
-                            Toast.LENGTH_LONG).show()
-                    Log.i("Unable to load ", "articles")
-                }
-            }
-        })
-    }
-
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
