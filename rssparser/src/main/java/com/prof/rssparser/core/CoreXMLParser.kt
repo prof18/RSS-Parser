@@ -15,9 +15,10 @@
 *
 */
 
-package com.prof.rssparser.utils
+package com.prof.rssparser.core
 
 import com.prof.rssparser.Article
+import com.prof.rssparser.utils.RSSKeywords
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory

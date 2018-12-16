@@ -18,7 +18,7 @@
 package com.prof.rssparser.engine
 
 import com.prof.rssparser.Article
-import com.prof.rssparser.utils.CoreXMLParser
+import com.prof.rssparser.core.CoreXMLParser
 import java.lang.Exception
 import java.util.concurrent.Callable
 

@@ -17,26 +17,13 @@
 
 package com.prof.rssparser.engine
 
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import com.prof.rssparser.core.CoreXMLFetcher
 import java.util.concurrent.Callable
 
 class XMLFetcher(private val url: String) : Callable<String> {
 
     @Throws(Exception::class)
-    override fun call(): String? {
-
-        val client = OkHttpClient()
-        val request = Request.Builder()
-                .url(url)
-                .build()
-
-        val response = client.newCall(request).execute()
-        return if (response != null && response.isSuccessful &&
-                response.body() != null) {
-            response.body()!!.string()
-        } else {
-            null
-        }
+    override fun call(): String {
+        return CoreXMLFetcher.fetchXML(url)
     }
 }

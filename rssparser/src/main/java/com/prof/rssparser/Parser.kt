@@ -19,7 +19,13 @@ package com.prof.rssparser
 
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
+import com.prof.rssparser.enginecoroutine.CoroutineEngine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 import java.util.concurrent.Executors
+
 
 class Parser {
 
@@ -42,4 +48,14 @@ class Parser {
             service.shutdown()
         }
     }
+
+    @Throws(Exception::class)
+    suspend fun getArticles(url: String) =
+            withContext(Dispatchers.IO) {
+                val xml = async { CoroutineEngine.fetchXML(url) }
+                return@withContext CoroutineEngine.parseXML(xml)
+            }
+
+
 }
+
