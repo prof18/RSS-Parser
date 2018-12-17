@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter(   val articles: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
 
     override fun getItemCount() = articles.size
@@ -43,7 +43,7 @@ class ArticleAdapter(   val articles: MutableList<Article>) : RecyclerView.Adapt
 
             Locale.setDefault(Locale.getDefault())
             val date = article.pubDate
-            val sdf = SimpleDateFormat("dd MMMM yyyy")
+            val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
             val pubDateString = sdf.format(date)
 
             itemView.title.text = article.title
@@ -56,15 +56,14 @@ class ArticleAdapter(   val articles: MutableList<Article>) : RecyclerView.Adapt
             itemView.pubDate.text = pubDateString
 
             var categories = ""
-            if (article.categories != null) {
-                for (i in 0 until article.categories.size) {
-                    categories = if (i == article.categories.size - 1) {
-                        categories + article.categories[i]
-                    } else {
-                        categories + article.categories[i] + ", "
-                    }
+            for (i in 0 until article.categories.size) {
+                categories = if (i == article.categories.size - 1) {
+                    categories + article.categories[i]
+                } else {
+                    categories + article.categories[i] + ", "
                 }
             }
+
 
             itemView.categories.text = categories
 
@@ -85,7 +84,7 @@ class ArticleAdapter(   val articles: MutableList<Article>) : RecyclerView.Adapt
                 alertDialog.setTitle(article.title)
                 alertDialog.setView(articleView)
                 alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK"
-                ) { dialog, which -> dialog.dismiss() }
+                ) { dialog, _ -> dialog.dismiss() }
                 alertDialog.show()
 
                 (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()

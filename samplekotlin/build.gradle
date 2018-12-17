@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-
-
 android {
     compileSdkVersion 28
 
@@ -11,8 +9,8 @@ android {
         applicationId "com.prof.rssparser.sample.kotlin"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.2.3"
+        versionCode 20000
+        versionName "2.0.0"
     }
     buildTypes {
         release {
@@ -26,7 +24,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
     implementation project(":rssparser")
-//    implementation 'com.prof.rssparser:rssparser:1.4.5'
+//    implementation 'com.prof.rssparser:rssparser:2.0.0'
 
     // UI
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -45,8 +43,5 @@ dependencies {
 
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }
 
