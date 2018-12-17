@@ -9,15 +9,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
-class MainViewModel : ViewModel(), CoroutineScope {
+class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
 
     private val viewModelJob = Job()
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + viewModelJob
+    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private lateinit var articleListLive: MutableLiveData<MutableList<Article>>
 
@@ -47,7 +45,7 @@ class MainViewModel : ViewModel(), CoroutineScope {
     }
 
     fun fetchFeed() {
-        launch(coroutineContext) {
+        coroutineScope.launch(Dispatchers.Main) {
             try {
                 val parser = Parser()
                 val articleList = parser.getArticles(url)
