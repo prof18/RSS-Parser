@@ -1,7 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-version '1.4.5'
 group 'com.prof.rssparser'
 
 publishing {
@@ -12,7 +11,7 @@ publishing {
             }
             groupId
             artifactId 'rssparser'
-            version this.version
+            version library_version_name
 
             pom.withXml {
                 def dependenciesNode = asNode().appendNode('dependencies')
@@ -49,8 +48,8 @@ bintray {
         licenses = ['Apache-2.0']
         vcsUrl = 'https://github.com/prof18/RSS-Parser.git'
         version {
-            name = this.version
-            desc = "Example ${this.version}"
+            name = library_version_name
+            desc = "Example ${library_version_name}"
             released = new Date()
             vcsTag = this.version
         }

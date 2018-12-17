@@ -9,8 +9,8 @@ android {
         applicationId "com.prof.rssparser.sample.java"
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.2.3"
+        versionCode app_code_version
+        versionName app_version_name
     }
     buildTypes {
         release {
