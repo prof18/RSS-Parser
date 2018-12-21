@@ -53,7 +53,7 @@ coroutineScope.launch(Dispatchers.Main) {
     }
 }
 ```
-You can give a look to the full kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/develop/samplekotlin)
+You can give a look to the full kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
 
 If you are still using Java, the code is very similar to the older versions of the library:
 
@@ -111,7 +111,7 @@ I wrote a simple app that shows articles from Android Authority. If in the artic
 
 <img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
 
-The sample is written both in Kotlin and Java. You can browse the Kotlin code [here](https://github.com/prof18/RSS-Parser/tree/develop/samplekotlin) and the Java code [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
+The sample is written both in Kotlin and Java. You can browse the Kotlin code [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin) and the Java code [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
 
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
