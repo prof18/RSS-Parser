@@ -4,7 +4,7 @@
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
 ## Important Notice
-Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to version 1.4.4
+Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to the latest version available.
 
 ## About
 
@@ -27,10 +27,63 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:1.4.4'
+  compile 'com.prof.rssparser:rssparser:2.0.0'
 }
 ```
 #### Use:
+
+Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, The compatibility with Java has been maintained and the same code of the versions 1.x can be used.  
+
+If you are using Kotlin you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine that retrieves the articles. 
+
+```Kotlin
+import com.prof.rssparser.Article
+import com.prof.rssparser.Parser
+
+//url of RSS feed
+private val url = "https://www.androidauthority.com/feed"
+
+coroutineScope.launch(Dispatchers.Main) {
+    try {
+        val parser = Parser()
+        val articleList = parser.getArticles(url)
+        // The list contains all article's data. For example you can use it for your adapter.
+    } catch (e: Exception) {
+        // Handle the exception
+    }
+}
+```
+You can give a look to the full kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
+
+If you are still using Java, the code is very similar to the older versions of the library:
+
+```Java
+import com.prof.rssparser.Article;
+import com.prof.rssparser.OnTaskCompleted;
+import com.prof.rssparser.Parser;
+
+Parser parser = new Parser();
+parser.onFinish(new OnTaskCompleted() {
+
+    //what to do when the parsing is done
+    @Override
+    public void onTaskCompleted(List<Article> list) {
+        // The list contains all article's data. For example you can use it for your adapter.
+    }
+
+    //what to do in case of error
+    @Override
+    public void onError(Exception e) {
+        // Handle the exception
+    }
+});
+parser.execute(urlString);
+```
+The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
+
+##### Version 1.4.4 and below:
+
+
 ```Java
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
@@ -38,7 +91,6 @@ import com.prof.rssparser.Parser;
 //url of RSS feed
 String urlString = "http://www.androidcentral.com/feed";
 Parser parser = new Parser();
-parser.execute(urlString);
 parser.onFinish(new Parser.OnTaskCompleted() {
     
     @Override
@@ -52,18 +104,20 @@ parser.onFinish(new Parser.OnTaskCompleted() {
       //what to do in case of error
     }
 });
+parser.execute(urlString);
 ```
 ## Sample app
-I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't a image, a placeholder will be load. 
+I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't an image, a placeholder will be loaded. 
 
 <img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
 
-You can browse the code <a href="https://github.com/prof18/RSS-Parser/tree/master/app"> in this repo.</a> 
+The sample is written both in Kotlin and Java. You can browse the Kotlin code [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin) and the Java code [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
 
-Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post on my website](http://www.marcogomiero.com/blog/rss-parser-library)
+Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
 
 ## Changelog
+- 22 December 2018 - Rewrote library with Kotlin - Version 2.0.0
 - 8 December 2018 - Include thrown exception in onError() callback (PR #22) - Version 1.4.5
 - 7 Semptember 2018 - Add more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1

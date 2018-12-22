@@ -1,14 +1,15 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
-        versionCode 9
-        versionName "1.4.5"
+        targetSdkVersion 28
+        versionCode 20000
+        versionName "2.0.0"
     }
 
     buildTypes {
@@ -21,8 +22,14 @@ android {
 
 dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
 }
 
 
 apply from: 'publish.gradle'
+repositories {
+    mavenCentral()
+}
 
