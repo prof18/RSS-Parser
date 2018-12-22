@@ -117,7 +117,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
 
 ## Changelog
-- x December 2018 - Rewrote library with Kotlin - Version 2.0.0
+- 22 December 2018 - Rewrote library with Kotlin - Version 2.0.0
 - 7 Semptember 2018 - Add more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
