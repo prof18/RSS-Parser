@@ -101,7 +101,7 @@ object CoreXMLParser {
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
                     // RSS date format is the following: Sat, 15 Dec 2018 12:00:32 +0000
                     // https://validator.w3.org/feed/docs/rss2.html
-                    val sdf = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.getDefault())
+                    val sdf = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
                     currentArticle.pubDate = sdf.parse(xmlPullParser.nextText())
                 }
 
