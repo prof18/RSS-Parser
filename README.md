@@ -27,7 +27,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:2.0.1'
+  compile 'com.prof.rssparser:rssparser:2.0.2'
 }
 ```
 #### Use:
@@ -117,6 +117,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
 
 ## Changelog
+- 11 January 2019 - Moved the Java parsing on a background thread - Version 2.0.2
 - 2 January 2019 - Fixed an error on Date parsing - Version 2.0.1
 - 22 December 2018 - Rewrote library with Kotlin - Version 2.0.0
 - 7 Semptember 2018 - Added more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
