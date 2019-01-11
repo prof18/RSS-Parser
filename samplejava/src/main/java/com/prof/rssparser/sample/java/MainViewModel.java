@@ -57,28 +57,23 @@ public class MainViewModel extends ViewModel {
 
     public void fetchFeed() {
 
-        Executors.newSingleThreadExecutor().submit(new Runnable() {
+        Parser parser = new Parser();
+        parser.onFinish(new OnTaskCompleted() {
+
+            //what to do when the parsing is done
             @Override
-            public void run() {
-                Parser parser = new Parser();
-                parser.onFinish(new OnTaskCompleted() {
+            public void onTaskCompleted(List<Article> list) {
+                setArticleList(list);
+            }
 
-                    //what to do when the parsing is done
-                    @Override
-                    public void onTaskCompleted(List<Article> list) {
-                        setArticleList(list);
-                    }
-
-                    //what to do in case of error
-                    @Override
-                    public void onError(Exception e) {
-                        setArticleList(new ArrayList<Article>());
-                        e.printStackTrace();
-                        snackbar.postValue("An error has occurred. Please try again");
-                    }
-                });
-                parser.execute(urlString);
+            //what to do in case of error
+            @Override
+            public void onError(Exception e) {
+                setArticleList(new ArrayList<Article>());
+                e.printStackTrace();
+                snackbar.postValue("An error has occurred. Please try again");
             }
         });
+        parser.execute(urlString);
     }
 }
