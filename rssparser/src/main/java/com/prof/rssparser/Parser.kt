@@ -36,16 +36,18 @@ class Parser {
     }
 
     fun execute(url: String) {
-        val service = Executors.newFixedThreadPool(2)
-        val f1 = service.submit<String>(XMLFetcher(url))
-        try {
-            val rssFeed = f1.get()
-            val f2 = service.submit(XMLParser(rssFeed))
-            onComplete.onTaskCompleted(f2.get())
-        } catch (e: Exception) {
-            onComplete.onError(e)
-        } finally {
-            service.shutdown()
+        Executors.newSingleThreadExecutor().submit{
+            val service = Executors.newFixedThreadPool(2)
+            val f1 = service.submit<String>(XMLFetcher(url))
+            try {
+                val rssFeed = f1.get()
+                val f2 = service.submit(XMLParser(rssFeed))
+                onComplete.onTaskCompleted(f2.get())
+            } catch (e: Exception) {
+                onComplete.onError(e)
+            } finally {
+                service.shutdown()
+            }
         }
     }
 
