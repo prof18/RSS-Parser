@@ -32,10 +32,12 @@ import android.widget.TextView;
 import com.prof.rssparser.Article;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.DataFormatException;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,10 +71,20 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         Article currentArticle = articles.get(position);
 
-        Locale.setDefault(Locale.getDefault());
-        Date date = currentArticle.getPubDate();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        final String pubDateString = sdf.format(date);
+        String pubDateString;
+        try {
+            String sourceDateString = currentArticle.getPubDate();
+
+            SimpleDateFormat sourceSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+            Date date = sourceSdf.parse(sourceDateString);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            pubDateString = sdf.format(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            pubDateString = currentArticle.getPubDate();
+        }
 
         viewHolder.title.setText(currentArticle.getTitle());
 

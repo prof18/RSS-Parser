@@ -17,13 +17,11 @@
 
 package com.prof.rssparser
 
-import java.util.*
-
 data class Article(
         var title: String? = null,
         var author: String? = null,
         var link: String? = null,
-        var pubDate: Date? = null,
+        var pubDate: String? = null,
         var description: String? = null,
         var content: String? = null,
         var image: String? = null,
