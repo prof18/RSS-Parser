@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Article
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row.view.*
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,10 +42,20 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(article: Article) {
 
-            Locale.setDefault(Locale.getDefault())
-            val date = article.pubDate
-            val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-            val pubDateString = sdf.format(date)
+
+            val pubDateString = try {
+                val sourceDateString = article.pubDate
+
+                val sourceSdf = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
+                val date = sourceSdf.parse(sourceDateString)
+
+                val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+                sdf.format(date)
+
+            } catch (e: ParseException) {
+                e.printStackTrace()
+                article.pubDate
+            }
 
             itemView.title.text = article.title
 
@@ -63,7 +74,6 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
                     categories + article.categories[i] + ", "
                 }
             }
-
 
             itemView.categories.text = categories
 
