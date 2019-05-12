@@ -28,7 +28,6 @@ object RSSKeywords {
     const val RSS_ITEM_DESCRIPTION = "description"
     const val RSS_ITEM_CONTENT = "content:encoded"
     const val RSS_ITEM_PUB_DATE = "pubDate"
+    const val RSS_ITEM_TIME = "time"
     const val RSS_ITEM_URL = "url"
-
-
 }
