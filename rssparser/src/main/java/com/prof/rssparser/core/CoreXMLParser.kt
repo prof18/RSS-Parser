@@ -80,6 +80,14 @@ object CoreXMLParser {
                         currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
                     }
 
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_ENCLOSURE, ignoreCase = true)) {
+                    if (insideItem) {
+                        val type = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_TYPE)
+                        if (type != null && type.contains("image/")) {
+                            currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                        }
+                    }
+
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
                     if (insideItem) {
                         val description = xmlPullParser.nextText()
