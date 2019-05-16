@@ -23,6 +23,9 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    testOptions.unitTests.includeAndroidResources = true
+
 }
 
 dependencies {
@@ -32,8 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
     testImplementation "junit:junit:${versions.junit}"
-    androidTestImplementation "androidx.test.ext:junit:${versions.extJunit}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${versions.espresso}"
+    testImplementation "org.robolectric:robolectric:4.2"
 }
 
 

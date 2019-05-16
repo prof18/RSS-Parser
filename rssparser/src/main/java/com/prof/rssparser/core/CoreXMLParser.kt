@@ -24,8 +24,6 @@ import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.IOException
 import java.io.StringReader
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.regex.Pattern
 
 object CoreXMLParser {

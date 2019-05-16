@@ -20,6 +20,8 @@ buildscript {
             'junit'              : '4.12',
             'extJunit'           : '1.1.0',
             'espresso'           : '3.1.1',
+            'mockito'            : '2.23.0',
+
     ]
 
     repositories {
