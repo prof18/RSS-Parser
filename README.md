@@ -30,7 +30,7 @@ allprojects {
     }
  }
  ```
- #### Add the JitPack repository to your build file:
+ #### Add the dependency:
 ```Gradle
 dependencies {
     compile 'com.github.marin-marsic:RSS-Parser:2.0.4'
