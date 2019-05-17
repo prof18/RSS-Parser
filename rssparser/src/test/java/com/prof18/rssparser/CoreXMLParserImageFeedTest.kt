@@ -67,7 +67,7 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, null)
+        assertEquals(article.image, "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg")
     }
 
     @Test
