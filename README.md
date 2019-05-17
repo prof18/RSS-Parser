@@ -121,6 +121,7 @@ Please use the issues tracker only to report issues. If you have any kind of que
 - 11 January 2019 - Moved the Java parsing on a background thread - Version 2.0.2
 - 2 January 2019 - Fixed an error on Date parsing - Version 2.0.1
 - 22 December 2018 - Rewrote library with Kotlin - Version 2.0.0
+- 8 December 2018 - Include thrown exception in onError() callback (PR #22) - Version 1.4.5
 - 7 Semptember 2018 - Added more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
