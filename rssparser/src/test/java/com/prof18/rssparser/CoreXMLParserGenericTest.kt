@@ -131,7 +131,8 @@ class CoreXMLParserGenericTest(private val feedPath: String) {
             return listOf(
                     arrayOf("/feed-test.xml"),
                     arrayOf("/feed-test-time.xml"),
-                    arrayOf("/feed-test-image.xml")
+                    arrayOf("/feed-test-image.xml"),
+                    arrayOf("/feed-test-image-2.xml")
             )
         }
     }
