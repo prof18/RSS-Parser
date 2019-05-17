@@ -1,4 +1,5 @@
 # RSS Parser
+[![Release](https://jitpack.io/v/marin-marsic/RSS-Parser.svg)](https://jitpack.io/#marin-marsic/RSS-Parser)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
@@ -123,6 +124,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
 
 ## Changelog
+- 17 May 2019 - Now parsing image url from enclosure tag - Version 2.0.4
 - 24 January 2019 - Now the date of an article is saved as String, to extend the compatibility with different formats - Version 2.0.3
 - 11 January 2019 - Moved the Java parsing on a background thread - Version 2.0.2
 - 2 January 2019 - Fixed an error on Date parsing - Version 2.0.1
