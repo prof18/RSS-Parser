@@ -99,9 +99,16 @@ object CoreXMLParser {
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
-                    currentArticle.pubDate = xmlPullParser.nextText()
-                }
+                    val nextTokenType = xmlPullParser.next()
 
+                    if (nextTokenType == XmlPullParser.TEXT) {
+                        currentArticle.pubDate = xmlPullParser.text
+                    }
+
+                    continue
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TIME, ignoreCase = true)) {
+                        currentArticle.pubDate = xmlPullParser.nextText()
+                }
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals("item", ignoreCase = true)) {
                 // The item is correctly parsed
                 insideItem = false
