@@ -1,5 +1,4 @@
 # RSS Parser
-[![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
@@ -23,11 +22,18 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 **Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; [Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
 
 ## How to
-#### Import:
-The library is uploaded in jCenter, so you can easily add the dependency:
+#### Add the JitPack repository to your build file:
+```Gradle
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+ }
+ ```
+ #### Add the JitPack repository to your build file:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:2.0.3'
+    compile 'com.github.marin-marsic:RSS-Parser:2.0.4'
 }
 ```
 #### Use:
