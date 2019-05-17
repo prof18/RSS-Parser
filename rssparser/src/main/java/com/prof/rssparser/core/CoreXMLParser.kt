@@ -97,15 +97,18 @@ object CoreXMLParser {
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
-                    val nextTokenType = xmlPullParser.next()
-
-                    if (nextTokenType == XmlPullParser.TEXT) {
-                        currentArticle.pubDate = xmlPullParser.text
+                    if (insideItem) {
+                        val nextTokenType = xmlPullParser.next()
+                        if (nextTokenType == XmlPullParser.TEXT) {
+                            currentArticle.pubDate = xmlPullParser.text.trim()
+                        }
+                        // Skip to be able to find date inside 'tag' tag
+                        continue
                     }
-
-                    continue
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TIME, ignoreCase = true)) {
+                    if (insideItem) {
                         currentArticle.pubDate = xmlPullParser.nextText()
+                    }
                 }
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals("item", ignoreCase = true)) {
                 // The item is correctly parsed
