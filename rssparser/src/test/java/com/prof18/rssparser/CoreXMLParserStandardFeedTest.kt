@@ -109,4 +109,10 @@ class CoreXMLParserStandardFeedTest {
                 "Japan"
         ))
     }
+
+    @Test
+    @Throws
+    fun guid_isCorrect() {
+        assertEquals(article.guid, "https://www.androidauthority.com/?p=986823")
+    }
 }

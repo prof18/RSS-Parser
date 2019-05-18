@@ -117,6 +117,10 @@ object CoreXMLParser {
                     if (insideItem) {
                         currentArticle.pubDate = xmlPullParser.nextText()
                     }
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_GUID, ignoreCase = true)) {
+                    if (insideItem) {
+                        currentArticle.guid = xmlPullParser.nextText().trim()
+                    }
                 }
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals("item", ignoreCase = true)) {
                 // The item is correctly parsed

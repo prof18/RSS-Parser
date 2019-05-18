@@ -117,6 +117,12 @@ class CoreXMLParserGenericTest(private val feedPath: String) {
         assertTrue(articleList[0].categories.isNotEmpty())
     }
 
+    @Test
+    @Throws
+    fun guid_exists() {
+        assertTrue(articleList[0].guid!!.isNotEmpty())
+    }
+
 
     private fun loadData(path: String): String {
         val inputStream = javaClass.getResourceAsStream(path)!!
