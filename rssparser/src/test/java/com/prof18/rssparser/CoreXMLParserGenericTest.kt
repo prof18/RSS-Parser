@@ -21,6 +21,7 @@ import com.prof.rssparser.Article
 import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -31,6 +32,7 @@ import org.robolectric.ParameterizedRobolectricTestRunner
  * For example to check if a particular feed parsing has an unexpected behaviour
  *
  */
+@Ignore
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class CoreXMLParserGenericTest(private val feedPath: String) {
 
