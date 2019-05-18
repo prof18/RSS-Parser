@@ -9,10 +9,10 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class CoreXMLParserXSLFeed {
+class CoreXMLParserFeedRuTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-xsl.xml"
+    private val feedPath = "/feed-test-ru.xml"
 
     @Before
     fun setUp() {
@@ -25,13 +25,13 @@ class CoreXMLParserXSLFeed {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 20)
+        assertEquals(articleList.size, 100)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Insight: Who should Liverpool sign?")
+        assertEquals(article.title, "СМИ: собака в Таиланде спасла заживо похороненного младенца")
     }
 
     @Test
@@ -43,19 +43,19 @@ class CoreXMLParserXSLFeed {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
+        assertEquals(article.link, "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
+        assertEquals(article.pubDate, "Sat, 18 May 2019 10:52:50 +0300")
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
+        assertEquals(article.description, "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей")
     }
 
     @Test
@@ -67,14 +67,14 @@ class CoreXMLParserXSLFeed {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
+        assertEquals(article.image, "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
         assertEquals(article.categories, mutableListOf(
-                "News Story"
+                "Происшествия"
         ))
     }
 }
