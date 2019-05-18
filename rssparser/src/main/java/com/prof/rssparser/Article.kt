@@ -18,6 +18,7 @@
 package com.prof.rssparser
 
 data class Article(
+        var guid: String? = null,
         var title: String? = null,
         var author: String? = null,
         var link: String? = null,
