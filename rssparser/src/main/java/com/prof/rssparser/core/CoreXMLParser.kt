@@ -84,6 +84,10 @@ object CoreXMLParser {
                         if (type != null && type.contains("image/")) {
                             currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
                         }
+						if (type != null && type.contains("audio/")) {
+							currentArticle.audio = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+							currentArticle.length = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_LENGTH)
+						}
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
