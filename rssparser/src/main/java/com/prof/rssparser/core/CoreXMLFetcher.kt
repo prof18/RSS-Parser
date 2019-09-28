@@ -7,8 +7,11 @@ import java.lang.Exception
 object CoreXMLFetcher {
 
     @Throws(Exception::class)
-    fun fetchXML(url: String): String {
-        val client = OkHttpClient()
+    fun fetchXML(url: String, okHttpClient: OkHttpClient? = null): String {
+        var client = okHttpClient
+        if (client == null) {
+            client = OkHttpClient()
+        }
         val request = Request.Builder()
                 .url(url)
                 .build()
@@ -16,5 +19,4 @@ object CoreXMLFetcher {
         val response = client.newCall(request).execute()
         return response.body()!!.string()
     }
-
 }

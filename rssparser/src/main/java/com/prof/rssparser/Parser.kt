@@ -23,11 +23,11 @@ import com.prof.rssparser.enginecoroutine.CoroutineEngine
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 import java.lang.Exception
 import java.util.concurrent.Executors
 
-
-class Parser {
+class Parser(private val okHttpClient: OkHttpClient? = null) {
 
     private lateinit var onComplete: OnTaskCompleted
 
@@ -38,7 +38,7 @@ class Parser {
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit{
             val service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit<String>(XMLFetcher(url))
+            val f1 = service.submit<String>(XMLFetcher(url, okHttpClient))
             try {
                 val rssFeed = f1.get()
                 val f2 = service.submit(XMLParser(rssFeed))
@@ -54,7 +54,7 @@ class Parser {
     @Throws(Exception::class)
     suspend fun getArticles(url: String) =
             withContext(Dispatchers.IO) {
-                val xml = async { CoroutineEngine.fetchXML(url) }
+                val xml = async { CoroutineEngine.fetchXML(url, okHttpClient) }
                 return@withContext CoroutineEngine.parseXML(xml)
             }
 
