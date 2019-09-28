@@ -22,8 +22,8 @@ import com.prof.rssparser.utils.RSSKeywords
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
+import java.io.ByteArrayInputStream
 import java.io.IOException
-import java.io.StringReader
 import java.util.regex.Pattern
 
 object CoreXMLParser {
@@ -38,7 +38,8 @@ object CoreXMLParser {
         factory.isNamespaceAware = false
 
         val xmlPullParser = factory.newPullParser()
-        xmlPullParser.setInput(StringReader(xml))
+        val inputStream = ByteArrayInputStream(xml.toByteArray())
+        xmlPullParser.setInput(inputStream, null)
 
         // A flag just to be sure of the correct parsing
         var insideItem = false
