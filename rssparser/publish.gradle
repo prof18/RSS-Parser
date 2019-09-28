@@ -1,7 +1,8 @@
 apply plugin: 'com.jfrog.bintray'
-group 'com.prof.rssparser'
 
-project.version = versions.libVersionName
+group 'com.prof.rssparser'
+version versions.libVersionName
+
 project.ext {
     mavGitUrl = 'https://github.com/prof18/RSS-Parser.git'
     mavProjectName = 'RSS-Parser'
