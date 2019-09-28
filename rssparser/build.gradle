@@ -3,12 +3,12 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion versions.targetSdk
     buildToolsVersion = versions.buildTools
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
         versionCode 20003
         versionName "2.0.3"
     }

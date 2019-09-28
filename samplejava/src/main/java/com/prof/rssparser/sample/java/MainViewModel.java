@@ -75,5 +75,6 @@ public class MainViewModel extends ViewModel {
             }
         });
         parser.execute(urlString);
+        parser.cancel();
     }
 }

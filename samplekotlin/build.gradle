@@ -27,7 +27,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
     implementation project(":rssparser")
 //    implementation "com.prof.rssparser:rssparser:${versions.libVersionName}"
 
@@ -52,5 +51,6 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
+    testImplementation 'junit:junit:4.12'
 }
 

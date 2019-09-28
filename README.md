@@ -117,6 +117,7 @@ You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/mas
 Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
 
 ## Changelog
+- 28 September 2019 - Add the possibility to provide a custom OkHttpClient (Issue #43). Add handling of encoding (Issue #45). Add the possibility to stop the fetching and parsing process (Issue #30). Migration to Gradle 5
 - 18 May 2019 - Fix parsing image url from enclosure tag (PR #35). Support parsing time tag (PR #34). Add parsing of guid (Issue #31) - Version 2.0.4
 - 24 January 2019 - Now the date of an article is saved as String, to extend the compatibility with different formats - Version 2.0.3
 - 11 January 2019 - Moved the Java parsing on a background thread - Version 2.0.2
