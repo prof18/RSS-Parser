@@ -24,20 +24,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import java.lang.Exception
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.Exception
 
 class Parser(private val okHttpClient: OkHttpClient? = null) {
 
     private lateinit var onComplete: OnTaskCompleted
+    private lateinit var service: ExecutorService
 
     fun onFinish(onComplete: OnTaskCompleted) {
         this.onComplete = onComplete
     }
 
     fun execute(url: String) {
-        Executors.newSingleThreadExecutor().submit{
-            val service = Executors.newFixedThreadPool(2)
+        Executors.newSingleThreadExecutor().submit {
+            service = Executors.newFixedThreadPool(2)
             val f1 = service.submit<String>(XMLFetcher(url, okHttpClient))
             try {
                 val rssFeed = f1.get()
@@ -48,6 +50,25 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
             } finally {
                 service.shutdown()
             }
+        }
+    }
+
+    /**
+     *  Cancel the execution of the fetching and the parsing.
+     *
+     *  N.B. this method works only if the parsing is performed with [execute], i.e. with the Java
+     *  implementation. If the parsing is performed with [getArticles], i.e. with the Kotlin
+     *  implementation, you have to stop the parsing using your coroutines Job.
+     *  For example, [https://github.com/prof18/RSS-Parser/blob/753d297aa6b792c8da7e472d315cdec54f56abb6/samplekotlin/src/main/java/com/prof/rssparser/sample/kotlin/MainViewModel.kt#L61]
+     *
+     */
+    fun cancel() {
+        try {
+            if (::service.isInitialized && !service.isShutdown) {
+                service.shutdownNow()
+            }
+        } catch (e: Exception) {
+            onComplete.onError(e)
         }
     }
 
