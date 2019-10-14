@@ -3,11 +3,12 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion versions.targetSdk
+    buildToolsVersion = versions.buildTools
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
         versionCode 20003
         versionName "2.0.3"
     }
@@ -18,13 +19,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+
 }
 
 dependencies {
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.0"
+    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+
+    testImplementation "junit:junit:${versions.junit}"
+    testImplementation "org.robolectric:robolectric:4.2"
 }
 
 
