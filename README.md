@@ -1,5 +1,5 @@
 # RSS Parser
-[![Release](https://jitpack.io/v/marin-marsic/RSS-Parser.svg)](https://jitpack.io/#marin-marsic/RSS-Parser)
+[![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
