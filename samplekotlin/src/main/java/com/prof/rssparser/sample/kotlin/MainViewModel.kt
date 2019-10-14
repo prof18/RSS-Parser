@@ -65,7 +65,7 @@ class MainViewModel : ViewModel() {
         coroutineScope.launch(Dispatchers.Main) {
             try {
                 val parser = Parser()
-                val articleList = parser.getArticles(url)
+                val articleList = parser.getChannel(url)
                 setChannel(articleList)
             } catch (e: Exception) {
                 e.printStackTrace()
