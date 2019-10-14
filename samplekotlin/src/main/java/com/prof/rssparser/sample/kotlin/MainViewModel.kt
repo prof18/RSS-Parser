@@ -20,7 +20,7 @@ package com.prof.rssparser.sample.kotlin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.Parser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +34,7 @@ class MainViewModel : ViewModel() {
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private lateinit var articleListLive: MutableLiveData<MutableList<Article>>
+    private lateinit var articleListLive: MutableLiveData<Channel>
 
     private val _snackbar = MutableLiveData<String>()
 
@@ -45,15 +45,15 @@ class MainViewModel : ViewModel() {
         _snackbar.value = null
     }
 
-    fun getArticleList(): MutableLiveData<MutableList<Article>> {
+    fun getArticleList(): MutableLiveData<Channel> {
         if (!::articleListLive.isInitialized) {
             articleListLive = MutableLiveData()
         }
         return articleListLive
     }
 
-    private fun setArticleList(articleList: MutableList<Article>) {
-        articleListLive.postValue(articleList)
+    private fun setChannel(channel: Channel) {
+        articleListLive.postValue(channel)
     }
 
     override fun onCleared() {
@@ -66,11 +66,11 @@ class MainViewModel : ViewModel() {
             try {
                 val parser = Parser()
                 val articleList = parser.getArticles(url)
-                setArticleList(articleList)
+                setChannel(articleList)
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                setArticleList(mutableListOf())
+                setChannel(Channel(null, null, null, mutableListOf()))
             }
         }
     }
