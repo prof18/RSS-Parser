@@ -29,7 +29,7 @@ import java.util.regex.Pattern
 object CoreXMLParser {
 
     @Throws(XmlPullParserException::class, IOException::class)
-    fun parseXML(xml: String): MutableList<Article> {
+    fun parseXML(xml: ByteArray): MutableList<Article> {
 
         val articleList = mutableListOf<Article>()
         var currentArticle = Article()
@@ -38,7 +38,7 @@ object CoreXMLParser {
         factory.isNamespaceAware = false
 
         val xmlPullParser = factory.newPullParser()
-        val inputStream = ByteArrayInputStream(xml.toByteArray())
+        val inputStream = ByteArrayInputStream(xml)
         xmlPullParser.setInput(inputStream, null)
 
         // A flag just to be sure of the correct parsing

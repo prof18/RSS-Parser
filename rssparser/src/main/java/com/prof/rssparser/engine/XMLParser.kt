@@ -22,7 +22,7 @@ import com.prof.rssparser.core.CoreXMLParser
 import java.lang.Exception
 import java.util.concurrent.Callable
 
-class XMLParser(var xml: String) : Callable<MutableList<Article>> {
+class XMLParser(var xml: ByteArray) : Callable<MutableList<Article>> {
 
     @Throws(Exception::class)
     override fun call(): MutableList<Article> {

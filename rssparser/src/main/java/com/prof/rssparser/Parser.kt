@@ -40,7 +40,7 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit {
             service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit<String>(XMLFetcher(url, okHttpClient))
+            val f1 = service.submit<ByteArray>(XMLFetcher(url, okHttpClient))
             try {
                 val rssFeed = f1.get()
                 val f2 = service.submit(XMLParser(rssFeed))

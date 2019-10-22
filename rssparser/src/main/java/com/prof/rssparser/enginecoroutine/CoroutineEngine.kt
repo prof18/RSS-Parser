@@ -17,7 +17,7 @@ object CoroutineEngine {
             }
 
     @Throws(Exception::class)
-    suspend fun parseXML(xml: Deferred<String>) =
+    suspend fun parseXML(xml: Deferred<ByteArray>) =
             withContext(Dispatchers.IO) {
                 return@withContext CoreXMLParser.parseXML(xml.await())
             }

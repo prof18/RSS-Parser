@@ -7,7 +7,7 @@ import java.lang.Exception
 object CoreXMLFetcher {
 
     @Throws(Exception::class)
-    fun fetchXML(url: String, okHttpClient: OkHttpClient? = null): String {
+    fun fetchXML(url: String, okHttpClient: OkHttpClient? = null): ByteArray {
         var client = okHttpClient
         if (client == null) {
             client = OkHttpClient()
@@ -17,6 +17,6 @@ object CoreXMLFetcher {
                 .build()
 
         val response = client.newCall(request).execute()
-        return response.body()!!.string()
+        return response.body()!!.bytes()
     }
 }
