@@ -77,6 +77,11 @@ class CoreXMLParserImage2FeedTest {
     }
 
     @Test
+    fun channelImageDescription_isCorrect() {
+        assertEquals(channel.image?.description, "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça")
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)

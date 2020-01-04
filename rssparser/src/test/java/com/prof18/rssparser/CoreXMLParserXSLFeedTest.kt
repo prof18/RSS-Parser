@@ -21,6 +21,7 @@ import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
+import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -73,6 +74,11 @@ class CoreXMLParserXSLFeedTest {
     @Test
     fun channelImageUrl_isCorrect() {
         assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
+    }
+
+    @Test
+    fun channelImageDescription_isCorrect() {
+        assertNull(channel.image?.description)
     }
 
     @Test

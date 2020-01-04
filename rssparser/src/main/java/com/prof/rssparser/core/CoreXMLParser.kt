@@ -17,7 +17,6 @@
 
 package com.prof.rssparser.core
 
-import android.util.Log
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Image
@@ -62,32 +61,42 @@ object CoreXMLParser {
             if (eventType == XmlPullParser.START_TAG) {
                 if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL, ignoreCase = true)) {
                     insideChannel = true
-                    insideItem = false
-                    insideChannelImage = false
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
                     insideItem = true
-                    insideChannel = false
-                    insideChannelImage = false
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_IMAGE, ignoreCase = true)) {
-                    insideItem = false
-                    insideChannel = false
                     insideChannelImage = true
                     channelImage = Image()
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TITLE, ignoreCase = true)) {
-                    when {
-                        insideChannel -> channelTitle = xmlPullParser.nextText().trim()
-                        insideChannelImage -> channelImage?.title = xmlPullParser.nextText().trim()
-                        insideItem -> currentArticle.title = xmlPullParser.nextText().trim()
+                    if (insideChannel) {
+                        when {
+                            insideChannelImage -> {
+                                channelImage?.title = xmlPullParser.nextText().trim()
+                            }
+                            insideItem -> {
+                                currentArticle.title = xmlPullParser.nextText().trim()
+                            }
+                            else -> {
+                                channelTitle = xmlPullParser.nextText().trim()
+                            }
+                        }
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_LINK, ignoreCase = true)) {
-                    when {
-                        insideChannel -> channelLink = xmlPullParser.nextText().trim()
-                        insideChannelImage -> channelImage?.link = xmlPullParser.nextText().trim()
-                        insideItem -> currentArticle.link = xmlPullParser.nextText().trim()
+                    if (insideChannel) {
+                        when {
+                            insideChannelImage -> {
+                                channelImage?.link = xmlPullParser.nextText().trim()
+                            }
+                            insideItem -> {
+                                currentArticle.link = xmlPullParser.nextText().trim()
+                            }
+                            else -> {
+                                channelLink = xmlPullParser.nextText().trim()
+                            }
+                        }
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_AUTHOR, ignoreCase = true)) {
@@ -108,88 +117,103 @@ object CoreXMLParser {
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_URL, ignoreCase = true)) {
                     if (insideChannelImage) {
                         channelImage?.url = xmlPullParser.nextText().trim()
-                        Log.d("PARSER", "")
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_ENCLOSURE, ignoreCase = true)) {
                     if (insideItem) {
                         val type = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_TYPE)
-                        if (type != null && type.contains("image/")) {
+                        if (type != null && type.contains("image")) {
                             currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                        } else {
+                            // let's try if there is the url
+                            val url = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                            if (url != null) {
+                                currentArticle.image = url
+                            }
                         }
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
                     if (insideChannel) {
-                        channelDescription = xmlPullParser.nextText().trim()
-                    } else if (insideItem) {
-                        val description = xmlPullParser.nextText()
-                        currentArticle.description = description.trim()
-                        if (currentArticle.image == null) {
-                            currentArticle.image = getImageUrl(description)
+                        if (insideItem) {
+                            val description = xmlPullParser.nextText()
+                            currentArticle.description = description.trim()
+                            if (currentArticle.image == null) {
+                                currentArticle.image = getImageUrl(description)
+                            }
+                        } else if (insideChannelImage) {
+                            channelImage?.description = xmlPullParser.nextText().trim()
+                        } else {
+                            channelDescription = xmlPullParser.nextText().trim()
                         }
                     }
 
-                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_CONTENT, ignoreCase = true)) {
-                    if (insideItem) {
-                        val content = xmlPullParser.nextText().trim()
-                        currentArticle.content = content
-                        if (currentArticle.image == null) {
-                            currentArticle.image = getImageUrl(content)
-                        }
-                    }
-
-                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
-                    if (insideItem) {
-                        val nextTokenType = xmlPullParser.next()
-                        if (nextTokenType == XmlPullParser.TEXT) {
-                            currentArticle.pubDate = xmlPullParser.text.trim()
-                        }
-                        // Skip to be able to find date inside 'tag' tag
-                        continue
-                    }
-
-                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TIME, ignoreCase = true)) {
-                    if (insideItem) {
-                        currentArticle.pubDate = xmlPullParser.nextText()
-                    }
-
-                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_GUID, ignoreCase = true)) {
-                    if (insideItem) {
-                        currentArticle.guid = xmlPullParser.nextText().trim()
+            } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_CONTENT, ignoreCase = true)) {
+                if (insideItem) {
+                    val content = xmlPullParser.nextText().trim()
+                    currentArticle.content = content
+                    if (currentArticle.image == null) {
+                        currentArticle.image = getImageUrl(content)
                     }
                 }
 
-            } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals("item", ignoreCase = true)) {
-                // The item is correctly parsed
-                insideItem = false
-                articleList.add(currentArticle)
-                currentArticle = Article()
-            }
-            eventType = xmlPullParser.next()
-        }
-        return Channel(channelTitle, channelLink, channelDescription, channelImage, articleList)
-    }
+            } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
+                if (insideItem) {
+                    val nextTokenType = xmlPullParser.next()
+                    if (nextTokenType == XmlPullParser.TEXT) {
+                        currentArticle.pubDate = xmlPullParser.text.trim()
+                    }
+                    // Skip to be able to find date inside 'tag' tag
+                    continue
+                }
 
-    /**
-     * Finds the first img tag and get the src as featured image
-     *
-     * @param input The content in which to search for the tag
-     * @return The url, if there is one
-     */
-    private fun getImageUrl(input: String): String? {
+            } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TIME, ignoreCase = true)) {
+                if (insideItem) {
+                    currentArticle.pubDate = xmlPullParser.nextText()
+                }
 
-        var url: String? = null
-        val patternImg = Pattern.compile("(<img .*?>)")
-        val matcherImg = patternImg.matcher(input)
-        if (matcherImg.find()) {
-            val imgTag = matcherImg.group(1)
-            val patternLink = Pattern.compile("src\\s*=\\s*\"(.+?)\"")
-            val matcherLink = patternLink.matcher(imgTag)
-            if (matcherLink.find()) {
-                url = matcherLink.group(1).trim()
+            } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_GUID, ignoreCase = true)) {
+                if (insideItem) {
+                    currentArticle.guid = xmlPullParser.nextText().trim()
+                }
             }
+
+        } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
+            // The item is correctly parsed
+            insideItem = false
+            articleList.add(currentArticle)
+            currentArticle = Article()
+        } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL, ignoreCase = true)) {
+            // The channel is correctly parsed
+            insideChannel = false
+        } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_IMAGE, ignoreCase = true)) {
+            // The channel image is correctly parsed
+            insideChannelImage = false
         }
-        return url
+        eventType = xmlPullParser.next()
     }
+    return Channel(channelTitle, channelLink, channelDescription, channelImage, articleList)
+}
+
+/**
+ * Finds the first img tag and get the src as featured image
+ *
+ * @param input The content in which to search for the tag
+ * @return The url, if there is one
+ */
+private fun getImageUrl(input: String): String? {
+
+    var url: String? = null
+    val patternImg = Pattern.compile("(<img .*?>)")
+    val matcherImg = patternImg.matcher(input)
+    if (matcherImg.find()) {
+        val imgTag = matcherImg.group(1)
+        val patternLink = Pattern.compile("src\\s*=\\s*\"(.+?)\"")
+        val matcherLink = patternLink.matcher(imgTag)
+        if (matcherLink.find()) {
+            url = matcherLink.group(1).trim()
+        }
+    }
+    return url
+}
 }
