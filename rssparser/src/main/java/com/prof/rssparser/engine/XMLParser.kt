@@ -17,15 +17,14 @@
 
 package com.prof.rssparser.engine
 
-import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
-import java.lang.Exception
 import java.util.concurrent.Callable
 
-class XMLParser(var xml: String) : Callable<MutableList<Article>> {
+class XMLParser(var xml: String) : Callable<Channel> {
 
     @Throws(Exception::class)
-    override fun call(): MutableList<Article> {
+    override fun call(): Channel {
         return CoreXMLParser.parseXML(xml)
     }
 }

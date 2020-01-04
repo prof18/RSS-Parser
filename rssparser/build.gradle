@@ -35,7 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
 
     testImplementation "junit:junit:${versions.junit}"
-    testImplementation "org.robolectric:robolectric:4.2"
+    testImplementation "org.robolectric:robolectric:4.3.1"
 }
 
 

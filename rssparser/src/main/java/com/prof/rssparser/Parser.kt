@@ -26,7 +26,6 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import kotlin.Exception
 
 class Parser(private val okHttpClient: OkHttpClient? = null) {
 
@@ -57,7 +56,7 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
      *  Cancel the execution of the fetching and the parsing.
      *
      *  N.B. this method works only if the parsing is performed with [execute], i.e. with the Java
-     *  implementation. If the parsing is performed with [getArticles], i.e. with the Kotlin
+     *  implementation. If the parsing is performed with [getChannel], i.e. with the Kotlin
      *  implementation, you have to stop the parsing using your coroutines Job.
      *  For example, [https://github.com/prof18/RSS-Parser/blob/753d297aa6b792c8da7e472d315cdec54f56abb6/samplekotlin/src/main/java/com/prof/rssparser/sample/kotlin/MainViewModel.kt#L61]
      *
@@ -73,7 +72,7 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
     }
 
     @Throws(Exception::class)
-    suspend fun getArticles(url: String) =
+    suspend fun getChannel(url: String) =
             withContext(Dispatchers.IO) {
                 val xml = async { CoroutineEngine.fetchXML(url, okHttpClient) }
                 return@withContext CoroutineEngine.parseXML(xml)

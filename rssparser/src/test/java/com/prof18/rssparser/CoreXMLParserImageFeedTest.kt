@@ -17,26 +17,47 @@
 
 package com.prof18.rssparser
 
+import android.os.Build
 import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.P])
 class CoreXMLParserImageFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-image.xml"
+    private lateinit var channel: Channel
 
     @Before
     fun setUp() {
         val inputStream = javaClass.getResourceAsStream(feedPath)!!
         val feed = inputStream.bufferedReader().use { it.readText() }
-        articleList = CoreXMLParser.parseXML(feed)
+        channel = CoreXMLParser.parseXML(feed)
+        articleList = channel.articles
         article = articleList[0]
+    }
+
+    @Test
+    fun channelTitle_isCorrect() {
+        assertEquals(channel.title, "Movie Reviews")
+    }
+
+    @Test
+    fun channelDesc_isCorrect() {
+        assertEquals(channel.description, "Movie Reviews at MovieWeb")
+    }
+
+    @Test
+    fun channelLink_isCorrect() {
+        assertEquals(channel.link, "https://movieweb.com/movie-reviews/")
     }
 
     @Test
