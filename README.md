@@ -36,7 +36,7 @@ Articles can have following attributes:
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:2.1.0'
+  compile 'com.prof.rssparser:rssparser:2.1.1'
 }
 ```
 #### Use:
