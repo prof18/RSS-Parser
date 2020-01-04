@@ -10,8 +10,8 @@ android {
         applicationId "com.prof.rssparser.sample.kotlin"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 20001
-        versionName "2.0.1"
+        versionCode 20002
+        versionName "2.0.2"
     }
     buildTypes {
         release {

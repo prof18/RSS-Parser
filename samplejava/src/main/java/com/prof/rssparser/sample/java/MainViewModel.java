@@ -17,34 +17,33 @@
 
 package com.prof.rssparser.sample.java;
 
-import com.prof.rssparser.Article;
-import com.prof.rssparser.OnTaskCompleted;
-import com.prof.rssparser.Parser;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.prof.rssparser.Article;
+import com.prof.rssparser.Channel;
+import com.prof.rssparser.OnTaskCompleted;
+import com.prof.rssparser.Parser;
+
+import java.util.ArrayList;
+
 public class MainViewModel extends ViewModel {
 
-    private MutableLiveData<List<Article>> articleListLive = null;
+    private MutableLiveData<Channel> articleListLive = null;
     private String urlString = "https://www.androidauthority.com/feed";
 
     private MutableLiveData<String> snackbar = new MutableLiveData<>();
 
-    public MutableLiveData<List<Article>> getArticleList() {
+    public MutableLiveData<Channel> getChannel() {
         if (articleListLive == null) {
             articleListLive = new MutableLiveData<>();
         }
         return articleListLive;
     }
 
-    private void setArticleList(List<Article> articleList) {
-        this.articleListLive.postValue(articleList);
+    private void setChannel(Channel channel) {
+        this.articleListLive.postValue(channel);
     }
 
     public LiveData<String> getSnackbar() {
@@ -62,14 +61,14 @@ public class MainViewModel extends ViewModel {
 
             //what to do when the parsing is done
             @Override
-            public void onTaskCompleted(List<Article> list) {
-                setArticleList(list);
+            public void onTaskCompleted(Channel channel) {
+                setChannel(channel);
             }
 
             //what to do in case of error
             @Override
             public void onError(Exception e) {
-                setArticleList(new ArrayList<Article>());
+                setChannel(new Channel(null, null, null, null, new ArrayList<Article>()));
                 e.printStackTrace();
                 snackbar.postValue("An error has occurred. Please try again");
             }

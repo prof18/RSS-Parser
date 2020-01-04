@@ -17,7 +17,9 @@
 
 package com.prof18.rssparser
 
+import android.os.Build
 import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
@@ -25,19 +27,53 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.P])
 class CoreXMLParserImage2FeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-image-2.xml"
+    private lateinit var channel: Channel
 
     @Before
     fun setUp() {
         val inputStream = javaClass.getResourceAsStream(feedPath)!!
         val feed = inputStream.bufferedReader().use { it.readText() }
-        articleList = CoreXMLParser.parseXML(feed)
+        channel = CoreXMLParser.parseXML(feed)
+        articleList = channel.articles
         article = articleList[0]
+    }
+
+    @Test
+    fun channelTitle_isCorrect() {
+        assertEquals(channel.title, "F.C. Barcelona")
+    }
+
+    @Test
+    fun channelDesc_isCorrect() {
+        assertEquals(channel.description, "F.C. Barcelona")
+    }
+
+    @Test
+    fun channelLink_isCorrect() {
+        assertEquals(channel.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+    }
+
+    @Test
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "F.C. Barcelona")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
     }
 
     @Test
@@ -73,9 +109,8 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     @Throws
-    @Ignore
-    fun description_isCorrect() {
-        assertEquals(article.description, "El diario francés l’Equipe se hizo eco ayer de una noticia de impacto: el Olympique de Lyon desea fichar a la delantera azulgrana Lieke Martens. La holandesa es una de las jugadoras más cotizadas del mundo desde que hace dos años recibió el...")
+    fun description_isPresent() {
+        assert(!article.description.isNullOrEmpty())
     }
 
     @Test

@@ -18,6 +18,6 @@
 package com.prof.rssparser
 
 interface OnTaskCompleted {
-    fun onTaskCompleted(list: MutableList<Article>)
+    fun onTaskCompleted(channel: Channel)
     fun onError(e: Exception)
 }

@@ -8,7 +8,16 @@ Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Ple
 
 ## About
 
-This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
+This is an Android library to parse a RSS Feed. You can retrieve the following information about an RSS channel:
+<ul>
+<li> Title
+<li> Description
+<li> Link
+<li> Articles
+<li> Image (Title, Url and Link)
+</ul>
+
+Articles can have following attributes:
 <ul>
 <li> Title
 <li> Author
@@ -27,7 +36,7 @@ This is an Android library to parse a RSS Feed. You can retrive the following in
 The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
-  compile 'com.prof.rssparser:rssparser:2.0.4'
+  compile 'com.prof.rssparser:rssparser:2.1.0'
 }
 ```
 #### Use:
@@ -46,8 +55,8 @@ private val url = "https://www.androidauthority.com/feed"
 coroutineScope.launch(Dispatchers.Main) {
     try {
         val parser = Parser()
-        val articleList = parser.getArticles(url)
-        // The list contains all article's data. For example you can use it for your adapter.
+        val articleList = parser.getChannel(url)
+        // Show the channel data
     } catch (e: Exception) {
         // Handle the exception
     }
@@ -67,8 +76,8 @@ parser.onFinish(new OnTaskCompleted() {
 
     //what to do when the parsing is done
     @Override
-    public void onTaskCompleted(List<Article> list) {
-        // The list contains all article's data. For example you can use it for your adapter.
+    public void onTaskCompleted(Channel channel) {
+        // Use the channel info
     }
 
     //what to do in case of error
@@ -94,9 +103,8 @@ Parser parser = new Parser();
 parser.onFinish(new Parser.OnTaskCompleted() {
     
     @Override
-    public void onTaskCompleted(ArrayList<Article> list) {
+    public void onTaskCompleted(Channel channel) {
       //what to do when the parsing is done
-      //the Array List contains all article's data. For example you can use it for your adapter. 
     }
 
     @Override
@@ -114,17 +122,12 @@ I wrote a simple app that shows articles from Android Authority. If in the artic
 The sample is written both in Kotlin and Java. You can browse the Kotlin code [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin) and the Java code [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
 
-Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://medium.com/@marcogomiero/how-to-easily-handle-rss-feeds-on-android-with-rss-parser-8acc98e8926f)
+Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://www.marcogomiero.com/posts/2017/rss-parser-library/)
 
 ## Changelog
-- 28 September 2019 - Add the possibility to provide a custom OkHttpClient (Issue #43). Add handling of encoding (Issue #45). Add the possibility to stop the fetching and parsing process (Issue #30). Migration to Gradle 5. - Version 2.0.5
-- 18 May 2019 - Fix parsing image url from enclosure tag (PR #35). Support parsing time tag (PR #34). Add parsing of guid (Issue #31) - Version 2.0.4
-- 24 January 2019 - Now the date of an article is saved as String, to extend the compatibility with different formats - Version 2.0.3
-- 11 January 2019 - Moved the Java parsing on a background thread - Version 2.0.2
-- 2 January 2019 - Fixed an error on Date parsing - Version 2.0.1
-- 22 December 2018 - Rewrote library with Kotlin - Version 2.0.0
-- 8 December 2018 - Include thrown exception in onError() callback (PR #22) - Version 1.4.5
-- 7 September 2018 - Added more sources for the featured image. Removed unused resources and improved the parsing of the image. Fixed dependency errors. - Version 1.4.4
+
+From version 1.4.4 and above, the changelog is available in the [release section.](https://github.com/prof18/RSS-Parser/releases)
+
 - 14 December 2017 - Little fixes on Error Management - Version 1.3.1
 - 13 December 2017 - Improved Error Management - Version 1.3
 - 10 December 2017 - Added support for the categories - Version 1.2

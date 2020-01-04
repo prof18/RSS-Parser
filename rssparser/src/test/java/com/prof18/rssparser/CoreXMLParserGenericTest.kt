@@ -17,7 +17,9 @@
 
 package com.prof18.rssparser
 
+import android.os.Build
 import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
@@ -25,6 +27,7 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
+import org.robolectric.annotation.Config
 
 /**
  *
@@ -34,20 +37,43 @@ import org.robolectric.ParameterizedRobolectricTestRunner
  */
 @Ignore
 @RunWith(ParameterizedRobolectricTestRunner::class)
+@Config(sdk = [Build.VERSION_CODES.P])
 class CoreXMLParserGenericTest(private val feedPath: String) {
 
     private lateinit var articleList: MutableList<Article>
+    private lateinit var channel: Channel
 
     @Before
     fun setUp() {
         val feed = loadData(feedPath)
-        articleList = CoreXMLParser.parseXML(feed)
+        channel = CoreXMLParser.parseXML(feed)
+        articleList = channel.articles
     }
 
     @Test
     @Throws
     fun list_isNotEmpty() {
         assertTrue(articleList.isNotEmpty())
+    }
+
+    @Test
+    fun channelTitle_exists() {
+        assertNotNull(channel.title)
+    }
+
+    @Test
+    fun channelLink_exists() {
+        assertNotNull(channel.link)
+    }
+
+    @Test
+    fun channelDesc_exists() {
+        assertNotNull(channel.description)
+    }
+
+    @Test
+    fun channelImage_exists() {
+        assertNotNull(channel.image)
     }
 
     @Test

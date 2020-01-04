@@ -31,11 +31,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.prof.rssparser.Article;
-
-import java.util.List;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -45,6 +40,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.prof.rssparser.Channel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,11 +71,14 @@ public class MainActivity extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.root_layout);
 
-        viewModel.getArticleList().observe(this, new Observer<List<Article>>() {
+        viewModel.getChannel().observe(this, new Observer<Channel>() {
             @Override
-            public void onChanged(List<Article> articles) {
-                if (articles != null) {
-                    mAdapter = new ArticleAdapter(articles, MainActivity.this);
+            public void onChanged(Channel channel) {
+                if (channel != null) {
+                    if (channel.getTitle() != null) {
+                        setTitle(channel.getTitle());
+                    }
+                    mAdapter = new ArticleAdapter(channel.getArticles(), MainActivity.this);
                     mRecyclerView.setAdapter(mAdapter);
                     mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
