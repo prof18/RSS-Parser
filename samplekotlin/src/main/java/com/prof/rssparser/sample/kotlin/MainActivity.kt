@@ -61,10 +61,13 @@ class MainActivity : AppCompatActivity() {
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.setHasFixedSize(true)
 
-        viewModel.getArticleList().observe(this, Observer { articles ->
+        viewModel.getArticleList().observe(this, Observer { channel ->
 
-            if (articles != null) {
-                adapter = ArticleAdapter(articles)
+            if (channel != null) {
+                if (channel.title != null) {
+                    title = channel.title
+                }
+                adapter = ArticleAdapter(channel.articles)
                 recycler_view.adapter = adapter
                 adapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE

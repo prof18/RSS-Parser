@@ -18,6 +18,7 @@
 package com.prof.rssparser.core
 
 import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
 import com.prof.rssparser.utils.RSSKeywords
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
@@ -29,8 +30,11 @@ import java.util.regex.Pattern
 object CoreXMLParser {
 
     @Throws(XmlPullParserException::class, IOException::class)
-    fun parseXML(xml: String): MutableList<Article> {
+    fun parseXML(xml: String): Channel {
 
+        var channelTitle: String? = null
+        var channelLink: String? = null
+        var channelDescription: String? = null
         val articleList = mutableListOf<Article>()
         var currentArticle = Article()
 
@@ -43,6 +47,7 @@ object CoreXMLParser {
 
         // A flag just to be sure of the correct parsing
         var insideItem = false
+        var insideChannel = false
 
         var eventType = xmlPullParser.eventType
 
@@ -51,16 +56,25 @@ object CoreXMLParser {
 
             // Start parsing the item
             if (eventType == XmlPullParser.START_TAG) {
-                if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
+                if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL, ignoreCase = true)) {
+                    insideChannel = true
+                    insideItem = false
+
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
                     insideItem = true
+                    insideChannel = false
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TITLE, ignoreCase = true)) {
-                    if (insideItem) {
+                    if (insideChannel) {
+                        channelTitle = xmlPullParser.nextText().trim()
+                    } else if (insideItem) {
                         currentArticle.title = xmlPullParser.nextText().trim()
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_LINK, ignoreCase = true)) {
-                    if (insideItem) {
+                    if (insideChannel) {
+                        channelLink = xmlPullParser.nextText().trim()
+                    } else if (insideItem) {
                         currentArticle.link = xmlPullParser.nextText().trim()
                     }
 
@@ -88,7 +102,9 @@ object CoreXMLParser {
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
-                    if (insideItem) {
+                    if (insideChannel) {
+                        channelDescription = xmlPullParser.nextText().trim()
+                    } else if (insideItem) {
                         val description = xmlPullParser.nextText()
                         currentArticle.description = description.trim()
                         if (currentArticle.image == null) {
@@ -131,7 +147,7 @@ object CoreXMLParser {
             }
             eventType = xmlPullParser.next()
         }
-        return articleList
+        return Channel(channelTitle, channelLink, channelDescription, articleList)
     }
 
     /**

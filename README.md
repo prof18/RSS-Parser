@@ -8,7 +8,15 @@ Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Ple
 
 ## About
 
-This is an Android library to parse a RSS Feed. You can retrive the following information about an article:
+This is an Android library to parse a RSS Feed. You can retrieve the following information about channel:
+<ul>
+<li> Title
+<li> Description
+<li> Link
+<li> Articles
+</ul>
+
+Articles can have following attributes:
 <ul>
 <li> Title
 <li> Author
@@ -46,8 +54,8 @@ private val url = "https://www.androidauthority.com/feed"
 coroutineScope.launch(Dispatchers.Main) {
     try {
         val parser = Parser()
-        val articleList = parser.getArticles(url)
-        // The list contains all article's data. For example you can use it for your adapter.
+        val articleList = parser.getChannel(url)
+        // Show the channel data
     } catch (e: Exception) {
         // Handle the exception
     }
@@ -67,8 +75,8 @@ parser.onFinish(new OnTaskCompleted() {
 
     //what to do when the parsing is done
     @Override
-    public void onTaskCompleted(List<Article> list) {
-        // The list contains all article's data. For example you can use it for your adapter.
+    public void onTaskCompleted(Channel channel) {
+        // Use the channel info
     }
 
     //what to do in case of error
@@ -94,9 +102,8 @@ Parser parser = new Parser();
 parser.onFinish(new Parser.OnTaskCompleted() {
     
     @Override
-    public void onTaskCompleted(ArrayList<Article> list) {
+    public void onTaskCompleted(Channel channel) {
       //what to do when the parsing is done
-      //the Array List contains all article's data. For example you can use it for your adapter. 
     }
 
     @Override
