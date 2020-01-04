@@ -61,6 +61,21 @@ class CoreXMLParserXSLFeedTest {
     }
 
     @Test
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "Sky Sports")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://www.skysports.com")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)

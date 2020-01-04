@@ -72,6 +72,11 @@ class CoreXMLParserGenericTest(private val feedPath: String) {
     }
 
     @Test
+    fun channelImage_exists() {
+        assertNotNull(channel.image)
+    }
+
+    @Test
     @Throws
     fun title_exists() {
         assertNotEquals(articleList[0].title, null)

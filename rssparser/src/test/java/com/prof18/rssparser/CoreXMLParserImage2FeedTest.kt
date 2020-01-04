@@ -62,6 +62,21 @@ class CoreXMLParserImage2FeedTest {
     }
 
     @Test
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "F.C. Barcelona")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)
@@ -94,9 +109,8 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     @Throws
-    @Ignore
-    fun description_isCorrect() {
-        assertEquals(article.description, "El diario francés l’Equipe se hizo eco ayer de una noticia de impacto: el Olympique de Lyon desea fichar a la delantera azulgrana Lieke Martens. La holandesa es una de las jugadoras más cotizadas del mundo desde que hace dos años recibió el...")
+    fun description_isPresent() {
+        assert(!article.description.isNullOrEmpty())
     }
 
     @Test

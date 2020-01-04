@@ -61,6 +61,11 @@ class CoreXMLParserFeedRuTest {
     }
 
     @Test
+    fun channelImage_isNull() {
+        assertNull(channel.image)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 100)

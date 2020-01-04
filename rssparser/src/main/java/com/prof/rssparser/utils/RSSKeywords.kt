@@ -21,6 +21,7 @@ object RSSKeywords {
 
     // channel
     const val RSS_CHANNEL = "channel"
+    const val RSS_CHANNEL_IMAGE = "image"
 
     // article
     const val RSS_ITEM = "item"

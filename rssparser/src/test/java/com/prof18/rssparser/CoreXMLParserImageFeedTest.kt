@@ -61,6 +61,21 @@ class CoreXMLParserImageFeedTest {
     }
 
     @Test
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "Movie Reviews")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://movieweb.com/movie-reviews/")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png")
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 50)
