@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 20003
-        versionName "2.0.3"
+        versionCode 21000
+        versionName "2.1.0"
     }
 
     buildTypes {
