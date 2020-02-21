@@ -114,6 +114,11 @@ object CoreXMLParser {
                         currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
                     }
 
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_MEDIA_CONTENT, ignoreCase = true)) {
+                    if (insideItem) {
+                        currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                    }
+
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_URL, ignoreCase = true)) {
                     if (insideChannelImage) {
                         channelImage?.url = xmlPullParser.nextText().trim()
