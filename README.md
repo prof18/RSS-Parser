@@ -9,25 +9,28 @@ Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Ple
 ## About
 
 This is an Android library to parse a RSS Feed. You can retrieve the following information about an RSS channel:
-<ul>
-<li> Title
-<li> Description
-<li> Link
-<li> Articles
-<li> Image (Title, Url and Link)
-</ul>
+
+- Title
+- Description
+- Link
+- Articles
+- Image (Title, Url and Link)
+- Last build data
+- Update period
 
 Articles can have following attributes:
-<ul>
-<li> Title
-<li> Author
-<li> Description
-<li> Content
-<li> Main Image
-<li> Link
-<li> Publication Date
-<li> Categories
-</ul>
+
+- Title
+- Author
+- Description
+- Content
+- Main Image
+- Link
+- Publication Date
+- Categories
+- Audio
+- Source (name and link)  
+
 
 **Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; [Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
 
@@ -136,7 +139,7 @@ From version 1.4.4 and above, the changelog is available in the [release section
 
 ## License
 ```
-   Copyright 2016 Marco Gomiero
+   Copyright 2016-2020 Marco Gomiero
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
