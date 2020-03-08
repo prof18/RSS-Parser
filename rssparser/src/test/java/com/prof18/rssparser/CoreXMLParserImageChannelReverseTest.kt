@@ -4,6 +4,7 @@ import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
+import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNull
 import org.junit.Assert
 import org.junit.Before
@@ -62,6 +63,16 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     fun channelImageDescription_isCorrect() {
         Assert.assertNull(channel.image?.description)
+    }
+
+    @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Sat, 04 Jan 2020 01:06:48 +0000")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        Assert.assertNull(channel.updatePeriod)
     }
 
     @Test

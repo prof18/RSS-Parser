@@ -37,6 +37,8 @@ object CoreXMLParser {
         var channelLink: String? = null
         var channelDescription: String? = null
         var channelImage: Image? = null
+        var channelLastBuildDate: String? = null
+        var channelUpdatePeriod: String? = null
         val articleList = mutableListOf<Article>()
         var currentArticle = Article()
 
@@ -190,6 +192,14 @@ object CoreXMLParser {
                     if (insideItem) {
                         currentArticle.guid = xmlPullParser.nextText().trim()
                     }
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_LAST_BUILD_DATE, ignoreCase = true)) {
+                    if (insideChannel) {
+                        channelLastBuildDate = xmlPullParser.nextText().trim()
+                    }
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_UPDATE_PERIOD, ignoreCase = true)) {
+                    if (insideChannel) {
+                        channelUpdatePeriod = xmlPullParser.nextText().trim()
+                    }
                 }
 
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
@@ -206,7 +216,15 @@ object CoreXMLParser {
             }
             eventType = xmlPullParser.next()
         }
-        return Channel(channelTitle, channelLink, channelDescription, channelImage, articleList)
+        return Channel(
+                title = channelTitle,
+                link = channelLink,
+                description = channelDescription,
+                image = channelImage,
+                lastBuildDate = channelLastBuildDate,
+                updatePeriod = channelUpdatePeriod,
+                articles = articleList
+        )
     }
 
     /**

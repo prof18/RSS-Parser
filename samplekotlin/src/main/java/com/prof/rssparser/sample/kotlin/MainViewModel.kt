@@ -70,7 +70,7 @@ class MainViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                setChannel(Channel(null, null, null, null, mutableListOf()))
+                setChannel(Channel(null, null, null, null, null, null, mutableListOf()))
             }
         }
     }

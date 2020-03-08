@@ -82,6 +82,16 @@ class CoreXMLParserImageFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 50)

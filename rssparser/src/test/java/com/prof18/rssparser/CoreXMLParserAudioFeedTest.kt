@@ -74,6 +74,16 @@ class CoreXMLParserAudioFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertNull(channel.lastBuildDate)
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 1)

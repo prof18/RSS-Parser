@@ -82,6 +82,16 @@ class CoreXMLParserXSLFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)

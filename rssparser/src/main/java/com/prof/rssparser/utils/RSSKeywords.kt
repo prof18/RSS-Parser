@@ -22,6 +22,8 @@ object RSSKeywords {
     // channel
     const val RSS_CHANNEL = "channel"
     const val RSS_CHANNEL_IMAGE = "image"
+    const val RSS_CHANNEL_UPDATE_PERIOD = "sy:updatePeriod"
+    const val RSS_CHANNEL_LAST_BUILD_DATE = "lastBuildDate"
 
     // article
     const val RSS_ITEM = "item"
