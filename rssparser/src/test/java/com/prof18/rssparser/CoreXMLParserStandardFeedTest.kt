@@ -123,7 +123,7 @@ class CoreXMLParserStandardFeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://cdn57.androidauthority.net/wp-content/uploads/2019/02/Whats-next-with-5g--840x473.jpg")
+        assertEquals(article.image, "https://cdn57.androidauthority.net/wp-content/uploads/2019/02/Whats-next-with-5g--500x260.jpg")
     }
 
     @Test
