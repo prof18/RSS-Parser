@@ -68,7 +68,7 @@ public class MainViewModel extends ViewModel {
             //what to do in case of error
             @Override
             public void onError(Exception e) {
-                setChannel(new Channel(null, null, null, null, new ArrayList<Article>()));
+                setChannel(new Channel(null, null, null, null, null, null, new ArrayList<Article>()));
                 e.printStackTrace();
                 snackbar.postValue("An error has occurred. Please try again");
             }

@@ -67,6 +67,16 @@ class CoreXMLParserStandardFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Wed, 15 May 2019 20:48:02 +0000")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertEquals(channel.updatePeriod, "hourly")
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 10)
@@ -123,7 +133,7 @@ class CoreXMLParserStandardFeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://cdn57.androidauthority.net/wp-content/uploads/2019/02/Whats-next-with-5g--840x473.jpg")
+        assertEquals(article.image, "https://cdn57.androidauthority.net/wp-content/uploads/2019/02/Whats-next-with-5g--500x260.jpg")
     }
 
     @Test
@@ -140,5 +150,23 @@ class CoreXMLParserStandardFeedTest {
     @Throws
     fun guid_isCorrect() {
         assertEquals(article.guid, "https://www.androidauthority.com/?p=986823")
+    }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
     }
 }

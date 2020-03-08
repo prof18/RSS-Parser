@@ -82,6 +82,16 @@ class CoreXMLParserXSLFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)
@@ -141,5 +151,23 @@ class CoreXMLParserXSLFeedTest {
     @Throws
     fun guid_isCorrect() {
         assertEquals(article.guid, null)
+    }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
     }
 }

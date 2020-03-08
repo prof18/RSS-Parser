@@ -82,6 +82,16 @@ class CoreXMLParserImageFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 50)
@@ -139,5 +149,23 @@ class CoreXMLParserImageFeedTest {
     @Throws
     fun guid_isCorrect() {
         assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
+    }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
     }
 }

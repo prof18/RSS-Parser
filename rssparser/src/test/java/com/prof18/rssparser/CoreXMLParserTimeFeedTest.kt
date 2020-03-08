@@ -66,6 +66,16 @@ class CoreXMLParserTimeFeedTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertNull(channel.lastBuildDate)
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         assertEquals(articleList.size, 20)
@@ -127,5 +137,23 @@ class CoreXMLParserTimeFeedTest {
     @Throws
     fun guid_isCorrect() {
         assertEquals(article.guid, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
+    }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
     }
 }

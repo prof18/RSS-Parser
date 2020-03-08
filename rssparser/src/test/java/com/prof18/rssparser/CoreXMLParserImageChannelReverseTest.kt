@@ -4,6 +4,8 @@ import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
+import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertNull
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -64,6 +66,16 @@ class CoreXMLParserImageChannelReverseTest {
     }
 
     @Test
+    fun channelLastBuild_isCorrect() {
+        assertEquals(channel.lastBuildDate, "Sat, 04 Jan 2020 01:06:48 +0000")
+    }
+
+    @Test
+    fun channelUpdatePeriod_isCorrect() {
+        Assert.assertNull(channel.updatePeriod)
+    }
+
+    @Test
     @Throws
     fun size_isCorrect() {
         Assert.assertEquals(articleList.size, 6)
@@ -109,7 +121,7 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        Assert.assertEquals(article.image, "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997")
+        assertNull(article.image)
     }
 
     @Test
@@ -122,5 +134,23 @@ class CoreXMLParserImageChannelReverseTest {
     @Throws
     fun guid_isCorrect() {
         Assert.assertEquals(article.guid, "0d7147a3-f1c1-4ae6-bbf8-2e0a493639ca")
+    }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        Assert.assertEquals(article.audio, "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997")
+    }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        Assert.assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        Assert.assertNull(article.sourceUrl)
     }
 }
