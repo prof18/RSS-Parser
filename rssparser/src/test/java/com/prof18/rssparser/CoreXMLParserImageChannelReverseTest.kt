@@ -130,4 +130,16 @@ class CoreXMLParserImageChannelReverseTest {
     fun audio_iCorrect() {
         Assert.assertEquals(article.audio, "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997")
     }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        Assert.assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        Assert.assertNull(article.sourceUrl)
+    }
 }

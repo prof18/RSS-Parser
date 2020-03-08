@@ -149,4 +149,16 @@ class CoreXMLParserImage2FeedTest {
     fun audio_iCorrect() {
         assertNull(article.audio)
     }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
+    }
 }

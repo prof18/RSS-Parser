@@ -139,4 +139,16 @@ class CoreXMLParserAudioFeedTest {
     fun audio_iCorrect() {
         assertEquals(article.audio, "https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW3157672398.mp3")
     }
+
+    @Test
+    @Throws
+    fun sourceName_iCorrect() {
+        assertNull(article.sourceName)
+    }
+
+    @Test
+    @Throws
+    fun sourceUrl_iCorrect() {
+        assertNull(article.sourceUrl)
+    }
 }

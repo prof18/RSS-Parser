@@ -169,7 +169,9 @@ class CoreXMLParserGenericTest(private val feedPath: String) {
                     arrayOf("/feed-test-image-2.xml"),
                     arrayOf("/feed-test-xsl.xml"),
                     arrayOf("/feed-test-ru.xml"),
-                    arrayOf("/feed-test-encoding.xml")
+                    arrayOf("/feed-test-encoding.xml"),
+                    arrayOf("/feed-test-audio.xml"),
+                    arrayOf("/feed-test-source.xml")
             )
         }
     }

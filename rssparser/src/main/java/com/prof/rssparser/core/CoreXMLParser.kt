@@ -140,6 +140,13 @@ object CoreXMLParser {
                         }
                     }
 
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_SOURCE, ignoreCase = true)) {
+                    if (insideItem) {
+                        val sourceUrl = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                        val sourceName = xmlPullParser.nextText()
+                        currentArticle.sourceName = sourceName
+                        currentArticle.sourceUrl = sourceUrl
+                    }
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
                     if (insideChannel) {
                         if (insideItem) {
