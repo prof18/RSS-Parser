@@ -141,4 +141,10 @@ class CoreXMLParserStandardFeedTest {
     fun guid_isCorrect() {
         assertEquals(article.guid, "https://www.androidauthority.com/?p=986823")
     }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
 }

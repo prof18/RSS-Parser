@@ -143,4 +143,10 @@ class CoreXMLParserImage2FeedTest {
     fun guid_isCorrect() {
         assertEquals(article.guid, "f5c42a9c-78d9-11e9-a24c-645e8f5d185b")
     }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
 }

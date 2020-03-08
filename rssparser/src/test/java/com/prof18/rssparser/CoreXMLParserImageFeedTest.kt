@@ -140,4 +140,10 @@ class CoreXMLParserImageFeedTest {
     fun guid_isCorrect() {
         assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
     }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
 }

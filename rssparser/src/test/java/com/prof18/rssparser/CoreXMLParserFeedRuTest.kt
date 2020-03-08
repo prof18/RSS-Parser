@@ -126,4 +126,10 @@ class CoreXMLParserFeedRuTest {
     fun guid_isCorrect() {
         assertEquals(article.guid, null)
     }
+
+    @Test
+    @Throws
+    fun audio_iCorrect() {
+        assertNull(article.audio)
+    }
 }
