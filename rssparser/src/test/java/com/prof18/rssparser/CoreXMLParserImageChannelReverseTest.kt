@@ -153,4 +153,10 @@ class CoreXMLParserImageChannelReverseTest {
     fun sourceUrl_iCorrect() {
         Assert.assertNull(article.sourceUrl)
     }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        Assert.assertNull(article.video)
+    }
 }

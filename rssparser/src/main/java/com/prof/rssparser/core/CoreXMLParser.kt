@@ -43,6 +43,9 @@ object CoreXMLParser {
         var channelUpdatePeriod: String? = null
         val articleList = mutableListOf<Article>()
         var currentArticle = Article()
+        // This image url is extracted from the content and the description of the rss item.
+        // It's a fallback just in case there aren't any images in the enclosure tag.
+        var imageUrlFromContent: String? = null
 
         val factory = XmlPullParserFactory.newInstance()
         factory.isNamespaceAware = false
@@ -133,14 +136,19 @@ object CoreXMLParser {
                     if (insideItem) {
                         val type = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_TYPE)
                         if (type != null && type.contains("image")) {
-                            currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                            // If there are multiple elements, we take only the first
+                            if (currentArticle.image == null) {
+                                currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                            }
                         } else if (type != null && type.contains("audio")) {
-                            currentArticle.audio = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
-                        } else {
-                            // let's try if there is the url
-                            val url = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
-                            if (url != null) {
-                                currentArticle.image = url
+                            // If there are multiple elements, we take only the first
+                            if (currentArticle.audio == null) {
+                                currentArticle.audio = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
+                            }
+                        } else if (type != null && type.contains("video")) {
+                            // If there are multiple elements, we take only the first
+                            if (currentArticle.video == null) {
+                                currentArticle.video = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_URL)
                             }
                         }
                     }
@@ -157,9 +165,7 @@ object CoreXMLParser {
                         if (insideItem) {
                             val description = xmlPullParser.nextText()
                             currentArticle.description = description.trim()
-                            if (currentArticle.image == null) {
-                                currentArticle.image = getImageUrl(description)
-                            }
+                            imageUrlFromContent = getImageUrl(description)
                         } else if (insideChannelImage) {
                             channelImage?.description = xmlPullParser.nextText().trim()
                         } else {
@@ -171,9 +177,7 @@ object CoreXMLParser {
                     if (insideItem) {
                         val content = xmlPullParser.nextText().trim()
                         currentArticle.content = content
-                        if (currentArticle.image == null) {
-                            currentArticle.image = getImageUrl(content)
-                        }
+                        imageUrlFromContent = getImageUrl(content)
                     }
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_PUB_DATE, ignoreCase = true)) {
@@ -208,6 +212,9 @@ object CoreXMLParser {
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
                 // The item is correctly parsed
                 insideItem = false
+                if (currentArticle.image == null) {
+                    currentArticle.image = imageUrlFromContent
+                }
                 articleList.add(currentArticle)
                 currentArticle = Article()
             } else if (eventType == XmlPullParser.END_TAG && xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL, ignoreCase = true)) {

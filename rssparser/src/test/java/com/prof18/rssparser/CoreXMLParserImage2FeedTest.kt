@@ -171,4 +171,10 @@ class CoreXMLParserImage2FeedTest {
     fun sourceUrl_iCorrect() {
         assertNull(article.sourceUrl)
     }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        assertNull(article.video)
+    }
 }

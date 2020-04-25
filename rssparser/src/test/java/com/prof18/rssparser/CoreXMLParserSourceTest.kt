@@ -152,4 +152,10 @@ class CoreXMLParserSourceTest {
     fun sourceUrl_iCorrect() {
         assertEquals(article.sourceUrl, "https://www.rtbf.be")
     }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        assertNull(article.video)
+    }
 }
