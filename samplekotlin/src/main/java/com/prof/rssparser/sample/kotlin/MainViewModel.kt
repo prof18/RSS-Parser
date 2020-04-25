@@ -20,6 +20,7 @@ package com.prof.rssparser.sample.kotlin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Parser
 import kotlinx.coroutines.CoroutineScope
@@ -31,15 +32,9 @@ import java.nio.charset.Charset
 class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
-//    private val url = "https://www.liberal.gr/xml/rss-news.rss"
-
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private lateinit var articleListLive: MutableLiveData<Channel>
 
     private val _snackbar = MutableLiveData<String>()
-
     val snackbar: LiveData<String>
         get() = _snackbar
 
@@ -58,16 +53,12 @@ class MainViewModel : ViewModel() {
         articleListLive.postValue(channel)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
     fun fetchFeed() {
-        coroutineScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             try {
                 val parser = Parser()
-                //                 val parser = Parser(charset = Charset.forName("ISO-8859-7"))
+                // If you want to provide a custom charset (the default is utf-8):
+                //  val parser = Parser(charset = Charset.forName("ISO-8859-7"))
                 val articleList = parser.getChannel(url)
                 setChannel(articleList)
             } catch (e: Exception) {

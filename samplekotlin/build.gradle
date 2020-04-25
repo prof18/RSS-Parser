@@ -10,8 +10,8 @@ android {
         applicationId "com.prof.rssparser.sample.kotlin"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 20002
-        versionName "2.0.2"
+        versionCode 20003
+        versionName "2.0.3"
     }
     buildTypes {
         release {
@@ -45,12 +45,13 @@ dependencies {
     // Architecture components
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
 
 
     implementation "com.squareup.picasso:picasso:${versions.picasso}"
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 }
 

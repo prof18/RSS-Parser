@@ -57,6 +57,8 @@ public class MainViewModel extends ViewModel {
     public void fetchFeed() {
 
         Parser parser = new Parser();
+        // If you want to provide a custom charset (the default is utf-8):
+        //  val parser = Parser(charset = Charset.forName("ISO-8859-7"))
         parser.onFinish(new OnTaskCompleted() {
 
             //what to do when the parsing is done
