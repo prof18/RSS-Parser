@@ -5,14 +5,14 @@ import com.prof.rssparser.core.CoreXMLParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import java.lang.Exception
+import java.nio.charset.Charset
 
 object CoroutineEngine {
 
     @Throws(Exception::class)
-    suspend fun fetchXML(url: String, okHttpClient: OkHttpClient?) =
+    suspend fun fetchXML(url: String, okHttpClient: OkHttpClient?, charset: Charset) =
             withContext(Dispatchers.IO) {
-                return@withContext CoreXMLFetcher.fetchXML(url, okHttpClient)
+                return@withContext CoreXMLFetcher.fetchXML(url, okHttpClient, charset)
             }
 
     @Throws(Exception::class)

@@ -26,10 +26,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.nio.charset.Charset
 
 class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
+//    private val url = "https://www.liberal.gr/xml/rss-news.rss"
 
     private val viewModelJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
@@ -65,6 +67,7 @@ class MainViewModel : ViewModel() {
         coroutineScope.launch(Dispatchers.Main) {
             try {
                 val parser = Parser()
+                //                 val parser = Parser(charset = Charset.forName("ISO-8859-7"))
                 val articleList = parser.getChannel(url)
                 setChannel(articleList)
             } catch (e: Exception) {

@@ -26,6 +26,8 @@ import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.io.InputStreamReader
+import java.io.Reader
 import java.util.regex.Pattern
 
 object CoreXMLParser {
@@ -46,8 +48,9 @@ object CoreXMLParser {
         factory.isNamespaceAware = false
 
         val xmlPullParser = factory.newPullParser()
-        val inputStream = ByteArrayInputStream(xml.toByteArray())
-        xmlPullParser.setInput(inputStream, null)
+        val reader: Reader = InputStreamReader(ByteArrayInputStream(xml.toByteArray()))
+
+        xmlPullParser.setInput(reader)
 
         // A flag just to be sure of the correct parsing
         var insideItem = false

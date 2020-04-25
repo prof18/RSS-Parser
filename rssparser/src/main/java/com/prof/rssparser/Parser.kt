@@ -22,11 +22,13 @@ import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
+import java.nio.charset.Charset
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-class Parser(private val okHttpClient: OkHttpClient? = null) {
+class Parser(private val okHttpClient: OkHttpClient? = null,
+             private val charset: Charset = Charsets.UTF_8) {
 
     private lateinit var onComplete: OnTaskCompleted
     private lateinit var service: ExecutorService
@@ -42,7 +44,7 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit {
             service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit<String>(XMLFetcher(url, okHttpClient))
+            val f1 = service.submit(XMLFetcher(url, okHttpClient, charset))
             try {
                 val rssFeed = f1.get()
                 val f2 = service.submit(XMLParser(rssFeed))
@@ -79,7 +81,7 @@ class Parser(private val okHttpClient: OkHttpClient? = null) {
     @Throws(Exception::class)
     suspend fun getChannel(url: String) =
             withContext(coroutineContext) {
-                val xml = CoroutineEngine.fetchXML(url, okHttpClient)
+                val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)
                 return@withContext CoroutineEngine.parseXML(xml)
             }
 }
