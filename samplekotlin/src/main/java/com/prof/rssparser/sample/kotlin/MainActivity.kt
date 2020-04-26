@@ -34,6 +34,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.prof.rssparser.Parser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArticleAdapter
     private lateinit var viewModel: MainViewModel
+    private lateinit var parser: Parser
 
     private val isNetworkAvailable: Boolean
         get() {
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
 
         setSupportActionBar(toolbar)
+
+        parser = Parser.Builder()
+                .context(this)
+                .cacheExpirationMillis(24L * 60L * 60L  * 100L) // one day
+                .build()
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.itemAnimator = DefaultItemAnimator()
@@ -90,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             adapter.articles.clear()
             adapter.notifyDataSetChanged()
             swipe_layout.isRefreshing = true
-            viewModel.fetchFeed()
+            viewModel.fetchFeed(parser)
         }
 
         if (!isNetworkAvailable) {
@@ -106,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             alert.show()
 
         } else if (isNetworkAvailable) {
-            viewModel.fetchFeed()
+            viewModel.fetchFeed(parser)
         }
     }
 

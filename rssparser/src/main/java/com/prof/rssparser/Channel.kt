@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import java.io.Serializable
+
 data class Channel(
         val title: String? = null,
         val link: String? = null,
@@ -8,4 +10,4 @@ data class Channel(
         val lastBuildDate: String? = null,
         val updatePeriod: String? = null,
         val articles: MutableList<Article> = mutableListOf()
-)
+): Serializable

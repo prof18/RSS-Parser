@@ -17,6 +17,9 @@
 
 package com.prof.rssparser
 
+import android.content.Context
+import android.util.Log
+import com.prof.rssparser.caching.CacheManager
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
@@ -27,20 +30,64 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-class Parser(private val okHttpClient: OkHttpClient? = null,
-             private val charset: Charset = Charsets.UTF_8) {
+class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
+                                 private val charset: Charset = Charsets.UTF_8,
+                                 context: Context? = null,
+                                 cacheExpirationMillis: Long? = null
+) {
 
+    // Internal variables
     private lateinit var onComplete: OnTaskCompleted
     private lateinit var service: ExecutorService
+    private var cacheManager: CacheManager? = null
 
     private val parserJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parserJob + Dispatchers.Default
 
+    // Constructor stuff
+
+    // Just for back compatibility
+    @Deprecated("Use the builder to create the parser object")
+    constructor(okHttpClient: OkHttpClient? = null) : this(okHttpClient, Charsets.UTF_8, null, null)
+
+    /**
+     * Builds the Parser. TODO: make some example about the parser
+     *
+     * @param okHttpClient A custom okHttpClient that can be provided by outside. If not provided, it will be created for you.
+     * @param charset The charset of the RSS feed. If not provided, [Charsets.UTF_8] will be used.
+     * @param context Android Context that you must provide to make the caching mechanism work. If not provided, the caching will not work
+     * @param cacheExpirationMillis The duration of the cache in milliseconds. If not provided, the caching will not work
+     *
+     */
+    data class Builder(
+            var okHttpClient: OkHttpClient? = null,
+            var charset: Charset = Charsets.UTF_8,
+            var context: Context? = null,
+            var cacheExpirationMillis: Long? = null
+    ) {
+
+        fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.okHttpClient = okHttpClient }
+        fun charset(charset: Charset) = apply { this.charset = charset }
+        fun context(context: Context) = apply { this.context = context }
+        fun cacheExpirationMillis(cacheExpirationMillis: Long) = apply { this.cacheExpirationMillis = cacheExpirationMillis }
+        fun build() = Parser(okHttpClient, charset, context, cacheExpirationMillis)
+    }
+
+    init {
+        if (context != null && cacheExpirationMillis != null) {
+            cacheManager = CacheManager.getInstance(context, cacheExpirationMillis)
+        }
+    }
+
+
+    // TODO: add doc
     fun onFinish(onComplete: OnTaskCompleted) {
         this.onComplete = onComplete
     }
 
+    // TODO: add doc
+    // TODO: add caching
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit {
             service = Executors.newFixedThreadPool(2)
@@ -78,11 +125,25 @@ class Parser(private val okHttpClient: OkHttpClient? = null,
         }
     }
 
+    // TODO: add doc
     @Throws(Exception::class)
-    suspend fun getChannel(url: String) =
-            withContext(coroutineContext) {
-                val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)
-                return@withContext CoroutineEngine.parseXML(xml)
-            }
+    suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
+        val cachedFeed = cacheManager?.getCachedFeed(url)
+        if (cachedFeed != null) {
+            Log.d(TAG, "Returning object from cache")
+            return@withContext cachedFeed as Channel
+        } else {
+            Log.d(TAG, "Returning data from network")
+            val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)
+            val channel = CoroutineEngine.parseXML(xml)
+            cacheManager?.cacheFeed(url, channel)
+            return@withContext channel
+        }
+    }
+
+    companion object {
+        const val TAG = "RSSParser"
+    }
+
 }
 

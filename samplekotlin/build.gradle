@@ -36,6 +36,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
     implementation "androidx.cardview:cardview:${versions.androidx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
 
 
     // Coroutines

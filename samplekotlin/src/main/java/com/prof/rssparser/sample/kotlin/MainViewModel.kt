@@ -53,10 +53,9 @@ class MainViewModel : ViewModel() {
         articleListLive.postValue(channel)
     }
 
-    fun fetchFeed() {
+    fun fetchFeed(parser: Parser) {
         viewModelScope.launch {
             try {
-                val parser = Parser()
                 // If you want to provide a custom charset (the default is utf-8):
                 //  val parser = Parser(charset = Charset.forName("ISO-8859-7"))
                 val articleList = parser.getChannel(url)

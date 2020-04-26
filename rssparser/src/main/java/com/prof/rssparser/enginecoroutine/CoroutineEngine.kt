@@ -1,5 +1,6 @@
 package com.prof.rssparser.enginecoroutine
 
+import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLFetcher
 import com.prof.rssparser.core.CoreXMLParser
 import kotlinx.coroutines.Dispatchers
@@ -10,15 +11,13 @@ import java.nio.charset.Charset
 object CoroutineEngine {
 
     @Throws(Exception::class)
-    suspend fun fetchXML(url: String, okHttpClient: OkHttpClient?, charset: Charset) =
-            withContext(Dispatchers.IO) {
-                return@withContext CoreXMLFetcher.fetchXML(url, okHttpClient, charset)
-            }
+    suspend fun fetchXML(url: String, okHttpClient: OkHttpClient?, charset: Charset): String = withContext(Dispatchers.IO) {
+        return@withContext CoreXMLFetcher.fetchXML(url, okHttpClient, charset)
+    }
 
     @Throws(Exception::class)
-    suspend fun parseXML(xml: String) =
-            withContext(Dispatchers.IO) {
-                return@withContext CoreXMLParser.parseXML(xml)
-            }
+    suspend fun parseXML(xml: String): Channel = withContext(Dispatchers.IO) {
+        return@withContext CoreXMLParser.parseXML(xml)
+    }
 }
 
