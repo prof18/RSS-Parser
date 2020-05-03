@@ -8,4 +8,12 @@ object CacheConstants {
         SELECT * FROM $CACHED_FEEDS_TABLE_NAME 
         WHERE $CACHED_FEEDS_URL_HASH = :urlHash
     """
+
+    const val DELETE_ALL_QUERY = """
+        DELETE FROM $CACHED_FEEDS_TABLE_NAME 
+    """
+
+    const val DELETE_CACHED_FEED = """
+        DELETE FROM $CACHED_FEEDS_TABLE_NAME WHERE $CACHED_FEEDS_URL_HASH = :urlHash
+    """
 }

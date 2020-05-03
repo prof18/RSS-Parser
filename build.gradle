@@ -23,7 +23,8 @@ buildscript {
             'espresso'           : '3.1.1',
             'mockito'            : '2.23.0',
             'room'               : '2.2.5',
-            'swipe'              : '1.0.0'
+            'swipe'              : '1.0.0',
+            'androidXTest'       : '1.0.0'
 
     ]
 

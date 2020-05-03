@@ -15,14 +15,14 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
-import org.junit.Assert
-import org.junit.Assert.*
+import com.prof.rssparser.Image
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -31,10 +31,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserImageFeedTest {
+class CoreXMLParserAudioFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-image.xml"
+    private val feedPath = "/feed-test-audio.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -48,42 +48,33 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Movie Reviews")
+        assertEquals(channel.title, "Stuff You Should Know")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Movie Reviews at MovieWeb")
+        assertEquals(channel.description, "If you've ever wanted to know about champagne, satanism, the Stonewall Uprising, chaos theory, LSD, El Nino, true crime and Rosa Parks, then look no further. Josh and Chuck have you covered.")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://movieweb.com/movie-reviews/")
+        assertEquals(channel.link, "https://www.howstuffworks.com")
     }
 
     @Test
-    fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Movie Reviews")
-    }
-
-    @Test
-    fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://movieweb.com/movie-reviews/")
-    }
-
-    @Test
-    fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png")
-    }
-
-    @Test
-    fun channelImageDescription_isCorrect() {
-        assertNull(channel.image?.description)
+    fun channelImage_isNull() {
+        assertEquals(channel.image,
+                Image(
+                        title = "Stuff You Should Know",
+                        url = "https://megaphone-prod.s3.amazonaws.com/podcasts/1e705dd4-2de6-11e8-b55d-9ba6ddb3f75e/image/uploads_2F1546996139536-0o3pw93d8mk-d5f1143c14a746754c55efb478c66988_2FSKSKLogo-FINAL-iHR-3000x3000.png",
+                        link = "https://www.howstuffworks.com"
+                )
+        )
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
+        assertNull(channel.lastBuildDate)
     }
 
     @Test
@@ -94,14 +85,13 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 50)
+        assertEquals(articleList.size, 1)
     }
-
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance")
+        assertEquals(article.title, "SYSK Selects: How Gold Works")
     }
 
     @Test
@@ -113,48 +103,50 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertNull(article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Wed, 15 May 2019 16:52:24 PDT")
+        assertEquals(article.pubDate, "Sat, 07 Mar 2020 10:00:00 -0000")
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.")
+        assertEquals(article.description, "As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.\n" +
+                "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers")
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)  }
+        assertEquals(article.content, "<p>As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.</p><p> </p> Learn more about your ad-choices at <a href=\"https://news.iheart.com/podcast-advertisers\">https://news.iheart.com/podcast-advertisers</a>")
+    }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg")
+        assertNull(article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf<String>())
+        assertEquals(article.categories.size, 0)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertEquals(article.guid, "c41042ae-5460-11e8-b38c-5f5faf9dd0c5")
     }
 
     @Test
     @Throws
     fun audio_iCorrect() {
-        assertNull(article.audio)
+        assertEquals(article.audio, "https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW3157672398.mp3")
     }
 
     @Test

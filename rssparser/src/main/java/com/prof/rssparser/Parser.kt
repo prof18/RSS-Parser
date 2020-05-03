@@ -82,12 +82,14 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
 
 
     // TODO: add doc
+    // TODO: test it
     fun onFinish(onComplete: OnTaskCompleted) {
         this.onComplete = onComplete
     }
 
     // TODO: add doc
-    // TODO: add caching
+    // TODO: add caching?
+    // TODO: test it!
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit {
             service = Executors.newFixedThreadPool(2)
@@ -126,6 +128,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     }
 
     // TODO: add doc
+    // TODO: test it
     @Throws(Exception::class)
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
         val cachedFeed = cacheManager?.getCachedFeed(url)
@@ -141,8 +144,12 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         }
     }
 
+//    suspend fun flushCache(url: String) {
+//
+//    }
+
     companion object {
-        const val TAG = "RSSParser"
+        private const val TAG = "RSSParser"
     }
 
 }

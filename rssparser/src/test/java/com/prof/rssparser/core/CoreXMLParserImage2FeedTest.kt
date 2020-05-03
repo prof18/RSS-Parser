@@ -15,12 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -30,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserTimeFeedTest {
+class CoreXMLParserImage2FeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-time.xml"
+    private val feedPath = "/feed-test-image-2.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -47,22 +46,37 @@ class CoreXMLParserTimeFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Drug Recalls")
+        assertEquals(channel.title, "F.C. Barcelona")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "")
+        assertEquals(channel.description, "F.C. Barcelona")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml")
+        assertEquals(channel.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
     }
 
     @Test
-    fun channelImage_isNull() {
-        assertNull(channel.image)
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "F.C. Barcelona")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
+    }
+
+    @Test
+    fun channelImageDescription_isCorrect() {
+        assertEquals(channel.image?.description, "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça")
     }
 
     @Test
@@ -81,62 +95,61 @@ class CoreXMLParserTimeFeedTest {
         assertEquals(articleList.size, 20)
     }
 
+
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
-                "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
-                "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity")
+        assertEquals(article.title, "Martens: “Estoy feliz y quiero seguir en el Barça”")
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, "FDA")
+        assertEquals(article.author, null)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
+        assertEquals(article.link, "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 05/03/2019 - 15:21")
+        assertEquals(article.pubDate, "Fri, 17 May 2019 21:33:59 +0200")
     }
 
     @Test
     @Throws
-    fun description_isCorrect() {
-        assertEquals(article.description, "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
-                "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
-                "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
-                "                above the US Food & Drug Administration’s interim acceptable exposu")
+    fun description_isPresent() {
+        assert(!article.description.isNullOrEmpty())
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)  }
+        assertEquals(article.content, null)
+    }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, null)
+        assertEquals(article.image, "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf<String>())
+        assertEquals(article.categories, mutableListOf(
+                "F.C. Barcelona"
+        ))
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
+        assertEquals(article.guid, "f5c42a9c-78d9-11e9-a24c-645e8f5d185b")
     }
 
     @Test

@@ -12,4 +12,10 @@ abstract class CachedFeedDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertFeed(cachedFeed: CachedFeed)
+
+    @Query(CacheConstants.DELETE_ALL_QUERY)
+    abstract suspend fun deleteAllFeed()
+
+    @Query(CacheConstants.DELETE_CACHED_FEED)
+    abstract suspend fun deleteFeed(urlHash: Int)
 }

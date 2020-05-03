@@ -1,9 +1,8 @@
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before

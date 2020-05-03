@@ -43,6 +43,10 @@ dependencies {
     testImplementation "junit:junit:${versions.junit}"
     testImplementation "org.robolectric:robolectric:4.3.1"
     testImplementation "androidx.room:room-testing:${versions.room}"
+    testImplementation "android.arch.core:core-testing:${versions.lifecycle}"
+    testImplementation "androidx.test:core:${versions.androidXTest}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+
 }
 
 
