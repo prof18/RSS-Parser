@@ -33,8 +33,6 @@ class CacheManagerTest {
     private lateinit var database: CacheDatabase
     private lateinit var cacheManager: CacheManager
 
-    private val cacheDuration = 24L * 60L * 60L * 100L // one day
-
     @Before
     fun initDb() {
         database = Room.inMemoryDatabaseBuilder(
@@ -44,7 +42,7 @@ class CacheManagerTest {
                 .setTransactionExecutor(testDispatcher.asExecutor())
                 .setQueryExecutor(testDispatcher.asExecutor())
                 .build()
-        cacheManager = CacheManager(database, cacheDuration, coroutineDispatcher = testDispatcher)
+        cacheManager = CacheManager(database, ChannelFactory.getOneDayCacheDuration(), coroutineDispatcher = testDispatcher)
     }
 
     @After

@@ -39,7 +39,8 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     // Internal variables
     private lateinit var onComplete: OnTaskCompleted
     private lateinit var service: ExecutorService
-    private var cacheManager: CacheManager? = null
+    // Internal to make testable
+    internal var cacheManager: CacheManager? = null
 
     private val parserJob = Job()
     private val coroutineContext: CoroutineContext
@@ -61,10 +62,10 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      *
      */
     data class Builder(
-            var okHttpClient: OkHttpClient? = null,
-            var charset: Charset = Charsets.UTF_8,
-            var context: Context? = null,
-            var cacheExpirationMillis: Long? = null
+            private var okHttpClient: OkHttpClient? = null,
+            private var charset: Charset = Charsets.UTF_8,
+            private var context: Context? = null,
+            private var cacheExpirationMillis: Long? = null
     ) {
 
         fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.okHttpClient = okHttpClient }
@@ -88,7 +89,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     }
 
     // TODO: add doc
-    // TODO: add caching?
+    // TODO: add caching? Maybe no for the type being
     // TODO: test it!
     fun execute(url: String) {
         Executors.newSingleThreadExecutor().submit {

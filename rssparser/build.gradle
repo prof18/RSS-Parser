@@ -46,6 +46,11 @@ dependencies {
     testImplementation "android.arch.core:core-testing:${versions.lifecycle}"
     testImplementation "androidx.test:core:${versions.androidXTest}"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockitoKotlin}"
+    testImplementation "org.mockito:mockito-core:${versions.mockito}"
+    testImplementation "org.mockito:mockito-inline:${versions.mockitoInline}"
+
+
 
 }
 
