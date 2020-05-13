@@ -41,6 +41,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     private lateinit var service: ExecutorService
     // Internal to make testable
     internal var cacheManager: CacheManager? = null
+    internal var executorService: ExecutorService? = null
 
     private val parserJob = Job()
     private val coroutineContext: CoroutineContext
@@ -51,6 +52,8 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     // Just for back compatibility
     @Deprecated("Use the builder to create the parser object")
     constructor(okHttpClient: OkHttpClient? = null) : this(okHttpClient, Charsets.UTF_8, null, null)
+    @Deprecated("Use the builder to create the parser object")
+    constructor() : this(null, Charsets.UTF_8, null, null)
 
     /**
      * Builds the Parser. TODO: make some example about the parser
@@ -92,7 +95,10 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     // TODO: add caching? Maybe no for the type being
     // TODO: test it!
     fun execute(url: String) {
-        Executors.newSingleThreadExecutor().submit {
+        if (executorService == null) {
+            executorService = Executors.newSingleThreadExecutor()
+        }
+        executorService!!.submit {
             service = Executors.newFixedThreadPool(2)
             val f1 = service.submit(XMLFetcher(url, okHttpClient, charset))
             try {

@@ -23,6 +23,19 @@ object ChannelFactory {
                 .build()
     }
 
+    fun getErrorOkHttpClientForTesting(): OkHttpClient {
+        return OkHttpClient.Builder()
+                .addInterceptor {chain ->
+                    return@addInterceptor Response.Builder()
+                            .protocol(Protocol.HTTP_2)
+                            .code(404)
+                            .message("")
+                            .request(chain.request())
+                            .build()
+                }
+                .build()
+    }
+
     fun getLink(): String = "https://www.androidauthority.com/feed"
 
     fun getChannel(): Channel {
