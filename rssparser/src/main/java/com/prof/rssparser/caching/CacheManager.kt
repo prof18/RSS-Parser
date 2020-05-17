@@ -24,19 +24,36 @@ class CacheManager(internal val database: CacheDatabase, // internal just for cl
                    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    // TODO: document
+    /**
+     *
+     * Flush all the cache in memory
+     *
+     */
     suspend fun flushAllCache() {
         database.cachedProjectsDao().deleteAllFeed()
     }
 
-    // TODO: document
+    /**
+     * Flush the [Channel] cached value for the [url] provided
+     *
+     * @param url The url of the RSS feed.
+     */
     suspend fun flushCachedFeed(url: String) {
         database.cachedProjectsDao().deleteFeed(url.hashCode())
     }
 
-    // TODO: document
-    // cachedDate is here just for testing
-    // libraryVersion is here just for testing
+    /**
+     *
+     * Cached the [Channel] provided as parameter. The key is the [url] and the [channel] is saved as bytes
+     *
+     * N.B. The [coroutineDispatcher] has to be Dispatchers.IO
+     *
+     * @param url The url of the RSS feed. The hash code of the url is the key.
+     * @param channel The [Channel] to cache
+     * @param cachedDate The cached date. This param is not used by the client but only for testing
+     * @param libraryVersion The version of RSS Parser library. This param is not used by the client but only for testing
+     *
+     */
     suspend fun cacheFeed(url: String, channel: Channel,
                           cachedDate: Long = System.currentTimeMillis(),
                           libraryVersion: Int = BuildConfig.VERSION_CODE) {
@@ -72,8 +89,19 @@ class CacheManager(internal val database: CacheDatabase, // internal just for cl
         }
     }
 
-    // TODO: document
-    // The coroutineDispatcher has to be Dispatchers.IO
+    /**
+     * Returns a cached [Channel] if present and not expired.
+     *
+     * When there is an update of the RSS library, the cache is invalidated just to avoid errors if a
+     * new parameter is added to the [Channel]
+     *
+     * If the cached value is expired, the cache is flushed.
+     *
+     * N.B. The [coroutineDispatcher] has to be Dispatchers.IO
+     *
+     * @param url The url of the RSS feed. The hash code of the url is the key.
+     *
+     */
     suspend fun getCachedFeed(url: String): Channel? = withContext(coroutineDispatcher) {
         val urlHash = url.hashCode()
 
@@ -86,7 +114,7 @@ class CacheManager(internal val database: CacheDatabase, // internal just for cl
 
             if (System.currentTimeMillis() - cachedFeed.cachedDate <= cacheDurationMillis) {
                 val inputStream = ByteArrayInputStream(cachedFeed.byteArray)
-                var objectInput: ObjectInputStream? = null
+                var objectInput: ObjectInputStream?
                 try {
                     objectInput = ObjectInputStream(inputStream)
                     val channelFromCache = objectInput.readObject() as Channel

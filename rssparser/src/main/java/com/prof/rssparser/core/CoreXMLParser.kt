@@ -244,7 +244,6 @@ object CoreXMLParser {
      * @return The url, if there is one
      */
     private fun getImageUrl(input: String): String? {
-
         var url: String? = null
         val patternImg = Pattern.compile("(<img .*?>)")
         val matcherImg = patternImg.matcher(input)

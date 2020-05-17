@@ -36,8 +36,8 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
                                  cacheExpirationMillis: Long? = null
 ) {
 
-    // Internal variables
-    private lateinit var onComplete: OnTaskCompleted
+    // private variables
+    private var onComplete: OnTaskCompleted? = null
     private lateinit var service: ExecutorService
     // Internal to make testable
     internal var cacheManager: CacheManager? = null
@@ -56,7 +56,9 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     constructor() : this(null, Charsets.UTF_8, null, null)
 
     /**
-     * Builds the Parser. TODO: make some example about the parser
+     * Builds the Parser.
+     *
+     * The caching feature is NOT available if you use the [execute] method.
      *
      * @param okHttpClient A custom okHttpClient that can be provided by outside. If not provided, it will be created for you.
      * @param charset The charset of the RSS feed. If not provided, [Charsets.UTF_8] will be used.
@@ -84,17 +86,36 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         }
     }
 
-
-    // TODO: add doc
-    // TODO: test it
+    /**
+     * This method provides back-support for Java code.
+     *
+     * Provides the [onComplete] callback that will be called after a successful or a failed parsing
+     *
+     */
     fun onFinish(onComplete: OnTaskCompleted) {
         this.onComplete = onComplete
     }
 
-    // TODO: add doc
-    // TODO: add caching? Maybe no for the type being
-    // TODO: test it!
+    /**
+     *
+     * This method provides back-support for Java code.
+     *
+     * When the parsing it's successfully completed, the [OnTaskCompleted.onTaskCompleted] callback
+     * is called with the parsed [Channel] as parameter.
+     *
+     * When there is an error on the parsing, the [OnTaskCompleted.onError] callback is called
+     * with the [Exception] as parameter.
+     *
+     * If the [onComplete] variable is not initialized with the [onFinish] method, results are not
+     * delivered upwards.
+     *
+     * This method DOES NOT provide caching support
+     *
+     * @param url The url of the RSS feed
+     *
+     */
     fun execute(url: String) {
+        // For testing purpose
         if (executorService == null) {
             executorService = Executors.newSingleThreadExecutor()
         }
@@ -104,9 +125,9 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
             try {
                 val rssFeed = f1.get()
                 val f2 = service.submit(XMLParser(rssFeed))
-                onComplete.onTaskCompleted(f2.get())
+                onComplete?.onTaskCompleted(f2.get())
             } catch (e: Exception) {
-                onComplete.onError(e)
+                onComplete?.onError(e)
             } finally {
                 service.shutdown()
             }
@@ -124,7 +145,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
                     service.shutdownNow()
                 }
             } catch (e: Exception) {
-                onComplete.onError(e)
+                onComplete?.onError(e)
             }
         } else {
             // The client is using Kotlin and coroutines
@@ -134,8 +155,17 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         }
     }
 
-    // TODO: add doc
-    // TODO: test it
+    /**
+     * Returns a parsed RSS [Channel].
+     *
+     * If the context and the cacheExpirationMillis has been provided with the [Builder.context]
+     * and the [Builder.cacheExpirationMillis], the caching support is enabled. Before making a network
+     * request, the method checks if there is a valid cached [Channel].
+     *
+     * @exception Exception if something goes wrong during the fetching or in the parsing of the RSS feed.
+     * @param url The url of the RSS feed
+     *
+     */
     @Throws(Exception::class)
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
         val cachedFeed = cacheManager?.getCachedFeed(url)
@@ -151,13 +181,19 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         }
     }
 
-//    suspend fun flushCache(url: String) {
-//
-//    }
+    /**
+     *
+     * Flush the cache for the provided url
+     *
+     * @param url The url of the RSS Feed
+     *
+     */
+    suspend fun flushCache(url: String) {
+        cacheManager?.flushCachedFeed(url)
+    }
 
     companion object {
         private const val TAG = "RSSParser"
     }
-
 }
 
