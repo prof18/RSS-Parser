@@ -1,14 +1,31 @@
 # RSS Parser
+
 [![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-## Important Notice
+**RSS Parser** is an Android library to parse any RSS feed. With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed. 
+
+As of April 2020, it's been downloaded more than 30,000 times from 125 different countries (among them, North Korea, Madagascar and even Panama 🌴).
+
+## ⚠️ Important Notice
+
 Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to the latest version available.
 
-## About
+## Table of Contents
 
-This is an Android library to parse a RSS Feed. You can retrieve the following information about an RSS channel:
+* [Available data](#available-data)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Kotlin](#kotlin)
+  * [Java (deprecated)](#java)
+* [Sample app](#sample-app)
+* [Changelog](#changelog)
+* [License](#license)
+
+## Available data
+
+The RSS channel resulting object provides you with the following data:
 
 - Title
 - Description
@@ -18,7 +35,7 @@ This is an Android library to parse a RSS Feed. You can retrieve the following i
 - Last build data
 - Update period
 
-Articles can have following attributes:
+Articles, on the other hand, support the following attributes:
 
 - Title
 - Author
@@ -29,24 +46,23 @@ Articles can have following attributes:
 - Publication Date
 - Categories
 - Audio
-- Source (name and link)  
+- Source (name and link)
 
+## Installation
 
-**Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; [Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
+The library is provided by jCenter, so you can easily add its dependency and be good to go.
 
-## How to
-#### Import:
-The library is uploaded in jCenter, so you can easily add the dependency:
 ```Gradle
 dependencies {
   implementation 'com.prof.rssparser:rssparser:2.1.1'
 }
 ```
-#### Use:
 
-Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, The compatibility with Java has been maintained and the same code of the versions 1.x can be used.  
+## Usage
 
-If you are using Kotlin you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine that retrieves the articles. 
+### Kotlin
+
+If you are using Kotlin, you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine that retrieves the articles. 
 
 ```Kotlin
 import com.prof.rssparser.Article
@@ -65,9 +81,13 @@ coroutineScope.launch(Dispatchers.Main) {
     }
 }
 ```
-You can give a look to the full kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
+You can give a look to the full Kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
 
-If you are still using Java, the code is very similar to the older versions of the library:
+### Java
+
+Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, the compatibility with Java has been preserved and the same code of the versions 1.x can still be used.
+
+If you are still using Java, this is the interface to use the library:
 
 ```Java
 import com.prof.rssparser.Article;
@@ -91,10 +111,12 @@ parser.onFinish(new OnTaskCompleted() {
 });
 parser.execute(urlString);
 ```
+
 The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 
-##### Version 1.4.4 and below:
+#### Version 1.4.4 and below
 
+For older versions of the library, the interface is marginally different:
 
 ```Java
 import com.prof.rssparser.Article;
@@ -117,7 +139,9 @@ parser.onFinish(new Parser.OnTaskCompleted() {
 });
 parser.execute(urlString);
 ```
+
 ## Sample app
+
 I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't an image, a placeholder will be loaded. 
 
 <img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
@@ -138,6 +162,7 @@ From version 1.4.4 and above, the changelog is available in the [release section
 - 18 June 2016 - First release  - Version 1.0
 
 ## License
+
 ```
    Copyright 2016-2020 Marco Gomiero
 
