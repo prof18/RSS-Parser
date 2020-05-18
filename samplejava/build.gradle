@@ -25,6 +25,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
     testImplementation 'junit:junit:4.12'
     implementation project(":rssparser")
 //    implementation "com.prof.rssparser:rssparser:${versions.libVersionName}"

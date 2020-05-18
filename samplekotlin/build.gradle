@@ -23,6 +23,10 @@ android {
         targetCompatibility = 1.8
         sourceCompatibility = 1.8
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -47,7 +51,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
-
+    implementation "androidx.activity:activity-ktx:${versions.activityAndroidx}"
 
     implementation "com.squareup.picasso:picasso:${versions.picasso}"
     implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"

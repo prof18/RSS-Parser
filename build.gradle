@@ -24,6 +24,7 @@ buildscript {
             'mockito'            : '2.23.0',
             'room'               : '2.2.5',
             'swipe'              : '1.0.0',
+            'activityAndroidx'   : '1.1.0',
             'androidXTest'       : '1.0.0',
             'mockitoKotlin'      : '2.2.0',
             'mockitoInline'      : '2.27.0'
