@@ -29,6 +29,9 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.prof.rssparser.Article;
 import com.squareup.picasso.Picasso;
 
@@ -37,11 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.DataFormatException;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
+import java.util.Objects;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHolder> {
 
@@ -66,24 +65,27 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return new ViewHolder(v);
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
 
         Article currentArticle = articles.get(position);
 
-        String pubDateString;
+        String pubDateString = currentArticle.getPubDate();
+
         try {
             String sourceDateString = currentArticle.getPubDate();
 
-            SimpleDateFormat sourceSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
-            Date date = sourceSdf.parse(sourceDateString);
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            pubDateString = sdf.format(date);
-
+            if (sourceDateString != null) {
+                SimpleDateFormat sourceSdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+                Date date = sourceSdf.parse(sourceDateString);
+                if (date != null) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                    pubDateString = sdf.format(date);
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
-            pubDateString = currentArticle.getPubDate();
         }
 
         viewHolder.title.setText(currentArticle.getTitle());
@@ -106,40 +108,35 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         viewHolder.category.setText(categories.toString());
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemView.setOnClickListener(view -> {
 
-            @SuppressLint("SetJavaScriptEnabled")
-            @Override
-            public void onClick(View view) {
+            //show article content inside a dialog
+            articleView = new WebView(mContext);
 
-                //show article content inside a dialog
-                articleView = new WebView(mContext);
+            articleView.getSettings().setLoadWithOverviewMode(true);
 
-                articleView.getSettings().setLoadWithOverviewMode(true);
+            String title = articles.get(viewHolder.getAdapterPosition()).getTitle();
+            String content = articles.get(viewHolder.getAdapterPosition()).getContent();
 
-                String title = articles.get(viewHolder.getAdapterPosition()).getTitle();
-                String content = articles.get(viewHolder.getAdapterPosition()).getContent();
+            articleView.getSettings().setJavaScriptEnabled(true);
+            articleView.setHorizontalScrollBarEnabled(false);
+            articleView.setWebChromeClient(new WebChromeClient());
+            articleView.loadDataWithBaseURL(null, "<style>img{display: inline; height: auto; max-width: 100%;} " +
 
-                articleView.getSettings().setJavaScriptEnabled(true);
-                articleView.setHorizontalScrollBarEnabled(false);
-                articleView.setWebChromeClient(new WebChromeClient());
-                articleView.loadDataWithBaseURL(null, "<style>img{display: inline; height: auto; max-width: 100%;} " +
+                    "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n" + content, null, "utf-8", null);
 
-                        "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n" + content, null, "utf-8", null);
+            androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(mContext).create();
+            alertDialog.setTitle(title);
+            alertDialog.setView(articleView);
+            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
 
-                androidx.appcompat.app.AlertDialog alertDialog = new androidx.appcompat.app.AlertDialog.Builder(mContext).create();
-                alertDialog.setTitle(title);
-                alertDialog.setView(articleView);
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-
-                ((TextView) alertDialog.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
-            }
+            ((TextView) Objects.requireNonNull(alertDialog.findViewById(android.R.id.message))).setMovementMethod(LinkMovementMethod.getInstance());
         });
     }
 
@@ -148,7 +145,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         return articles == null ? 0 : articles.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView pubDate;
         ImageView image;

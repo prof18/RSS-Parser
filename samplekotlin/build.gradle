@@ -41,7 +41,7 @@ dependencies {
     implementation "androidx.cardview:cardview:${versions.androidx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
-
+    implementation "com.squareup.picasso:picasso:${versions.picasso}"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
@@ -53,10 +53,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
     implementation "androidx.activity:activity-ktx:${versions.activityAndroidx}"
 
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
-    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-
-    testImplementation 'junit:junit:4.13'
 }
 
