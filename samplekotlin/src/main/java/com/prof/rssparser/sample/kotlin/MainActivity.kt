@@ -17,9 +17,11 @@
 
 package com.prof.rssparser.sample.kotlin
 
-
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.net.NetworkInfo
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.method.LinkMovementMethod
@@ -27,42 +29,42 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.prof.rssparser.Parser
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArticleAdapter
-    private lateinit var viewModel: MainViewModel
+    private lateinit var parser: Parser
 
-    private val isNetworkAvailable: Boolean
-        get() {
-            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetworkInfo = connectivityManager.activeNetworkInfo
-            return activeNetworkInfo != null && activeNetworkInfo.isConnected
-        }
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this@MainActivity).get(MainViewModel::class.java)
-
         setSupportActionBar(toolbar)
+
+        parser = Parser.Builder()
+                .context(this)
+                // If you want to provide a custom charset (the default is utf-8):
+                // .charset(Charset.forName("ISO-8859-7"))
+                .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+                .build()
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.itemAnimator = DefaultItemAnimator()
         recycler_view.setHasFixedSize(true)
 
-        viewModel.getArticleList().observe(this, Observer { channel ->
-
+        viewModel.rssChannel.observe(this, Observer { channel ->
             if (channel != null) {
                 if (channel.title != null) {
                     title = channel.title
@@ -79,9 +81,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.snackbar.observe(this, Observer { value ->
             value?.let {
                 Snackbar.make(root_layout, value, Snackbar.LENGTH_LONG).show()
-                viewModel.onSnackbarShowed ()
+                viewModel.onSnackbarShowed()
             }
-
         })
 
         swipe_layout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
@@ -90,11 +91,10 @@ class MainActivity : AppCompatActivity() {
             adapter.articles.clear()
             adapter.notifyDataSetChanged()
             swipe_layout.isRefreshing = true
-            viewModel.fetchFeed()
+            viewModel.fetchFeed(parser)
         }
 
-        if (!isNetworkAvailable) {
-
+        if (!isOnline()) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.alert_message)
                     .setTitle(R.string.alert_title)
@@ -104,9 +104,8 @@ class MainActivity : AppCompatActivity() {
 
             val alert = builder.create()
             alert.show()
-
-        } else if (isNetworkAvailable) {
-            viewModel.fetchFeed()
+        } else if (isOnline()) {
+            viewModel.fetchFeed(parser)
         }
     }
 
@@ -133,6 +132,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    @Suppress("DEPRECATION")
+    fun isOnline(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+            return when {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                else -> false
+            }
+        } else {
+            val activeNetworkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected
+        }
     }
 }
 

@@ -15,12 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -30,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserFeedRuTest {
+class CoreXMLParserXSLFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-ru.xml"
+    private val feedPath = "/feed-test-xsl.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -47,27 +46,42 @@ class CoreXMLParserFeedRuTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Аргументы и Факты")
+        assertEquals(channel.title, "SkySports | Liverpool")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Аргументы и Факты: объясняем, что происходит")
+        assertEquals(channel.description, "Liverpool News")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.aif.ru/")
+        assertEquals(channel.link, "http://www.skysports.com")
     }
 
     @Test
-    fun channelImage_isNull() {
-        assertNull(channel.image)
+    fun channelImageTitle_isCorrect() {
+        assertEquals(channel.image?.title, "Sky Sports")
+    }
+
+    @Test
+    fun channelImageLink_isCorrect() {
+        assertEquals(channel.image?.link, "https://www.skysports.com")
+    }
+
+    @Test
+    fun channelImageUrl_isCorrect() {
+        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
+    }
+
+    @Test
+    fun channelImageDescription_isCorrect() {
+        assertNull(channel.image?.description)
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "2019-05-18 10:58:46 +0300")
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
     }
 
     @Test
@@ -78,13 +92,13 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 100)
+        assertEquals(articleList.size, 20)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "СМИ: собака в Таиланде спасла заживо похороненного младенца")
+        assertEquals(article.title, "Insight: Who should Liverpool sign?")
     }
 
     @Test
@@ -96,19 +110,19 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca")
+        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Sat, 18 May 2019 10:52:50 +0300")
+        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей")
+        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
     }
 
     @Test
@@ -120,14 +134,14 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg")
+        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
         assertEquals(article.categories, mutableListOf(
-                "Происшествия"
+                "News Story"
         ))
     }
 

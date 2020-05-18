@@ -25,7 +25,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testImplementation 'junit:junit:4.12'
     implementation project(":rssparser")
 //    implementation "com.prof.rssparser:rssparser:${versions.libVersionName}"
 
@@ -35,13 +34,12 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
     implementation "androidx.cardview:cardview:${versions.androidx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
+    implementation "com.squareup.picasso:picasso:${versions.picasso}"
 
     // Architecture components
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
-
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
-    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
 
 }
 

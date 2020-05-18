@@ -23,11 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Parser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.nio.charset.Charset
 
 class MainViewModel : ViewModel() {
 
@@ -38,33 +34,23 @@ class MainViewModel : ViewModel() {
     val snackbar: LiveData<String>
         get() = _snackbar
 
+    private val _rssChannel = MutableLiveData<Channel>()
+    val rssChannel: LiveData<Channel>
+        get() = _rssChannel
+
     fun onSnackbarShowed() {
         _snackbar.value = null
     }
 
-    fun getArticleList(): MutableLiveData<Channel> {
-        if (!::articleListLive.isInitialized) {
-            articleListLive = MutableLiveData()
-        }
-        return articleListLive
-    }
-
-    private fun setChannel(channel: Channel) {
-        articleListLive.postValue(channel)
-    }
-
-    fun fetchFeed() {
+    fun fetchFeed(parser: Parser) {
         viewModelScope.launch {
             try {
-                val parser = Parser()
-                // If you want to provide a custom charset (the default is utf-8):
-                //  val parser = Parser(charset = Charset.forName("ISO-8859-7"))
-                val articleList = parser.getChannel(url)
-                setChannel(articleList)
+                val channel = parser.getChannel(url)
+                _rssChannel.postValue(channel)
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                setChannel(Channel(null, null, null, null, null, null, mutableListOf()))
+                _rssChannel.postValue(Channel(null, null, null, null, null, null, mutableListOf()))
             }
         }
     }

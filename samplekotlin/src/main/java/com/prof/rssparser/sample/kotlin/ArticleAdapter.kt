@@ -17,6 +17,7 @@
 
 package com.prof.rssparser.sample.kotlin
 
+import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Article
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row.view.*
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,21 +40,23 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) = holder.bind(articles[position])
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @SuppressLint("SetJavaScriptEnabled")
         fun bind(article: Article) {
 
+            var pubDateString = article.pubDate
 
-            val pubDateString = try {
+            try {
                 val sourceDateString = article.pubDate
-
                 val sourceSdf = SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.ENGLISH)
-                val date = sourceSdf.parse(sourceDateString)
-
-                val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-                sdf.format(date)
-
-            } catch (e: ParseException) {
+                if (sourceDateString != null) {
+                    val date = sourceSdf.parse(sourceDateString)
+                    if (date != null) {
+                        val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+                        pubDateString = sdf.format(date)
+                    }
+                }
+            } catch (e: Exception) {
                 e.printStackTrace()
-                article.pubDate
             }
 
             itemView.title.text = article.title
@@ -82,7 +84,6 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
                 val articleView = WebView(itemView.context)
 
                 articleView.settings.loadWithOverviewMode = true
-
                 articleView.settings.javaScriptEnabled = true
                 articleView.isHorizontalScrollBarEnabled = false
                 articleView.webChromeClient = WebChromeClient()

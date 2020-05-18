@@ -15,13 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -31,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserXSLFeedTest {
+class CoreXMLParserTimeFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-xsl.xml"
+    private val feedPath = "/feed-test-time.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -48,42 +46,27 @@ class CoreXMLParserXSLFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "SkySports | Liverpool")
+        assertEquals(channel.title, "Drug Recalls")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Liverpool News")
+        assertEquals(channel.description, "")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.skysports.com")
+        assertEquals(channel.link, "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml")
     }
 
     @Test
-    fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Sky Sports")
-    }
-
-    @Test
-    fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.skysports.com")
-    }
-
-    @Test
-    fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
-    }
-
-    @Test
-    fun channelImageDescription_isCorrect() {
-        assertNull(channel.image?.description)
+    fun channelImage_isNull() {
+        assertNull(channel.image)
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
+        assertNull(channel.lastBuildDate)
     }
 
     @Test
@@ -100,57 +83,59 @@ class CoreXMLParserXSLFeedTest {
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Insight: Who should Liverpool sign?")
+        assertEquals(article.title, "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
+                "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
+                "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity")
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(article.author, "FDA")
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
+        assertEquals(article.link, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
+        assertEquals(article.pubDate, "Fri, 05/03/2019 - 15:21")
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
+        assertEquals(article.description, "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
+                "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
+                "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
+                "                above the US Food & Drug Administration’s interim acceptable exposu")
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
-    }
+        assertEquals(article.content, null)  }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
+        assertEquals(article.image, null)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf(
-                "News Story"
-        ))
+        assertEquals(article.categories, mutableListOf<String>())
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, null)
+        assertEquals(article.guid, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
     }
 
     @Test

@@ -17,6 +17,7 @@
 
 package com.prof.rssparser.sample.java;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -56,26 +57,28 @@ public class MainViewModel extends ViewModel {
 
     public void fetchFeed() {
 
-        Parser parser = new Parser();
-        // If you want to provide a custom charset (the default is utf-8):
-        //  val parser = Parser(charset = Charset.forName("ISO-8859-7"))
+        Parser parser = new Parser.Builder()
+                // If you want to provide a custom charset (the default is utf-8):
+                // .charset(Charset.forName("ISO-8859-7"))
+                // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
+                .build();
+
         parser.onFinish(new OnTaskCompleted() {
 
             //what to do when the parsing is done
             @Override
-            public void onTaskCompleted(Channel channel) {
+            public void onTaskCompleted(@NonNull Channel channel) {
                 setChannel(channel);
             }
 
             //what to do in case of error
             @Override
-            public void onError(Exception e) {
+            public void onError(@NonNull Exception e) {
                 setChannel(new Channel(null, null, null, null, null, null, new ArrayList<Article>()));
                 e.printStackTrace();
                 snackbar.postValue("An error has occurred. Please try again");
             }
         });
         parser.execute(urlString);
-        parser.cancel();
     }
 }

@@ -17,6 +17,8 @@
 
 package com.prof.rssparser
 
+import java.io.Serializable
+
 data class Article(
         var guid: String? = null,
         var title: String? = null,
@@ -31,7 +33,7 @@ data class Article(
         var sourceName: String? = null,
         var sourceUrl: String? = null,
         private var _categories: MutableList<String> = mutableListOf()
-) {
+): Serializable {
 
     val categories: MutableList<String>
         get() = _categories
