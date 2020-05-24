@@ -54,11 +54,9 @@ Articles, on the other hand, support the following attributes:
 
 ## Features
 
-Talk about caching?
-
 ### Caching
 
-The library provides a caching layer to avoid wasting data with very long feeds. All you need to do is provide an expiration date.
+The library provides a caching layer to avoid wasting data with very long feeds. All you need to do is provide an expiration date. For more details, give a look to the [Usage section](#usage)
 
 ⚠️ For the time being caching is only supported if you are using Kotlin.
 
@@ -80,14 +78,14 @@ dependencies {
 
 ### Kotlin
 
-First of all, you have to create a `Parser` object with the `Parser.Builder()`. In the builder you can provided some custom and optional fields:
+First of all, you have to create a `Parser` object with the Parser Builder. In the builder you can provided some custom and optional fields:
 
 - A custom `OkHttpClient`; if not provided, the library will create one for you.
 - A custom Charset; if not provided, the default one is `UTF_8`.
 - The Android Context, mandatory to make the caching layer work.
-- The cache expiration date in millis, mandatory to make the caching layer work.
+- The cache expiration date in milliseconds, mandatory to make the caching layer work.
 
-If you don't provide the Android Context and the cache expiration date, the library will continue work but without the caching feature.
+If you don't provide the Android Context and the cache expiration date, the library will continue working but without the caching feature.
 
 ```Kotlin
 val parser = Parser.Builder()
@@ -140,6 +138,7 @@ Parser parser = new Parser.Builder()
         .charset(Charset.forName("ISO-8859-7"))
         // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
         .build();
+        
 parser.onFinish(new OnTaskCompleted() {
 
     //what to do when the parsing is done
