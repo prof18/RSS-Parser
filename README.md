@@ -15,6 +15,9 @@ Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Ple
 ## Table of Contents
 
 * [Available data](#available-data)
+* [Features](#features)
+  * [Caching](#caching)
+  * [RSS Parsing from string](rss-parsing-from-string)
 * [Installation](#installation)
 * [Usage](#usage)
   * [Kotlin](#kotlin)
@@ -22,6 +25,7 @@ Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Ple
 * [Sample app](#sample-app)
 * [Changelog](#changelog)
 * [License](#license)
+* [Apps using RSS Parser](#app-using-rss-parser)
 
 ## Available data
 
@@ -48,6 +52,20 @@ Articles, on the other hand, support the following attributes:
 - Audio
 - Source (name and link)
 
+## Features
+
+Talk about caching?
+
+### Caching
+
+The library provides a caching layer to avoid wasting data with very long feeds. All you need to do is provide an expiration date.
+
+⚠️ For the time being caching is only supported if you are using Kotlin.
+
+### RSS Parsing from string
+
+COMING SOON
+
 ## Installation
 
 The library is provided by jCenter, so you can easily add its dependency and be good to go.
@@ -62,30 +80,54 @@ dependencies {
 
 ### Kotlin
 
-If you are using Kotlin, you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine that retrieves the articles. 
+First of all, you have to create a `Parser` object with the `Parser.Builder()`. In the builder you can provided some custom and optional fields:
+
+- A custom `OkHttpClient`; if not provided, the library will create one for you.
+- A custom Charset; if not provided, the default one is `UTF_8`.
+- The Android Context, mandatory to make the caching layer work.
+- The cache expiration date in millis, mandatory to make the caching layer work.
+
+If you don't provide the Android Context and the cache expiration date, the library will continue work but without the caching feature.
 
 ```Kotlin
-import com.prof.rssparser.Article
-import com.prof.rssparser.Parser
+val parser = Parser.Builder()
+                .context(this)
+                .charset(Charset.forName("ISO-8859-7"))
+                .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+                .build()
+```
+
+The library uses the Kotlin Coroutines to retrieve, parse and cache the feed. So to start the process, you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine.
+
+```Kotlin
 
 //url of RSS feed
 private val url = "https://www.androidauthority.com/feed"
 
-coroutineScope.launch(Dispatchers.Main) {
+viewModelScope.launch {
     try {
-        val parser = Parser()
-        val articleList = parser.getChannel(url)
-        // Show the channel data
+        val channel = parser.getChannel(url)
+        // Do something with your data
     } catch (e: Exception) {
+        e.printStackTrace()
         // Handle the exception
     }
 }
 ```
+
+For flushing the cache:
+
+```Kotlin
+parser.flushCache(url)
+```
+
 You can give a look to the full Kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
 
 ### Java
 
 Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, the compatibility with Java has been preserved and the same code of the versions 1.x can still be used.
+
+⚠️ For the time being, the caching is not supported if you are using Java.
 
 If you are still using Java, this is the interface to use the library:
 
@@ -94,7 +136,10 @@ import com.prof.rssparser.Article;
 import com.prof.rssparser.OnTaskCompleted;
 import com.prof.rssparser.Parser;
 
-Parser parser = new Parser();
+Parser parser = new Parser.Builder()
+        .charset(Charset.forName("ISO-8859-7"))
+        // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
+        .build();
 parser.onFinish(new OnTaskCompleted() {
 
     //what to do when the parsing is done
@@ -178,3 +223,13 @@ From version 1.4.4 and above, the changelog is available in the [release section
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
+
+## Apps using RSS Parser
+If you are using RSS Parser in your app and would like to be listed here, please open a pull request!
+
+<details>
+  <summary>List of Apps using RSS Parser</summary>
+
+* [MarioDiscepolo.com](https://play.google.com/store/apps/details?id=com.prof.mariodiscepolo&hl=it)
+
+</details>
