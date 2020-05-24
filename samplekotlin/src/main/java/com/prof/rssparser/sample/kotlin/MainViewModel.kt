@@ -20,57 +20,37 @@ package com.prof.rssparser.sample.kotlin
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Parser
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
-
-    private val viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private lateinit var articleListLive: MutableLiveData<Channel>
 
     private val _snackbar = MutableLiveData<String>()
-
     val snackbar: LiveData<String>
         get() = _snackbar
+
+    private val _rssChannel = MutableLiveData<Channel>()
+    val rssChannel: LiveData<Channel>
+        get() = _rssChannel
 
     fun onSnackbarShowed() {
         _snackbar.value = null
     }
 
-    fun getArticleList(): MutableLiveData<Channel> {
-        if (!::articleListLive.isInitialized) {
-            articleListLive = MutableLiveData()
-        }
-        return articleListLive
-    }
-
-    private fun setChannel(channel: Channel) {
-        articleListLive.postValue(channel)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
-    fun fetchFeed() {
-        coroutineScope.launch(Dispatchers.Main) {
+    fun fetchFeed(parser: Parser) {
+        viewModelScope.launch {
             try {
-                val parser = Parser()
-                val articleList = parser.getChannel(url)
-                setChannel(articleList)
+                val channel = parser.getChannel(url)
+                _rssChannel.postValue(channel)
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                setChannel(Channel(null, null, null, null, null, null, mutableListOf()))
+                _rssChannel.postValue(Channel(null, null, null, null, null, null, mutableListOf()))
             }
         }
     }

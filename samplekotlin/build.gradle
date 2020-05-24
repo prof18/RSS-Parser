@@ -10,8 +10,8 @@ android {
         applicationId "com.prof.rssparser.sample.kotlin"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 20002
-        versionName "2.0.2"
+        versionCode 30000
+        versionName "3.0.0"
     }
     buildTypes {
         release {
@@ -22,6 +22,10 @@ android {
     compileOptions {
         targetCompatibility = 1.8
         sourceCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -36,7 +40,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
     implementation "androidx.cardview:cardview:${versions.androidx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
+    implementation "com.squareup.picasso:picasso:${versions.picasso}"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
@@ -45,12 +50,9 @@ dependencies {
     // Architecture components
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
     implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
+    implementation "androidx.activity:activity-ktx:${versions.activityAndroidx}"
 
-
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
-    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-
-    testImplementation 'junit:junit:4.12'
 }
 

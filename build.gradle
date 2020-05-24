@@ -3,26 +3,31 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 21002,
-            'libVersionName'     : '2.1.2',
+            'libVersionCode'     : 30000,
+            'libVersionName'     : '3.0.0',
             'compileSdk'         : 29,
             'minSdk'             : 14,
             'targetSdk'          : 29,
             'buildTools'         : '29.0.0',
             'okhttp'             : '3.12.0',
-            'coroutines'         : '1.3.4',
-            'kotlin'             : '1.3.70',
+            'coroutines'         : '1.3.5',
+            'kotlin'             : '1.3.72',
             'appCompat'          : '1.1.0',
             'constraintLayout'   : '1.1.3',
-            'material'           : '1.0.0',
+            'material'           : '1.1.0',
             'androidx'           : '1.0.0',
-            'lifecycle'          : '2.1.0',
+            'lifecycle'          : '2.2.0',
             'picasso'            : '2.71828',
             'junit'              : '4.13',
             'extJunit'           : '1.1.0',
             'espresso'           : '3.1.1',
             'mockito'            : '2.23.0',
-
+            'room'               : '2.2.5',
+            'swipe'              : '1.0.0',
+            'activityAndroidx'   : '1.1.0',
+            'androidXTest'       : '1.0.0',
+            'mockitoKotlin'      : '2.2.0',
+            'mockitoInline'      : '2.27.0'
     ]
 
     repositories {

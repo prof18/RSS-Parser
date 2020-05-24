@@ -1,9 +1,8 @@
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNull
 import org.junit.Assert
@@ -152,5 +151,11 @@ class CoreXMLParserImageChannelReverseTest {
     @Throws
     fun sourceUrl_iCorrect() {
         Assert.assertNull(article.sourceUrl)
+    }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        Assert.assertNull(article.video)
     }
 }

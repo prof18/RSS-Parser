@@ -15,15 +15,13 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
 import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
@@ -31,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserImage2FeedTest {
+class CoreXMLParserImageFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-image-2.xml"
+    private val feedPath = "/feed-test-image.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -48,42 +46,42 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "F.C. Barcelona")
+        assertEquals(channel.title, "Movie Reviews")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "F.C. Barcelona")
+        assertEquals(channel.description, "Movie Reviews at MovieWeb")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+        assertEquals(channel.link, "https://movieweb.com/movie-reviews/")
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "F.C. Barcelona")
+        assertEquals(channel.image?.title, "Movie Reviews")
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+        assertEquals(channel.image?.link, "https://movieweb.com/movie-reviews/")
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
+        assertEquals(channel.image?.url, "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png")
     }
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertEquals(channel.image?.description, "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça")
+        assertNull(channel.image?.description)
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertNull(channel.lastBuildDate)
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
     }
 
     @Test
@@ -94,14 +92,14 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 20)
+        assertEquals(articleList.size, 50)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Martens: “Estoy feliz y quiero seguir en el Barça”")
+        assertEquals(article.title, "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance")
     }
 
     @Test
@@ -113,45 +111,42 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html")
+        assertEquals(article.link, "https://movieweb.com/the-sun-is-also-a-star-review/")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 21:33:59 +0200")
+        assertEquals(article.pubDate, "Wed, 15 May 2019 16:52:24 PDT")
     }
 
     @Test
     @Throws
-    fun description_isPresent() {
-        assert(!article.description.isNullOrEmpty())
+    fun description_isCorrect() {
+        assertEquals(article.description, "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.")
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
-    }
+        assertEquals(article.content, null)  }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg")
+        assertEquals(article.image, "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf(
-                "F.C. Barcelona"
-        ))
+        assertEquals(article.categories, mutableListOf<String>())
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "f5c42a9c-78d9-11e9-a24c-645e8f5d185b")
+        assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
     }
 
     @Test
@@ -170,5 +165,11 @@ class CoreXMLParserImage2FeedTest {
     @Throws
     fun sourceUrl_iCorrect() {
         assertNull(article.sourceUrl)
+    }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        assertNull(article.video)
     }
 }

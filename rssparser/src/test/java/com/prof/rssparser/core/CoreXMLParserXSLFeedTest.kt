@@ -15,13 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -31,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserImageFeedTest {
+class CoreXMLParserXSLFeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-image.xml"
+    private val feedPath = "/feed-test-xsl.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -48,32 +46,32 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Movie Reviews")
+        assertEquals(channel.title, "SkySports | Liverpool")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Movie Reviews at MovieWeb")
+        assertEquals(channel.description, "Liverpool News")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://movieweb.com/movie-reviews/")
+        assertEquals(channel.link, "http://www.skysports.com")
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Movie Reviews")
+        assertEquals(channel.image?.title, "Sky Sports")
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://movieweb.com/movie-reviews/")
+        assertEquals(channel.image?.link, "https://www.skysports.com")
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png")
+        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
     }
 
     @Test
@@ -83,7 +81,7 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
+        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
     }
 
     @Test
@@ -94,14 +92,13 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 50)
+        assertEquals(articleList.size, 20)
     }
-
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance")
+        assertEquals(article.title, "Insight: Who should Liverpool sign?")
     }
 
     @Test
@@ -113,42 +110,45 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Wed, 15 May 2019 16:52:24 PDT")
+        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.")
+        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)  }
+        assertEquals(article.content, null)
+    }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg")
+        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf<String>())
+        assertEquals(article.categories, mutableListOf(
+                "News Story"
+        ))
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertEquals(article.guid, null)
     }
 
     @Test
@@ -167,5 +167,11 @@ class CoreXMLParserImageFeedTest {
     @Throws
     fun sourceUrl_iCorrect() {
         assertNull(article.sourceUrl)
+    }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        assertNull(article.video)
     }
 }

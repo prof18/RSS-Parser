@@ -15,13 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof.rssparser.core
 
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -31,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserXSLFeedTest {
+class CoreXMLParserImage2FeedTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-xsl.xml"
+    private val feedPath = "/feed-test-image-2.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -48,42 +46,42 @@ class CoreXMLParserXSLFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "SkySports | Liverpool")
+        assertEquals(channel.title, "F.C. Barcelona")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Liverpool News")
+        assertEquals(channel.description, "F.C. Barcelona")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.skysports.com")
+        assertEquals(channel.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Sky Sports")
+        assertEquals(channel.image?.title, "F.C. Barcelona")
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.skysports.com")
+        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
+        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
     }
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertNull(channel.image?.description)
+        assertEquals(channel.image?.description, "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça")
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
+        assertNull(channel.lastBuildDate)
     }
 
     @Test
@@ -97,10 +95,11 @@ class CoreXMLParserXSLFeedTest {
         assertEquals(articleList.size, 20)
     }
 
+
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Insight: Who should Liverpool sign?")
+        assertEquals(article.title, "Martens: “Estoy feliz y quiero seguir en el Barça”")
     }
 
     @Test
@@ -112,19 +111,19 @@ class CoreXMLParserXSLFeedTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
+        assertEquals(article.link, "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
+        assertEquals(article.pubDate, "Fri, 17 May 2019 21:33:59 +0200")
     }
 
     @Test
     @Throws
-    fun description_isCorrect() {
-        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
+    fun description_isPresent() {
+        assert(!article.description.isNullOrEmpty())
     }
 
     @Test
@@ -136,21 +135,21 @@ class CoreXMLParserXSLFeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
+        assertEquals(article.image, "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
         assertEquals(article.categories, mutableListOf(
-                "News Story"
+                "F.C. Barcelona"
         ))
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, null)
+        assertEquals(article.guid, "f5c42a9c-78d9-11e9-a24c-645e8f5d185b")
     }
 
     @Test
@@ -169,5 +168,11 @@ class CoreXMLParserXSLFeedTest {
     @Throws
     fun sourceUrl_iCorrect() {
         assertNull(article.sourceUrl)
+    }
+
+    @Test
+    @Throws
+    fun video_isCorrect() {
+        assertNull(article.video)
     }
 }

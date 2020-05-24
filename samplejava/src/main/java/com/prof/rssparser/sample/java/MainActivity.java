@@ -34,15 +34,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.prof.rssparser.Channel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -71,44 +69,34 @@ public class MainActivity extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.root_layout);
 
-        viewModel.getChannel().observe(this, new Observer<Channel>() {
-            @Override
-            public void onChanged(Channel channel) {
-                if (channel != null) {
-                    if (channel.getTitle() != null) {
-                        setTitle(channel.getTitle());
-                    }
-                    mAdapter = new ArticleAdapter(channel.getArticles(), MainActivity.this);
-                    mRecyclerView.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
-                    mSwipeRefreshLayout.setRefreshing(false);
+        viewModel.getChannel().observe(this, channel -> {
+            if (channel != null) {
+                if (channel.getTitle() != null) {
+                    setTitle(channel.getTitle());
                 }
+                mAdapter = new ArticleAdapter(channel.getArticles(), MainActivity.this);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        viewModel.getSnackbar().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(String s) {
-                if (s != null) {
-                    Snackbar.make(relativeLayout, s, Snackbar.LENGTH_LONG).show();
-                    viewModel.onSnackbarShowed();
-                }
+        viewModel.getSnackbar().observe(this, s -> {
+            if (s != null) {
+                Snackbar.make(relativeLayout, s, Snackbar.LENGTH_LONG).show();
+                viewModel.onSnackbarShowed();
             }
         });
 
         mSwipeRefreshLayout = findViewById(R.id.swipe_layout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
         mSwipeRefreshLayout.canChildScrollUp();
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-            @Override
-            public void onRefresh() {
-                mAdapter.getArticleList().clear();
-                mAdapter.notifyDataSetChanged();
-                mSwipeRefreshLayout.setRefreshing(true);
-                viewModel.fetchFeed();
-            }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            mAdapter.getArticleList().clear();
+            mAdapter.notifyDataSetChanged();
+            mSwipeRefreshLayout.setRefreshing(true);
+            viewModel.fetchFeed();
         });
 
         if (!isNetworkAvailable()) {
@@ -137,7 +125,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        NetworkInfo activeNetworkInfo = null;
+        if (connectivityManager != null) {
+            activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        }
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
@@ -149,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {

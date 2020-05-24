@@ -3,11 +3,11 @@ package com.prof.rssparser.core
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.lang.Exception
+import java.nio.charset.Charset
 
 object CoreXMLFetcher {
-
     @Throws(Exception::class)
-    fun fetchXML(url: String, okHttpClient: OkHttpClient? = null): String {
+    fun fetchXML(url: String, okHttpClient: OkHttpClient? = null, charset: Charset): String {
         var client = okHttpClient
         if (client == null) {
             client = OkHttpClient()
@@ -17,6 +17,7 @@ object CoreXMLFetcher {
                 .build()
 
         val response = client.newCall(request).execute()
-        return response.body()!!.string()
+        val byteStream = response.body()!!.byteStream()
+        return byteStream.bufferedReader(charset).use { it.readText() }
     }
 }

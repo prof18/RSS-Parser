@@ -1,14 +1,35 @@
 # RSS Parser
+
 [![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-## Important Notice
+**RSS Parser** is an Android library to parse any RSS feed. With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed. 
+
+As of April 2020, it's been downloaded more than 30,000 times from 125 different countries (among them, North Korea, Madagascar and even Panama 🌴).
+
+## ⚠️ Important Notice
+
 Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to the latest version available.
 
-## About
+## Table of Contents
 
-This is an Android library to parse a RSS Feed. You can retrieve the following information about an RSS channel:
+* [Available data](#available-data)
+* [Features](#features)
+  * [Caching](#caching)
+  * [RSS Parsing from string](rss-parsing-from-string)
+* [Installation](#installation)
+* [Usage](#usage)
+  * [Kotlin](#kotlin)
+  * [Java (deprecated)](#java)
+* [Sample app](#sample-app)
+* [Changelog](#changelog)
+* [License](#license)
+* [Apps using RSS Parser](#app-using-rss-parser)
+
+## Available data
+
+The RSS channel resulting object provides you with the following data:
 
 - Title
 - Description
@@ -18,7 +39,7 @@ This is an Android library to parse a RSS Feed. You can retrieve the following i
 - Last build data
 - Update period
 
-Articles can have following attributes:
+Articles, on the other hand, support the following attributes:
 
 - Title
 - Author
@@ -29,52 +50,95 @@ Articles can have following attributes:
 - Publication Date
 - Categories
 - Audio
-- Source (name and link)  
+- Source (name and link)
 
+## Features
 
-**Disclaimer**: This library has been built starting from RSS feed generated from a Wordpress Site. Of course it's compatible with RSS feed generated from other tipe of sites; [Here](https://www.androidauthority.com/feed/) you can find an example of RSS feed.
+### Caching
 
-## How to
-#### Import:
-The library is uploaded in jCenter, so you can easily add the dependency:
+The library provides a caching layer to avoid wasting data with very long feeds. All you need to do is provide an expiration date. For more details, give a look to the [Usage section](#usage)
+
+⚠️ For the time being caching is only supported if you are using Kotlin.
+
+### RSS Parsing from string
+
+COMING SOON
+
+## Installation
+
+The library is provided by jCenter, so you can easily add its dependency and be good to go.
+
 ```Gradle
 dependencies {
   implementation 'com.prof.rssparser:rssparser:2.1.1'
 }
 ```
-#### Use:
 
-Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, The compatibility with Java has been maintained and the same code of the versions 1.x can be used.  
+## Usage
 
-If you are using Kotlin you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine that retrieves the articles. 
+### Kotlin
+
+First of all, you have to create a `Parser` object with the Parser Builder. In the builder you can provided some custom and optional fields:
+
+- A custom `OkHttpClient`; if not provided, the library will create one for you.
+- A custom Charset; if not provided, the default one is `UTF_8`.
+- The Android Context, mandatory to make the caching layer work.
+- The cache expiration date in milliseconds, mandatory to make the caching layer work.
+
+If you don't provide the Android Context and the cache expiration date, the library will continue working but without the caching feature.
 
 ```Kotlin
-import com.prof.rssparser.Article
-import com.prof.rssparser.Parser
+val parser = Parser.Builder()
+                .context(this)
+                .charset(Charset.forName("ISO-8859-7"))
+                .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+                .build()
+```
+
+The library uses the Kotlin Coroutines to retrieve, parse and cache the feed. So to start the process, you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine.
+
+```Kotlin
 
 //url of RSS feed
 private val url = "https://www.androidauthority.com/feed"
 
-coroutineScope.launch(Dispatchers.Main) {
+viewModelScope.launch {
     try {
-        val parser = Parser()
-        val articleList = parser.getChannel(url)
-        // Show the channel data
+        val channel = parser.getChannel(url)
+        // Do something with your data
     } catch (e: Exception) {
+        e.printStackTrace()
         // Handle the exception
     }
 }
 ```
-You can give a look to the full kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
 
-If you are still using Java, the code is very similar to the older versions of the library:
+For flushing the cache:
+
+```Kotlin
+parser.flushCache(url)
+```
+
+You can give a look to the full Kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
+
+### Java
+
+Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, the compatibility with Java has been preserved and the same code of the versions 1.x can still be used.
+
+⚠️ For the time being, the caching is not supported if you are using Java.
+
+If you are still using Java, this is the interface to use the library:
 
 ```Java
 import com.prof.rssparser.Article;
 import com.prof.rssparser.OnTaskCompleted;
 import com.prof.rssparser.Parser;
 
-Parser parser = new Parser();
+Parser parser = new Parser.Builder()
+        .charset(Charset.forName("ISO-8859-7"))
+        // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
+        .build();
+        
 parser.onFinish(new OnTaskCompleted() {
 
     //what to do when the parsing is done
@@ -91,10 +155,12 @@ parser.onFinish(new OnTaskCompleted() {
 });
 parser.execute(urlString);
 ```
+
 The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 
-##### Version 1.4.4 and below:
+#### Version 1.4.4 and below
 
+For older versions of the library, the interface is marginally different:
 
 ```Java
 import com.prof.rssparser.Article;
@@ -117,7 +183,9 @@ parser.onFinish(new Parser.OnTaskCompleted() {
 });
 parser.execute(urlString);
 ```
+
 ## Sample app
+
 I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't an image, a placeholder will be loaded. 
 
 <img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
@@ -138,6 +206,7 @@ From version 1.4.4 and above, the changelog is available in the [release section
 - 18 June 2016 - First release  - Version 1.0
 
 ## License
+
 ```
    Copyright 2016-2020 Marco Gomiero
 
@@ -153,3 +222,13 @@ From version 1.4.4 and above, the changelog is available in the [release section
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
+
+## Apps using RSS Parser
+If you are using RSS Parser in your app and would like to be listed here, please open a pull request!
+
+<details>
+  <summary>List of Apps using RSS Parser</summary>
+
+* [MarioDiscepolo.com](https://play.google.com/store/apps/details?id=com.prof.mariodiscepolo&hl=it)
+
+</details>
