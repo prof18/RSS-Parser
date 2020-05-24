@@ -3,8 +3,8 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 21002,
-            'libVersionName'     : '2.1.2',
+            'libVersionCode'     : 30000,
+            'libVersionName'     : '3.0.0',
             'compileSdk'         : 29,
             'minSdk'             : 14,
             'targetSdk'          : 29,

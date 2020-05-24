@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode 21001
-        versionName "2.1.1"
+        versionCode versions.libVersionCode
+        versionName versions.libVersionName
     }
 
     buildTypes {
