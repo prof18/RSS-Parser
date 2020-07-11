@@ -23,7 +23,11 @@ import com.prof.rssparser.caching.CacheManager
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 import java.util.concurrent.ExecutorService
@@ -39,6 +43,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     // private variables
     private var onComplete: OnTaskCompleted? = null
     private lateinit var service: ExecutorService
+
     // Internal to make testable
     internal var cacheManager: CacheManager? = null
     internal var executorService: ExecutorService? = null
@@ -52,6 +57,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
     // Just for back compatibility
     @Deprecated("Use the builder to create the parser object")
     constructor(okHttpClient: OkHttpClient? = null) : this(okHttpClient, Charsets.UTF_8, null, null)
+
     @Deprecated("Use the builder to create the parser object")
     constructor() : this(null, Charsets.UTF_8, null, null)
 
@@ -67,12 +73,11 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      *
      */
     data class Builder(
-            private var okHttpClient: OkHttpClient? = null,
-            private var charset: Charset = Charsets.UTF_8,
-            private var context: Context? = null,
-            private var cacheExpirationMillis: Long? = null
+        private var okHttpClient: OkHttpClient? = null,
+        private var charset: Charset = Charsets.UTF_8,
+        private var context: Context? = null,
+        private var cacheExpirationMillis: Long? = null
     ) {
-
         fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.okHttpClient = okHttpClient }
         fun charset(charset: Charset) = apply { this.charset = charset }
         fun context(context: Context) = apply { this.context = context }
@@ -180,6 +185,15 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
             return@withContext channel
         }
     }
+
+    /**
+     * Parses the [rawRssFeed] into a [Channel].
+     *
+     * @exception Exception if something goes wrong during the parsing of the RSS feed.
+     * @param rawRssFeed The Raw data of the Rss Feed.
+     */
+    @Throws(Exception::class)
+    suspend fun parse(rawRssFeed: String): Channel = CoroutineEngine.parseXML(rawRssFeed)
 
     /**
      *
