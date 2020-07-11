@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = CacheConstants.CACHED_FEEDS_TABLE_NAME)
-class CachedFeed(
+internal class CachedFeed(
         @PrimaryKey
         @ColumnInfo(name = "url_hash")
         var urlHash: Int,

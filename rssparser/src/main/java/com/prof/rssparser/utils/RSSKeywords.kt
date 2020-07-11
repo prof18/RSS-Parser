@@ -17,7 +17,7 @@
 
 package com.prof.rssparser.utils
 
-object RSSKeywords {
+internal object RSSKeywords {
 
     // channel
     const val RSS_CHANNEL = "channel"

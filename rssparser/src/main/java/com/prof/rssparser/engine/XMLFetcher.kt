@@ -22,7 +22,7 @@ import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 import java.util.concurrent.Callable
 
-class XMLFetcher(private val url: String, private val okHttpClient: OkHttpClient?, private val charset: Charset) : Callable<String> {
+internal class XMLFetcher(private val url: String, private val okHttpClient: OkHttpClient?, private val charset: Charset) : Callable<String> {
 
     @Throws(Exception::class)
     override fun call(): String {

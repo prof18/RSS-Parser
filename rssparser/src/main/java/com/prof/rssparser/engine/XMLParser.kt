@@ -21,7 +21,7 @@ import com.prof.rssparser.Channel
 import com.prof.rssparser.core.CoreXMLParser
 import java.util.concurrent.Callable
 
-class XMLParser(var xml: String) : Callable<Channel> {
+internal class XMLParser(var xml: String) : Callable<Channel> {
 
     @Throws(Exception::class)
     override fun call(): Channel {

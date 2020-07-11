@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 
-object CoroutineEngine {
+internal object CoroutineEngine {
 
     @Throws(Exception::class)
     suspend fun fetchXML(url: String, okHttpClient: OkHttpClient?, charset: Charset): String = withContext(Dispatchers.IO) {
