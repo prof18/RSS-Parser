@@ -71,9 +71,9 @@ class MainViewModel : ViewModel() {
                 .build()
             val result = okHttpClient.newCall(request).execute()
             val raw = runCatching { result.body()?.string() }.getOrNull()
-            if(raw == null){
+            if (raw == null) {
                 _snackbar.postValue("Something went wrong!")
-            } else{
+            } else {
                 val channel = parser.parse(raw)
                 _rssChannel.postValue(channel)
             }

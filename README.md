@@ -120,6 +120,8 @@ parser.flushCache(url)
 ```
 
 For simply parsing raw data:
+- A `suspend` function `Parser#parser(rawRssFeed)` which returns the channel.  
+- A java compatible function `Parser.parser(rawRssFeed, OnTaskCompleted)` which calls the listener once done.
 
 ```kotlin
 // parser without any network or caching configuration

@@ -19,7 +19,9 @@ package com.prof.rssparser
 
 import android.content.Context
 import android.util.Log
+import androidx.annotation.WorkerThread
 import com.prof.rssparser.caching.CacheManager
+import com.prof.rssparser.core.CoreXMLParser
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
@@ -194,6 +196,26 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      */
     @Throws(Exception::class)
     suspend fun parse(rawRssFeed: String): Channel = CoroutineEngine.parseXML(rawRssFeed)
+
+    /**
+     * Parses the [rawRssFeed] into a [Channel] and notifies the [listener].
+     *
+     * If the operation is successful, then [OnTaskCompleted.onTaskCompleted] is called with
+     * the parsed channel. Otherwise, [OnTaskCompleted.onError]  is called.
+     *
+     * @exception Exception if something goes wrong during the parsing of the RSS feed.
+     * @param rawRssFeed The Raw data of the Rss Feed.
+     * @param listener Completion listener
+     */
+    @Throws(Exception::class)
+    @WorkerThread
+    fun parse(rawRssFeed: String, listener: OnTaskCompleted) {
+        try {
+            listener.onTaskCompleted(CoreXMLParser.parseXML(rawRssFeed))
+        } catch (exception: Exception) {
+            listener.onError(exception)
+        }
+    }
 
     /**
      *
