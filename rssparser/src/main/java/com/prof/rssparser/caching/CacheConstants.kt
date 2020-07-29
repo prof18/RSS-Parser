@@ -1,6 +1,6 @@
 package com.prof.rssparser.caching
 
-object CacheConstants {
+internal object CacheConstants {
     const val CACHED_FEEDS_TABLE_NAME = "feeds"
     const val CACHED_FEEDS_URL_HASH = "url_hash"
 

@@ -6,7 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-abstract class CachedFeedDao {
+internal abstract class CachedFeedDao {
     @Query(CacheConstants.QUERY_GET_CACHED_PROJECT)
     abstract suspend fun getCachedProject(urlHash: Int): CachedFeed?
 

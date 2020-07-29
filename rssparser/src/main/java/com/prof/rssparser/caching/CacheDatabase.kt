@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [CachedFeed::class], version = 1)
-abstract class CacheDatabase: RoomDatabase() {
+internal abstract class CacheDatabase: RoomDatabase() {
     abstract fun cachedProjectsDao(): CachedFeedDao
     
     companion object {

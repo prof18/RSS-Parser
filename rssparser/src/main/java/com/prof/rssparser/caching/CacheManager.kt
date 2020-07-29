@@ -19,7 +19,7 @@ import java.io.ObjectOutputStream
  *  the test, to provide a TestCoroutineDispatcher
  *
  */
-class CacheManager(internal val database: CacheDatabase, // internal just for close db during testing
+internal class CacheManager(internal val database: CacheDatabase, // internal just for close db during testing
                    private val cacheDurationMillis: Long,
                    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
