@@ -3,8 +3,8 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 30000,
-            'libVersionName'     : '3.0.0',
+            'libVersionCode'     : 31000,
+            'libVersionName'     : '3.1.0',
             'compileSdk'         : 29,
             'minSdk'             : 14,
             'targetSdk'          : 29,
@@ -32,10 +32,7 @@ buildscript {
 
     repositories {
         google()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
         jcenter()
     }
 

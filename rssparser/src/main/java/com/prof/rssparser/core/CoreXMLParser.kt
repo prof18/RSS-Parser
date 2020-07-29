@@ -30,7 +30,7 @@ import java.io.InputStreamReader
 import java.io.Reader
 import java.util.regex.Pattern
 
-object CoreXMLParser {
+internal object CoreXMLParser {
 
     @Throws(XmlPullParserException::class, IOException::class)
     fun parseXML(xml: String): Channel {

@@ -37,8 +37,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.prof.rssparser.Parser
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
+import com.prof.rssparser.sample.kotlin.util.AlertDialogHelper
+import kotlinx.android.synthetic.main.activity_main.toolbar
+import kotlinx.android.synthetic.main.content_main.progressBar
+import kotlinx.android.synthetic.main.content_main.recycler_view
+import kotlinx.android.synthetic.main.content_main.root_layout
+import kotlinx.android.synthetic.main.content_main.swipe_layout
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,11 +58,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         parser = Parser.Builder()
-                .context(this)
-                // If you want to provide a custom charset (the default is utf-8):
-                // .charset(Charset.forName("ISO-8859-7"))
-                .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
-                .build()
+            .context(this)
+            // If you want to provide a custom charset (the default is utf-8):
+            // .charset(Charset.forName("ISO-8859-7"))
+            .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+            .build()
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.itemAnimator = DefaultItemAnimator()
@@ -97,10 +101,10 @@ class MainActivity : AppCompatActivity() {
         if (!isOnline()) {
             val builder = AlertDialog.Builder(this)
             builder.setMessage(R.string.alert_message)
-                    .setTitle(R.string.alert_title)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.alert_positive
-                    ) { dialog, id -> finish() }
+                .setTitle(R.string.alert_title)
+                .setCancelable(false)
+                .setPositiveButton(R.string.alert_positive
+                ) { dialog, id -> finish() }
 
             val alert = builder.create()
             alert.show()
@@ -119,16 +123,24 @@ class MainActivity : AppCompatActivity() {
         val id = item.itemId
 
         if (id == R.id.action_settings) {
-            val alertDialog = androidx.appcompat.app.AlertDialog.Builder(this@MainActivity).create()
+            val alertDialog = AlertDialog.Builder(this@MainActivity).create()
             alertDialog.setTitle(R.string.app_name)
             alertDialog.setMessage(Html.fromHtml(this@MainActivity.getString(R.string.info_text) +
-                    " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
-                    this@MainActivity.getString(R.string.author)))
-            alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK"
+                " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
+                this@MainActivity.getString(R.string.author)))
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
             ) { dialog, which -> dialog.dismiss() }
             alertDialog.show()
 
             (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
+        } else if (id == R.id.action_raw_parser) {
+            AlertDialogHelper(
+                title = R.string.alert_raw_parser_title,
+                positiveButton = R.string.alert_raw_parser_positive,
+                negativeButton = R.string.alert_raw_parser_negative
+            ).buildInputDialog(this) { url ->
+                viewModel.fetchForUrlAndParseRawRata(url)
+            }.show()
         }
 
         return super.onOptionsItemSelected(item)

@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.prof.rssparser.example.MainActivity">
     <item
+        android:id="@+id/action_raw_parser"
+        android:title="@string/action_raw_parser"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_about"

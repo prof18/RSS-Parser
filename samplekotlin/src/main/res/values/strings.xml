@@ -32,4 +32,8 @@
      <string name="info_text">This is a simple app that shows the use of RSS Parse library.
          &lt;br /&gt;&lt;br /&gt;You can find the source code on </string>
     <string name="author">&lt;br /&gt;&lt;br /&gt;Written by Marco Gomiero</string>
+    <string name="action_raw_parser">Parse raw data from URL</string>
+    <string name="alert_raw_parser_title">Add an RSS feed url</string>
+    <string name="alert_raw_parser_positive">Ok</string>
+    <string name="alert_raw_parser_negative">Cancel</string>
 </resources>
