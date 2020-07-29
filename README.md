@@ -62,7 +62,7 @@ The library provides a caching layer to avoid wasting data with very long feeds.
 
 ### RSS Parsing from string
 
-The library provides a way of simply parsing raw data into POJOs.
+The library provides a way of simply parsing raw data from a string.
 
 ## Installation
 
@@ -121,7 +121,6 @@ parser.flushCache(url)
 
 For simply parsing raw data:
 - A `suspend` function `Parser#parser(rawRssFeed)` which returns the channel.  
-- A java compatible function `Parser.parser(rawRssFeed, OnTaskCompleted)` which calls the listener once done.
 
 ```kotlin
 // parser without any network or caching configuration
@@ -174,6 +173,11 @@ parser.onFinish(new OnTaskCompleted() {
 });
 parser.execute(urlString);
 ```
+
+For parsing raw data there is a java compatible function which calls the listeners `OnTaskCompleted` and `onError` once done.
+
+`Parser.parser(rawRssFeed, OnTaskCompleted)`
+
 
 The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
 

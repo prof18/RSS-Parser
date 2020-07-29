@@ -32,10 +32,7 @@ buildscript {
 
     repositories {
         google()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
         jcenter()
     }
 
