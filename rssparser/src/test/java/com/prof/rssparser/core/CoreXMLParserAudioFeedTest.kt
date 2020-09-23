@@ -128,7 +128,7 @@ class CoreXMLParserAudioFeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertNull(article.image)
+        assertEquals(article.image, "http://megaphone-prod.s3.amazonaws.com/podcasts/c41042ae-5460-11e8-b38c-5f5faf9dd0c5/image/uploads_2F1583260134090-ua5pbey0yx-25644ab8bbd946b90180c8601dbe70c1_2FSKSKLogo-FINAL-iHR-3000x3000.png")
     }
 
     @Test
