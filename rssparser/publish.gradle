@@ -17,8 +17,8 @@ def properties = new Properties()
 properties.load(new FileInputStream("local.properties"))
 
 bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+    user = System.getenv("bintrayUser")
+    key = System.getenv("bintrayApiKey")
     publications = ['mavenPublish']
     configurations = ['archives']
     override = true
