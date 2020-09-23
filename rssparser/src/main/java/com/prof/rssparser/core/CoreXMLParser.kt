@@ -51,7 +51,7 @@ internal object CoreXMLParser {
         factory.isNamespaceAware = false
 
         val xmlPullParser = factory.newPullParser()
-        val reader: Reader = InputStreamReader(ByteArrayInputStream(xml.toByteArray()))
+        val reader: Reader = InputStreamReader(ByteArrayInputStream(xml.trim().toByteArray()))
 
         xmlPullParser.setInput(reader)
 
