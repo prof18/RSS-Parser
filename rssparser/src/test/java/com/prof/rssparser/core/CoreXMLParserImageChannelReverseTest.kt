@@ -3,9 +3,8 @@ package com.prof.rssparser.core
 import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNull
 import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
