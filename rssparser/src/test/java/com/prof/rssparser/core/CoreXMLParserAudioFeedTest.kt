@@ -43,7 +43,7 @@ class CoreXMLParserAudioFeedTest {
         val feed = inputStream.bufferedReader().use { it.readText() }
         channel = CoreXMLParser.parseXML(feed)
         articleList = channel.articles
-        article = articleList[0]
+        article = articleList[1]
     }
 
     @Test
