@@ -12,10 +12,6 @@ project.ext {
     mavSiteUrl = 'https://github.com/prof18/RSS-Parser'
 }
 
-
-def properties = new Properties()
-properties.load(new FileInputStream("local.properties"))
-
 bintray {
     user = System.getenv("bintrayUser")
     key = System.getenv("bintrayApiKey")
