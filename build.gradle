@@ -4,7 +4,7 @@ apply plugin: "com.github.ben-manes.versions"
 buildscript {
     ext.versions = [
             'libVersionCode'     : 31000,
-            'libVersionName'     : '3.1.0',
+            'libVersionName'     : '3.1.1',
             'compileSdk'         : 29,
             'minSdk'             : 14,
             'targetSdk'          : 29,
