@@ -132,6 +132,11 @@ internal object CoreXMLParser {
                         channelImage?.url = xmlPullParser.nextText().trim()
                     }
 
+                } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_ITUNES_IMAGE, ignoreCase = true)) {
+                    if (insideItem) {
+                        currentArticle.image = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_HREF)
+                    }
+
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_ENCLOSURE, ignoreCase = true)) {
                     if (insideItem) {
                         val type = xmlPullParser.getAttributeValue(null, RSSKeywords.RSS_ITEM_TYPE)

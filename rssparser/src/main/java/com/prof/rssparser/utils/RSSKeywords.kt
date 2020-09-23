@@ -42,4 +42,6 @@ internal object RSSKeywords {
     const val RSS_ITEM_TYPE = "type"
     const val RSS_ITEM_GUID = "guid"
     const val RSS_ITEM_SOURCE = "source"
+    const val RSS_ITEM_ITUNES_IMAGE = "itunes:image"
+    const val RSS_ITEM_HREF = "href"
 }

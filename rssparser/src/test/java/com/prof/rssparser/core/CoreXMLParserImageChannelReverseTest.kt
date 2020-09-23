@@ -120,7 +120,7 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertNull(article.image)
+        assertEquals(article.image, "http://static.libsyn.com/p/assets/2/8/7/9/28797cc6f284596e/JRE1405.jpg")
     }
 
     @Test
