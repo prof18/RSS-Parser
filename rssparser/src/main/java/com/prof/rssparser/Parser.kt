@@ -178,7 +178,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         val cachedFeed = cacheManager?.getCachedFeed(url)
         if (cachedFeed != null) {
             Log.d(TAG, "Returning object from cache")
-            return@withContext cachedFeed as Channel
+            return@withContext cachedFeed
         } else {
             Log.d(TAG, "Returning data from network")
             val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)

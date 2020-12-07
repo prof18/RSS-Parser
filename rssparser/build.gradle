@@ -12,6 +12,7 @@ android {
         targetSdkVersion versions.targetSdk
         versionCode versions.libVersionCode
         versionName versions.libVersionName
+        buildConfigField 'int', 'VERSION_CODE', String.valueOf(versions.libVersionCode)
     }
 
     buildTypes {
@@ -30,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    api "com.squareup.okhttp3:okhttp:${versions.okhttp}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
@@ -45,13 +46,10 @@ dependencies {
     testImplementation "androidx.room:room-testing:${versions.room}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.test:core:${versions.androidXTest}"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.testCoroutines}"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockitoKotlin}"
-    testImplementation "org.mockito:mockito-core:${versions.mockito}"
+    testImplementation "org.mockito:mockito-core:${versions.mockitoCore}"
     testImplementation "org.mockito:mockito-inline:${versions.mockitoInline}"
-
-
-
 }
 
 

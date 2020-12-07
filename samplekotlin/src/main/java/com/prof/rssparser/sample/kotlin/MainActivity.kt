@@ -28,21 +28,21 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.prof.rssparser.Parser
 import com.prof.rssparser.sample.kotlin.util.AlertDialogHelper
-import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.content_main.progressBar
-import kotlinx.android.synthetic.main.content_main.recycler_view
-import kotlinx.android.synthetic.main.content_main.root_layout
-import kotlinx.android.synthetic.main.content_main.swipe_layout
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,6 +55,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+        val swipeLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_layout)
+        val rootLayout = findViewById<RelativeLayout>(R.id.root_layout)
+
         setSupportActionBar(toolbar)
 
         parser = Parser.Builder()
@@ -64,37 +70,37 @@ class MainActivity : AppCompatActivity() {
             .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
             .build()
 
-        recycler_view.layoutManager = LinearLayoutManager(this)
-        recycler_view.itemAnimator = DefaultItemAnimator()
-        recycler_view.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.setHasFixedSize(true)
 
-        viewModel.rssChannel.observe(this, Observer { channel ->
+        viewModel.rssChannel.observe(this, { channel ->
             if (channel != null) {
                 if (channel.title != null) {
                     title = channel.title
                 }
                 adapter = ArticleAdapter(channel.articles)
-                recycler_view.adapter = adapter
+                recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE
-                swipe_layout.isRefreshing = false
+                swipeLayout.isRefreshing = false
             }
 
         })
 
-        viewModel.snackbar.observe(this, Observer { value ->
+        viewModel.snackbar.observe(this, { value ->
             value?.let {
-                Snackbar.make(root_layout, value, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(rootLayout, value, Snackbar.LENGTH_LONG).show()
                 viewModel.onSnackbarShowed()
             }
         })
 
-        swipe_layout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
-        swipe_layout.canChildScrollUp()
-        swipe_layout.setOnRefreshListener {
+        swipeLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
+        swipeLayout.canChildScrollUp()
+        swipeLayout.setOnRefreshListener {
             adapter.articles.clear()
             adapter.notifyDataSetChanged()
-            swipe_layout.isRefreshing = true
+            swipeLayout.isRefreshing = true
             viewModel.fetchFeed(parser)
         }
 
@@ -104,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                 .setTitle(R.string.alert_title)
                 .setCancelable(false)
                 .setPositiveButton(R.string.alert_positive
-                ) { dialog, id -> finish() }
+                ) { _, _ -> finish() }
 
             val alert = builder.create()
             alert.show()
@@ -129,7 +135,7 @@ class MainActivity : AppCompatActivity() {
                 " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
                 this@MainActivity.getString(R.string.author)))
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
-            ) { dialog, which -> dialog.dismiss() }
+            ) { dialog, _ -> dialog.dismiss() }
             alertDialog.show()
 
             (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()

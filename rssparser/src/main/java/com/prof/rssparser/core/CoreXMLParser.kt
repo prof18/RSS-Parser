@@ -255,7 +255,7 @@ internal object CoreXMLParser {
         if (matcherImg.find()) {
             val imgTag = matcherImg.group(1)
             val patternLink = Pattern.compile("src\\s*=\\s*\"(.+?)\"")
-            val matcherLink = patternLink.matcher(imgTag)
+            val matcherLink = patternLink.matcher(imgTag ?: "")
             if (matcherLink.find()) {
                 url = matcherLink.group(1)?.trim()
             }
