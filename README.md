@@ -70,7 +70,7 @@ The library is provided by jCenter, so you can easily add its dependency and be 
 
 ```Gradle
 dependencies {
-  implementation 'com.prof.rssparser:rssparser:2.1.1'
+  implementation 'com.prof.rssparser:rssparser:<latest-version>'
 }
 ```
 
