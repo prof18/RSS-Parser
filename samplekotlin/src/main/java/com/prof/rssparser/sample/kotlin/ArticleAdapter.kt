@@ -24,11 +24,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.Article
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.row.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,6 +40,12 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) = holder.bind(articles[position])
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        private val title = itemView.findViewById<TextView>(R.id.title)
+        private val pubDate = itemView.findViewById<TextView>(R.id.pubDate)
+        private val categoriesText = itemView.findViewById<TextView>(R.id.categories)
+        private val image = itemView.findViewById<ImageView>(R.id.image)
+
         @SuppressLint("SetJavaScriptEnabled")
         fun bind(article: Article) {
 
@@ -59,14 +65,14 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
                 e.printStackTrace()
             }
 
-            itemView.title.text = article.title
+            title.text = article.title
 
             Picasso.get()
                     .load(article.image)
                     .placeholder(R.drawable.placeholder)
-                    .into(itemView.image)
+                    .into(image)
 
-            itemView.pubDate.text = pubDateString
+            pubDate.text = pubDateString
 
             var categories = ""
             for (i in 0 until article.categories.size) {
@@ -77,7 +83,7 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
                 }
             }
 
-            itemView.categories.text = categories
+            categoriesText.text = categories
 
             itemView.setOnClickListener {
                 //show article content inside a dialog
