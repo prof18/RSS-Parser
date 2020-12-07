@@ -13,7 +13,7 @@ project.ext {
 }
 
 def properties = new Properties()
-properties.load(new FileInputStream("local.properties"))
+//properties.load(new FileInputStream("local.properties"))
 
 bintray {
     user = System.getenv("bintrayUser") ?: properties.getProperty("bintray.user")
