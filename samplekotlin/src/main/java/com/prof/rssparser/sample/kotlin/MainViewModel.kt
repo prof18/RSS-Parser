@@ -62,7 +62,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun fetchForUrlAndParseRawRata(url: String) {
+    fun fetchForUrlAndParseRawData(url: String) {
         val parser = Parser.Builder().build()
 
         viewModelScope.launch(Dispatchers.IO) {
