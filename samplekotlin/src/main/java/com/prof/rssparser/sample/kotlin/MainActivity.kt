@@ -145,7 +145,7 @@ class MainActivity : AppCompatActivity() {
                 positiveButton = R.string.alert_raw_parser_positive,
                 negativeButton = R.string.alert_raw_parser_negative
             ).buildInputDialog(this) { url ->
-                viewModel.fetchForUrlAndParseRawRata(url)
+                viewModel.fetchForUrlAndParseRawData(url)
             }.show()
         }
 
