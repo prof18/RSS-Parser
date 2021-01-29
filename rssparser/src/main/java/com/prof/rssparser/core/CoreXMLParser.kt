@@ -167,14 +167,14 @@ internal object CoreXMLParser {
                     }
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_DESCRIPTION, ignoreCase = true)) {
                     if (insideChannel) {
-                        if (insideItem) {
-                            val description = xmlPullParser.nextText()
-                            currentArticle.description = description.trim()
-                            imageUrlFromContent = getImageUrl(description)
-                        } else if (insideChannelImage) {
-                            channelImage?.description = xmlPullParser.nextText().trim()
-                        } else {
-                            channelDescription = xmlPullParser.nextText().trim()
+                        when {
+                            insideItem -> {
+                                val description = xmlPullParser.nextText()
+                                currentArticle.description = description.trim()
+                                imageUrlFromContent = getImageUrl(description)
+                            }
+                            insideChannelImage -> channelImage?.description = xmlPullParser.nextText().trim()
+                            else -> channelDescription = xmlPullParser.nextText().trim()
                         }
                     }
 
@@ -219,6 +219,7 @@ internal object CoreXMLParser {
                 insideItem = false
                 if (currentArticle.image == null) {
                     currentArticle.image = imageUrlFromContent
+                    imageUrlFromContent = null
                 }
                 articleList.add(currentArticle)
                 currentArticle = Article()
@@ -254,10 +255,10 @@ internal object CoreXMLParser {
         val matcherImg = patternImg.matcher(input)
         if (matcherImg.find()) {
             val imgTag = matcherImg.group(1)
-            val patternLink = Pattern.compile("src\\s*=\\s*\"(.+?)\"")
+            val patternLink = Pattern.compile("src\\s*=\\s*([\"'])(.+?)([\"'])")
             val matcherLink = patternLink.matcher(imgTag ?: "")
             if (matcherLink.find()) {
-                url = matcherLink.group(1)?.trim()
+                url = matcherLink.group(2)?.trim()
             }
         }
         return url

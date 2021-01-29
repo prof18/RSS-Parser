@@ -42,7 +42,7 @@ dependencies {
     implementation "androidx.room:room-ktx:${versions.room}"
 
     testImplementation "junit:junit:${versions.junit}"
-    testImplementation "org.robolectric:robolectric:4.4"
+    testImplementation "org.robolectric:robolectric:4.5"
     testImplementation "androidx.room:room-testing:${versions.room}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.test:core:${versions.androidXTest}"

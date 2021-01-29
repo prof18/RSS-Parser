@@ -1,16 +1,17 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'  : 31002,
-            'libVersionName'  : '3.1.2',
-            'compileSdk'      : 29,
+            'libVersionCode'  : 31003,
+            'libVersionName'  : '3.1.3',
+            'compileSdk'      : 30,
             'minSdk'          : 14,
-            'targetSdk'       : 29,
+            'targetSdk'       : 30,
             'buildTools'      : '30.0.3',
             'okhttp'          : '3.12.0', // LTS version, update until December 31, 2021.
-            'coroutines'      : '1.4.1',
+            'coroutines'      : '1.4.2',
             'testCoroutines'  : '1.4.2',
             'kotlin'          : '1.4.21',
             'appCompat'       : '1.2.0',
@@ -23,13 +24,13 @@ buildscript {
             'extJunit'        : '1.1.0',
             'espresso'        : '3.1.1',
             'mockito'         : '2.23.0',
-            'room'            : '2.2.5',
+            'room'            : '2.2.6',
             'swipe'           : '1.1.0',
             'activityAndroidx': '1.1.0',
             'androidXTest'    : '1.3.0',
             'mockitoKotlin'   : '2.2.0',
-            'mockitoInline'   : '2.27.0',
-            'mockitoCore'     : '3.3.3'
+            'mockitoInline'   : '3.7.7',
+            'mockitoCore'     : '3.7.7'
     ]
 
     repositories {
@@ -39,7 +40,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
@@ -59,4 +60,16 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def isNonStable = { String version ->
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !(version ==~ regex)
+}
+
+tasks.named("dependencyUpdates").configure {
+    // Example 1: reject all non stable versions
+    rejectVersionIf {
+        isNonStable(it.candidate.version)
+    }
 }
