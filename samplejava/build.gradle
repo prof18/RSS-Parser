@@ -26,12 +26,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":rssparser")
-//    implementation "com.prof.rssparser:rssparser:${versions.libVersionName}"
+//    implementation "com.prof18.rssparser:rssparser:1.0"
 
     // UI
     implementation "androidx.appcompat:appcompat:${versions.appCompat}"
     implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
     implementation "androidx.cardview:cardview:${versions.androidx}"
     implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
@@ -39,7 +39,7 @@ dependencies {
 
     // Architecture components
     implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleExtensions}"
 
 }
 
