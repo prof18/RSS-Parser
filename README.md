@@ -10,7 +10,7 @@ As of April 2020, it's been downloaded more than 30,000 times from 125 different
 
 ## ⚠️ Important Notice
 
-The library artifacts have been moved to MavenCentral. The group id is changed from `com.prof.youtubeparser` to `com.prof18.youtubeparser`.
+The library artifacts have been moved to MavenCentral. The group id is changed from `com.prof.rssparser` to `com.prof18.rssparser`.
 Be sure to add the gradle dependency to your root `build.gradle` file.
 ```
 allprojects {
