@@ -1,6 +1,6 @@
 # RSS Parser
 
-[![Download](https://api.bintray.com/packages/prof18/maven/RSS-Parser/images/download.svg)](https://bintray.com/prof18/maven/YoutubeParser/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.prof18.rssparser/rssparser/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.prof18.rssparser/rssparser)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
@@ -10,7 +10,15 @@ As of April 2020, it's been downloaded more than 30,000 times from 125 different
 
 ## ⚠️ Important Notice
 
-Versions 1.4 and 1.4.1 have been deleted due to a critical dependency error. Please forgive me and update to the latest version available.
+The library artifacts have been moved to MavenCentral. The group id is changed from `com.prof.youtubeparser` to `com.prof18.youtubeparser`.
+Be sure to add the gradle dependency to your root `build.gradle` file.
+```
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+```
 
 ## Table of Contents
 
@@ -66,11 +74,11 @@ The library provides a way of simply parsing raw data from a string.
 
 ## Installation
 
-The library is provided by jCenter, so you can easily add its dependency and be good to go.
+The library is uploaded on MavenCentral, so you can easily add the dependency:
 
 ```Gradle
 dependencies {
-  implementation 'com.prof.rssparser:rssparser:<latest-version>'
+  implementation 'com.prof18.rssparser:rssparser:<latest-version>'
 }
 ```
 
