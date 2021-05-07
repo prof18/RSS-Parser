@@ -2,26 +2,26 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 31003,
-            'libVersionName'     : '3.1.3',
+            'libVersionCode'     : 31004,
+            'libVersionName'     : '3.1.4',
             'compileSdk'         : 30,
             'minSdk'             : 14,
             'targetSdk'          : 30,
             'buildTools'         : '30.0.3',
             'okhttp'             : '3.12.0', // LTS version, update until December 31, 2021.
-            'coroutines'         : '1.4.2',
-            'testCoroutines'     : '1.4.2',
-            'kotlin'             : '1.4.30',
+            'coroutines'         : '1.4.3',
+            'testCoroutines'     : '1.4.3',
+            'kotlin'             : '1.5.0',
             'appCompat'          : '1.2.0',
             'constraintLayout'   : '2.0.4',
             'material'           : '1.3.0',
             'androidx'           : '1.0.0',
-            'lifecycle'          : '2.3.0',
+            'lifecycle'          : '2.3.1',
             'picasso'            : '2.71828',
-            'room'               : '2.2.6',
+            'room'               : '2.3.0',
             'swipe'              : '1.1.0',
             'activityAndroidx'   : '1.2.0',
-            'recyclerView'       : '1.1.0',
+            'recyclerView'       : '1.2.0',
             'lifecycleExtensions': '2.2.0',
 
             'junit'              : '4.13.2',
@@ -30,7 +30,7 @@ buildscript {
             'mockito'            : '2.23.0',
             'androidXTest'       : '1.3.0',
             'mockitoKotlin'      : '2.2.0',
-            'mockitoInline'      : '3.7.7',
+            'mockitoInline'      : '3.9.0',
             'robolectric'        : '4.5.1',
             'mockitoCore'        : '3.7.7'
     ]
@@ -47,11 +47,11 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.36.0"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.20"
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.38.0"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.32"
     }
 }
 

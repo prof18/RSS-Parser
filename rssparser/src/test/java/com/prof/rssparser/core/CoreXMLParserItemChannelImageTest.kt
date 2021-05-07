@@ -1,3 +1,20 @@
+/*
+*   Copyright 2019 Marco Gomiero
+*
+*   Licensed under the Apache License, Version 2.0 (the "License");
+*   you may not use this file except in compliance with the License.
+*   You may obtain a copy of the License at
+*
+*       http://www.apache.org/licenses/LICENSE-2.0
+*
+*   Unless required by applicable law or agreed to in writing, software
+*   distributed under the License is distributed on an "AS IS" BASIS,
+*   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*   See the License for the specific language governing permissions and
+*   limitations under the License.
+*
+*/
+
 package com.prof.rssparser.core
 
 import android.os.Build
@@ -12,10 +29,10 @@ import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class CoreXMLParserBingFeedImage {
+class CoreXMLParserItemChannelImageTest {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-bing-image.xml"
+    private val feedPath = "/feed-item-channel-image.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -29,32 +46,32 @@ class CoreXMLParserBingFeedImage {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "madrid - BingNews")
+        assertEquals(channel.title, "www.espn.com - TOP")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Search results")
+        assertEquals(channel.description, "Latest TOP news from www.espn.com")
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.bing.com:443/news/search?q=madrid&format=rss")
+        assertEquals(channel.link, "https://www.espn.com")
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "madrid")
+        assertEquals(channel.image?.title, "www.espn.com - TOP")
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.bing.com:443/news/search?q=madrid&format=rss")
+        assertEquals(channel.image?.link, "https://www.espn.com")
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "http://www.bing.com/rsslogo.gif")
+        assertEquals(channel.image?.url, "https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif")
     }
 
     @Test
@@ -64,7 +81,7 @@ class CoreXMLParserBingFeedImage {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertNull(channel.lastBuildDate)
+        assertEquals(channel.lastBuildDate, "Fri, 7 May 2021 18:43:18 GMT")
     }
 
     @Test
@@ -82,8 +99,7 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Real Madrid, Barcelona and Juventus 'threaten clubs withdrawing from Super League\n" +
-                "                with legal action'")
+        assertEquals(article.title, "Inside the mysterious world of missing sports memorabilia")
     }
 
     @Test
@@ -95,21 +111,19 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=12BE3CE268B0484F92DD9828C685E325&url=https%3a%2f%2fwww.dailymail.co.uk%2fsport%2ffootball%2farticle-9554407%2fReal-Madrid-Barcelona-Juventus-threaten-clubs-withdrawing-Super-League-legal-action.html&c=4438839993362862681&mkt=it-it")
+        assertEquals(article.link, "https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia")
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 07 May 2021 12:00:00 GMT")
+        assertEquals(article.pubDate, "Fri, 7 May 2021 10:44:02 EST")
     }
 
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals(article.description, "The three European giants are refusing to let the plans die and have\n" +
-                "                warned their former partners they will extract millions of dollars in penalties if\n" +
-                "                they walk away from the league.")
+        assertEquals(article.description, "Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.")
     }
 
     @Test
@@ -121,7 +135,7 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "http://www.bing.com/th?id=OVFT.SNpH_QAbpZOYgrEHZRyCTi&pid=News")
+        assertEquals(article.image, "https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg")
     }
 
     @Test
@@ -133,7 +147,7 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertNull(article.guid)
+        assertEquals(article.guid, "31393791")
     }
 
     @Test
