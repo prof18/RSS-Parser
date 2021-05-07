@@ -17,6 +17,7 @@
 
 package com.prof.rssparser.core
 
+import android.util.Log
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Image
@@ -38,7 +39,7 @@ internal object CoreXMLParser {
         var channelTitle: String? = null
         var channelLink: String? = null
         var channelDescription: String? = null
-        var channelImage: Image? = null
+        var channelImage: Image? = Image()
         var channelLastBuildDate: String? = null
         var channelUpdatePeriod: String? = null
         val articleList = mutableListOf<Article>()
@@ -72,11 +73,12 @@ internal object CoreXMLParser {
 
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM, ignoreCase = true)) {
                     insideItem = true
-
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_IMAGE, ignoreCase = true)) {
-                    insideChannelImage = true
-                    channelImage = Image()
-
+                    if (insideChannel && !insideItem) {
+                        insideChannelImage = true
+                    } else if (insideItem) {
+                        currentArticle.image = xmlPullParser.nextText().trim()
+                    }
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_TITLE, ignoreCase = true)) {
                     if (insideChannel) {
                         when {
@@ -232,6 +234,12 @@ internal object CoreXMLParser {
             }
             eventType = xmlPullParser.next()
         }
+
+        // If channel image is empty, then set as null
+        if (channelImage != null && channelImage.isEmpty()) {
+            channelImage = null
+        }
+
         return Channel(
                 title = channelTitle,
                 link = channelLink,
