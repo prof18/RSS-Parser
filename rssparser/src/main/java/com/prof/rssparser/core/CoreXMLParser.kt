@@ -17,7 +17,6 @@
 
 package com.prof.rssparser.core
 
-import android.util.Log
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Image
@@ -213,6 +212,10 @@ internal object CoreXMLParser {
                 } else if (xmlPullParser.name.equals(RSSKeywords.RSS_CHANNEL_UPDATE_PERIOD, ignoreCase = true)) {
                     if (insideChannel) {
                         channelUpdatePeriod = xmlPullParser.nextText().trim()
+                    }
+                }  else if (xmlPullParser.name.equals(RSSKeywords.RSS_ITEM_IMAGE_NEWS, ignoreCase = true)) {
+                    if (insideItem) {
+                        currentArticle.image = xmlPullParser.nextText().trim()
                     }
                 }
 
