@@ -56,7 +56,7 @@ class CacheManagerTest {
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel)
 
-        val channelCached = database.cachedProjectsDao().getCachedProject(url.hashCode())
+        val channelCached = database.cachedFeedDao().getCachedFeed(url.hashCode())
         assertNotNull(channelCached)
     }
 
@@ -103,6 +103,12 @@ class CacheManagerTest {
     }
 
     @Test
+    fun `getCachedFeed returns null when cache is not present`() = testScope.runBlockingTest {
+        val cachedChannel = cacheManager.getCachedFeed(ChannelFactory.getLink())
+        assertNull(cachedChannel)
+    }
+
+    @Test
     fun `flushAllCache works correctly`() = testScope.runBlockingTest {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
@@ -115,8 +121,8 @@ class CacheManagerTest {
         cacheManager.flushAllCache()
 
         // Check cache is empty
-        val channel1 = database.cachedProjectsDao().getCachedProject(url.hashCode())
-        val channel2 = database.cachedProjectsDao().getCachedProject(url2.hashCode())
+        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode())
 
         assertNull(channel1)
         assertNull(channel2)
@@ -135,8 +141,8 @@ class CacheManagerTest {
         cacheManager.flushCachedFeed(url2)
 
         // Check cache is empty
-        val channel1 = database.cachedProjectsDao().getCachedProject(url.hashCode())
-        val channel2 = database.cachedProjectsDao().getCachedProject(url2.hashCode())
+        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode())
 
         assertNotNull(channel1)
         assertNull(channel2)
@@ -152,7 +158,7 @@ class CacheManagerTest {
         // Flush cache of wrong channel
         cacheManager.flushCachedFeed("wrong url")
 
-        val cachedFeed = database.cachedProjectsDao().getCachedProject(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
         assertNotNull(cachedFeed)
 
     }
@@ -166,7 +172,7 @@ class CacheManagerTest {
         cacheManager.getCachedFeed(url)
 
         // Check if not present in the db
-        val cachedFeed = database.cachedProjectsDao().getCachedProject(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
         assertNull(cachedFeed)
     }
 
@@ -181,7 +187,7 @@ class CacheManagerTest {
         cacheManager.getCachedFeed(url)
 
         // Check if not present in the db
-        val cachedFeed = database.cachedProjectsDao().getCachedProject(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
         assertNull(cachedFeed)
     }
 }

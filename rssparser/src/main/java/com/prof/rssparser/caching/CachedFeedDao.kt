@@ -7,8 +7,8 @@ import androidx.room.Query
 
 @Dao
 internal abstract class CachedFeedDao {
-    @Query(CacheConstants.QUERY_GET_CACHED_PROJECT)
-    abstract suspend fun getCachedProject(urlHash: Int): CachedFeed?
+    @Query(CacheConstants.QUERY_GET_CACHED_FEED)
+    abstract suspend fun getCachedFeed(urlHash: Int): CachedFeed?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertFeed(cachedFeed: CachedFeed)

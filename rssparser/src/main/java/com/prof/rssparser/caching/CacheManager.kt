@@ -19,9 +19,10 @@ import java.io.ObjectOutputStream
  *  the test, to provide a TestCoroutineDispatcher
  *
  */
-internal class CacheManager(internal val database: CacheDatabase, // internal just for close db during testing
-                   private val cacheDurationMillis: Long,
-                   private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+internal class CacheManager(
+    internal val database: CacheDatabase, // internal just for close db during testing
+    private val cacheDurationMillis: Long,
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
     /**
@@ -30,7 +31,7 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
      *
      */
     suspend fun flushAllCache() {
-        database.cachedProjectsDao().deleteAllFeed()
+        database.cachedFeedDao().deleteAllFeed()
     }
 
     /**
@@ -39,7 +40,7 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
      * @param url The url of the RSS feed.
      */
     suspend fun flushCachedFeed(url: String) {
-        database.cachedProjectsDao().deleteFeed(url.hashCode())
+        database.cachedFeedDao().deleteFeed(url.hashCode())
     }
 
     /**
@@ -54,9 +55,11 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
      * @param libraryVersion The version of RSS Parser library. This param is not used by the client but only for testing
      *
      */
-    suspend fun cacheFeed(url: String, channel: Channel,
-                          cachedDate: Long = System.currentTimeMillis(),
-                          libraryVersion: Int = BuildConfig.VERSION_CODE) {
+    suspend fun cacheFeed(
+        url: String, channel: Channel,
+        cachedDate: Long = System.currentTimeMillis(),
+        libraryVersion: Int = BuildConfig.VERSION_CODE
+    ) {
         // The coroutineDispatcher has to be Dispatchers.IO
         withContext(coroutineDispatcher) {
             var objectStream: ObjectOutputStream? = null
@@ -71,13 +74,13 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
                 val urlHash = url.hashCode()
 
                 val cachedFeed = CachedFeed(
-                        urlHash = urlHash,
-                        byteArray = bytes,
-                        cachedDate = cachedDate,
-                        libraryVersion = libraryVersion
+                    urlHash = urlHash,
+                    byteArray = bytes,
+                    cachedDate = cachedDate,
+                    libraryVersion = libraryVersion
                 )
 
-                database.cachedProjectsDao().insertFeed(cachedFeed)
+                database.cachedFeedDao().insertFeed(cachedFeed)
                 Log.d(TAG, "Saved the feed to cache")
 
             } catch (e: Exception) {
@@ -105,29 +108,30 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
     suspend fun getCachedFeed(url: String): Channel? = withContext(coroutineDispatcher) {
         val urlHash = url.hashCode()
 
-        database.cachedProjectsDao().getCachedProject(urlHash)?.let { cachedFeed ->
-            // Just to avoid problems when the Channel object changes
-            if (cachedFeed.libraryVersion != BuildConfig.VERSION_CODE) {
-                flushCachedFeed(url)
-                return@withContext null
-            }
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(urlHash)
+            ?: return@withContext null
 
-            if (System.currentTimeMillis() - cachedFeed.cachedDate <= cacheDurationMillis) {
-                val inputStream = ByteArrayInputStream(cachedFeed.byteArray)
-                var objectInput: ObjectInputStream?
-                try {
-                    objectInput = ObjectInputStream(inputStream)
-                    val channelFromCache = objectInput.readObject() as Channel
-                    Log.d(TAG, "Feed restored from cache")
-                    return@withContext channelFromCache
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to load feed from cache")
-                    return@withContext null
-                }
-            } else {
-                flushCachedFeed(url)
+        // Just to avoid problems when the Channel object changes
+        if (cachedFeed.libraryVersion != BuildConfig.VERSION_CODE) {
+            flushCachedFeed(url)
+            return@withContext null
+        }
+
+        if (System.currentTimeMillis() - cachedFeed.cachedDate <= cacheDurationMillis) {
+            val inputStream = ByteArrayInputStream(cachedFeed.byteArray)
+            val objectInput: ObjectInputStream?
+            try {
+                objectInput = ObjectInputStream(inputStream)
+                val channelFromCache = objectInput.readObject() as Channel
+                Log.d(TAG, "Feed restored from cache")
+                return@withContext channelFromCache
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to load feed from cache")
                 return@withContext null
             }
+        } else {
+            flushCachedFeed(url)
+            return@withContext null
         }
     }
 
@@ -141,7 +145,8 @@ internal class CacheManager(internal val database: CacheDatabase, // internal ju
             if (INSTANCE == null) {
                 synchronized(lock) {
                     if (INSTANCE == null) {
-                        INSTANCE = CacheManager(CacheDatabase.getInstance(context), cacheDurationMillis)
+                        INSTANCE =
+                            CacheManager(CacheDatabase.getInstance(context), cacheDurationMillis)
                     }
                     return INSTANCE as CacheManager
                 }
