@@ -2,56 +2,53 @@ apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 31005,
-            'libVersionName'     : '3.1.5',
+            'libVersionCode'     : 31006,
+            'libVersionName'     : '3.1.6',
             'compileSdk'         : 30,
             'minSdk'             : 14,
             'targetSdk'          : 30,
             'buildTools'         : '30.0.3',
-            'okhttp'             : '3.12.0', // LTS version, update until December 31, 2021.
-            'coroutines'         : '1.5.0',
-            'testCoroutines'     : '1.5.0',
-            'kotlin'             : '1.5.10',
-            'appCompat'          : '1.2.0',
-            'constraintLayout'   : '2.0.4',
-            'material'           : '1.3.0',
+            'okhttp'             : '3.12.13', // LTS version for android 4 and below, update until December 31, 2021.
+            'coroutines'         : '1.5.1',
+            'testCoroutines'     : '1.5.1',
+            'kotlin'             : '1.5.21',
+            'appCompat'          : '1.3.1',
+            'constraintLayout'   : '2.1.0',
+            'material'           : '1.4.0',
             'androidx'           : '1.0.0',
             'lifecycle'          : '2.3.1',
             'picasso'            : '2.71828',
             'room'               : '2.3.0',
             'swipe'              : '1.1.0',
-            'activityAndroidx'   : '1.2.0',
-            'recyclerView'       : '1.2.0',
+            'activityAndroidx'   : '1.3.0',
+            'recyclerView'       : '1.2.1',
             'lifecycleExtensions': '2.2.0',
 
             'junit'              : '4.13.2',
             'extJunit'           : '1.1.0',
             'espresso'           : '3.1.1',
             'mockito'            : '2.23.0',
-            'androidXTest'       : '1.3.0',
+            'androidXTest'       : '1.4.0',
             'mockitoKotlin'      : '2.2.0',
-            'mockitoInline'      : '3.9.0',
-            'robolectric'        : '4.5.1',
-            'mockitoCore'        : '3.7.7'
+            'mockitoInline'      : '3.11.2',
+            'robolectric'        : '4.6.1',
+            'mockitoCore'        : '3.11.2'
     ]
 
     repositories {
         google()
         mavenCentral()
         maven {
-            url  "https://dl.bintray.com/kotlin/dokka"
-        }
-        maven {
             url "https://plugins.gradle.org/m2/"
         }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.1'
+        classpath 'com.android.tools.build:gradle:7.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.39.0"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.32"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
     }
 }
 
@@ -59,11 +56,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven {
-            url = "https://dl.bintray.com/kotlin/dokka"
-        }
-        // org.jetbrains.trove4j:trove4j:20160824.
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 

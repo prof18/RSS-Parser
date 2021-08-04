@@ -17,9 +17,13 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode versions.libVersionCode
-        versionName versions.libVersionName
         buildConfigField 'int', 'VERSION_CODE', String.valueOf(versions.libVersionCode)
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {
