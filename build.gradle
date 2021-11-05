@@ -1,4 +1,6 @@
 apply plugin: "com.github.ben-manes.versions"
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: "${rootDir}/gradle/publish-root.gradle"
 
 buildscript {
     ext.versions = [
@@ -51,6 +53,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.39.0"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.31"
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
 

@@ -8,7 +8,7 @@ ext {
     PUBLISH_ARTIFACT_ID = 'rssparser'
 }
 
-apply from: "${rootProject.projectDir}/gradle/publish-mavencentral.gradle"
+apply from: "${rootProject.projectDir}/gradle/publish-module.gradle"
 
 android {
     compileSdkVersion versions.targetSdk
