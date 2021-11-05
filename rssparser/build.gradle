@@ -17,8 +17,6 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-        versionCode versions.libVersionCode
-        versionName versions.libVersionName
         buildConfigField 'int', 'VERSION_CODE', String.valueOf(versions.libVersionCode)
     }
 
@@ -45,7 +43,8 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:${versions.room}"
-    kapt "androidx.room:room-compiler:${versions.room}" // For Kotlin use kapt instead of annotationProcessor
+    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleExtensions}"
+    kapt "androidx.room:room-compiler:${versions.room}"
     implementation "androidx.room:room-ktx:${versions.room}"
 
     testImplementation "junit:junit:${versions.junit}"
@@ -53,7 +52,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:${versions.room}"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.test:core:${versions.androidXTest}"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.testCoroutines}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockitoKotlin}"
     testImplementation "org.mockito:mockito-core:${versions.mockitoCore}"
     testImplementation "org.mockito:mockito-inline:${versions.mockitoInline}"
