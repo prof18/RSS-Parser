@@ -45,4 +45,10 @@ internal object RSSKeywords {
     const val RSS_ITEM_ITUNES_IMAGE = "itunes:image"
     const val RSS_ITEM_HREF = "href"
     const val RSS_ITEM_IMAGE_NEWS = "News:Image"
+
+
+
+    // Itunes keywords
+    // https://help.apple.com/itc/podcasts_connect/#/itcb54353390
+    // https://podcasters.apple.com/support/823-podcast-requirements
 }
