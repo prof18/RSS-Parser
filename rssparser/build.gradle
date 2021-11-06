@@ -12,12 +12,17 @@ apply from: "${rootProject.projectDir}/gradle/publish-module.gradle"
 
 android {
     compileSdkVersion versions.targetSdk
-    buildToolsVersion = versions.buildTools
 
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         buildConfigField 'int', 'VERSION_CODE', String.valueOf(versions.libVersionCode)
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     buildTypes {

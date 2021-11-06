@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion versions.compileSdk
-    buildToolsVersion = versions.buildTools
 
     defaultConfig {
         applicationId "com.prof.rssparser.sample.kotlin"
