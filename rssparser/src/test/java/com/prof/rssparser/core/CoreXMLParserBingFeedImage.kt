@@ -1,17 +1,15 @@
 package com.prof.rssparser.core
 
-import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-@Config(sdk = [Build.VERSION_CODES.P])
 class CoreXMLParserBingFeedImage {
     private lateinit var articleList: MutableList<Article>
     private lateinit var article: Article
