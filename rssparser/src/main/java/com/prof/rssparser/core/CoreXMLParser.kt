@@ -32,7 +32,6 @@ import java.util.regex.Pattern
 
 internal object CoreXMLParser {
 
-    @Throws(XmlPullParserException::class, IOException::class)
     fun parseXML(xml: String): Channel {
 
         var channelTitle: String? = null

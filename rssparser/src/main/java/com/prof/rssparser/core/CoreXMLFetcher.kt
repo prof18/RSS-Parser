@@ -6,7 +6,6 @@ import java.lang.Exception
 import java.nio.charset.Charset
 
 internal object CoreXMLFetcher {
-    @Throws(Exception::class)
     fun fetchXML(url: String, okHttpClient: OkHttpClient? = null, charset: Charset): String {
         var client = okHttpClient
         if (client == null) {

@@ -173,7 +173,6 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      * @param url The url of the RSS feed
      *
      */
-    @Throws(Exception::class)
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
         val cachedFeed = cacheManager?.getCachedFeed(url)
         if (cachedFeed != null) {
@@ -194,7 +193,6 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      * @exception Exception if something goes wrong during the parsing of the RSS feed.
      * @param rawRssFeed The Raw data of the Rss Feed.
      */
-    @Throws(Exception::class)
     suspend fun parse(rawRssFeed: String): Channel = CoroutineEngine.parseXML(rawRssFeed)
 
     /**
@@ -207,7 +205,6 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
      * @param rawRssFeed The Raw data of the Rss Feed.
      * @param listener Completion listener
      */
-    @Throws(Exception::class)
     @WorkerThread
     fun parse(rawRssFeed: String, listener: OnTaskCompleted) {
         try {
