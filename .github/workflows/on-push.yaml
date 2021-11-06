@@ -19,7 +19,7 @@ jobs:
           java-version: 11
 
       - name: Run all the tests
-        run: ./gradlew test
+        run: ./gradlew rssparser:test
 
       - name: Stop Gradle
         run: ./gradlew --stop
