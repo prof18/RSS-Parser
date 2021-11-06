@@ -1,26 +1,27 @@
 apply plugin: "com.github.ben-manes.versions"
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply from: "${rootDir}/gradle/publish-root.gradle"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 31006,
-            'libVersionName'     : '3.1.6',
+            'libVersionCode'     : 31005,
+            'libVersionName'     : '3.1.5',
             'compileSdk'         : 30,
             'minSdk'             : 14,
             'targetSdk'          : 30,
             'buildTools'         : '30.0.3',
-            'okhttp'             : '3.12.13', // LTS version for android 4 and below, update until December 31, 2021.
-            'coroutines'         : '1.5.1',
-            'testCoroutines'     : '1.5.1',
-            'kotlin'             : '1.5.21',
+            'okhttp'             : '3.12.0', // LTS version, update until December 31, 2021.
+            'coroutines'         : '1.5.2',
+            'kotlin'             : '1.5.31',
             'appCompat'          : '1.3.1',
-            'constraintLayout'   : '2.1.0',
+            'constraintLayout'   : '2.1.1',
             'material'           : '1.4.0',
             'androidx'           : '1.0.0',
-            'lifecycle'          : '2.3.1',
+            'lifecycle'          : '2.4.0',
             'picasso'            : '2.71828',
             'room'               : '2.3.0',
             'swipe'              : '1.1.0',
-            'activityAndroidx'   : '1.3.0',
+            'activityAndroidx'   : '1.4.0',
             'recyclerView'       : '1.2.1',
             'lifecycleExtensions': '2.2.0',
 
@@ -30,25 +31,29 @@ buildscript {
             'mockito'            : '2.23.0',
             'androidXTest'       : '1.4.0',
             'mockitoKotlin'      : '2.2.0',
-            'mockitoInline'      : '3.11.2',
+            'mockitoInline'      : '4.0.0',
             'robolectric'        : '4.6.1',
-            'mockitoCore'        : '3.11.2'
+            'mockitoCore'        : '4.0.0'
     ]
 
     repositories {
         google()
         mavenCentral()
         maven {
+            url "https://dl.bintray.com/kotlin/dokka"
+        }
+        maven {
             url "https://plugins.gradle.org/m2/"
         }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
+        classpath 'com.android.tools.build:gradle:7.0.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
         classpath "com.github.ben-manes:gradle-versions-plugin:0.39.0"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.0"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.31"
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
     }
 }
 
@@ -56,6 +61,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url = "https://dl.bintray.com/kotlin/dokka" }
     }
 }
 
