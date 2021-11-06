@@ -17,8 +17,8 @@ jobs:
           distribution: adopt
           java-version: 11
 
-    - name: Run all the tests
-      run: ./gradlew test
+      - name: Run all the tests
+        run: ./gradlew test
 
-    - name: Stop Gradle
-      run: ./gradlew --stop
+      - name: Stop Gradle
+        run: ./gradlew --stop
