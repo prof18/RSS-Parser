@@ -1,7 +1,8 @@
-name: PR Checks
-on: 
-  pull_request:
-    branches: 
+name: Publish
+
+on:
+  push:
+    branches:
       - '*'
 
 jobs:
@@ -17,8 +18,8 @@ jobs:
           distribution: adopt
           java-version: 11
 
-    - name: Run all the tests
-      run: ./gradlew test
+      - name: Run all the tests
+        run: ./gradlew test
 
-    - name: Stop Gradle
-      run: ./gradlew --stop
+      - name: Stop Gradle
+        run: ./gradlew --stop
