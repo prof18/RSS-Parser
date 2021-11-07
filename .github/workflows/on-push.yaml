@@ -1,7 +1,8 @@
-name: PR Checks
-on: 
-  pull_request:
-    branches: 
+name: Publish
+
+on:
+  push:
+    branches:
       - '*'
 
 jobs:

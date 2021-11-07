@@ -24,7 +24,6 @@ import java.util.concurrent.Callable
 
 internal class XMLFetcher(private val url: String, private val okHttpClient: OkHttpClient?, private val charset: Charset) : Callable<String> {
 
-    @Throws(Exception::class)
     override fun call(): String {
         return CoreXMLFetcher.fetchXML(url = url, okHttpClient = okHttpClient, charset = charset)
     }

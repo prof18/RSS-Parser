@@ -12,7 +12,6 @@ apply from: "${rootProject.projectDir}/gradle/publish-module.gradle"
 
 android {
     compileSdkVersion versions.targetSdk
-    buildToolsVersion = versions.buildTools
 
     defaultConfig {
         minSdkVersion versions.minSdk

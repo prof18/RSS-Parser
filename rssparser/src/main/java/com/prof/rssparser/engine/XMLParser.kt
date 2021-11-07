@@ -23,7 +23,6 @@ import java.util.concurrent.Callable
 
 internal class XMLParser(var xml: String) : Callable<Channel> {
 
-    @Throws(Exception::class)
     override fun call(): Channel {
         return CoreXMLParser.parseXML(xml)
     }
