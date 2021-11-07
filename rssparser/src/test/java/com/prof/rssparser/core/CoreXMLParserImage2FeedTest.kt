@@ -28,7 +28,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class CoreXMLParserImage2FeedTest {
-    private lateinit var articleList: MutableList<Article>
+    private lateinit var articleList: List<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-image-2.xml"
     private lateinit var channel: Channel

@@ -32,12 +32,20 @@ import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
+class ArticleAdapter(private var articles: List<Article>) :
+    RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
 
     override fun getItemCount() = articles.size
 
-    override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) = holder.bind(articles[position])
+    override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) =
+        holder.bind(articles[position])
+
+    fun clearArticles() {
+        articles = emptyList()
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -68,9 +76,9 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
             title.text = article.title
 
             Picasso.get()
-                    .load(article.image)
-                    .placeholder(R.drawable.placeholder)
-                    .into(image)
+                .load(article.image)
+                .placeholder(R.drawable.placeholder)
+                .into(image)
 
             pubDate.text = pubDateString
 
@@ -93,18 +101,27 @@ class ArticleAdapter(val articles: MutableList<Article>) : RecyclerView.Adapter<
                 articleView.settings.javaScriptEnabled = true
                 articleView.isHorizontalScrollBarEnabled = false
                 articleView.webChromeClient = WebChromeClient()
-                articleView.loadDataWithBaseURL(null, "<style>img{display: inline; height: auto; max-width: 100%;} " +
+                articleView.loadDataWithBaseURL(
+                    null,
+                    "<style>img{display: inline; height: auto; max-width: 100%;} " +
 
-                        "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n" + article.content, null, "utf-8", null)
+                            "</style>\n" + "<style>iframe{ height: auto; width: auto;}" + "</style>\n" + article.content,
+                    null,
+                    "utf-8",
+                    null
+                )
 
-                val alertDialog = androidx.appcompat.app.AlertDialog.Builder(itemView.context).create()
+                val alertDialog =
+                    androidx.appcompat.app.AlertDialog.Builder(itemView.context).create()
                 alertDialog.setTitle(article.title)
                 alertDialog.setView(articleView)
-                alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK"
+                alertDialog.setButton(
+                    androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, "OK"
                 ) { dialog, _ -> dialog.dismiss() }
                 alertDialog.show()
 
-                (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
+                (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod =
+                    LinkMovementMethod.getInstance()
             }
         }
     }

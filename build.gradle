@@ -5,8 +5,8 @@ apply from: "${rootDir}/gradle/publish-root.gradle"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 31005,
-            'libVersionName'     : '3.1.5',
+            'libVersionCode'     : 40001,
+            'libVersionName'     : '4.0.1',
             'compileSdk'         : 31,
             'minSdk'             : 14,
             'targetSdk'          : 31,

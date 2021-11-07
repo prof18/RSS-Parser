@@ -25,21 +25,18 @@ import com.prof.rssparser.core.CoreXMLParser
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
-                                 private val charset: Charset = Charsets.UTF_8,
-                                 context: Context? = null,
-                                 cacheExpirationMillis: Long? = null
+class Parser private constructor(
+    private var okHttpClient: OkHttpClient? = null,
+    private val charset: Charset = Charsets.UTF_8,
+    context: Context? = null,
+    cacheExpirationMillis: Long? = null
 ) {
 
     // private variables
@@ -83,7 +80,9 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.okHttpClient = okHttpClient }
         fun charset(charset: Charset) = apply { this.charset = charset }
         fun context(context: Context) = apply { this.context = context }
-        fun cacheExpirationMillis(cacheExpirationMillis: Long) = apply { this.cacheExpirationMillis = cacheExpirationMillis }
+        fun cacheExpirationMillis(cacheExpirationMillis: Long) =
+            apply { this.cacheExpirationMillis = cacheExpirationMillis }
+
         fun build() = Parser(okHttpClient, charset, context, cacheExpirationMillis)
     }
 
@@ -225,7 +224,7 @@ class Parser private constructor(private var okHttpClient: OkHttpClient? = null,
         cacheManager?.flushCachedFeed(url)
     }
 
-    companion object {
+    internal companion object {
         private const val TAG = "RSSParser"
     }
 }

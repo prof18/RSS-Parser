@@ -64,7 +64,7 @@ object ChannelFactory {
                         video = null,
                         sourceName = null,
                         sourceUrl = null,
-                        _categories = mutableListOf("News", "5G", "Japan")
+                        categories = mutableListOf("News", "5G", "Japan")
                 ),
                 Article(
                         guid = "https://www.androidauthority.com/?p=986861",
@@ -92,7 +92,7 @@ object ChannelFactory {
                         video = null,
                         sourceName = null,
                         sourceUrl = null,
-                        _categories = mutableListOf("News", "Samsung", "Samsung Galaxy Fold")
+                        categories = mutableListOf("News", "Samsung", "Samsung Galaxy Fold")
                 )
         )
 
