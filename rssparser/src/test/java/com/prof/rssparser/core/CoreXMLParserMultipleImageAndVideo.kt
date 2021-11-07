@@ -12,7 +12,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class CoreXMLParserMultipleImageAndVideo {
 
-    private lateinit var articleList: MutableList<Article>
+    private lateinit var articleList: List<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-multiple-image-and-video.xml"
     private lateinit var channel: Channel

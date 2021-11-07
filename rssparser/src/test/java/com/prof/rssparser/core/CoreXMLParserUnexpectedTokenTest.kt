@@ -28,7 +28,7 @@ import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
 class CoreXMLParserUnexpectedTokenTest {
-    private lateinit var articleList: MutableList<Article>
+    private lateinit var articleList: List<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-unexpected-token.xml"
     private lateinit var channel: Channel

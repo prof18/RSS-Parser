@@ -1,11 +1,12 @@
 apply plugin: "com.github.ben-manes.versions"
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
+apply plugin: 'binary-compatibility-validator'
 apply from: "${rootDir}/gradle/publish-root.gradle"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 31005,
-            'libVersionName'     : '3.1.5',
+            'libVersionCode'     : 40001,
+            'libVersionName'     : '4.0.1',
             'compileSdk'         : 31,
             'minSdk'             : 14,
             'targetSdk'          : 31,
@@ -53,6 +54,7 @@ buildscript {
         classpath "com.github.ben-manes:gradle-versions-plugin:0.39.0"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.31"
         classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
+        classpath "org.jetbrains.kotlinx:binary-compatibility-validator:0.8.0-RC"
     }
 }
 

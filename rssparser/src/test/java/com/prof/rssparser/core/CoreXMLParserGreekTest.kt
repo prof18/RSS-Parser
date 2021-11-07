@@ -11,7 +11,7 @@ import java.nio.charset.Charset
 
 @RunWith(RobolectricTestRunner::class)
 class CoreXMLParserGreekTest {
-    private lateinit var articleList: MutableList<Article>
+    private lateinit var articleList: List<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test-greek.xml"
     private lateinit var channel: Channel

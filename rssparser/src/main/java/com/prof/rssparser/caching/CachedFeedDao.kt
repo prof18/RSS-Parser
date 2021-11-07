@@ -6,16 +6,16 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-internal abstract class CachedFeedDao {
+internal interface CachedFeedDao {
     @Query(CacheConstants.QUERY_GET_CACHED_FEED)
-    abstract suspend fun getCachedFeed(urlHash: Int): CachedFeed?
+    suspend fun getCachedFeed(urlHash: Int): CachedFeed?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract suspend fun insertFeed(cachedFeed: CachedFeed)
+    suspend fun insertFeed(cachedFeed: CachedFeed)
 
     @Query(CacheConstants.DELETE_ALL_QUERY)
-    abstract suspend fun deleteAllFeed()
+    suspend fun deleteAllFeed()
 
     @Query(CacheConstants.DELETE_CACHED_FEED)
-    abstract suspend fun deleteFeed(urlHash: Int)
+    suspend fun deleteFeed(urlHash: Int)
 }
