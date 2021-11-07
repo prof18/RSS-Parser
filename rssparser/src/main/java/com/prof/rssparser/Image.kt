@@ -3,12 +3,26 @@ package com.prof.rssparser
 import java.io.Serializable
 
 data class Image(
-    var title: String? = null,
-    var url: String? = null,
-    var link: String? = null,
-    var description: String? = null
+    val title: String?,
+    val url: String?,
+    val link: String?,
+    val description: String?
 ) : Serializable {
 
-    fun isEmpty() =
-        title.isNullOrBlank() && url.isNullOrBlank() && link.isNullOrBlank() && description.isNullOrBlank()
+    fun isEmpty(): Boolean {
+        return title.isNullOrBlank() && url.isNullOrBlank() && link.isNullOrBlank() && description.isNullOrBlank()
+    }
+
+    internal data class Builder(
+        private var title: String? = null,
+        private var url: String? = null,
+        private var link: String? = null,
+        private var description: String? = null
+    ) {
+        fun title(title: String?) = apply { this.title = title }
+        fun url(url: String?) = apply { this.url = url }
+        fun link(link: String?) = apply { this.link = link }
+        fun description(description: String?) = apply { this.description = description }
+        fun build() = Image(title, url, link, description)
+    }
 }

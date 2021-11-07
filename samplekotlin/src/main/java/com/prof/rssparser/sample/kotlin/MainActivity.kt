@@ -98,8 +98,7 @@ class MainActivity : AppCompatActivity() {
         swipeLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
         swipeLayout.canChildScrollUp()
         swipeLayout.setOnRefreshListener {
-            adapter.articles.clear()
-            adapter.notifyDataSetChanged()
+            adapter.clearArticles()
             swipeLayout.isRefreshing = true
             viewModel.fetchFeed(parser)
         }

@@ -29,7 +29,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class CoreXMLParserStandardFeedTest {
 
-    private lateinit var articleList: MutableList<Article>
+    private lateinit var articleList: List<Article>
     private lateinit var article: Article
     private val feedPath = "/feed-test.xml"
     private lateinit var channel: Channel
