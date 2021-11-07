@@ -24,6 +24,19 @@ internal object RSSKeywords {
     const val RSS_CHANNEL_IMAGE = "image"
     const val RSS_CHANNEL_UPDATE_PERIOD = "sy:updatePeriod"
     const val RSS_CHANNEL_LAST_BUILD_DATE = "lastBuildDate"
+    // channel itunes
+    const val RSS_CHANNEL_ITUNES_AUTHOR = "itunes:author"
+    const val RSS_CHANNEL_ITUNES_DURATION = "itunes:duration"
+    const val RSS_CHANNEL_ITUNES_KEYWORDS = "itunes:keywords"
+    const val RSS_CHANNEL_ITUNES_CATEGORY = "itunes:category"
+    const val RSS_CHANNEL_ITUNES_IMAGE = "itunes:image"
+    const val RSS_CHANNEL_ITUNES_EXPLICIT = "itunes:explicit"
+    const val RSS_CHANNEL_ITUNES_OWNER = "itunes:owner"
+    const val RSS_CHANNEL_ITUNES_OWNER_NAME = "itunes:name"
+    const val RSS_CHANNEL_ITUNES_OWNER_EMAIL = "itunes:email"
+    const val RSS_CHANNEL_ITUNES_SUBTITLE = "itunes:subtitle"
+    const val RSS_CHANNEL_ITUNES_TYPE = "itunes:type"
+    const val RSS_CHANNEL_ITUNES_NEW_FEED_URL = "itunes:new-feed-url"
 
     // article
     const val RSS_ITEM = "item"
@@ -42,13 +55,15 @@ internal object RSSKeywords {
     const val RSS_ITEM_TYPE = "type"
     const val RSS_ITEM_GUID = "guid"
     const val RSS_ITEM_SOURCE = "source"
-    const val RSS_ITEM_ITUNES_IMAGE = "itunes:image"
     const val RSS_ITEM_HREF = "href"
     const val RSS_ITEM_IMAGE_NEWS = "News:Image"
-
-
-
-    // Itunes keywords
-    // https://help.apple.com/itc/podcasts_connect/#/itcb54353390
-    // https://podcasters.apple.com/support/823-podcast-requirements
+    // article itunes
+    const val RSS_ITEM_ITUNES_IMAGE = "itunes:image"
+    const val RSS_ITEM_ITUNES_DURATION = "itunes:duration"
+    const val RSS_ITEM_ITUNES_EXPLICIT = "itunes:explicit"
+    const val RSS_ITEM_ITUNES_KEYWORDS = "itunes:keywords"
+    const val RSS_ITEM_ITUNES_SUBTITLE = "itunes:subtitle"
+    const val RSS_ITEM_ITUNES_EPISODE = "itunes:episode"
+    const val RSS_ITEM_ITUNES_EPISODE_TYPE = "itunes:episodeType"
+    const val RSS_ITEM_ITUNES_AUTHOR = "itunes:author"
 }
