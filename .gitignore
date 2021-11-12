@@ -42,5 +42,6 @@ captures/
 # Keystore files
 *.jks
 
+*.hprof
 
 

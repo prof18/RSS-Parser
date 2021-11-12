@@ -2,7 +2,7 @@ package com.prof.rssparser.core
 
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import org.junit.Assert
+import com.prof.rssparser.Image
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -11,10 +11,10 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class CoreXMLParserImageChannelReverseTest {
+class CoreXMLParserItunesFeedTest {
     private lateinit var articleList: List<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-image-channel-reverse.xml"
+    private val feedPath = "/feed-itunes.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -28,42 +28,35 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "The Joe Rogan Experience")
+        assertEquals("The Joe Rogan Experience", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "The podcast of Comedian Joe Rogan..")
+        assertEquals("Conduit to the Gaian Mind", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.joerogan.com")
+        assertEquals("https://www.joerogan.com", channel.link)
     }
 
     @Test
-    fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "The Joe Rogan Experience")
-    }
-
-    @Test
-    fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.joerogan.com")
-    }
-
-    @Test
-    fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg")
-    }
-
-    @Test
-    fun channelImageDescription_isCorrect() {
-        assertNull(channel.image?.description)
+    fun channelImage_isNull() {
+        assertEquals(
+            Image(
+                title = "The Joe Rogan Experience",
+                url = "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg",
+                link = "https://www.joerogan.com",
+                description = null
+            ),
+            channel.image,
+        )
     }
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Sat, 04 Jan 2020 01:06:48 +0000")
+        assertEquals("Thu, 29 Jul 2021 05:45:54 +0000", channel.lastBuildDate)
     }
 
     @Test
@@ -74,62 +67,67 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 6)
+        assertEquals(1, articleList.size)
     }
-
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "#1405 - Sober October 3 Recap")
+        assertEquals("#1109 - Matthew Walker", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertNull(article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://traffic.libsyn.com/joeroganexp/p1405.mp3")
+        assertEquals("http://traffic.libsyn.com/joeroganexp/p1109.mp3", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Tue, 24 Dec 2019 20:00:00 +0000")
+        assertEquals("Wed, 25 Apr 2018 22:37:10 +0000", article.pubDate)
     }
 
     @Test
     @Throws
-    fun description_isPresent() {
-        assertEquals(article.description, "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.")
+    fun description_isCorrect() {
+        assertEquals(
+            "Matthew Walker is Professor of Neuroscience and Psychology at the University of California, Berkeley, and Founder and Director of the Center for Human Sleep Science. Check out his book \"\" on Amazon.",
+            article.description,
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.")
+        assertEquals(
+            "Matthew Walker is Professor of Neuroscience and Psychology at the University of California, Berkeley, and Founder and Director of the Center for Human Sleep Science. Check out his book \"\" on Amazon.",
+            article.content,
+        )
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-       assert(article.categories.isEmpty())
+        assertEquals(article.categories.size, 0)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "0d7147a3-f1c1-4ae6-bbf8-2e0a493639ca")
+        assertEquals("00a5d989b6b2cd8267cf8239f3b5585c",article.guid)
     }
 
     @Test
     @Throws
     fun audio_iCorrect() {
-        assertEquals(article.audio, "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997")
+        assertEquals("http://traffic.libsyn.com/joeroganexp/p1109.mp3?dest-id=19997", article.audio)
     }
 
     @Test
@@ -172,7 +170,10 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesChannel_summary_isCorrect() {
-        assertEquals("The podcast of Comedian Joe Rogan..", channel.itunesChannelData!!.summary)
+        assertEquals(
+            "Conduit to the Gaian Mind",
+            channel.itunesChannelData!!.summary
+        )
     }
 
     @Test
@@ -191,17 +192,20 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals(listOf("Comedy","Society & Culture", "Technology", "Podcasting"), channel.itunesChannelData!!.category)
+        assertEquals(listOf("Comedy", "Society & Culture","Technology"), channel.itunesChannelData!!.category)
     }
 
     @Test
     fun itunesChannel_newFeedUrl_isCorrect() {
-        assertEquals("http://joeroganexp.joerogan.libsynpro.com/rss", channel.itunesChannelData!!.newsFeedUrl)
+        assertEquals(
+            "https://joeroganexp.libsyn.com/rss",
+            channel.itunesChannelData!!.newsFeedUrl
+        )
     }
 
     @Test
     fun itunesChannel_keywords_isCorrect() {
-        assertEquals(listOf("comedian","joe","monkey","redban","rogan","talking","ufc",), channel.itunesChannelData!!.keywords)
+        assertEquals(listOf("Talking","comedian","joe","monkey","redban","rogan","ufc"), channel.itunesChannelData!!.keywords)
     }
 
     @Test
@@ -211,23 +215,20 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesItem_author_isCorrect() {
-        assertNull(article.itunesArticleData!!.author)
+        assertEquals("Joe Rogan", article.itunesArticleData!!.author)
     }
 
     @Test
     fun itunesItem_image_isCorrect() {
         assertEquals(
-            "http://static.libsyn.com/p/assets/2/8/7/9/28797cc6f284596e/JRE1405.jpg",
+            "http://static.libsyn.com/p/assets/6/f/b/6/6fb68f57fbe00fb1/JRE1109.jpg",
             article.itunesArticleData!!.image
         )
     }
 
     @Test
     fun itunesItem_subtitle_isCorrect() {
-        assertEquals(
-            "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
-            article.itunesArticleData!!.subtitle
-        )
+        assertEquals("#1109 - Matthew Walker", article.itunesArticleData!!.subtitle)
     }
 
     @Test
@@ -237,16 +238,11 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesItem_duration_isCorrect() {
-        assertEquals("03:30:48", article.itunesArticleData!!.duration)
-    }
-
-    @Test
-    fun itunesItem_explicit_isCorrect() {
-        assertEquals("no", article.itunesArticleData!!.explicit)
+        assertEquals("02:02:35", article.itunesArticleData!!.duration)
     }
 
     @Test
     fun itunesItem_keywords_isCorrect() {
-        assertEquals(listOf("podcast","3","joe","party","experience","tom","ari","october","bert","freak","rogan","recap","sober","kreischer","shaffir","segura","deathsquad","jre","1405"), article.itunesArticleData!!.keywords)
+        assertEquals(listOf("podcast","joe","party","Experience","walker","matthew","freak","rogan","deathsquad","jre","1109"), article.itunesArticleData!!.keywords)
     }
 }
