@@ -27,32 +27,32 @@ class CoreXMLParserCharEscape {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "NYT > Health")
+        assertEquals("NYT > Health", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "")
+        assertEquals("", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.nytimes.com/section/health")
+        assertEquals("https://www.nytimes.com/section/health", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "NYT > Health")
+        assertEquals("NYT > Health", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.nytimes.com/section/health")
+        assertEquals("https://www.nytimes.com/section/health", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png")
+        assertEquals("https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png", channel.image?.url)
     }
 
     @Test
@@ -62,7 +62,7 @@ class CoreXMLParserCharEscape {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Mon, 14 Jun 2021 15:26:42 +0000")
+        assertEquals("Mon, 14 Jun 2021 15:26:42 +0000", channel.lastBuildDate)
     }
 
     @Test
@@ -73,44 +73,44 @@ class CoreXMLParserCharEscape {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 1)
+        assertEquals(1, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Where the Grass is Greener, Except When It’s ‘Nonfunctional Turf’")
+        assertEquals("Where the Grass is Greener, Except When It’s ‘Nonfunctional Turf’", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, "Alan Burdick")
+        assertEquals("Alan Burdick", article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html")
+        assertEquals("https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Sun, 13 Jun 2021 16:21:42 +0000")
+        assertEquals("Sun, 13 Jun 2021 16:21:42 +0000", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals(article.description, "Plus, mammoths in Vegas, watermelon snow, Miami’s looming sea wall and more in the Friday edition of the Science Times newsletter.")
+        assertEquals("Plus, mammoths in Vegas, watermelon snow, Miami’s looming sea wall and more in the Friday edition of the Science Times newsletter.", article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
@@ -122,13 +122,13 @@ class CoreXMLParserCharEscape {
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, listOf("Conservation of Resources", "Grass", "Water", "Deserts", "Shortages", "Mars (Planet)", "Colorado River", "Hoover Dam", "Lake Mead", "Las Vegas (Nev)", "Mojave Desert (Calif)", "Western States (US)", "your-feed-science"))
+        assertEquals(listOf("Conservation of Resources", "Grass", "Water", "Deserts", "Shortages", "Mars (Planet)", "Colorado River", "Hoover Dam", "Lake Mead", "Las Vegas (Nev)", "Mojave Desert (Calif)", "Western States (US)", "your-feed-science"), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html")
+        assertEquals("https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html", article.guid)
     }
 
     @Test

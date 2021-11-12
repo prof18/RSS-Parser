@@ -44,17 +44,20 @@ class CoreXMLParserTimeFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Drug Recalls")
+        assertEquals("Drug Recalls", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "")
+        assertEquals("", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml")
+        assertEquals(
+            "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml",
+            channel.link
+        )
     }
 
     @Test
@@ -81,59 +84,72 @@ class CoreXMLParserTimeFeedTest {
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
-                "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
-                "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity")
+        assertEquals(
+            "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
+                    "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
+                    "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity",
+            article.title
+        )
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, "FDA")
+        assertEquals("FDA", article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
+        assertEquals(
+            "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
+            article.link
+        )
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 05/03/2019 - 15:21")
+        assertEquals("Fri, 05/03/2019 - 15:21", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
-                "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
-                "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
-                "                above the US Food & Drug Administration’s interim acceptable exposu")
+        assertEquals(
+            "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
+                    "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
+                    "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
+                    "                above the US Food & Drug Administration’s interim acceptable exposu",
+            article.description
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)  }
+        assertEquals(null, article.content)
+    }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, null)
+        assertEquals(null, article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf<String>())
+        assertEquals(mutableListOf<String>(), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and")
+        assertEquals(
+            "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
+            article.guid
+        )
     }
 
     @Test

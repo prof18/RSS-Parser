@@ -28,32 +28,32 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "The Joe Rogan Experience")
+        assertEquals("The Joe Rogan Experience", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "The podcast of Comedian Joe Rogan..")
+        assertEquals("The podcast of Comedian Joe Rogan..", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.joerogan.com")
+        assertEquals("https://www.joerogan.com", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "The Joe Rogan Experience")
+        assertEquals("The Joe Rogan Experience", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.joerogan.com")
+        assertEquals("https://www.joerogan.com", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg")
+        assertEquals("http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg", channel.image?.url)
     }
 
     @Test
@@ -63,7 +63,7 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Sat, 04 Jan 2020 01:06:48 +0000")
+        assertEquals("Sat, 04 Jan 2020 01:06:48 +0000", channel.lastBuildDate)
     }
 
     @Test
@@ -74,44 +74,44 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 6)
+        assertEquals(6, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "#1405 - Sober October 3 Recap")
+        assertEquals("#1405 - Sober October 3 Recap", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://traffic.libsyn.com/joeroganexp/p1405.mp3")
+        assertEquals("http://traffic.libsyn.com/joeroganexp/p1405.mp3", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Tue, 24 Dec 2019 20:00:00 +0000")
+        assertEquals("Tue, 24 Dec 2019 20:00:00 +0000", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals(article.description, "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.")
+        assertEquals("Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.", article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.")
+        assertEquals("Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.", article.content)
     }
 
     @Test
@@ -123,13 +123,13 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "0d7147a3-f1c1-4ae6-bbf8-2e0a493639ca")
+        assertEquals("0d7147a3-f1c1-4ae6-bbf8-2e0a493639ca", article.guid)
     }
 
     @Test
     @Throws
     fun audio_iCorrect() {
-        assertEquals(article.audio, "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997")
+        assertEquals("http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997", article.audio)
     }
 
     @Test

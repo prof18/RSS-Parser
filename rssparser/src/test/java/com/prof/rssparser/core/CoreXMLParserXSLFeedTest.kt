@@ -44,32 +44,32 @@ class CoreXMLParserXSLFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "SkySports | Liverpool")
+        assertEquals("SkySports | Liverpool", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Liverpool News")
+        assertEquals("Liverpool News", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.skysports.com")
+        assertEquals("http://www.skysports.com", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Sky Sports")
+        assertEquals("Sky Sports", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.skysports.com")
+        assertEquals("https://www.skysports.com", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://www.skysports.com/images/site/ss-logo-07.gif")
+        assertEquals("https://www.skysports.com/images/site/ss-logo-07.gif", channel.image?.url)
     }
 
     @Test
@@ -79,7 +79,7 @@ class CoreXMLParserXSLFeedTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 23:21:44 BST")
+        assertEquals("Fri, 17 May 2019 23:21:44 BST", channel.lastBuildDate)
     }
 
     @Test
@@ -96,57 +96,64 @@ class CoreXMLParserXSLFeedTest {
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Insight: Who should Liverpool sign?")
+        assertEquals("Insight: Who should Liverpool sign?", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign")
+        assertEquals(
+            "https://www.skysports.com/football/news/11669/11719097/premier-league-transfer-window-who-should-liverpool-sign",
+            article.link
+        )
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 06:00:00 BST")
+        assertEquals("Fri, 17 May 2019 06:00:00 BST", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?")
+        assertEquals(
+            "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?",
+            article.description
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948")
+        assertEquals(
+            "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948",
+            article.image
+        )
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf(
-                "News Story"
-        ))
+        assertEquals(mutableListOf("News Story"), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, null)
+        assertEquals(null, article.guid)
     }
 
     @Test

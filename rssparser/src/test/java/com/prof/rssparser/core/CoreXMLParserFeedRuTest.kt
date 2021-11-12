@@ -44,17 +44,17 @@ class CoreXMLParserFeedRuTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Аргументы и Факты")
+        assertEquals("Аргументы и Факты", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Аргументы и Факты: объясняем, что происходит")
+        assertEquals("Аргументы и Факты: объясняем, что происходит", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "http://www.aif.ru/")
+        assertEquals("http://www.aif.ru/", channel.link)
     }
 
     @Test
@@ -64,7 +64,7 @@ class CoreXMLParserFeedRuTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "2019-05-18 10:58:46 +0300")
+        assertEquals("2019-05-18 10:58:46 +0300", channel.lastBuildDate)
     }
 
     @Test
@@ -75,63 +75,61 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 100)
+        assertEquals(100, articleList.size)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "СМИ: собака в Таиланде спасла заживо похороненного младенца")
+        assertEquals("СМИ: собака в Таиланде спасла заживо похороненного младенца", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca")
+        assertEquals("http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Sat, 18 May 2019 10:52:50 +0300")
+        assertEquals("Sat, 18 May 2019 10:52:50 +0300", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей")
+        assertEquals("15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей", article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg")
+        assertEquals("https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg", article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf(
-                "Происшествия"
-        ))
+        assertEquals(mutableListOf("Происшествия"), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, null)
+        assertEquals(null, article.guid)
     }
 
     @Test

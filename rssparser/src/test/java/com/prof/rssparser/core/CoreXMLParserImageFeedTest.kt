@@ -44,32 +44,32 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Movie Reviews")
+        assertEquals("Movie Reviews", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Movie Reviews at MovieWeb")
+        assertEquals("Movie Reviews at MovieWeb", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://movieweb.com/movie-reviews/")
+        assertEquals("https://movieweb.com/movie-reviews/", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "Movie Reviews")
+        assertEquals("Movie Reviews", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://movieweb.com/movie-reviews/")
+        assertEquals("https://movieweb.com/movie-reviews/", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png")
+        assertEquals("https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png", channel.image?.url)
     }
 
     @Test
@@ -79,7 +79,7 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 17 May 2019 00:24:34 PDT")
+        assertEquals("Fri, 17 May 2019 00:24:34 PDT", channel.lastBuildDate)
     }
 
     @Test
@@ -90,61 +90,61 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 50)
+        assertEquals(50, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance")
+        assertEquals("The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertEquals("https://movieweb.com/the-sun-is-also-a-star-review/", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Wed, 15 May 2019 16:52:24 PDT")
+        assertEquals("Wed, 15 May 2019 16:52:24 PDT", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.")
+        assertEquals("The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.", article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)  }
+        assertEquals(null, article.content)  }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg")
+        assertEquals("https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg", article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf<String>())
+        assertEquals(mutableListOf<String>(), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://movieweb.com/the-sun-is-also-a-star-review/")
+        assertEquals("https://movieweb.com/the-sun-is-also-a-star-review/", article.guid)
     }
 
     @Test

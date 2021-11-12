@@ -26,37 +26,37 @@ class CoreXMLParserHindiChannelImageTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Latest News चीन News18 हिंदी")
+        assertEquals("Latest News चीन News18 हिंदी", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Latest news from चीन Section")
+        assertEquals("Latest news from चीन Section", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://hindi.news18.com/rss/khabar/world/china.xml")
+        assertEquals("https://hindi.news18.com/rss/khabar/world/china.xml", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "News18 हिंदी")
+        assertEquals("News18 हिंदी", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://hindi.news18.com/rss/khabar/world/china.xml")
+        assertEquals("https://hindi.news18.com/rss/khabar/world/china.xml", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://static.hindi.news18.com/ibnkhabar/uploads/2017/01/mainlogo_hindi_new.png")
+        assertEquals("https://static.hindi.news18.com/ibnkhabar/uploads/2017/01/mainlogo_hindi_new.png", channel.image?.url)
     }
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertEquals(channel.image?.description, "Feed provided by News18 हिंदी")
+        assertEquals("Feed provided by News18 हिंदी", channel.image?.description)
     }
 
     @Test
@@ -72,14 +72,14 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 2)
+        assertEquals(2, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "कैसे फैला कोरोना वायरस, WHO की टीम करेगी चीनी अधिकारियों के साथ बैठक")
+        assertEquals("कैसे फैला कोरोना वायरस, WHO की टीम करेगी चीनी अधिकारियों के साथ बैठक", article.title)
     }
 
     @Test
@@ -91,13 +91,13 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html")
+        assertEquals("https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Friday, January 29, 2021 04:42 PM")
+        assertEquals("Friday, January 29, 2021 04:42 PM", article.pubDate)
     }
 
     @Test
@@ -109,13 +109,13 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://images.news18.com/ibnkhabar/uploads/2021/01/who-team-1.jpg")
+        assertEquals("https://images.news18.com/ibnkhabar/uploads/2021/01/who-team-1.jpg", article.image)
     }
 
     @Test
@@ -127,7 +127,7 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html")
+        assertEquals("https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html", article.guid)
     }
 
     @Test

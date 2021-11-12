@@ -27,17 +27,17 @@ class CoreXMLParserGreekTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Liberal - ΕΠΙΚΑΙΡΟΤΗΤΑ")
+        assertEquals("Liberal - ΕΠΙΚΑΙΡΟΤΗΤΑ", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Ενημέρωση με άποψη για την οικονομία, την πολιτική και τις διεθνείς σχέσεις.")
+        assertEquals("Ενημέρωση με άποψη για την οικονομία, την πολιτική και τις διεθνείς σχέσεις.", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.liberal.gr/news")
+        assertEquals("https://www.liberal.gr/news", channel.link)
     }
 
     @Test
@@ -58,32 +58,32 @@ class CoreXMLParserGreekTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 2)
+        assertEquals(2, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "«Πορτραίτα καραντίνας» για έμπνευση από τη συλλογή Φέλιου")
+        assertEquals("«Πορτραίτα καραντίνας» για έμπνευση από τη συλλογή Φέλιου", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923")
+        assertEquals("https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 24 Apr 2020 22:03:00 +0200")
+        assertEquals("Fri, 24 Apr 2020 22:03:00 +0200", article.pubDate)
     }
 
     @Test
@@ -95,7 +95,7 @@ class CoreXMLParserGreekTest {
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, """
+        assertEquals("""
 Η συνθήκη του αναγκαστικού εγκλεισμού οδήγησε τα μεγάλα μουσεία διεθνώς να βρουν νέους, εναλλακτικούς τρόπους επικοινωνίας με το κοινό. Το διαδίκτυο και τα social media πρόσφεραν το απαραίτητο έδαφος και οι απανταχού φιλότεχνοι ανταποκρίθηκαν αμέσως. Μονάχα το Prado, από τις 12 Μαρτίου που έκλεισε, είχε 2.000.000 επισκέπτες μέσα από ένα ευρύ πρόγραμμα ψηφιακών προβολών και δράσεων που ανέπτυξε. Μία από τις πιο ευφάνταστες ξεκίνησε από το Rijksmuseum και τον λογαριασμό του στο Instagram με την ονομασία &laquo;Between Art and Quarantine&raquo; (Μεταξύ Τέχνης και Καραντίνας). Εκεί, καλούνται οι διαδικτυακοί φίλοι να δημιουργήσουν σέλφις, εμπνευσμένες από έργα τέχνης, με αποτέλεσμα σπουδαίοι ζωγράφοι να &laquo;χρησιμοποιηθούν&raquo; ξανά για να συνθέσουν τη ζωή στις μέρες της καραντίνας.
 
                 Εδώ σε μας, την σκυτάλη από τα ξένα μουσεία πήρε ο διακεκριμένος νομικός Σωτήρης Φέλιος που θέλησε να δώσει χρώμα ελληνικό στην ευφάνταστη πρωτοβουλία. Γνωστός για την εξωστρέφεια με την οποία διαχειρίζεται την συλλογή του με έργα εγχώριας τέχνης, ο Φέλιος προχώρησε ένα βήμα παραπέρα, αφήνοντας πίσω μεγάλα κρατικά ιδρύματα. Δημιούργησε στη νέα ιστοσελίδα του (felioscollection.gr) ένα σύγχρονο ψηφιακό περιβάλλον, παρουσιάζοντας όχι μόνο φωτογραφίες έργων, αλλά δίνοντας &laquo;βήμα&raquo; στους ίδιους τους δημιουργούς. Με μια σειρά από video, οι σύγχρονοι καλλιτέχνες συστήνονται στο κοινό, φιλοτεχνώντας το &laquo;πορτρέτο&raquo; τους. Μιλούν για τη δουλειά τους, τον τρόπο που ζωγραφίζουν κι αυτό που, ίσως, ονειρεύονται ν&rsquo; αφήσουν στην ιστορία της ελληνικής τέχνης. Είναι μια καταγραφή, όχι απλά χρήσιμη για τον υποψιασμένο θεατή, αλλά για το ευρύ κοινό που ενδιαφέρεται να δει το πρόσωπο του δημιουργού πίσω από το έργο.
@@ -115,7 +115,7 @@ class CoreXMLParserGreekTest {
                 Πάρτε ένα αγαπημένο πρόσωπο και κοιτάξτε το, όπως δεν το έχετε ξανακάνει. Μπορεί να &laquo;κλέψετε&raquo; και λίγο, κοιτώντας μια φωτογραφία (κανείς δεν πρόκειται να το μάθει). Αν δεν έχετε μοντέλο στη διάθεσή σας, φέρτε έναν καθρέφτη ή τη θύμηση ενός αγαπημένου προσώπου. Το έκτο και τελευταίο βήμα είναι το πιο αποφασιστικό: μην σας αποθαρρύνει το αποτέλεσμα, αλλά σκεφτείτε ότι υπογράψατε ένα έργο τέχνης που &laquo;ανήκει&raquo; σε μία από τις πιο σημαντικές συλλογές. Μοιραστείτε το έργο και δείτε το online στους λογαριασμούς #quarantineportraits και @felioscollection.
 
                 Περισσότερα από χίλια ζωγραφικά έργα,&nbsp; γλυπτά, ανάγλυφα,&nbsp; κατασκευές,&nbsp; χαρακτικά,&nbsp; φωτογραφίες, ψηφιακές εκτυπώσεις και σχέδια των Χρόνη Μπότσογλου, Εδουάρδου Σακαγιάν, Γιώργου Ρόρρη, Χρήστου Μποκόρου, Στέφανου Δασκαλάκη, Τάσου Μισούρα, Μαρίας Φιλοπούλου, Καλλιόπης Ασαργιωτάκη, Κωνσταντίνου Παπαμιχαλόπουλου και τόσων ακόμη κορυφαίων μας περιμένουν να τα ανακαλύψουμε διαδικτυακά, να μας εμπνεύσουν και, γιατί όχι, να αναμετρηθούμε μαζί τους.
-        """.trimIndent())
+        """.trimIndent(), article.description)
     }
 
     @Test
@@ -127,7 +127,7 @@ class CoreXMLParserGreekTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "http://www.liberal.gr/photos/646464564565.jpg")
+        assertEquals("http://www.liberal.gr/photos/646464564565.jpg", article.image)
     }
 
     @Test
@@ -139,7 +139,7 @@ class CoreXMLParserGreekTest {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923")
+        assertEquals("https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923", article.guid)
     }
 
     @Test

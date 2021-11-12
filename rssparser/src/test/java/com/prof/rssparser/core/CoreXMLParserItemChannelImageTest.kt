@@ -44,32 +44,32 @@ class CoreXMLParserItemChannelImageTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "www.espn.com - TOP")
+        assertEquals("www.espn.com - TOP", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Latest TOP news from www.espn.com")
+        assertEquals("Latest TOP news from www.espn.com", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.espn.com")
+        assertEquals("https://www.espn.com", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "www.espn.com - TOP")
+        assertEquals("www.espn.com - TOP", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.espn.com")
+        assertEquals("https://www.espn.com", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif")
+        assertEquals("https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif", channel.image?.url)
     }
 
     @Test
@@ -79,7 +79,7 @@ class CoreXMLParserItemChannelImageTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Fri, 7 May 2021 18:43:18 GMT")
+        assertEquals("Fri, 7 May 2021 18:43:18 GMT", channel.lastBuildDate)
     }
 
     @Test
@@ -90,62 +90,62 @@ class CoreXMLParserItemChannelImageTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 1)
+        assertEquals(1, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Inside the mysterious world of missing sports memorabilia")
+        assertEquals("Inside the mysterious world of missing sports memorabilia", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia")
+        assertEquals("https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 7 May 2021 10:44:02 EST")
+        assertEquals("Fri, 7 May 2021 10:44:02 EST", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals(article.description, "Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.")
+        assertEquals("Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.", article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg")
+        assertEquals("https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg", article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, listOf<String>())
+        assertEquals(listOf<String>(), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "31393791")
+        assertEquals("31393791", article.guid)
     }
 
     @Test

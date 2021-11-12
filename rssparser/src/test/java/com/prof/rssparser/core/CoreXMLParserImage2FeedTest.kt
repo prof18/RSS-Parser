@@ -44,37 +44,37 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "F.C. Barcelona")
+        assertEquals("F.C. Barcelona", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "F.C. Barcelona")
+        assertEquals("F.C. Barcelona", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals(channel.image?.title, "F.C. Barcelona")
+        assertEquals("F.C. Barcelona", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals(channel.image?.link, "https://www.mundodeportivo.com/futbol/fc-barcelona")
+        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals(channel.image?.url, "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png")
+        assertEquals("https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png", channel.image?.url)
     }
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertEquals(channel.image?.description, "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça")
+        assertEquals("Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça", channel.image?.description)
     }
 
     @Test
@@ -90,32 +90,32 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 20)
+        assertEquals(20, articleList.size)
     }
 
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Martens: “Estoy feliz y quiero seguir en el Barça”")
+        assertEquals("Martens: “Estoy feliz y quiero seguir en el Barça”", article.title)
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html")
+        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html", article.link)
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Fri, 17 May 2019 21:33:59 +0200")
+        assertEquals("Fri, 17 May 2019 21:33:59 +0200", article.pubDate)
     }
 
     @Test
@@ -127,27 +127,25 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image, "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg")
+        assertEquals("https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg", article.image)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories, mutableListOf(
-                "F.C. Barcelona"
-        ))
+        assertEquals(mutableListOf("F.C. Barcelona"), article.categories)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "f5c42a9c-78d9-11e9-a24c-645e8f5d185b")
+        assertEquals("f5c42a9c-78d9-11e9-a24c-645e8f5d185b", article.guid)
     }
 
     @Test

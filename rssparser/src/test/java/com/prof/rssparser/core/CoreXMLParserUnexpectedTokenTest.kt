@@ -44,7 +44,7 @@ class CoreXMLParserUnexpectedTokenTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "Wheels Off-Road & 4x4")
+        assertEquals("Wheels Off-Road & 4x4", channel.title)
     }
 
     @Test
@@ -54,7 +54,7 @@ class CoreXMLParserUnexpectedTokenTest {
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://www.wheels24.co.za/")
+        assertEquals("https://www.wheels24.co.za/", channel.link)
     }
 
     @Test
@@ -64,7 +64,7 @@ class CoreXMLParserUnexpectedTokenTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Wed, 23 Sep 2020 20:51:07 +0200")
+        assertEquals("Wed, 23 Sep 2020 20:51:07 +0200", channel.lastBuildDate)
     }
 
     @Test
@@ -75,13 +75,16 @@ class CoreXMLParserUnexpectedTokenTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 20)
+        assertEquals(20, articleList.size)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Wheels24.co.za | WATCH | Range Rover spices up its Velar line-up, adds new hybrid model to the range")
+        assertEquals(
+            "Wheels24.co.za | WATCH | Range Rover spices up its Velar line-up, adds new hybrid model to the range",
+            article.title
+        )
     }
 
     @Test
@@ -93,19 +96,25 @@ class CoreXMLParserUnexpectedTokenTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://www.wheels24.co.za/OffRoad_and_4x4/Bakkie_and_SUV/watch-range-rover-spices-up-its-velar-line-up-adds-new-hybrid-model-to-the-range-20200923-3")
+        assertEquals(
+            "https://www.wheels24.co.za/OffRoad_and_4x4/Bakkie_and_SUV/watch-range-rover-spices-up-its-velar-line-up-adds-new-hybrid-model-to-the-range-20200923-3",
+            article.link
+        )
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Wed, 23 Sep 2020 14:45:10 +0200")
+        assertEquals("Wed, 23 Sep 2020 14:45:10 +0200", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "Range Rover updated its desirable Velar range by adding new engine choices and a 640Nm hybrid model.")
+        assertEquals(
+            "Range Rover updated its desirable Velar range by adding new engine choices and a 640Nm hybrid model.",
+            article.description
+        )
     }
 
     @Test
@@ -117,13 +126,13 @@ class CoreXMLParserUnexpectedTokenTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals(article.image!!, "https://scripts.24.co.za/img/sites/wheels24.png")
+        assertEquals("https://scripts.24.co.za/img/sites/wheels24.png", article.image!!)
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories.size, 0)
+        assertEquals(0, article.categories.size)
     }
 
     @Test

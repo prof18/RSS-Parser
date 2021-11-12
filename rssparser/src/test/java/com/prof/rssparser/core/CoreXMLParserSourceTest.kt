@@ -44,17 +44,17 @@ class CoreXMLParserSourceTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals(channel.title, "À la une - Google Actualités")
+        assertEquals("À la une - Google Actualités", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals(channel.description, "Google Actualités")
+        assertEquals("Google Actualités", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals(channel.link, "https://news.google.com/?hl=fr&gl=BE&ceid=BE:fr")
+        assertEquals("https://news.google.com/?hl=fr&gl=BE&ceid=BE:fr", channel.link)
     }
 
     @Test
@@ -64,7 +64,7 @@ class CoreXMLParserSourceTest {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals(channel.lastBuildDate, "Sun, 08 Mar 2020 15:34:10 GMT")
+        assertEquals("Sun, 08 Mar 2020 15:34:10 GMT", channel.lastBuildDate)
     }
 
     @Test
@@ -75,43 +75,52 @@ class CoreXMLParserSourceTest {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(articleList.size, 1)
+        assertEquals(1, articleList.size)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals(article.title, "Coronavirus en Belgique: 200 cas détectés au total, un nombre limité de tests effectués par manque de réactifs - RTBF")
+        assertEquals(
+            "Coronavirus en Belgique: 200 cas détectés au total, un nombre limité de tests effectués par manque de réactifs - RTBF",
+            article.title
+        )
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals(article.author, null)
+        assertEquals(null, article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals(article.link, "https://news.google.com/__i/rss/rd/articles/CBMiiwFodHRwczovL3d3dy5ydGJmLmJlL2luZm8vc29jaWV0ZS9kZXRhaWxfY29yb25hdmlydXMtZW4tYmVsZ2lxdWUtMjAwLWNhcy1kZXRlY3Rlcy1hdS10b3RhbC1sYS1jaXJjdWxhdGlvbi1kdS12aXJ1cy1yZXN0ZS1saW1pdGVlP2lkPTEwNDUwNzkz0gEA?oc=5")
+        assertEquals(
+            "https://news.google.com/__i/rss/rd/articles/CBMiiwFodHRwczovL3d3dy5ydGJmLmJlL2luZm8vc29jaWV0ZS9kZXRhaWxfY29yb25hdmlydXMtZW4tYmVsZ2lxdWUtMjAwLWNhcy1kZXRlY3Rlcy1hdS10b3RhbC1sYS1jaXJjdWxhdGlvbi1kdS12aXJ1cy1yZXN0ZS1saW1pdGVlP2lkPTEwNDUwNzkz0gEA?oc=5",
+            article.link
+        )
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals(article.pubDate, "Sun, 08 Mar 2020 10:32:07 GMT")
+        assertEquals("Sun, 08 Mar 2020 10:32:07 GMT", article.pubDate)
     }
 
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals(article.description, "<ol><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMiiwFodHRwczovL3d3dy5ydGJmLmJlL2luZm8vc29jaWV0ZS9kZXRhaWxfY29yb25hdmlydXMtZW4tYmVsZ2lxdWUtMjAwLWNhcy1kZXRlY3Rlcy1hdS10b3RhbC1sYS1jaXJjdWxhdGlvbi1kdS12aXJ1cy1yZXN0ZS1saW1pdGVlP2lkPTEwNDUwNzkz0gEA?oc=5\" target=\"_blank\">Coronavirus en Belgique: 200 cas détectés au total, un nombre limité de tests effectués par manque de réactifs</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">RTBF</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMifmh0dHBzOi8vd3d3LnN1ZGluZm8uYmUvaWQxNzE5MjcvYXJ0aWNsZS8yMDIwLTAzLTA4L2Nvcm9uYXZpcnVzLTMxLW5vdXZlbGxlcy1pbmZlY3Rpb25zLWVuLWJlbGdpcXVlLWRvbnQtNy1lbi13YWxsb25pZS1sZS10b3RhbNIBAA?oc=5\" target=\"_blank\">Coronavirus: 31 nouvelles infections en Belgique, dont 7 en Wallonie, le total porté à 200</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Sudinfo.be</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMiXWh0dHBzOi8vd3d3LmRobmV0LmJlL2FjdHUvc2FudGUvbGEtYmVsZ2lxdWUtYW5ub25jZS14eHgtbm91dmVhdXgtY2FzLTVlNjRjNzI2ZDhhZDU4MzVhMWM4ZTA3MNIBAA?oc=5\" target=\"_blank\">La Belgique annonce 31 nouveaux cas de coronavirus: un total de 200 personnes contaminées</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">dh.be</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMicGh0dHBzOi8vd3d3Lmxlc29pci5iZS8yODUzODQvYXJ0aWNsZS8yMDIwLTAzLTA4L2Nvcm9uYXZpcnVzLWVuLWJlbGdpcXVlLTMxLW5vdXZlbGxlcy1pbmZlY3Rpb25zLTIwMC1jYXMtcmVjZW5zZXPSAQA?oc=5\" target=\"_blank\">Coronavirus en Belgique: 31 nouvelles infections, 200 cas recensés</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Le Soir</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMicmh0dHBzOi8vd3d3Lm5vdGVsZS5iZS9pdDE4LW1lZGlhNzY2ODItY292aWQtMTktZGV1eC1wcmVtaWVycy1jYXMtZGUtY29yb25hdmlydXMtY29uZmlybWVzLWVuLXdhbGxvbmllLXBpY2FyZGUuaHRtbNIBAA?oc=5\" target=\"_blank\">Covid-19 : deux premiers cas de coronavirus confirmés en Wallonie picarde</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Notélé</font></li><li><strong><a href=\"https://news.google.com/stories/CAAqOQgKIjNDQklTSURvSmMzUnZjbmt0TXpZd1NoTUtFUWlWdXREQ2xZQU1FU0FyMXpaNWRUeDlLQUFQAQ?oc=5\" target=\"_blank\">Voir la couverture complète sur Google Actualités</a></strong></li></ol>")
+        assertEquals(
+            "<ol><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMiiwFodHRwczovL3d3dy5ydGJmLmJlL2luZm8vc29jaWV0ZS9kZXRhaWxfY29yb25hdmlydXMtZW4tYmVsZ2lxdWUtMjAwLWNhcy1kZXRlY3Rlcy1hdS10b3RhbC1sYS1jaXJjdWxhdGlvbi1kdS12aXJ1cy1yZXN0ZS1saW1pdGVlP2lkPTEwNDUwNzkz0gEA?oc=5\" target=\"_blank\">Coronavirus en Belgique: 200 cas détectés au total, un nombre limité de tests effectués par manque de réactifs</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">RTBF</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMifmh0dHBzOi8vd3d3LnN1ZGluZm8uYmUvaWQxNzE5MjcvYXJ0aWNsZS8yMDIwLTAzLTA4L2Nvcm9uYXZpcnVzLTMxLW5vdXZlbGxlcy1pbmZlY3Rpb25zLWVuLWJlbGdpcXVlLWRvbnQtNy1lbi13YWxsb25pZS1sZS10b3RhbNIBAA?oc=5\" target=\"_blank\">Coronavirus: 31 nouvelles infections en Belgique, dont 7 en Wallonie, le total porté à 200</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Sudinfo.be</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMiXWh0dHBzOi8vd3d3LmRobmV0LmJlL2FjdHUvc2FudGUvbGEtYmVsZ2lxdWUtYW5ub25jZS14eHgtbm91dmVhdXgtY2FzLTVlNjRjNzI2ZDhhZDU4MzVhMWM4ZTA3MNIBAA?oc=5\" target=\"_blank\">La Belgique annonce 31 nouveaux cas de coronavirus: un total de 200 personnes contaminées</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">dh.be</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMicGh0dHBzOi8vd3d3Lmxlc29pci5iZS8yODUzODQvYXJ0aWNsZS8yMDIwLTAzLTA4L2Nvcm9uYXZpcnVzLWVuLWJlbGdpcXVlLTMxLW5vdXZlbGxlcy1pbmZlY3Rpb25zLTIwMC1jYXMtcmVjZW5zZXPSAQA?oc=5\" target=\"_blank\">Coronavirus en Belgique: 31 nouvelles infections, 200 cas recensés</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Le Soir</font></li><li><a href=\"https://news.google.com/__i/rss/rd/articles/CBMicmh0dHBzOi8vd3d3Lm5vdGVsZS5iZS9pdDE4LW1lZGlhNzY2ODItY292aWQtMTktZGV1eC1wcmVtaWVycy1jYXMtZGUtY29yb25hdmlydXMtY29uZmlybWVzLWVuLXdhbGxvbmllLXBpY2FyZGUuaHRtbNIBAA?oc=5\" target=\"_blank\">Covid-19 : deux premiers cas de coronavirus confirmés en Wallonie picarde</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Notélé</font></li><li><strong><a href=\"https://news.google.com/stories/CAAqOQgKIjNDQklTSURvSmMzUnZjbmt0TXpZd1NoTUtFUWlWdXREQ2xZQU1FU0FyMXpaNWRUeDlLQUFQAQ?oc=5\" target=\"_blank\">Voir la couverture complète sur Google Actualités</a></strong></li></ol>",
+            article.description
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(article.content, null)
+        assertEquals(null, article.content)
     }
 
     @Test
@@ -123,13 +132,13 @@ class CoreXMLParserSourceTest {
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(article.categories.size, 0)
+        assertEquals(0, article.categories.size)
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals(article.guid, "52782335008021")
+        assertEquals("52782335008021", article.guid)
     }
 
     @Test
@@ -141,13 +150,13 @@ class CoreXMLParserSourceTest {
     @Test
     @Throws
     fun sourceName_iCorrect() {
-        assertEquals(article.sourceName, "RTBF")
+        assertEquals("RTBF", article.sourceName)
     }
 
     @Test
     @Throws
     fun sourceUrl_iCorrect() {
-        assertEquals(article.sourceUrl, "https://www.rtbf.be")
+        assertEquals("https://www.rtbf.be", article.sourceUrl)
     }
 
     @Test
