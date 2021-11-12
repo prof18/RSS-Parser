@@ -9,7 +9,8 @@ data class Channel(
     val image: Image?,
     val lastBuildDate: String?,
     val updatePeriod: String?,
-    val articles: List<Article>
+    val articles: List<Article>,
+    val itunesChannelData: ItunesChannelData?
 ) : Serializable {
 
     internal data class Builder(
@@ -19,7 +20,8 @@ data class Channel(
         private var image: Image? = null,
         private var lastBuildDate: String? = null,
         private var updatePeriod: String? = null,
-        private var articles: MutableList<Article> = mutableListOf()
+        private val articles: MutableList<Article> = mutableListOf(),
+        private var itunesChannelData: ItunesChannelData? = null
     ) {
         fun title(title: String?) = apply { this.title = title }
         fun link(link: String?) = apply { this.link = link }
@@ -28,6 +30,9 @@ data class Channel(
         fun lastBuildDate(lastBuildDate: String?) = apply { this.lastBuildDate = lastBuildDate }
         fun updatePeriod(updatePeriod: String?) = apply { this.updatePeriod = updatePeriod }
         fun addArticle(article: Article) = apply { this.articles.add(article) }
+        fun itunesChannelData(itunesChannelData: ItunesChannelData?) =
+            apply { this.itunesChannelData = itunesChannelData }
+
         fun build() = Channel(
             title,
             link,
@@ -35,7 +40,8 @@ data class Channel(
             image,
             lastBuildDate,
             updatePeriod,
-            articles
+            articles,
+            itunesChannelData
         )
     }
 }

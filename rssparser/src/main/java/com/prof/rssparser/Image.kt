@@ -9,8 +9,8 @@ data class Image(
     val description: String?
 ) : Serializable {
 
-    fun isEmpty(): Boolean {
-        return title.isNullOrBlank() && url.isNullOrBlank() && link.isNullOrBlank() && description.isNullOrBlank()
+    fun isNotEmpty(): Boolean {
+        return !url.isNullOrBlank() || !link.isNullOrBlank()
     }
 
     internal data class Builder(

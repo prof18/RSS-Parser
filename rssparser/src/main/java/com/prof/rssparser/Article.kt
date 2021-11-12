@@ -32,7 +32,8 @@ data class Article(
     val video: String?,
     val sourceName: String?,
     val sourceUrl: String?,
-    val categories: List<String>
+    val categories: List<String>,
+    val itunesArticleData: ItunesArticleData?
 ) : Serializable {
 
     internal data class Builder(
@@ -48,7 +49,8 @@ data class Article(
         private var video: String? = null,
         private var sourceName: String? = null,
         private var sourceUrl: String? = null,
-        private val categories: MutableList<String> = mutableListOf()
+        private val categories: MutableList<String> = mutableListOf(),
+        private var itunesArticleData: ItunesArticleData? = null
     ) {
         fun guid(guid: String?) = apply { this.guid = guid }
         fun title(title: String?) = apply { this.title = title }
@@ -86,6 +88,9 @@ data class Article(
             }
         }
 
+        fun itunesArticleData(itunesArticleData: ItunesArticleData?) =
+            apply { this.itunesArticleData = itunesArticleData }
+
         fun build() = Article(
             guid,
             title,
@@ -99,7 +104,8 @@ data class Article(
             video,
             sourceName,
             sourceUrl,
-            categories
+            categories,
+            itunesArticleData
         )
     }
 }
