@@ -3,25 +3,25 @@ package com.prof.rssparser
 import java.io.Serializable
 
 data class ItunesArticleData(
-    val image: String?,
+    val author: String?,
     val duration: String?,
-    val explicit: String?,
-    val keywords: List<String>,
-    val subtitle: String?,
     val episode: String?,
     val episodeType: String?,
-    val author: String?,
+    val explicit: String?,
+    val image: String?,
+    val keywords: List<String>,
+    val subtitle: String?,
     val summary: String?,
-): Serializable {
+) : Serializable {
     internal data class Builder(
-        private var image: String? = null,
+        private var author: String? = null,
         private var duration: String? = null,
-        private var explicit: String? = null,
-        private var keywords: List<String> = emptyList(),
-        private var subtitle: String? = null,
         private var episode: String? = null,
         private var episodeType: String? = null,
-        private var author: String? = null,
+        private var explicit: String? = null,
+        private var image: String? = null,
+        private var keywords: List<String> = emptyList(),
+        private var subtitle: String? = null,
         private var summary: String? = null,
     ) {
         fun image(image: String?) = apply { this.image = image }
@@ -34,45 +34,45 @@ data class ItunesArticleData(
         fun author(author: String?) = apply { this.author = author }
         fun summary(summary: String?) = apply { this.summary = summary }
         fun build() = ItunesArticleData(
-            image,
+            author,
             duration,
-            explicit,
-            keywords,
-            subtitle,
             episode,
             episodeType,
-            author,
-            summary,
+            explicit,
+            image,
+            keywords,
+            subtitle,
+            summary
         )
     }
 
 }
 
 data class ItunesChannelData(
-    val explicit: String?,
-    val type: String?,
-    val subtitle: String?,
     val author: String?,
-    val summary: String?,
+    val categories: List<String> = emptyList(),
+    val duration: String?,
+    val explicit: String?,
     val image: String?,
-    val category: List<String> = emptyList(),
+    val keywords: List<String>,
     val newsFeedUrl: String?,
     val owner: ItunesOwner?,
-    val duration: String?,
-    val keywords: List<String>,
-): Serializable {
+    val subtitle: String?,
+    val summary: String?,
+    val type: String?,
+) : Serializable {
     internal data class Builder(
-        private var explicit: String? = null,
-        private var type: String? = null,
-        private var subtitle: String? = null,
         private var author: String? = null,
-        private var summary: String? = null,
-        private var image: String? = null,
         private var categories: MutableList<String> = mutableListOf(),
+        private var duration: String? = null,
+        private var explicit: String? = null,
+        private var image: String? = null,
+        private var keywords: List<String> = emptyList(),
         private var newsFeedUrl: String? = null,
         private var owner: ItunesOwner? = null,
-        private var duration: String? = null,
-        private var keywords: List<String> = emptyList(),
+        private var subtitle: String? = null,
+        private var summary: String? = null,
+        private var type: String? = null,
 
         ) {
         fun explicit(explicit: String?) = apply { this.explicit = explicit }
@@ -92,17 +92,17 @@ data class ItunesChannelData(
         fun duration(duration: String?) = apply { this.duration = duration }
         fun keywords(keywords: List<String>) = apply { this.keywords = keywords }
         fun build() = ItunesChannelData(
-            explicit,
-            type,
-            subtitle,
             author,
-            summary,
-            image,
             categories,
+            duration,
+            explicit,
+            image,
+            keywords,
             newsFeedUrl,
             owner,
-            duration,
-            keywords
+            subtitle,
+            summary,
+            type
         )
     }
 }
@@ -110,7 +110,7 @@ data class ItunesChannelData(
 data class ItunesOwner(
     val name: String?,
     val email: String?,
-): Serializable {
+) : Serializable {
     internal data class Builder(
         private var name: String? = null,
         private var email: String? = null,

@@ -2,7 +2,6 @@ package com.prof.rssparser.core
 
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -191,7 +190,7 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals(listOf("Comedy","Society & Culture", "Technology", "Podcasting"), channel.itunesChannelData!!.category)
+        assertEquals(listOf("Comedy","Society & Culture", "Technology", "Podcasting"), channel.itunesChannelData!!.categories)
     }
 
     @Test

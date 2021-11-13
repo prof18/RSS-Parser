@@ -192,7 +192,7 @@ class CoreXMLParserItunesFeedTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals(listOf("Comedy", "Society & Culture","Technology"), channel.itunesChannelData!!.category)
+        assertEquals(listOf("Comedy", "Society & Culture","Technology"), channel.itunesChannelData!!.categories)
     }
 
     @Test

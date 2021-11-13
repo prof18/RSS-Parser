@@ -215,7 +215,7 @@ class CoreXMLParserAudioFeedTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals("Society & Culture", channel.itunesChannelData!!.category.first())
+        assertEquals("Society & Culture", channel.itunesChannelData!!.categories.first())
     }
 
     @Test
