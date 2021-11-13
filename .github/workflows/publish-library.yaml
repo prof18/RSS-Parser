@@ -26,12 +26,6 @@ jobs:
       - name: Source jar and dokka
         run: ./gradlew androidSourcesJar javadocJar
 
-      - name: Import GPG Key
-        uses: crazy-max/ghaction-import-gpg@v1
-        env:
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-
         # Runs upload, and then closes & releases the repository
       - name: Publish to MavenCentral
         run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseSonatypeStagingRepository
