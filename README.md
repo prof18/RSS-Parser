@@ -46,6 +46,18 @@ The RSS channel resulting object provides you with the following data:
 - Image (Title, Url and Link)
 - Last build data
 - Update period
+- Itunes Data:
+  - Author
+  - Categories
+  - Duration  
+  - Explicit
+  - Image
+  - Keywords
+  - News Feed URL
+  - Owner  
+  - Subtitle
+  - Summary
+  - Type
 
 Articles, on the other hand, support the following attributes:
 
@@ -53,12 +65,24 @@ Articles, on the other hand, support the following attributes:
 - Author
 - Description
 - Content
-- Main Image
+- Image
 - Link
 - Publication Date
 - Categories
 - Audio
-- Source (name and link)
+- Source (name and URL)
+- GUID
+- Video
+- Itunes Data:
+  - Author
+  - Duration
+  - Episode
+  - Episode Type
+  - Explicit
+  - Image
+  - Keywords
+  - Subtitle
+  - Summary
 
 ## Features
 
@@ -260,6 +284,6 @@ If you are using RSS Parser in your app and would like to be listed here, please
 <details>
   <summary>List of Apps using RSS Parser</summary>
 
-* [MarioDiscepolo.com](https://play.google.com/store/apps/details?id=com.prof.mariodiscepolo&hl=it)
+* [Your App Name](www.yourapplink.com)
 
 </details>
