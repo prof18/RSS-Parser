@@ -5,12 +5,12 @@ apply from: "${rootDir}/gradle/publish-root.gradle"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 40001,
-            'libVersionName'     : '4.0.1',
+            'libVersionCode'     : 40002,
+            'libVersionName'     : '4.0.2',
             'compileSdk'         : 31,
             'minSdk'             : 14,
             'targetSdk'          : 31,
-            'okhttp'             : '3.12.0', // LTS version, update until December 31, 2021.
+            'okhttp'             : '3.12.13', // LTS version, update until December 31, 2021.
             'coroutines'         : '1.5.2',
             'kotlin'             : '1.5.31',
             'appCompat'          : '1.3.1',
