@@ -1,6 +1,7 @@
 package com.prof.rssparser.utils
 
 internal sealed class RSSKeyword(val value: String) {
+    object RSS: RSSKeyword("rss")
     object Title: RSSKeyword("title")
     object Image: RSSKeyword("image")
     object Link: RSSKeyword("link")

@@ -18,10 +18,7 @@
 package com.prof.rssparser.core
 
 import com.prof.rssparser.*
-import com.prof.rssparser.utils.RSSKeyword
-import com.prof.rssparser.utils.attributeValue
-import com.prof.rssparser.utils.contains
-import com.prof.rssparser.utils.nextTrimmedText
+import com.prof.rssparser.utils.*
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.ByteArrayInputStream
@@ -33,17 +30,6 @@ internal object CoreXMLParser {
 
     fun parseXML(xml: String): Channel {
 
-        var articleBuilder = Article.Builder()
-        val channelImageBuilder = Image.Builder()
-        val channelBuilder = Channel.Builder()
-        val itunesChannelBuilder = ItunesChannelData.Builder()
-        var itunesArticleBuilder = ItunesArticleData.Builder()
-        var itunesOwnerBuilder = ItunesOwner.Builder()
-
-        // This image url is extracted from the content and the description of the rss item.
-        // It's a fallback just in case there aren't any images in the enclosure tag.
-        var imageUrlFromContent: String? = null
-
         val factory = XmlPullParserFactory.newInstance()
         factory.isNamespaceAware = false
 
@@ -51,6 +37,33 @@ internal object CoreXMLParser {
         val reader: Reader = InputStreamReader(ByteArrayInputStream(xml.trim().toByteArray()))
 
         xmlPullParser.setInput(reader)
+
+        var eventType = xmlPullParser.eventType
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG) {
+                if (xmlPullParser.contains(RSSKeyword.RSS)) {
+                    return extractRSSContent(xmlPullParser)
+                } else if (xmlPullParser.contains(AtomKeyword.ATOM)) {
+                    return extractAtomContent(xmlPullParser)
+                }
+            }
+            eventType = xmlPullParser.next()
+        }
+
+        throw IllegalArgumentException("XmlPullParser not support the xml content.")
+    }
+
+    private fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
+        val channelBuilder = Channel.Builder()
+        var articleBuilder = Article.Builder()
+        val channelImageBuilder = Image.Builder()
+        val itunesChannelBuilder = ItunesChannelData.Builder()
+        var itunesArticleBuilder = ItunesArticleData.Builder()
+        var itunesOwnerBuilder = ItunesOwner.Builder()
+
+        // This image url is extracted from the content and the description of the rss item.
+        // It's a fallback just in case there aren't any images in the enclosure tag.
+        var imageUrlFromContent: String? = null
 
         // A flag just to be sure of the correct parsing
         var insideItem = false
@@ -335,6 +348,163 @@ internal object CoreXMLParser {
                     itunesChannelBuilder.owner(itunesOwnerBuilder.build())
                     itunesOwnerBuilder = ItunesOwner.Builder()
                     insideItunesOwner = false
+                }
+            }
+            eventType = xmlPullParser.next()
+        }
+
+        val channelImage = channelImageBuilder.build()
+        if (channelImage.isNotEmpty()) {
+            channelBuilder.image(channelImage)
+        }
+        channelBuilder.itunesChannelData(itunesChannelBuilder.build())
+
+        return channelBuilder.build()
+    }
+
+    private fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
+        val channelBuilder = Channel.Builder()
+        var articleBuilder = Article.Builder()
+        val channelImageBuilder = Image.Builder()
+        val itunesChannelBuilder = ItunesChannelData.Builder()
+        var itunesArticleBuilder = ItunesArticleData.Builder()
+
+        // This image url is extracted from the content and the description of the rss item.
+        // It's a fallback just in case there aren't any images in the enclosure tag.
+        var imageUrlFromContent: String? = null
+
+        // A flag just to be sure of the correct parsing
+        var insideItem = false
+        var insideAtom = false
+
+        var eventType = xmlPullParser.eventType
+
+        // Start parsing the xml
+        loop@ while (eventType != XmlPullParser.END_DOCUMENT) {
+
+            // Start parsing the item
+            when {
+                eventType == XmlPullParser.START_TAG -> when {
+                    // Entering conditions
+                    xmlPullParser.contains(AtomKeyword.ATOM) -> {
+                        insideAtom = true
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
+                        insideItem = true
+                    }
+                    //endregion
+
+                    //region Item tags
+                    xmlPullParser.contains(AtomKeyword.Entry.Author) -> {
+                        if (insideItem) {
+                            articleBuilder.author(xmlPullParser.nextTrimmedText())
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.Category) -> {
+                        if (insideItem) {
+                            articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.GUID) -> {
+                        if (insideItem) {
+                            articleBuilder.guid(xmlPullParser.nextTrimmedText())
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.Content) -> {
+                        if (insideItem) {
+                            try {
+                                val content = xmlPullParser.nextTrimmedText()
+                                articleBuilder.content(content)
+                                imageUrlFromContent = getImageUrl(content)
+                            } catch (throwable: Throwable) {
+                                // TODO some content tag with the no CDATA html that like this:
+                                // <content type="html">
+                                //  This post was published externally on Cash App Code Blog. Read it at
+                                //  <a href="https://code.cash.app/the-state-of-managing-state-with-compose">https://code.cash.app/the-state-of-managing-state-with-compose</a>
+                                //  .
+                                // </content>
+                                continue@loop
+                            }
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.PubDate) -> {
+                        if (insideItem) {
+                            val nextTokenType = xmlPullParser.next()
+                            if (nextTokenType == XmlPullParser.TEXT) {
+                                articleBuilder.pubDate(xmlPullParser.text.trim())
+                            }
+                            // Skip to be able to find date inside 'tag' tag
+                            continue@loop
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.PubDate) -> {
+                        if (insideItem) {
+                            val nextTokenType = xmlPullParser.next()
+                            if (nextTokenType == XmlPullParser.TEXT) {
+                                articleBuilder.pubDate(xmlPullParser.text.trim())
+                            }
+                            // Skip to be able to find date inside 'tag' tag
+                            continue@loop
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.SUBTITLE) -> {
+                        if (insideAtom) {
+                            channelBuilder.description(xmlPullParser.nextTrimmedText())
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Entry.Description) -> {
+                        if (insideItem) {
+                            val description = xmlPullParser.nextTrimmedText()
+                            articleBuilder.description(description)
+                            imageUrlFromContent = getImageUrl(description)
+                        }
+                    }
+                    //region Mixed tags
+                    xmlPullParser.contains(AtomKeyword.Title) -> {
+                        if (insideAtom) {
+                            when {
+                                insideItem -> articleBuilder.title(xmlPullParser.nextTrimmedText())
+                                else -> channelBuilder.title(xmlPullParser.nextTrimmedText())
+                            }
+                        }
+                    }
+                    xmlPullParser.contains(AtomKeyword.Link) -> {
+                        if (insideAtom) {
+                            val href = xmlPullParser.attributeValue(
+                                AtomKeyword.Link.HREF
+                            )
+                            val rel = xmlPullParser.attributeValue(
+                                AtomKeyword.Link.REL
+                            )
+                            //val type = xmlPullParser.attributeValue(
+                            //    AtomKeyword.Link.TYPE
+                            //)
+                            if ("edit".equals(rel, true).not()) {
+                                when {
+                                    insideItem -> articleBuilder.link(href)
+                                    else -> channelBuilder.link(href)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Exit conditions
+                eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
+                    // The item is correctly parsed
+                    insideItem = false
+                    // Set data
+                    articleBuilder.imageIfNull(imageUrlFromContent)
+                    articleBuilder.itunesArticleData(itunesArticleBuilder.build())
+                    channelBuilder.addArticle(articleBuilder.build())
+                    // Reset temp data
+                    imageUrlFromContent = null
+                    articleBuilder = Article.Builder()
+                    itunesArticleBuilder = ItunesArticleData.Builder()
+                }
+                eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ATOM) -> {
+                    // The channel is correctly parsed
+                    insideAtom = false
                 }
             }
             eventType = xmlPullParser.next()
