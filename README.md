@@ -123,7 +123,7 @@ If you don't provide the Android Context and the cache expiration date, the libr
 val parser = Parser.Builder()
                 .context(this)
                 .charset(Charset.forName("ISO-8859-7"))
-                .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
+                .cacheExpirationMillis(24L * 60L * 60L * 1000L) // one day
                 .build()
 ```
 
