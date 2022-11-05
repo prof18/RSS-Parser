@@ -1,5 +1,4 @@
-name: Publish
-
+name: Test on Push
 on:
   push:
     branches:
