@@ -8,6 +8,7 @@ ext {
     PUBLISH_ARTIFACT_ID = 'rssparser'
 }
 
+
 android {
     compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
 
@@ -44,6 +45,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)  // todo: move to ksp
     implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.lifecycle.extensions)
 
     testImplementation(libs.junit)
     testImplementation(libs.org.robolectric)
@@ -51,7 +53,5 @@ dependencies {
     testImplementation(libs.androidx.arch.core.testing)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
-    testImplementation(libs.com.nhaarman.mockitokotlin2)
-    testImplementation(libs.org.mockito.core)
-    testImplementation(libs.org.mockito.inline)
+    testImplementation(libs.io.mockk)
 }

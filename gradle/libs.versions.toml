@@ -1,0 +1,71 @@
+[versions]
+android-gradle-plugin = "7.2.2"
+android-compile-sdk = "33"
+android-min-sdk = "14"
+android-target-sdk = "33"
+kotlin = "1.7.10"
+library-version-code = "31005"
+library-version-name = "3.1.5"
+androidx-activity = "1.5.1"
+androidx-appcompat = "1.5.0"
+androidx-arch-core = "2.1.0"
+androidx-cardview = "1.0.0"
+androidx-constraintlayout = "2.1.4"
+androidx-core = "1.8.0"
+androidx-lifecycle-extensions = "2.2.0"
+androidx-lifecycle-runtime = "2.5.1"
+androidx-lifecycle-viewmodel-ktx = "2.5.1"
+androidx-recyclerview = "1.0.0"
+androidx-room = "2.4.3"
+androidx-swiperefreshlayout = "1.1.0"
+androidx-test-core = "1.4.0"
+com-github-ben-manes-versions = "0.42.0"
+com-google-android-material = "1.6.1"
+com-nhaarman-mockitokotlin2 = "2.2.0"
+com-squareup-okhttp3 = "3.12.0"
+com-squareup-picasso = "2.71828"
+com-vanniktech-gradle-maven-publish-plugin="0.19.0"
+junit = "4.13.2"
+org-jetbrains-dokka = "1.7.10"
+org-jetbrains-kotlinx-coroutines = "1.6.4"
+org-robolectric = "4.9"
+io-mockk = "1.12.0"
+
+
+[libraries]
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-core" }
+androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "androidx-cardview" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref="androidx-constraintlayout" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref="androidx-lifecycle-extensions" }
+androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref="androidx-lifecycle-runtime" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref="androidx-lifecycle-runtime" }
+androidx-lifecycle-viewmodel-ktx = {module=  "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref="androidx-lifecycle-viewmodel-ktx" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref="androidx-swiperefreshlayout" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test-core" }
+com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
+com-google-android-material = { module = "com.google.android.material:material", version.ref = "com-google-android-material" }
+com-prof18-rssparser = { module = "com.prof18.rssparser:rssparser", version = "library-version-name" }
+com-squareup-okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
+com-squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref="com-squareup-picasso" }
+com-vanniktech-gradle-maven-publish-plugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "com-vanniktech-gradle-maven-publish-plugin" }
+junit = { module = "junit:junit", version.ref = "junit" }
+org-jetbrains-dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "org-jetbrains-dokka" }
+org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+org-jetbrains-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+org-jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx-coroutines" }
+org-jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
+org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
+org-robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robolectric" }
+io-mockk = { module = "io.mockk:mockk", version.ref = "io-mockk" }
+io-mockk-android = { module = "io.mockk:mockk-android", version.ref = "io-mockk" } # todo: delete
+
+
+[plugins]
+com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "com-github-ben-manes-versions" }
