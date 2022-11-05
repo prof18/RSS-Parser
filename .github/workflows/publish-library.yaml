@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Upload Snapshot
-        run: ./gradlew publish --no-daemon --no-parallel --no-configuration-cache --stacktrace
+        run: ./gradlew :rssparser:publishAllPublicationsToMavenCentral --no-daemon --no-parallel --no-configuration-cache --stacktrace
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.OSSRH_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.OSSRH_PASSWORD }}

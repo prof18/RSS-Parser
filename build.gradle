@@ -3,7 +3,6 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.gradle.plugin)
         classpath(libs.org.jetbrains.dokka.gradle.plugin)
-        classpath(libs.com.vanniktech.gradle.maven.publish.plugin)
     }
 }
 

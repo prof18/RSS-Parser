@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.com.vanniktech.maven.publish)
 }
 
 android {
