@@ -6,32 +6,37 @@ on:
     types: [released]
 
 jobs:
-  publish:
-    name: Release build and publish
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
+      - name: Checkout
         uses: actions/checkout@v2
 
-        # Base64 decodes and pipes the GPG key content into the secret file
-      - name: Prepare environment
-        env:
-          GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
-        run: |
-          git fetch --unshallow
-          sudo bash -c "echo '$GPG_KEY_CONTENTS' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1
 
-        # Builds the release artifacts of the library
-      - name: Release build
-        run: ./gradlew :rssparser:assembleRelease
+      - name: Test
+        run: ./gradlew clean check --no-daemon --stacktrace
 
-        # Generates other artifacts (javadocJar is optional)
-      - name: Source jar and dokka
-        run: ./gradlew androidSourcesJar javadocJar
+      - name: (Fail-only) Bundle test reports
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
 
-        # Runs upload, and then closes & releases the repository
-      - name: Publish to MavenCentral
+      - name: (Fail-only) Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: error-report
+          path: build-reports.zip
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Upload Snapshot
         run: ./gradlew publish --no-daemon --no-parallel --no-configuration-cache --stacktrace
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.OSSRH_USERNAME }}
