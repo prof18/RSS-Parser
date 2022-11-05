@@ -1,12 +1,6 @@
 //apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
-    ext.versions = [
-            'libVersionCode'     : 31005,
-            'libVersionName'     : '3.1.5',
-            // todo :delete
-    ]
-
     repositories {
         google()
         mavenCentral()
@@ -22,13 +16,11 @@ buildscript {
         classpath(libs.com.android.tools.build.gradle)
         classpath(libs.org.jetbrains.kotlin.gradle.plugin)
         classpath(libs.org.jetbrains.dokka.gradle.plugin)
-
         classpath(libs.com.vanniktech.gradle.maven.publish.plugin)
     }
 }
 
 plugins {
-    id 'com.autonomousapps.dependency-analysis' version "1.13.1" // todo delete
     alias(libs.plugins.com.github.ben.manes.versions)
 }
 
@@ -39,8 +31,6 @@ allprojects {
         maven {
             url = "https://dl.bintray.com/kotlin/dokka"
         }
-//        // org.jetbrains.trove4j:trove4j:20160824.
-//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 

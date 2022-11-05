@@ -4,11 +4,13 @@ plugins {
     id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
 }
 
-ext {
-    PUBLISH_GROUP_ID = 'com.prof18.rssparser'
-    PUBLISH_VERSION = versions.libVersionName
-    PUBLISH_ARTIFACT_ID = 'rssparser'
-}
+//ext {
+//    PUBLISH_GROUP_ID = 'com.prof18.rssparser'
+//    PUBLISH_VERSION = versions.libVersionName
+//    PUBLISH_ARTIFACT_ID = 'rssparser'
+//}
+
+//apply from: "${rootProject.projectDir}/gradle/publish-mavencentral.gradle"
 
 android {
     compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
@@ -49,7 +51,6 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.org.robolectric)
-    testImplementation(libs.androidx.room.testing)
     testImplementation(libs.androidx.arch.core.testing)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)

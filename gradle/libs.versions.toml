@@ -1,11 +1,11 @@
 [versions]
-android-gradle-plugin = "7.2.2"
+android-gradle-plugin = "7.3.1"
 android-compile-sdk = "33"
 android-min-sdk = "21"
 android-target-sdk = "33"
 kotlin = "1.7.10"
-library-version-code = "40000"
-library-version-name = "4.0.0"
+library-version-code = "40003"
+library-version-name = "4.0.3"
 androidx-activity = "1.5.1"
 androidx-appcompat = "1.5.0"
 androidx-arch-core = "2.1.0"
@@ -28,7 +28,7 @@ com-vanniktech-gradle-maven-publish-plugin="0.19.0"
 junit = "4.13.2"
 org-jetbrains-dokka = "1.7.10"
 org-jetbrains-kotlinx-coroutines = "1.6.4"
-org-robolectric = "4.8.2"
+org-robolectric = "4.9"
 io-mockk = "1.12.0"
 
 
@@ -64,7 +64,6 @@ org-jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlin
 org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robolectric" }
 io-mockk = { module = "io.mockk:mockk", version.ref = "io-mockk" }
-io-mockk-android = { module = "io.mockk:mockk-android", version.ref = "io-mockk" } # todo: delete
 
 
 [plugins]
