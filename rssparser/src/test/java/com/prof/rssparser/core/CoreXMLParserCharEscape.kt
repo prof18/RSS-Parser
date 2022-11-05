@@ -76,7 +76,6 @@ class CoreXMLParserCharEscape {
         assertEquals(1, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {
@@ -104,7 +103,10 @@ class CoreXMLParserCharEscape {
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals("Plus, mammoths in Vegas, watermelon snow, Miami’s looming sea wall and more in the Friday edition of the Science Times newsletter.", article.description)
+        assertEquals(
+            "Plus, mammoths in Vegas, watermelon snow, Miami’s looming sea wall and more in the Friday edition of the Science Times newsletter.",
+            article.description
+        )
     }
 
     @Test
@@ -122,7 +124,23 @@ class CoreXMLParserCharEscape {
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(listOf("Conservation of Resources", "Grass", "Water", "Deserts", "Shortages", "Mars (Planet)", "Colorado River", "Hoover Dam", "Lake Mead", "Las Vegas (Nev)", "Mojave Desert (Calif)", "Western States (US)", "your-feed-science"), article.categories)
+        assertEquals(
+            listOf(
+                "Conservation of Resources",
+                "Grass",
+                "Water",
+                "Deserts",
+                "Shortages",
+                "Mars (Planet)",
+                "Colorado River",
+                "Hoover Dam",
+                "Lake Mead",
+                "Las Vegas (Nev)",
+                "Mojave Desert (Calif)",
+                "Western States (US)",
+                "your-feed-science"
+            ), article.categories
+        )
     }
 
     @Test
@@ -154,6 +172,5 @@ class CoreXMLParserCharEscape {
     fun video_isCorrect() {
         assertNull(article.video)
     }
-
 
 }

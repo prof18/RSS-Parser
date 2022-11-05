@@ -74,7 +74,10 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertEquals("Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça", channel.image?.description)
+        assertEquals(
+            "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça",
+            channel.image?.description
+        )
     }
 
     @Test
@@ -93,7 +96,6 @@ class CoreXMLParserImage2FeedTest {
         assertEquals(20, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {
@@ -109,7 +111,10 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html", article.link)
+        assertEquals(
+            "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html",
+            article.link
+        )
     }
 
     @Test
@@ -133,7 +138,10 @@ class CoreXMLParserImage2FeedTest {
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals("https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg", article.image)
+        assertEquals(
+            "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg",
+            article.image
+        )
     }
 
     @Test

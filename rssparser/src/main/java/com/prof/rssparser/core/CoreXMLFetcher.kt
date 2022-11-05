@@ -13,6 +13,6 @@ internal object CoreXMLFetcher {
 
         val response = callFactory.newCall(request).execute()
         val byteStream = response.body?.byteStream()
-        return byteStream?.bufferedReader(charset).use { it?.readText() ?: ""}
+        return byteStream?.bufferedReader(charset).use { it?.readText() ?: "" }
     }
 }

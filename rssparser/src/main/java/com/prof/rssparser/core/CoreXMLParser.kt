@@ -17,7 +17,12 @@
 
 package com.prof.rssparser.core
 
-import com.prof.rssparser.*
+import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
+import com.prof.rssparser.Image
+import com.prof.rssparser.ItunesArticleData
+import com.prof.rssparser.ItunesChannelData
+import com.prof.rssparser.ItunesOwner
 import com.prof.rssparser.utils.RSSKeyword
 import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains

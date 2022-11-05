@@ -10,7 +10,6 @@ import java.nio.charset.Charset
 
 internal object CoroutineEngine {
 
-    @Throws(Exception::class)
     suspend fun fetchXML(
         url: String,
         callFactory: Call.Factory,
@@ -19,7 +18,6 @@ internal object CoroutineEngine {
         return@withContext CoreXMLFetcher.fetchXML(url, callFactory, charset)
     }
 
-    @Throws(Exception::class)
     suspend fun parseXML(xml: String): Channel = withContext(Dispatchers.IO) {
         return@withContext CoreXMLParser.parseXML(xml)
     }

@@ -52,7 +52,10 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals("http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg", channel.image?.url)
+        assertEquals(
+            "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg",
+            channel.image?.url
+        )
     }
 
     @Test
@@ -75,7 +78,6 @@ class CoreXMLParserImageChannelReverseTest {
     fun size_isCorrect() {
         assertEquals(6, articleList.size)
     }
-
 
     @Test
     @Throws
@@ -104,19 +106,25 @@ class CoreXMLParserImageChannelReverseTest {
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals("Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.", article.description)
+        assertEquals(
+            "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
+            article.description
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals("Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.", article.content)
+        assertEquals(
+            "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
+            article.content
+        )
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-       assert(article.categories.isEmpty())
+        assert(article.categories.isEmpty())
     }
 
     @Test
@@ -190,7 +198,10 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals(listOf("Comedy","Society & Culture", "Technology", "Podcasting"), channel.itunesChannelData!!.categories)
+        assertEquals(
+            listOf("Comedy", "Society & Culture", "Technology", "Podcasting"),
+            channel.itunesChannelData!!.categories
+        )
     }
 
     @Test
@@ -200,7 +211,10 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesChannel_keywords_isCorrect() {
-        assertEquals(listOf("comedian","joe","monkey","redban","rogan","talking","ufc",), channel.itunesChannelData!!.keywords)
+        assertEquals(
+            listOf("comedian", "joe", "monkey", "redban", "rogan", "talking", "ufc"),
+            channel.itunesChannelData!!.keywords
+        )
     }
 
     @Test
@@ -246,6 +260,28 @@ class CoreXMLParserImageChannelReverseTest {
 
     @Test
     fun itunesItem_keywords_isCorrect() {
-        assertEquals(listOf("podcast","3","joe","party","experience","tom","ari","october","bert","freak","rogan","recap","sober","kreischer","shaffir","segura","deathsquad","jre","1405"), article.itunesArticleData!!.keywords)
+        assertEquals(
+            listOf(
+                "podcast",
+                "3",
+                "joe",
+                "party",
+                "experience",
+                "tom",
+                "ari",
+                "october",
+                "bert",
+                "freak",
+                "rogan",
+                "recap",
+                "sober",
+                "kreischer",
+                "shaffir",
+                "segura",
+                "deathsquad",
+                "jre",
+                "1405"
+            ), article.itunesArticleData!!.keywords
+        )
     }
 }

@@ -7,9 +7,6 @@ import com.prof.rssparser.ChannelFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
@@ -161,7 +158,6 @@ class CacheManagerTest {
         assertNull(channel1)
         assertNull(channel2)
     }
-
 
     @Test
     fun `flushCachedFeed works correctly`() = runTest(testDispatcher) {

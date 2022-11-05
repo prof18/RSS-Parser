@@ -142,7 +142,7 @@ class CoreXMLParserImageEnclosure {
     @Test
     @Throws
     fun audio_iCorrect() {
-        assertNull(article.audio, )
+        assertNull(article.audio)
     }
 
     @Test

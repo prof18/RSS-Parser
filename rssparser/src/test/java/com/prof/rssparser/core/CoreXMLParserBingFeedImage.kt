@@ -76,12 +76,13 @@ class CoreXMLParserBingFeedImage {
         assertEquals(1, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals("Real Madrid, Barcelona and Juventus 'threaten clubs withdrawing from Super League\n" +
-                "                with legal action'", article.title)
+        assertEquals(
+            "Real Madrid, Barcelona and Juventus 'threaten clubs withdrawing from Super League\n" +
+            "                with legal action'", article.title
+        )
     }
 
     @Test
@@ -93,7 +94,10 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=12BE3CE268B0484F92DD9828C685E325&url=https%3a%2f%2fwww.dailymail.co.uk%2fsport%2ffootball%2farticle-9554407%2fReal-Madrid-Barcelona-Juventus-threaten-clubs-withdrawing-Super-League-legal-action.html&c=4438839993362862681&mkt=it-it", article.link)
+        assertEquals(
+            "http://www.bing.com/news/apiclick.aspx?ref=FexRss&aid=&tid=12BE3CE268B0484F92DD9828C685E325&url=https%3a%2f%2fwww.dailymail.co.uk%2fsport%2ffootball%2farticle-9554407%2fReal-Madrid-Barcelona-Juventus-threaten-clubs-withdrawing-Super-League-legal-action.html&c=4438839993362862681&mkt=it-it",
+            article.link
+        )
     }
 
     @Test
@@ -105,9 +109,11 @@ class CoreXMLParserBingFeedImage {
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals("The three European giants are refusing to let the plans die and have\n" +
-                "                warned their former partners they will extract millions of dollars in penalties if\n" +
-                "                they walk away from the league.", article.description)
+        assertEquals(
+            "The three European giants are refusing to let the plans die and have\n" +
+            "                warned their former partners they will extract millions of dollars in penalties if\n" +
+            "                they walk away from the league.", article.description
+        )
     }
 
     @Test

@@ -51,7 +51,10 @@ class CoreXMLParserHindiChannelImageTest {
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals("https://static.hindi.news18.com/ibnkhabar/uploads/2017/01/mainlogo_hindi_new.png", channel.image?.url)
+        assertEquals(
+            "https://static.hindi.news18.com/ibnkhabar/uploads/2017/01/mainlogo_hindi_new.png",
+            channel.image?.url
+        )
     }
 
     @Test
@@ -75,7 +78,6 @@ class CoreXMLParserHindiChannelImageTest {
         assertEquals(2, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {
@@ -91,7 +93,10 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html", article.link)
+        assertEquals(
+            "https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html",
+            article.link
+        )
     }
 
     @Test
@@ -127,7 +132,10 @@ class CoreXMLParserHindiChannelImageTest {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals("https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html", article.guid)
+        assertEquals(
+            "https://hindi.news18.com/news/world/who-experts-in-wuhan-probing-coronavirus-origins-meet-chinese-scientists-nodtg-3437941.html",
+            article.guid
+        )
     }
 
     @Test

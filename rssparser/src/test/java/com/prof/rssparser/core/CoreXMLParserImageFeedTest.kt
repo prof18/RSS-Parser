@@ -69,7 +69,10 @@ class CoreXMLParserImageFeedTest {
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals("https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png", channel.image?.url)
+        assertEquals(
+            "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png",
+            channel.image?.url
+        )
     }
 
     @Test
@@ -92,7 +95,6 @@ class CoreXMLParserImageFeedTest {
     fun size_isCorrect() {
         assertEquals(50, articleList.size)
     }
-
 
     @Test
     @Throws
@@ -121,18 +123,25 @@ class CoreXMLParserImageFeedTest {
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals("The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.", article.description)
+        assertEquals(
+            "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.",
+            article.description
+        )
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(null, article.content)  }
+        assertEquals(null, article.content)
+    }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertEquals("https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg", article.image)
+        assertEquals(
+            "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
+            article.image
+        )
     }
 
     @Test
