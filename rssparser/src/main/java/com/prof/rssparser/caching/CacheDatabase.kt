@@ -1,11 +1,18 @@
 package com.prof.rssparser.caching
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CachedFeed::class], version = 1)
+@Database(
+    entities = [CachedFeed::class],
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ]
+)
 internal abstract class CacheDatabase: RoomDatabase() {
     abstract fun cachedFeedDao(): CachedFeedDao
     
@@ -19,7 +26,7 @@ internal abstract class CacheDatabase: RoomDatabase() {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(context.applicationContext,
                                 CacheDatabase::class.java, "rssparsercache.db")
-                                .build()
+                                .fallbackToDestructiveMigration().build()
                     }
                     return INSTANCE as CacheDatabase
                 }

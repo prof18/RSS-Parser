@@ -173,7 +173,8 @@ class Parser private constructor(
      *
      */
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
-        val cachedFeed = cacheManager?.getCachedFeed(url)
+        val charsetString = charset.toString()
+        val cachedFeed = cacheManager?.getCachedFeed(url, charsetString)
         if (cachedFeed != null) {
             Log.d(TAG, "Returning object from cache")
             return@withContext cachedFeed
@@ -181,7 +182,11 @@ class Parser private constructor(
             Log.d(TAG, "Returning data from network")
             val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)
             val channel = CoroutineEngine.parseXML(xml)
-            cacheManager?.cacheFeed(url, channel)
+            cacheManager?.cacheFeed(
+                url = url,
+                channel = channel,
+                charset = charsetString,
+            )
             return@withContext channel
         }
     }

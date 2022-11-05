@@ -30,6 +30,7 @@ class CacheManagerTest {
 
     private lateinit var database: CacheDatabase
     private lateinit var cacheManager: CacheManager
+    private var defaultCharSet = Charsets.UTF_8.toString()
 
     @Before
     fun initDb() {
@@ -57,9 +58,13 @@ class CacheManagerTest {
     fun `cacheFeed cache data`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
-        val channelCached = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val channelCached = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
         assertNotNull(channelCached)
     }
 
@@ -67,9 +72,13 @@ class CacheManagerTest {
     fun `getCachedFeed feed returns correct data`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
-        val cachedChannel = cacheManager.getCachedFeed(url)
+        val cachedChannel = cacheManager.getCachedFeed(url, defaultCharSet)
         assertEquals(channel, cachedChannel)
     }
 
@@ -77,10 +86,14 @@ class CacheManagerTest {
     fun `getCachedFeed returns null when url is incorrect`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
         val badUrl = "http://www.badurl.com"
-        val cachedChannel = cacheManager.getCachedFeed(badUrl)
+        val cachedChannel = cacheManager.getCachedFeed(badUrl, defaultCharSet)
         assertNull(cachedChannel)
     }
 
@@ -89,9 +102,14 @@ class CacheManagerTest {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         // Just an old version to make sure that the test won't be broken in the future
-        cacheManager.cacheFeed(url, channel, libraryVersion = 10000)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            libraryVersion = 10000,
+            charset = defaultCharSet,
+        )
 
-        val cachedChannel = cacheManager.getCachedFeed(url)
+        val cachedChannel = cacheManager.getCachedFeed(url, defaultCharSet)
         assertNull(cachedChannel)
     }
 
@@ -99,15 +117,20 @@ class CacheManagerTest {
     fun `getCachedFeed returns null when cache is expired`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel, cachedDate = 1L)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            cachedDate = 1L,
+            charset = defaultCharSet,
+        )
 
-        val cachedChannel = cacheManager.getCachedFeed(url)
+        val cachedChannel = cacheManager.getCachedFeed(url, defaultCharSet)
         assertNull(cachedChannel)
     }
 
     @Test
     fun `getCachedFeed returns null when cache is not present`() = runTest(testDispatcher) {
-        val cachedChannel = cacheManager.getCachedFeed(ChannelFactory.getLink())
+        val cachedChannel = cacheManager.getCachedFeed(ChannelFactory.getLink(), defaultCharSet)
         assertNull(cachedChannel)
     }
 
@@ -116,36 +139,53 @@ class CacheManagerTest {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
         val url2 = "https://www.anotherfeed.com"
-        cacheManager.cacheFeed(url2, channel)
+        cacheManager.cacheFeed(
+            url = url2,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
         // Flush cache
         cacheManager.flushAllCache()
 
         // Check cache is empty
-        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode())
-        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode())
+        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
+        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode(), defaultCharSet)
 
         assertNull(channel1)
         assertNull(channel2)
     }
+
 
     @Test
     fun `flushCachedFeed works correctly`() = runTest(testDispatcher) {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
         val url2 = "https://www.anotherfeed.com"
-        cacheManager.cacheFeed(url2, channel)
+        cacheManager.cacheFeed(
+            url = url2,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
         // Flush cache of channel 2
         cacheManager.flushCachedFeed(url2)
 
         // Check cache is empty
-        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode())
-        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode())
+        val channel1 = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
+        val channel2 = database.cachedFeedDao().getCachedFeed(url2.hashCode(), defaultCharSet)
 
         assertNotNull(channel1)
         assertNull(channel2)
@@ -156,12 +196,16 @@ class CacheManagerTest {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            charset = defaultCharSet,
+        )
 
         // Flush cache of wrong channel
         cacheManager.flushCachedFeed("wrong url")
 
-        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
         assertNotNull(cachedFeed)
 
     }
@@ -170,12 +214,17 @@ class CacheManagerTest {
     fun `getCachedFeed deletes data when cache is expired`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
-        cacheManager.cacheFeed(url, channel, cachedDate = 1L)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            cachedDate = 1L,
+            charset = defaultCharSet,
+        )
 
-        cacheManager.getCachedFeed(url)
+        cacheManager.getCachedFeed(url, defaultCharSet)
 
         // Check if not present in the db
-        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
         assertNull(cachedFeed)
     }
 
@@ -184,13 +233,32 @@ class CacheManagerTest {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         // Just an old version to make sure that the test won't be broken in the future
-        cacheManager.cacheFeed(url, channel, libraryVersion = 10000)
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            libraryVersion = 10000,
+            charset = defaultCharSet,
+        )
 
-
-        cacheManager.getCachedFeed(url)
+        cacheManager.getCachedFeed(url, defaultCharSet)
 
         // Check if not present in the db
-        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode())
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(url.hashCode(), defaultCharSet)
         assertNull(cachedFeed)
+    }
+
+    @Test
+    fun `getCachedFeed returns null when charset is different`() = runTest(testDispatcher) {
+        val channel = ChannelFactory.getChannel()
+        val url = ChannelFactory.getLink()
+        cacheManager.cacheFeed(
+            url = url,
+            channel = channel,
+            cachedDate = 1L,
+            charset = defaultCharSet,
+        )
+
+        val cachedChannel = cacheManager.getCachedFeed(url, Charsets.ISO_8859_1.toString())
+        assertNull(cachedChannel)
     }
 }

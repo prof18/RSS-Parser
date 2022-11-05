@@ -4,14 +4,6 @@ plugins {
     id 'com.google.devtools.ksp' version '1.7.10-1.0.6'
 }
 
-//ext {
-//    PUBLISH_GROUP_ID = 'com.prof18.rssparser'
-//    PUBLISH_VERSION = versions.libVersionName
-//    PUBLISH_ARTIFACT_ID = 'rssparser'
-//}
-
-//apply from: "${rootProject.projectDir}/gradle/publish-mavencentral.gradle"
-
 android {
     compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
 
@@ -29,6 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
@@ -36,6 +29,9 @@ android {
 
     testOptions.unitTests.includeAndroidResources = true
 
+    sourceSets {
+        test.assets.srcDirs += files("$projectDir/dbschemas".toString())
+    }
 }
 
 dependencies {
@@ -56,5 +52,12 @@ dependencies {
     testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
     testImplementation(libs.io.mockk)
 
+    testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.androidx.test.ext.junit)
+
     ksp(libs.androidx.room.compiler)
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/dbschemas".toString())
 }

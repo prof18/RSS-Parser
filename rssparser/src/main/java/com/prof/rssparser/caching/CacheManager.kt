@@ -22,7 +22,7 @@ import java.io.ObjectOutputStream
 internal class CacheManager(
     internal val database: CacheDatabase, // internal just for close db during testing
     private val cacheDurationMillis: Long,
-    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) {
 
     /**
@@ -58,7 +58,8 @@ internal class CacheManager(
     suspend fun cacheFeed(
         url: String, channel: Channel,
         cachedDate: Long = System.currentTimeMillis(),
-        libraryVersion: Int = BuildConfig.VERSION_CODE
+        libraryVersion: Int = BuildConfig.VERSION_CODE,
+        charset: String,
     ) {
         // The coroutineDispatcher has to be Dispatchers.IO
         withContext(coroutineDispatcher) {
@@ -77,7 +78,8 @@ internal class CacheManager(
                     urlHash = urlHash,
                     byteArray = bytes,
                     cachedDate = cachedDate,
-                    libraryVersion = libraryVersion
+                    libraryVersion = libraryVersion,
+                    charset = charset,
                 )
 
                 database.cachedFeedDao().insertFeed(cachedFeed)
@@ -105,11 +107,14 @@ internal class CacheManager(
      * @param url The url of the RSS feed. The hash code of the url is the key.
      *
      */
-    suspend fun getCachedFeed(url: String): Channel? = withContext(coroutineDispatcher) {
+    suspend fun getCachedFeed(
+        url: String,
+        charset: String,
+    ): Channel? = withContext(coroutineDispatcher) {
         val urlHash = url.hashCode()
 
-        val cachedFeed = database.cachedFeedDao().getCachedFeed(urlHash)
-            ?: return@withContext null
+        val cachedFeed = database.cachedFeedDao().getCachedFeed(urlHash, charset)
+                         ?: return@withContext null
 
         // Just to avoid problems when the Channel object changes
         if (cachedFeed.libraryVersion != BuildConfig.VERSION_CODE) {
@@ -145,8 +150,7 @@ internal class CacheManager(
             if (INSTANCE == null) {
                 synchronized(lock) {
                     if (INSTANCE == null) {
-                        INSTANCE =
-                            CacheManager(CacheDatabase.getInstance(context), cacheDurationMillis)
+                        INSTANCE = CacheManager(CacheDatabase.getInstance(context), cacheDurationMillis)
                     }
                     return INSTANCE as CacheManager
                 }

@@ -1,1 +1,3 @@
 /build
+!/dbschemas/com.prof.rssparser.caching.CacheDatabase/
+!/dbschemas/com.prof.rssparser.caching.CacheDatabase/*.json

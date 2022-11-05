@@ -94,7 +94,7 @@ class ParserTest {
         val channelFromCache = parser.getChannel(url)
 
         // Verify that the channel has been cached. In this way we now that the net value is returned
-        coVerify { cacheManagerSpy.cacheFeed(any(), any(), any(), any()) }
+        coVerify { cacheManagerSpy.cacheFeed(any(), any(), any(), any(), any()) }
 
         // Verify that returns cached data!
         assertNotNull(channel)
