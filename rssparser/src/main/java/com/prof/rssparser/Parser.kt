@@ -51,15 +51,6 @@ class Parser private constructor(
     private val coroutineContext: CoroutineContext
         get() = parserJob + Dispatchers.Default
 
-    // Constructor stuff
-
-    // Just for back compatibility
-    @Deprecated("Use the builder to create the parser object")
-    constructor(okHttpClient: OkHttpClient? = null) : this(okHttpClient, Charsets.UTF_8, null, null)
-
-    @Deprecated("Use the builder to create the parser object")
-    constructor() : this(null, Charsets.UTF_8, null, null)
-
     /**
      * Builds the Parser.
      *
