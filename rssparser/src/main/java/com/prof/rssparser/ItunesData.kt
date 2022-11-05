@@ -25,8 +25,7 @@ data class ItunesArticleData(
         private var subtitle: String? = null,
         private var summary: String? = null,
         private var season: String? = null,
-
-        ) {
+    ) {
         fun image(image: String?) = apply { this.image = image }
         fun duration(duration: String?) = apply { this.duration = duration }
         fun explicit(explicit: String?) = apply { this.explicit = explicit }
