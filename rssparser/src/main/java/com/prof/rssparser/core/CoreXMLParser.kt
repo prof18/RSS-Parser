@@ -160,6 +160,11 @@ internal object CoreXMLParser {
                                         )
                                     )
                                 }
+                                else -> {
+                                    articleBuilder.imageIfNull(
+                                        xmlPullParser.nextText().trim()
+                                    )
+                                }
                             }
                         }
                     }
