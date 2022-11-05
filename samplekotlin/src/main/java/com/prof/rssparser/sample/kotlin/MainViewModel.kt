@@ -31,7 +31,6 @@ import okhttp3.Request
 class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
-    private lateinit var articleListLive: MutableLiveData<Channel>
 
     private val _snackbar = MutableLiveData<String>()
     val snackbar: LiveData<String>
@@ -70,7 +69,7 @@ class MainViewModel : ViewModel() {
                 .url(url)
                 .build()
             val result = okHttpClient.newCall(request).execute()
-            val raw = runCatching { result.body()?.string() }.getOrNull()
+            val raw = runCatching { result.body?.string() }.getOrNull()
             if (raw == null) {
                 _snackbar.postValue("Something went wrong!")
             } else {
