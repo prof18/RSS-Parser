@@ -6,9 +6,11 @@ import androidx.test.core.app.ApplicationProvider
 import com.prof.rssparser.ChannelFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -24,8 +26,7 @@ class CacheManagerTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val testDispatcher = TestCoroutineDispatcher()
-    private val testScope = TestCoroutineScope(testDispatcher)
+    private val testDispatcher = StandardTestDispatcher()
 
     private lateinit var database: CacheDatabase
     private lateinit var cacheManager: CacheManager
@@ -33,13 +34,18 @@ class CacheManagerTest {
     @Before
     fun initDb() {
         database = Room.inMemoryDatabaseBuilder(
-                ApplicationProvider.getApplicationContext(),
-                CacheDatabase::class.java)
-                .allowMainThreadQueries()
-                .setTransactionExecutor(testDispatcher.asExecutor())
-                .setQueryExecutor(testDispatcher.asExecutor())
-                .build()
-        cacheManager = CacheManager(database, ChannelFactory.getOneDayCacheDuration(), coroutineDispatcher = testDispatcher)
+            ApplicationProvider.getApplicationContext(),
+            CacheDatabase::class.java
+        )
+            .allowMainThreadQueries()
+            .setTransactionExecutor(testDispatcher.asExecutor())
+            .setQueryExecutor(testDispatcher.asExecutor())
+            .build()
+        cacheManager = CacheManager(
+            database,
+            ChannelFactory.getOneDayCacheDuration(),
+            coroutineDispatcher = testDispatcher,
+        )
     }
 
     @After
@@ -48,7 +54,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `cacheFeed cache data`() = testScope.runBlockingTest {
+    fun `cacheFeed cache data`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel)
@@ -58,7 +64,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed feed returns correct data`() = testScope.runBlockingTest {
+    fun `getCachedFeed feed returns correct data`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel)
@@ -68,7 +74,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed returns null when url is incorrect`() = testScope.runBlockingTest {
+    fun `getCachedFeed returns null when url is incorrect`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel)
@@ -79,7 +85,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed returns null when new library version`() = testScope.runBlockingTest {
+    fun `getCachedFeed returns null when new library version`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         // Just an old version to make sure that the test won't be broken in the future
@@ -90,7 +96,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed returns null when cache is expired`() = testScope.runBlockingTest {
+    fun `getCachedFeed returns null when cache is expired`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel, cachedDate = 1L)
@@ -100,13 +106,13 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed returns null when cache is not present`() = testScope.runBlockingTest {
+    fun `getCachedFeed returns null when cache is not present`() = runTest(testDispatcher) {
         val cachedChannel = cacheManager.getCachedFeed(ChannelFactory.getLink())
         assertNull(cachedChannel)
     }
 
     @Test
-    fun `flushAllCache works correctly`() = testScope.runBlockingTest {
+    fun `flushAllCache works correctly`() = runTest(testDispatcher) {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
@@ -126,7 +132,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `flushCachedFeed works correctly`() = testScope.runBlockingTest {
+    fun `flushCachedFeed works correctly`() = runTest(testDispatcher) {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
@@ -146,7 +152,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `flushCachedFeed when a wrong url is passed`() = testScope.runBlockingTest {
+    fun `flushCachedFeed when a wrong url is passed`() = runTest(testDispatcher) {
         // Add data to cache
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
@@ -161,7 +167,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed deletes data when cache is expired`() = testScope.runBlockingTest {
+    fun `getCachedFeed deletes data when cache is expired`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         cacheManager.cacheFeed(url, channel, cachedDate = 1L)
@@ -174,7 +180,7 @@ class CacheManagerTest {
     }
 
     @Test
-    fun `getCachedFeed deletes data when library is updated`() = testScope.runBlockingTest {
+    fun `getCachedFeed deletes data when library is updated`() = runTest(testDispatcher) {
         val channel = ChannelFactory.getChannel()
         val url = ChannelFactory.getLink()
         // Just an old version to make sure that the test won't be broken in the future

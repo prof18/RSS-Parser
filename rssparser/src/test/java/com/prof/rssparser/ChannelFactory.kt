@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody
+import okhttp3.ResponseBody.Companion.toResponseBody
 
 object ChannelFactory {
 
@@ -17,7 +18,7 @@ object ChannelFactory {
                     .code(200)
                     .message("")
                     .request(chain.request())
-                    .body(ResponseBody.create(null, response))
+                    .body(response.toResponseBody(null))
                     .build()
             }
             .build()

@@ -1,6 +1,5 @@
 package com.prof.rssparser
 
-import android.os.Build
 import androidx.test.core.app.ApplicationProvider
 import io.mockk.coVerify
 import io.mockk.justRun
@@ -9,8 +8,7 @@ import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -18,7 +16,6 @@ import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
@@ -71,7 +68,7 @@ class ParserTest {
     }
 
     @Test
-    fun `getChannel returns data`() = runBlocking {
+    fun `getChannel returns data`() = runTest {
         parser = Parser.Builder()
             .okHttpClient(ChannelFactory.getOkHttpClientForTesting(ChannelFactory.getFeedString()))
             .build()
@@ -81,7 +78,7 @@ class ParserTest {
     }
 
     @Test
-    fun `getChannel returns data from net and cache data`() = runBlocking {
+    fun `getChannel returns data from net and cache data`() = runTest {
         parser = Parser.Builder()
             .context(ApplicationProvider.getApplicationContext())
             .cacheExpirationMillis(ChannelFactory.getOneDayCacheDuration())
@@ -107,7 +104,7 @@ class ParserTest {
     }
 
     @Test(expected = Exception::class)
-    fun `getChannel throws exception when network issue`() = runBlockingTest {
+    fun `getChannel throws exception when network issue`() = runTest {
         parser = Parser.Builder()
             .okHttpClient(ChannelFactory.getErrorOkHttpClientForTesting())
             .build()
