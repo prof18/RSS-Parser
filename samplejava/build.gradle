@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
-        applicationId "com.prof.rssparser.sample.java"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        versionCode 30000
-        versionName "3.0.0"
+        minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())
+        targetSdkVersion Integer.parseInt(libs.versions.android.target.sdk.get())
+        versionCode Integer.parseInt(libs.versions.library.version.code.get())
+        versionName libs.versions.library.version.name.get()
+        buildConfigField 'int', 'VERSION_CODE', libs.versions.library.version.code.get()
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,22 +24,19 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":rssparser")
-//    implementation "com.prof18.rssparser:rssparser:1.0"
+//    implementation(libs.com.prof18.rssparser)
 
     // UI
-    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
-    implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
-    implementation "androidx.cardview:cardview:${versions.androidx}"
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
+    implementation(libs.androidx.appcompat)
+    implementation(libs.com.google.android.material)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.com.squareup.picasso)
 
     // Architecture components
-    implementation "androidx.lifecycle:lifecycle-runtime:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleExtensions}"
-
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.extensions)
 }
-

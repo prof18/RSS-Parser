@@ -1,46 +1,17 @@
-apply plugin: "com.github.ben-manes.versions"
-apply plugin: 'io.github.gradle-nexus.publish-plugin'
-apply plugin: 'binary-compatibility-validator'
-apply from: "${rootDir}/gradle/publish-root.gradle"
+//apply plugin: "com.github.ben-manes.versions"
 
 buildscript {
     ext.versions = [
-            'libVersionCode'     : 40002,
-            'libVersionName'     : '4.0.2',
-            'compileSdk'         : 31,
-            'minSdk'             : 14,
-            'targetSdk'          : 31,
-            'okhttp'             : '3.12.13', // LTS version, update until December 31, 2021.
-            'coroutines'         : '1.5.2',
-            'kotlin'             : '1.5.31',
-            'appCompat'          : '1.3.1',
-            'constraintLayout'   : '2.1.1',
-            'material'           : '1.4.0',
-            'androidx'           : '1.0.0',
-            'lifecycle'          : '2.4.0',
-            'picasso'            : '2.71828',
-            'room'               : '2.3.0',
-            'swipe'              : '1.1.0',
-            'activityAndroidx'   : '1.4.0',
-            'recyclerView'       : '1.2.1',
-            'lifecycleExtensions': '2.2.0',
-
-            'junit'              : '4.13.2',
-            'extJunit'           : '1.1.0',
-            'espresso'           : '3.1.1',
-            'mockito'            : '2.23.0',
-            'androidXTest'       : '1.4.0',
-            'mockitoKotlin'      : '2.2.0',
-            'mockitoInline'      : '4.0.0',
-            'robolectric'        : '4.6.1',
-            'mockitoCore'        : '4.0.0'
+            'libVersionCode'     : 31005,
+            'libVersionName'     : '3.1.5',
+            // todo :delete
     ]
 
     repositories {
         google()
         mavenCentral()
         maven {
-            url "https://dl.bintray.com/kotlin/dokka"
+            url  "https://dl.bintray.com/kotlin/dokka"
         }
         maven {
             url "https://plugins.gradle.org/m2/"
@@ -48,21 +19,28 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath "org.jetbrains.kotlin:kotlin-android-extensions:${versions.kotlin}"
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.39.0"
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.5.31"
-        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
-        classpath "org.jetbrains.kotlinx:binary-compatibility-validator:0.8.0-RC"
+        classpath(libs.com.android.tools.build.gradle)
+        classpath(libs.org.jetbrains.kotlin.gradle.plugin)
+        classpath(libs.org.jetbrains.dokka.gradle.plugin)
+
+        classpath(libs.com.vanniktech.gradle.maven.publish.plugin)
     }
+}
+
+plugins {
+    id 'com.autonomousapps.dependency-analysis' version "1.13.1" // todo delete
+    alias(libs.plugins.com.github.ben.manes.versions)
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url = "https://dl.bintray.com/kotlin/dokka" }
+        maven {
+            url = "https://dl.bintray.com/kotlin/dokka"
+        }
+//        // org.jetbrains.trove4j:trove4j:20160824.
+//        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
     }
 }
 

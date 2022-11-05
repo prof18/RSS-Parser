@@ -8,21 +8,15 @@ ext {
     PUBLISH_ARTIFACT_ID = 'rssparser'
 }
 
-apply from: "${rootProject.projectDir}/gradle/publish-module.gradle"
-
 android {
-    compileSdkVersion versions.targetSdk
+    compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        buildConfigField 'int', 'VERSION_CODE', String.valueOf(versions.libVersionCode)
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
+        minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())
+        targetSdkVersion Integer.parseInt(libs.versions.android.target.sdk.get())
+        versionCode Integer.parseInt(libs.versions.library.version.code.get())
+        versionName libs.versions.library.version.name.get()
+        buildConfigField 'int', 'VERSION_CODE', libs.versions.library.version.code.get()
     }
 
     buildTypes {
@@ -31,31 +25,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 
     testOptions.unitTests.includeAndroidResources = true
+
 }
 
 dependencies {
-    api "com.squareup.okhttp3:okhttp:${versions.okhttp}"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+    api(libs.com.squareup.okhttp3)
+    implementation(libs.org.jetbrains.kotlin.stdlib)
+    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.coroutines.android)
 
     // Room
-    implementation "androidx.room:room-runtime:${versions.room}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleExtensions}"
-    kapt "androidx.room:room-compiler:${versions.room}"
-    implementation "androidx.room:room-ktx:${versions.room}"
+    implementation(libs.androidx.room.runtime)
+    kapt(libs.androidx.room.compiler)  // todo: move to ksp
+    implementation(libs.androidx.room.ktx)
 
-    testImplementation "junit:junit:${versions.junit}"
-    testImplementation "org.robolectric:robolectric:${versions.robolectric}"
-    testImplementation "androidx.room:room-testing:${versions.room}"
-    testImplementation "androidx.arch.core:core-testing:2.1.0"
-    testImplementation "androidx.test:core:${versions.androidXTest}"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${versions.coroutines}"
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:${versions.mockitoKotlin}"
-    testImplementation "org.mockito:mockito-core:${versions.mockitoCore}"
-    testImplementation "org.mockito:mockito-inline:${versions.mockitoInline}"
+    testImplementation(libs.junit)
+    testImplementation(libs.org.robolectric)
+    testImplementation(libs.androidx.room.testing)
+    testImplementation(libs.androidx.arch.core.testing)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
+    testImplementation(libs.com.nhaarman.mockitokotlin2)
+    testImplementation(libs.org.mockito.core)
+    testImplementation(libs.org.mockito.inline)
 }
-
-
