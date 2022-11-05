@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 internal interface CachedFeedDao {
     @Query(CacheConstants.QUERY_GET_CACHED_FEED)
-    suspend fun getCachedFeed(urlHash: Int): CachedFeed?
+    suspend fun getCachedFeed(urlHash: Int, charset: String): CachedFeed?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFeed(cachedFeed: CachedFeed)

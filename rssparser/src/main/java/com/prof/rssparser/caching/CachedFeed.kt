@@ -9,10 +9,16 @@ internal class CachedFeed(
         @PrimaryKey
         @ColumnInfo(name = "url_hash")
         var urlHash: Int,
+
         @ColumnInfo(name = "byte_data", typeAffinity = ColumnInfo.BLOB)
         var byteArray: ByteArray,
+
         @ColumnInfo(name = "cached_date")
         var cachedDate: Long,
+
         @ColumnInfo(name = "library_version")
-        var libraryVersion: Int
+        var libraryVersion: Int,
+
+        @ColumnInfo(name = "charset", defaultValue = "UTF-8")
+        var charset: String
 )

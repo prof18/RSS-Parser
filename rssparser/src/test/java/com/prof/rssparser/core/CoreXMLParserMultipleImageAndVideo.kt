@@ -62,7 +62,6 @@ class CoreXMLParserMultipleImageAndVideo {
         assertEquals(3, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {

@@ -118,7 +118,7 @@ class CoreXMLParserAudioFeedTest {
     fun description_isCorrect() {
         assertEquals(
             "As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.\n" +
-                    "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
+            "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
             article.description
         )
     }
@@ -261,7 +261,7 @@ class CoreXMLParserAudioFeedTest {
     fun itunesItem_summary_isCorrect() {
         assertEquals(
             "As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.\n" +
-                    "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
+            "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
             article.itunesArticleData!!.summary
         )
     }

@@ -1,5 +1,6 @@
 package com.prof.rssparser.core
 
+import android.os.Build
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
 import org.junit.Assert.assertEquals
@@ -8,12 +9,14 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
 
 @RunWith(RobolectricTestRunner::class)
-class CoreXMLParserCharEscape {
+@Config(sdk = [Build.VERSION_CODES.S])
+class CoreXMLParserImageEnclosure {
     private lateinit var articleList: List<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-char-escape.xml"
+    private val feedPath = "/feed-image-enclosure.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -27,32 +30,35 @@ class CoreXMLParserCharEscape {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals("NYT > Health", channel.title)
+        assertEquals(channel.title, "Centrum dopravního výzkumu, v. v. i. (RSS 2.0)")
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals("", channel.description)
+        assertEquals(
+            channel.description,
+            "Informace o novinkách na webu Centra dopravního výzkumu, pořádaných akcích v oblasti dopravy a odborných článcích z oblasti dopravy."
+        )
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals("https://www.nytimes.com/section/health", channel.link)
+        assertEquals(channel.link, "https://www.cdv.cz/")
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals("NYT > Health", channel.image?.title)
+        assertEquals(channel.image?.title, "Logo Centrum dopravního výzkumu, v. v. i.")
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals("https://www.nytimes.com/section/health", channel.image?.link)
+        assertEquals(channel.image?.link, "https://www.cdv.cz/image/logo-centrum-dopravniho-vyzkumu/")
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals("https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png", channel.image?.url)
+        assertEquals(channel.image?.url, "https://www.cdv.cz/")
     }
 
     @Test
@@ -62,7 +68,7 @@ class CoreXMLParserCharEscape {
 
     @Test
     fun channelLastBuild_isCorrect() {
-        assertEquals("Mon, 14 Jun 2021 15:26:42 +0000", channel.lastBuildDate)
+        assertNull(channel.lastBuildDate)
     }
 
     @Test
@@ -73,80 +79,64 @@ class CoreXMLParserCharEscape {
     @Test
     @Throws
     fun size_isCorrect() {
-        assertEquals(1, articleList.size)
+        assertEquals(articleList.size, 1)
     }
 
     @Test
     @Throws
     fun title_isCorrect() {
-        assertEquals("Where the Grass is Greener, Except When It’s ‘Nonfunctional Turf’", article.title)
+        assertEquals(article.title, "Podpora udržitelné aktivní mobility a nástroje práce s veřejností")
     }
 
     @Test
     @Throws
     fun author_isCorrect() {
-        assertEquals("Alan Burdick", article.author)
+        assertNull(article.author)
     }
 
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html", article.link)
+        assertEquals(
+            article.link,
+            "https://www.cdv.cz/podpora-udrzitelne-aktivni-mobility-a-nastroje-prace-s-verejnosti/"
+        )
     }
 
     @Test
     @Throws
     fun pubDate_isCorrect() {
-        assertEquals("Sun, 13 Jun 2021 16:21:42 +0000", article.pubDate)
+        assertEquals(article.pubDate, "22.11.2022 12:16:00")
     }
 
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals(
-            "Plus, mammoths in Vegas, watermelon snow, Miami’s looming sea wall and more in the Friday edition of the Science Times newsletter.",
-            article.description
-        )
+        assertNull(article.description)
     }
 
     @Test
     @Throws
     fun content_isCorrect() {
-        assertEquals(null, article.content)
+        assertNull(article.content)
     }
 
     @Test
     @Throws
     fun image_isCorrect() {
-        assertNull(article.image)
+        assertEquals(article.image, "https://cdv.cz/image/rss-placeholder-image/")
     }
 
     @Test
     @Throws
     fun categories_isCorrect() {
-        assertEquals(
-            listOf(
-                "Conservation of Resources",
-                "Grass",
-                "Water",
-                "Deserts",
-                "Shortages",
-                "Mars (Planet)",
-                "Colorado River",
-                "Hoover Dam",
-                "Lake Mead",
-                "Las Vegas (Nev)",
-                "Mojave Desert (Calif)",
-                "Western States (US)",
-                "your-feed-science"
-            ), article.categories
-        )
+        assertEquals(article.categories, mutableListOf("event"))
     }
 
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals("https://www.nytimes.com/2021/06/11/science/drought-las-vegas-grass-mars.html", article.guid)
+        assertNull(article.guid)
     }
 
     @Test
@@ -172,5 +162,4 @@ class CoreXMLParserCharEscape {
     fun video_isCorrect() {
         assertNull(article.video)
     }
-
 }

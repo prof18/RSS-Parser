@@ -17,7 +17,12 @@
 
 package com.prof.rssparser.core
 
-import com.prof.rssparser.*
+import com.prof.rssparser.Article
+import com.prof.rssparser.Channel
+import com.prof.rssparser.Image
+import com.prof.rssparser.ItunesArticleData
+import com.prof.rssparser.ItunesChannelData
+import com.prof.rssparser.ItunesOwner
 import com.prof.rssparser.utils.RSSKeyword
 import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
@@ -160,6 +165,11 @@ internal object CoreXMLParser {
                                         )
                                     )
                                 }
+                                else -> {
+                                    articleBuilder.imageIfNull(
+                                        xmlPullParser.nextText().trim()
+                                    )
+                                }
                             }
                         }
                     }
@@ -211,6 +221,11 @@ internal object CoreXMLParser {
                     xmlPullParser.contains(RSSKeyword.Item.Itunes.EpisodeType) -> {
                         if (insideItem) {
                             itunesArticleBuilder.episodeType(xmlPullParser.nextTrimmedText())
+                        }
+                    }
+                    xmlPullParser.contains(RSSKeyword.Item.Itunes.Season) -> {
+                        if (insideItem) {
+                            itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
                         }
                     }
                     //endregion
@@ -274,7 +289,11 @@ internal object CoreXMLParser {
                     }
                     xmlPullParser.contains(RSSKeyword.Itunes.Keywords) -> {
                         val keywords = xmlPullParser.nextTrimmedText()
-                        val keywordList = keywords?.split(",") ?: emptyList()
+                        val keywordList = keywords?.split(",")?.mapNotNull {
+                            it.ifEmpty {
+                                null
+                            }
+                        } ?: emptyList()
                         if (keywordList.isNotEmpty()) {
                             when {
                                 insideItem -> itunesArticleBuilder.keywords(keywordList)

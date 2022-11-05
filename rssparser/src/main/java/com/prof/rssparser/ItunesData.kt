@@ -12,6 +12,7 @@ data class ItunesArticleData(
     val keywords: List<String>,
     val subtitle: String?,
     val summary: String?,
+    val season: String?,
 ) : Serializable {
     internal data class Builder(
         private var author: String? = null,
@@ -23,6 +24,7 @@ data class ItunesArticleData(
         private var keywords: List<String> = emptyList(),
         private var subtitle: String? = null,
         private var summary: String? = null,
+        private var season: String? = null,
     ) {
         fun image(image: String?) = apply { this.image = image }
         fun duration(duration: String?) = apply { this.duration = duration }
@@ -33,6 +35,7 @@ data class ItunesArticleData(
         fun episodeType(episodeType: String?) = apply { this.episodeType = episodeType }
         fun author(author: String?) = apply { this.author = author }
         fun summary(summary: String?) = apply { this.summary = summary }
+        fun season(season: String?) = apply { this.season = season }
         fun build() = ItunesArticleData(
             author,
             duration,
@@ -42,7 +45,8 @@ data class ItunesArticleData(
             image,
             keywords,
             subtitle,
-            summary
+            summary,
+            season,
         )
     }
 
@@ -73,8 +77,7 @@ data class ItunesChannelData(
         private var subtitle: String? = null,
         private var summary: String? = null,
         private var type: String? = null,
-
-        ) {
+    ) {
         fun explicit(explicit: String?) = apply { this.explicit = explicit }
         fun type(type: String?) = apply { this.type = type }
         fun subtitle(subtitle: String?) = apply { this.subtitle = subtitle }
@@ -102,7 +105,7 @@ data class ItunesChannelData(
             owner,
             subtitle,
             summary,
-            type
+            type,
         )
     }
 }

@@ -121,7 +121,7 @@ class CoreXMLParserItunesFeedTest {
     @Test
     @Throws
     fun guid_isCorrect() {
-        assertEquals("00a5d989b6b2cd8267cf8239f3b5585c",article.guid)
+        assertEquals("00a5d989b6b2cd8267cf8239f3b5585c", article.guid)
     }
 
     @Test
@@ -192,7 +192,7 @@ class CoreXMLParserItunesFeedTest {
 
     @Test
     fun itunesChannel_category_isCorrect() {
-        assertEquals(listOf("Comedy", "Society & Culture","Technology"), channel.itunesChannelData!!.categories)
+        assertEquals(listOf("Comedy", "Society & Culture", "Technology"), channel.itunesChannelData!!.categories)
     }
 
     @Test
@@ -205,7 +205,10 @@ class CoreXMLParserItunesFeedTest {
 
     @Test
     fun itunesChannel_keywords_isCorrect() {
-        assertEquals(listOf("Talking","comedian","joe","monkey","redban","rogan","ufc"), channel.itunesChannelData!!.keywords)
+        assertEquals(
+            listOf("Talking", "comedian", "joe", "monkey", "redban", "rogan", "ufc"),
+            channel.itunesChannelData!!.keywords
+        )
     }
 
     @Test
@@ -242,7 +245,26 @@ class CoreXMLParserItunesFeedTest {
     }
 
     @Test
+    fun itunesItem_season_isCorrect() {
+        assertNull( article.itunesArticleData!!.season)
+    }
+
+    @Test
     fun itunesItem_keywords_isCorrect() {
-        assertEquals(listOf("podcast","joe","party","Experience","walker","matthew","freak","rogan","deathsquad","jre","1109"), article.itunesArticleData!!.keywords)
+        assertEquals(
+            listOf(
+                "podcast",
+                "joe",
+                "party",
+                "Experience",
+                "walker",
+                "matthew",
+                "freak",
+                "rogan",
+                "deathsquad",
+                "jre",
+                "1109"
+            ), article.itunesArticleData!!.keywords
+        )
     }
 }

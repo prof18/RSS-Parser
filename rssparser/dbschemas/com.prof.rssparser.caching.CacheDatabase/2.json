@@ -1,0 +1,59 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "6b414aadec363e8d88e6319d3c751870",
+    "entities": [
+      {
+        "tableName": "feeds",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`url_hash` INTEGER NOT NULL, `byte_data` BLOB NOT NULL, `cached_date` INTEGER NOT NULL, `library_version` INTEGER NOT NULL, `charset` TEXT NOT NULL DEFAULT 'UTF-8', PRIMARY KEY(`url_hash`))",
+        "fields": [
+          {
+            "fieldPath": "urlHash",
+            "columnName": "url_hash",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "byteArray",
+            "columnName": "byte_data",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cachedDate",
+            "columnName": "cached_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "libraryVersion",
+            "columnName": "library_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "charset",
+            "columnName": "charset",
+            "affinity": "TEXT",
+            "notNull": true,
+            "defaultValue": "'UTF-8'"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "url_hash"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6b414aadec363e8d88e6319d3c751870')"
+    ]
+  }
+}

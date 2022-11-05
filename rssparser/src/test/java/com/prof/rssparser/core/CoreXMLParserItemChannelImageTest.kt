@@ -93,7 +93,6 @@ class CoreXMLParserItemChannelImageTest {
         assertEquals(1, articleList.size)
     }
 
-
     @Test
     @Throws
     fun title_isCorrect() {
@@ -109,7 +108,10 @@ class CoreXMLParserItemChannelImageTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia", article.link)
+        assertEquals(
+            "https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia",
+            article.link
+        )
     }
 
     @Test
@@ -121,7 +123,10 @@ class CoreXMLParserItemChannelImageTest {
     @Test
     @Throws
     fun description_isPresent() {
-        assertEquals("Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.", article.description)
+        assertEquals(
+            "Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.",
+            article.description
+        )
     }
 
     @Test

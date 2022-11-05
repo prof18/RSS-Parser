@@ -2,15 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
-        applicationId "com.prof.rssparser.sample.kotlin"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-        versionCode 31000
-        versionName "3.1.0"
+        minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())
+        targetSdkVersion Integer.parseInt(libs.versions.android.target.sdk.get())
+        versionCode Integer.parseInt(libs.versions.library.version.code.get())
+        versionName libs.versions.library.version.name.get()
+        buildConfigField 'int', 'VERSION_CODE', libs.versions.library.version.code.get()
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,29 +29,23 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":rssparser")
-//    implementation "com.prof.rssparser:rssparser:${versions.libVersionName}"
+//    implementation(libs.com.prof18.rssparser)
 
-    // UI
-    implementation "androidx.appcompat:appcompat:${versions.appCompat}"
-    implementation "com.google.android.material:material:${versions.material}"
-    implementation "androidx.recyclerview:recyclerview:${versions.recyclerView}"
-    implementation "androidx.cardview:cardview:${versions.androidx}"
-    implementation "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${versions.swipe}"
-    implementation "com.squareup.picasso:picasso:${versions.picasso}"
+    implementation(libs.org.jetbrains.kotlin.stdlib)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.com.google.android.material)
+    implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.cardview)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.com.squareup.picasso)
 
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.coroutines}"
+    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
+    implementation(libs.org.jetbrains.kotlinx.coroutines.android)
 
-    // Architecture components
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${versions.lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-extensions:${versions.lifecycleExtensions}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${versions.lifecycle}"
-    implementation "androidx.activity:activity-ktx:${versions.activityAndroidx}"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.activity.ktx)
 }
-

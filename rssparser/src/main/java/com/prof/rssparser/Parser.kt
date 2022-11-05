@@ -25,7 +25,12 @@ import com.prof.rssparser.core.CoreXMLParser
 import com.prof.rssparser.engine.XMLFetcher
 import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.withContext
+import okhttp3.Call
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 import java.util.concurrent.ExecutorService
@@ -33,10 +38,10 @@ import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
 class Parser private constructor(
-    private var okHttpClient: OkHttpClient? = null,
+    private var callFactory: Call.Factory,
     private val charset: Charset = Charsets.UTF_8,
     context: Context? = null,
-    cacheExpirationMillis: Long? = null
+    cacheExpirationMillis: Long? = null,
 ) {
 
     // private variables
@@ -51,15 +56,6 @@ class Parser private constructor(
     private val coroutineContext: CoroutineContext
         get() = parserJob + Dispatchers.Default
 
-    // Constructor stuff
-
-    // Just for back compatibility
-    @Deprecated("Use the builder to create the parser object")
-    constructor(okHttpClient: OkHttpClient? = null) : this(okHttpClient, Charsets.UTF_8, null, null)
-
-    @Deprecated("Use the builder to create the parser object")
-    constructor() : this(null, Charsets.UTF_8, null, null)
-
     /**
      * Builds the Parser.
      *
@@ -72,18 +68,26 @@ class Parser private constructor(
      *
      */
     data class Builder(
-        private var okHttpClient: OkHttpClient? = null,
+        private var callFactory: Call.Factory? = null,
         private var charset: Charset = Charsets.UTF_8,
         private var context: Context? = null,
-        private var cacheExpirationMillis: Long? = null
+        private var cacheExpirationMillis: Long? = null,
     ) {
-        fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.okHttpClient = okHttpClient }
+        fun okHttpClient(okHttpClient: OkHttpClient) = apply { this.callFactory = okHttpClient }
+        fun callFactory(callFactory: Call.Factory) = apply { this.callFactory = callFactory }
         fun charset(charset: Charset) = apply { this.charset = charset }
         fun context(context: Context) = apply { this.context = context }
         fun cacheExpirationMillis(cacheExpirationMillis: Long) =
             apply { this.cacheExpirationMillis = cacheExpirationMillis }
 
-        fun build() = Parser(okHttpClient, charset, context, cacheExpirationMillis)
+        fun build(): Parser {
+            val callFactory = if (this.callFactory != null) {
+                this.callFactory!!
+            } else {
+                OkHttpClient()
+            }
+            return Parser(callFactory, charset, context, cacheExpirationMillis)
+        }
     }
 
     init {
@@ -127,7 +131,7 @@ class Parser private constructor(
         }
         executorService!!.submit {
             service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit(XMLFetcher(url, okHttpClient, charset))
+            val f1 = service.submit(XMLFetcher(url, callFactory, charset))
             try {
                 val rssFeed = f1.get()
                 val f2 = service.submit(XMLParser(rssFeed))
@@ -173,15 +177,20 @@ class Parser private constructor(
      *
      */
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
-        val cachedFeed = cacheManager?.getCachedFeed(url)
+        val charsetString = charset.toString()
+        val cachedFeed = cacheManager?.getCachedFeed(url, charsetString)
         if (cachedFeed != null) {
             Log.d(TAG, "Returning object from cache")
             return@withContext cachedFeed
         } else {
             Log.d(TAG, "Returning data from network")
-            val xml = CoroutineEngine.fetchXML(url, okHttpClient, charset)
+            val xml = CoroutineEngine.fetchXML(url, callFactory, charset)
             val channel = CoroutineEngine.parseXML(xml)
-            cacheManager?.cacheFeed(url, channel)
+            cacheManager?.cacheFeed(
+                url = url,
+                channel = channel,
+                charset = charsetString,
+            )
             return@withContext channel
         }
     }

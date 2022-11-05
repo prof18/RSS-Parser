@@ -86,8 +86,8 @@ class CoreXMLParserTimeFeedTest {
     fun title_isCorrect() {
         assertEquals(
             "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
-                    "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
-                    "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity",
+            "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
+            "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity",
             article.title
         )
     }
@@ -118,9 +118,9 @@ class CoreXMLParserTimeFeedTest {
     fun description_isCorrect() {
         assertEquals(
             "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
-                    "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
-                    "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
-                    "                above the US Food & Drug Administration’s interim acceptable exposu",
+            "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
+            "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
+            "                above the US Food & Drug Administration’s interim acceptable exposu",
             article.description
         )
     }

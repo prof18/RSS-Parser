@@ -93,7 +93,10 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun link_isCorrect() {
-        assertEquals("http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca", article.link)
+        assertEquals(
+            "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca",
+            article.link
+        )
     }
 
     @Test
@@ -105,7 +108,10 @@ class CoreXMLParserFeedRuTest {
     @Test
     @Throws
     fun description_isCorrect() {
-        assertEquals("15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей", article.description)
+        assertEquals(
+            "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей",
+            article.description
+        )
     }
 
     @Test

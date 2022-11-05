@@ -18,13 +18,22 @@
 package com.prof.rssparser.engine
 
 import com.prof.rssparser.core.CoreXMLFetcher
-import okhttp3.OkHttpClient
+import okhttp3.Call
 import java.nio.charset.Charset
 import java.util.concurrent.Callable
 
-internal class XMLFetcher(private val url: String, private val okHttpClient: OkHttpClient?, private val charset: Charset) : Callable<String> {
+internal class XMLFetcher(
+    private val url: String,
+    private val callFactory: Call.Factory,
+    private val charset: Charset,
+) : Callable<String> {
 
+    @Throws(Exception::class)
     override fun call(): String {
-        return CoreXMLFetcher.fetchXML(url = url, okHttpClient = okHttpClient, charset = charset)
+        return CoreXMLFetcher.fetchXML(
+            url = url,
+            callFactory = callFactory,
+            charset = charset
+        )
     }
 }
