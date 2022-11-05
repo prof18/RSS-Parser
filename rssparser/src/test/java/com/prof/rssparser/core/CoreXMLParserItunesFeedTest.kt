@@ -245,6 +245,11 @@ class CoreXMLParserItunesFeedTest {
     }
 
     @Test
+    fun itunesItem_season_isCorrect() {
+        assertNull( article.itunesArticleData!!.season)
+    }
+
+    @Test
     fun itunesItem_keywords_isCorrect() {
         assertEquals(
             listOf(

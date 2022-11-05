@@ -223,6 +223,11 @@ internal object CoreXMLParser {
                             itunesArticleBuilder.episodeType(xmlPullParser.nextTrimmedText())
                         }
                     }
+                    xmlPullParser.contains(RSSKeyword.Item.Itunes.Season) -> {
+                        if (insideItem) {
+                            itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
+                        }
+                    }
                     //endregion
 
                     //region Itunes Owner tags
@@ -284,7 +289,11 @@ internal object CoreXMLParser {
                     }
                     xmlPullParser.contains(RSSKeyword.Itunes.Keywords) -> {
                         val keywords = xmlPullParser.nextTrimmedText()
-                        val keywordList = keywords?.split(",") ?: emptyList()
+                        val keywordList = keywords?.split(",")?.mapNotNull {
+                            it.ifEmpty {
+                                null
+                            }
+                        } ?: emptyList()
                         if (keywordList.isNotEmpty()) {
                             when {
                                 insideItem -> itunesArticleBuilder.keywords(keywordList)

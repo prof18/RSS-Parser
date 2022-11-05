@@ -54,6 +54,7 @@ internal sealed class RSSKeyword(val value: String) {
 
         object Itunes {
             object Episode: RSSKeyword("itunes:episode")
+            object Season: RSSKeyword("itunes:season")
             object EpisodeType: RSSKeyword("itunes:episodeType")
         }
     }
