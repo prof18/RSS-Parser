@@ -1,4 +1,6 @@
-apply plugin: 'com.android.application'
+plugins {
+    alias(libs.plugins.android.application)
+}
 
 android {
     namespace 'com.prof.rssparser.sample.java'

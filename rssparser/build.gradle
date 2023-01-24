@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.com.google.devtools.ksp)
     alias(libs.plugins.com.vanniktech.maven.publish)
 }
@@ -39,7 +39,6 @@ android {
 
 dependencies {
     api(libs.com.squareup.okhttp3)
-    implementation(libs.org.jetbrains.kotlin.stdlib)
     implementation(libs.org.jetbrains.kotlinx.coroutines.core)
     implementation(libs.org.jetbrains.kotlinx.coroutines.android)
 
