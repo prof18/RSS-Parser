@@ -21,6 +21,7 @@ junit = "4.13.2"
 org-jetbrains-dokka = "1.7.10"
 org-jetbrains-kotlinx-coroutines = "1.6.4"
 org-robolectric = "4.9"
+binary-compatibility-validator = "0.12.1"
 
 # Sample dependencies
 androidx-activity = "1.5.1"
@@ -80,3 +81,4 @@ kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref =
 com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "com-github-ben-manes-versions" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }

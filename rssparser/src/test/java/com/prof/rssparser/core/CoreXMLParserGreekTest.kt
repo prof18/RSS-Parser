@@ -19,8 +19,7 @@ class CoreXMLParserGreekTest {
     @Before
     fun setUp() {
         val inputStream = javaClass.getResourceAsStream(feedPath)!!
-        val feed = inputStream.bufferedReader(Charset.forName("ISO-8859-7")).use { it.readText() }
-        channel = CoreXMLParser.parseXML(feed)
+        channel = CoreXMLParser.parseXML(inputStream, Charset.forName("ISO-8859-7"))
         articleList = channel.articles
         article = articleList[0]
     }

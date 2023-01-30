@@ -19,6 +19,7 @@ package com.prof.rssparser.core
 
 import com.prof.rssparser.Article
 import com.prof.rssparser.Channel
+import junit.framework.TestCase.assertNotNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Before
@@ -27,10 +28,10 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class CoreXMLParserImage2FeedTest {
+class CoreXMLParserCharsetFeedTest {
     private lateinit var articleList: List<Article>
     private lateinit var article: Article
-    private val feedPath = "/feed-test-image-2.xml"
+    private val feedPath = "/feed-test-charset.xml"
     private lateinit var channel: Channel
 
     @Before
@@ -43,40 +44,40 @@ class CoreXMLParserImage2FeedTest {
 
     @Test
     fun channelTitle_isCorrect() {
-        assertEquals("F.C. Barcelona", channel.title)
+        assertEquals("Lørdagsrådet", channel.title)
     }
 
     @Test
     fun channelDesc_isCorrect() {
-        assertEquals("F.C. Barcelona", channel.description)
+        assertEquals("Hver uke blar tre (mer eller mindre) kvalifiserte rådgivere i sitt livserfaringsarkiv for å hjelpe deg. Lurer du på om du skal gjøre det slutt, er naboen din en tyrann eller er du håpløst forelsket? Vi skal prøve å gi deg gode råd. <a href=\"https://radio.nrk.no/podkast/loerdagsraadet?utm_source=thirdparty&utm_medium=rss&utm_content=podcastseries%3Aloerdagsraadet\">Hør alle episodene først i appen NRK Radio</a>", channel.description)
     }
 
     @Test
     fun channelLink_isCorrect() {
-        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona", channel.link)
+        assertEquals("https://radio.nrk.no/podkast/loerdagsraadet", channel.link)
     }
 
     @Test
     fun channelImageTitle_isCorrect() {
-        assertEquals("F.C. Barcelona", channel.image?.title)
+        assertEquals("Lørdagsrådet", channel.image?.title)
     }
 
     @Test
     fun channelImageLink_isCorrect() {
-        assertEquals("https://www.mundodeportivo.com/futbol/fc-barcelona", channel.image?.link)
+        assertEquals("https://radio.nrk.no/podkast/loerdagsraadet", channel.image?.link)
     }
 
     @Test
     fun channelImageUrl_isCorrect() {
-        assertEquals("https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png", channel.image?.url)
+        assertEquals(
+            "https://gfx.nrk.no/B4Wi9oIWqfMo0PBc0Hk28AhpXzswFi4Ir3NcS4uO23PA.png",
+            channel.image?.url
+        )
     }
 
     @Test
     fun channelImageDescription_isCorrect() {
-        assertEquals(
-            "Mundo Deportivo es tu diario deportivo On Line. Noticias de deporte, fútbol y del Barça",
-            channel.image?.description
-        )
+        assertNull(channel.image?.description)
     }
 
     @Test
@@ -90,92 +91,75 @@ class CoreXMLParserImage2FeedTest {
     }
 
     @Test
-    @Throws
-    fun size_isCorrect() {
-        assertEquals(20, articleList.size)
-    }
-
-    @Test
-    @Throws
     fun title_isCorrect() {
-        assertEquals("Martens: “Estoy feliz y quiero seguir en el Barça”", article.title)
+        assertEquals("Høydepunkter fra 2022 - nr.11", article.title)
     }
 
     @Test
-    @Throws
     fun author_isCorrect() {
         assertEquals(null, article.author)
     }
 
     @Test
-    @Throws
     fun link_isCorrect() {
+        assertNull(article.link)
+    }
+
+    @Test
+    fun pubDate_isCorrect() {
+        assertEquals("Sat, 31 Dec 2022 08:00:00 GMT", article.pubDate)
+    }
+
+    @Test
+    fun description_isCorrect() {
         assertEquals(
-            "https://www.mundodeportivo.com/futbol/fc-barcelona/20190517/462298326260/martens-estoy-feliz-y-quiero-seguir-en-el-barca.html",
-            article.link
+            "Høydepunkter fra 2022 - nr.11. <a href=\"https://radio.nrk.no/podkast/loerdagsraadet/l_e6338d4f-2777-43c4-b38d-4f2777e3c4de?utm_source=thirdparty&utm_medium=rss&utm_content=podcast%3Al_e6338d4f-2777-43c4-b38d-4f2777e3c4de\">Hør episoden i appen NRK Radio</a>",
+            article.description
         )
     }
 
     @Test
-    @Throws
-    fun pubDate_isCorrect() {
-        assertEquals("Fri, 17 May 2019 21:33:59 +0200", article.pubDate)
-    }
-
-    @Test
-    @Throws
-    fun description_isPresent() {
-        assert(!article.description.isNullOrEmpty())
-    }
-
-    @Test
-    @Throws
     fun content_isCorrect() {
         assertEquals(null, article.content)
     }
 
     @Test
-    @Throws
     fun image_isCorrect() {
-        assertEquals(
-            "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg",
-            article.image
-        )
+        assertNull(article.image)
     }
 
     @Test
-    @Throws
     fun categories_isCorrect() {
-        assertEquals(mutableListOf("F.C. Barcelona"), article.categories)
+        assertEquals(mutableListOf<String>(), article.categories)
     }
 
     @Test
-    @Throws
     fun guid_isCorrect() {
-        assertEquals("f5c42a9c-78d9-11e9-a24c-645e8f5d185b", article.guid)
+        assertEquals("l_e6338d4f-2777-43c4-b38d-4f2777e3c4de", article.guid)
     }
 
     @Test
-    @Throws
     fun audio_iCorrect() {
-        assertNull(article.audio)
+        assertEquals("https://podkast.nrk.no/fil/loerdagsraadet/23ee45fc-d869-4110-bf97-34138fcfaba6_0_ID192MP3.mp3", article.audio)
     }
 
     @Test
-    @Throws
     fun sourceName_iCorrect() {
         assertNull(article.sourceName)
     }
 
     @Test
-    @Throws
     fun sourceUrl_iCorrect() {
         assertNull(article.sourceUrl)
     }
 
     @Test
-    @Throws
     fun video_isCorrect() {
         assertNull(article.video)
+    }
+
+    @Test
+    fun itunesData_iCorrect() {
+        assertNotNull(article.itunesArticleData)
     }
 }

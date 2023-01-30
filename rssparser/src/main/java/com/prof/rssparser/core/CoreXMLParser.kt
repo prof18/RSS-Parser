@@ -29,14 +29,13 @@ import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
-import java.io.ByteArrayInputStream
-import java.io.InputStreamReader
-import java.io.Reader
+import java.io.InputStream
+import java.nio.charset.Charset
 import java.util.regex.Pattern
 
 internal object CoreXMLParser {
 
-    fun parseXML(xml: String): Channel {
+    fun parseXML(inputStream: InputStream, charset: Charset? = null): Channel {
 
         var articleBuilder = Article.Builder()
         val channelImageBuilder = Image.Builder()
@@ -53,9 +52,9 @@ internal object CoreXMLParser {
         factory.isNamespaceAware = false
 
         val xmlPullParser = factory.newPullParser()
-        val reader: Reader = InputStreamReader(ByteArrayInputStream(xml.trim().toByteArray()))
 
-        xmlPullParser.setInput(reader)
+        // If the charset is null, then the parser will infer it from the feed
+        xmlPullParser.setInput(inputStream, charset?.toString())
 
         // A flag just to be sure of the correct parsing
         var insideItem = false

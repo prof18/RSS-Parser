@@ -151,5 +151,18 @@ class ParserTest {
         verify(exactly = 1) { onTaskCompleted.onError(any()) }
         verify(exactly = 0) { onTaskCompleted.onTaskCompleted(any()) }
     }
+
+    @Test
+    fun `Parsing from string returns data`() = runTest {
+        parser = Parser.Builder()
+            .build()
+
+        val inputStream = javaClass.getResourceAsStream("/feed-test-source.xml")!!
+        val feed = inputStream.bufferedReader().use { it.readText() }
+
+        val channel = parser.parse(feed)
+
+        assertNotNull(channel)
+    }
 }
 

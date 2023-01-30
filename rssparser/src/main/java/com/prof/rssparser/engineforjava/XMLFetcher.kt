@@ -15,15 +15,23 @@
 *
 */
 
-package com.prof.rssparser.engine
+package com.prof.rssparser.engineforjava
 
-import com.prof.rssparser.Channel
-import com.prof.rssparser.core.CoreXMLParser
+import com.prof.rssparser.core.CoreXMLFetcher
+import okhttp3.Call
+import java.io.InputStream
 import java.util.concurrent.Callable
 
-internal class XMLParser(var xml: String) : Callable<Channel> {
+internal class XMLFetcher(
+    private val url: String,
+    private val callFactory: Call.Factory,
+) : Callable<InputStream> {
 
-    override fun call(): Channel {
-        return CoreXMLParser.parseXML(xml)
+    @Throws(Exception::class)
+    override fun call(): InputStream {
+        return CoreXMLFetcher.fetchXML(
+            url = url,
+            callFactory = callFactory,
+        )
     }
 }
