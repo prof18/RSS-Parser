@@ -22,3 +22,7 @@ tasks.named("dependencyUpdates").configure {
         isNonStable(it.candidate.version)
     }
 }
+
+apiValidation {
+    ignoredProjects += ["samplejava", "samplekotlin"]
+}
