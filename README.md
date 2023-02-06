@@ -113,7 +113,7 @@ dependencies {
 First of all, you have to create a `Parser` object with the Parser Builder. In the builder you can provided some custom and optional fields:
 
 - A custom `OkHttpClient`; if not provided, the library will create one for you.
-- A custom Charset; if not provided, the default one is `UTF_8`.
+- A custom Charset; if not provided, it will automatically inferred from the XML.
 - The Android Context, mandatory to make the caching layer work.
 - The cache expiration date in milliseconds, mandatory to make the caching layer work.
 
