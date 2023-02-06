@@ -4,8 +4,8 @@ android-compile-sdk = "33"
 android-min-sdk = "21"
 android-target-sdk = "33"
 kotlin = "1.7.20"
-library-version-code = "50001"
-library-version-name = "5.0.1"
+library-version-code = "50002"
+library-version-name = "5.0.2"
 
 # Library dependencies
 androidx-lifecycle-extensions = "2.2.0"
