@@ -31,7 +31,11 @@ internal class CacheManager(
      *
      */
     suspend fun flushAllCache() {
-        database.cachedFeedDao().deleteAllFeed()
+        try {
+            database.cachedFeedDao().deleteAllFeed()
+        } catch (e: Exception) {
+            Log.e(TAG, "Flush all the cache")
+        }
     }
 
     /**
@@ -40,7 +44,11 @@ internal class CacheManager(
      * @param url The url of the RSS feed.
      */
     suspend fun flushCachedFeed(url: String) {
-        database.cachedFeedDao().deleteFeed(url.hashCode())
+        try {
+            database.cachedFeedDao().deleteFeed(url.hashCode())
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to flush cache for $url")
+        }
     }
 
     /**
@@ -113,8 +121,17 @@ internal class CacheManager(
     ): Channel? = withContext(coroutineDispatcher) {
         val urlHash = url.hashCode()
 
-        val cachedFeed = database.cachedFeedDao().getCachedFeed(urlHash, charset)
-                         ?: return@withContext null
+        val cachedFeed = try {
+            database.cachedFeedDao().getCachedFeed(urlHash, charset)
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to load feed from the database")
+            null
+        }
+
+        if (cachedFeed == null) {
+            flushCachedFeed(url)
+            return@withContext null
+        }
 
         // Just to avoid problems when the Channel object changes
         if (cachedFeed.libraryVersion != BuildConfig.VERSION_CODE) {

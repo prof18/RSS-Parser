@@ -1,8 +1,12 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+}
 
 android {
-    compileSdkVersion Integer.parseInt(libs.versions.android.compile.sdk.get())
+    namespace 'com.prof.rssparser.sample.kotlin'
+
+    compileSdk Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
         minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())

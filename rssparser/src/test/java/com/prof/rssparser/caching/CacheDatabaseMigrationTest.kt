@@ -13,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
@@ -30,7 +29,6 @@ class CacheDatabaseMigrationTest {
     )
 
     @Test
-    @Throws(IOException::class)
     fun migrate1To2() = runTest {
         val urlFeedHashCode = 123456
         val date = 123456L
@@ -49,6 +47,64 @@ class CacheDatabaseMigrationTest {
         helper.runMigrationsAndValidate(TEST_DB, 2, true)
 
         val defaultCharSet = Charsets.UTF_8.toString()
+        val feed = getMigratedRoomDatabase().cachedFeedDao().getCachedFeed(urlFeedHashCode, defaultCharSet)
+
+        assertEquals(feed!!.urlHash, urlFeedHashCode)
+        assertEquals(feed.cachedDate, date)
+        assertEquals(feed.libraryVersion, version)
+        assertEquals(feed.charset, defaultCharSet)
+        assertTrue(feed.byteArray.isNotEmpty())
+    }
+
+    @Test
+    fun migrate2To3() = runTest {
+        val urlFeedHashCode = 123456
+        val date = 123456L
+        val version = 40003
+        val defaultCharSet = Charsets.UTF_8.toString()
+
+        helper.createDatabase(TEST_DB, 2).apply {
+            execSQL(
+                """
+                INSERT INTO feeds 
+                VALUES ($urlFeedHashCode, x'0123AB', $date, $version, "$defaultCharSet")
+            """.trimIndent()
+            )
+
+            close()
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 3, true)
+
+        val feed = getMigratedRoomDatabase().cachedFeedDao().getCachedFeed(urlFeedHashCode, defaultCharSet)
+
+        assertEquals(feed!!.urlHash, urlFeedHashCode)
+        assertEquals(feed.cachedDate, date)
+        assertEquals(feed.libraryVersion, version)
+        assertEquals(feed.charset, defaultCharSet)
+        assertTrue(feed.byteArray.isNotEmpty())
+    }
+
+    @Test
+    fun migrate2To3WithNullValue() = runTest {
+        val urlFeedHashCode = 123456
+        val date = 123456L
+        val version = 40003
+        val defaultCharSet = "null"
+
+        helper.createDatabase(TEST_DB, 2).apply {
+            execSQL(
+                """
+                INSERT INTO feeds 
+                VALUES ($urlFeedHashCode, x'0123AB', $date, $version, "$defaultCharSet")
+            """.trimIndent()
+            )
+
+            close()
+        }
+
+        helper.runMigrationsAndValidate(TEST_DB, 3, true)
+
         val feed = getMigratedRoomDatabase().cachedFeedDao().getCachedFeed(urlFeedHashCode, defaultCharSet)
 
         assertEquals(feed!!.urlHash, urlFeedHashCode)

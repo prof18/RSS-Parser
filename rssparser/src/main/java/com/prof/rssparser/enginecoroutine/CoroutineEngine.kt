@@ -6,6 +6,7 @@ import com.prof.rssparser.core.CoreXMLParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.Call
+import java.io.InputStream
 import java.nio.charset.Charset
 
 internal object CoroutineEngine {
@@ -13,13 +14,17 @@ internal object CoroutineEngine {
     suspend fun fetchXML(
         url: String,
         callFactory: Call.Factory,
-        charset: Charset,
-    ): String = withContext(Dispatchers.IO) {
-        return@withContext CoreXMLFetcher.fetchXML(url, callFactory, charset)
+    ): InputStream = withContext(Dispatchers.IO) {
+        return@withContext CoreXMLFetcher.fetchXMLSuspendable(url, callFactory)
     }
 
-    suspend fun parseXML(xml: String): Channel = withContext(Dispatchers.IO) {
-        return@withContext CoreXMLParser.parseXML(xml)
+    suspend fun parseXML(xmlStream: InputStream, charset: Charset?): Channel = withContext(Dispatchers.Default) {
+        return@withContext CoreXMLParser.parseXML(xmlStream, charset)
+    }
+
+    suspend fun parseXMLFromString(xml: String, charset: Charset?): Channel = withContext(Dispatchers.Default) {
+        val inputStream: InputStream = xml.byteInputStream(charset ?: Charsets.UTF_8)
+        return@withContext CoreXMLParser.parseXML(inputStream, charset)
     }
 }
 

@@ -1,14 +1,11 @@
-buildscript {
-    dependencies {
-        classpath(libs.com.android.tools.build.gradle)
-        classpath(libs.org.jetbrains.kotlin.gradle.plugin)
-        classpath(libs.org.jetbrains.dokka.gradle.plugin)
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.com.github.ben.manes.versions)
+    alias(libs.plugins.binary.compatibility.validator)
 }
 
-plugins {
-    alias(libs.plugins.com.github.ben.manes.versions)
-}
 
 task clean(type: Delete) {
     delete rootProject.buildDir
@@ -24,4 +21,8 @@ tasks.named("dependencyUpdates").configure {
     rejectVersionIf {
         isNonStable(it.candidate.version)
     }
+}
+
+apiValidation {
+    ignoredProjects += ["samplejava", "samplekotlin"]
 }

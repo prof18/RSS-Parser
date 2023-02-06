@@ -22,11 +22,11 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import com.prof.rssparser.caching.CacheManager
 import com.prof.rssparser.core.CoreXMLParser
-import com.prof.rssparser.engine.XMLFetcher
-import com.prof.rssparser.engine.XMLParser
 import com.prof.rssparser.enginecoroutine.CoroutineEngine
+import com.prof.rssparser.engineforjava.XMLFetcher
+import com.prof.rssparser.engineforjava.XMLParser
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
@@ -39,7 +39,7 @@ import kotlin.coroutines.CoroutineContext
 
 class Parser private constructor(
     private var callFactory: Call.Factory,
-    private val charset: Charset = Charsets.UTF_8,
+    private val charset: Charset? = null,
     context: Context? = null,
     cacheExpirationMillis: Long? = null,
 ) {
@@ -52,7 +52,7 @@ class Parser private constructor(
     internal var cacheManager: CacheManager? = null
     internal var executorService: ExecutorService? = null
 
-    private val parserJob = Job()
+    private val parserJob = SupervisorJob()
     private val coroutineContext: CoroutineContext
         get() = parserJob + Dispatchers.Default
 
@@ -61,15 +61,15 @@ class Parser private constructor(
      *
      * The caching feature is NOT available if you use the [execute] method.
      *
-     * @param okHttpClient A custom okHttpClient that can be provided by outside. If not provided, it will be created for you.
-     * @param charset The charset of the RSS feed. If not provided, [Charsets.UTF_8] will be used.
+     * @param callFactory A custom okHttpClient that can be provided by outside. If not provided, it will be created for you.
+     * @param charset The charset of the RSS feed. The field is optional.
      * @param context Android Context that you must provide to make the caching mechanism work. If not provided, the caching will not work
      * @param cacheExpirationMillis The duration of the cache in milliseconds. If not provided, the caching will not work
      *
      */
     data class Builder(
         private var callFactory: Call.Factory? = null,
-        private var charset: Charset = Charsets.UTF_8,
+        private var charset: Charset? = null,
         private var context: Context? = null,
         private var cacheExpirationMillis: Long? = null,
     ) {
@@ -131,10 +131,10 @@ class Parser private constructor(
         }
         executorService!!.submit {
             service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit(XMLFetcher(url, callFactory, charset))
+            val f1 = service.submit(XMLFetcher(url, callFactory))
             try {
                 val rssFeed = f1.get()
-                val f2 = service.submit(XMLParser(rssFeed))
+                val f2 = service.submit(XMLParser(rssFeed, charset))
                 onComplete?.onTaskCompleted(f2.get())
             } catch (e: Exception) {
                 onComplete?.onError(e)
@@ -177,6 +177,8 @@ class Parser private constructor(
      *
      */
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
+        // If the charset is null, then "null" is saved in the database.
+        // It's easier for retrieving data afterwards
         val charsetString = charset.toString()
         val cachedFeed = cacheManager?.getCachedFeed(url, charsetString)
         if (cachedFeed != null) {
@@ -184,8 +186,8 @@ class Parser private constructor(
             return@withContext cachedFeed
         } else {
             Log.d(TAG, "Returning data from network")
-            val xml = CoroutineEngine.fetchXML(url, callFactory, charset)
-            val channel = CoroutineEngine.parseXML(xml)
+            val xml = CoroutineEngine.fetchXML(url, callFactory)
+            val channel = CoroutineEngine.parseXML(xml, charset)
             cacheManager?.cacheFeed(
                 url = url,
                 channel = channel,
@@ -201,7 +203,8 @@ class Parser private constructor(
      * @exception Exception if something goes wrong during the parsing of the RSS feed.
      * @param rawRssFeed The Raw data of the Rss Feed.
      */
-    suspend fun parse(rawRssFeed: String): Channel = CoroutineEngine.parseXML(rawRssFeed)
+    suspend fun parse(rawRssFeed: String): Channel =
+        CoroutineEngine.parseXMLFromString(rawRssFeed, charset)
 
     /**
      * Parses the [rawRssFeed] into a [Channel] and notifies the [listener].
@@ -216,7 +219,9 @@ class Parser private constructor(
     @WorkerThread
     fun parse(rawRssFeed: String, listener: OnTaskCompleted) {
         try {
-            listener.onTaskCompleted(CoreXMLParser.parseXML(rawRssFeed))
+            // The default for byteInputStream is Charsets.UTF_8
+            val stream = rawRssFeed.byteInputStream(charset ?: Charsets.UTF_8)
+            listener.onTaskCompleted(CoreXMLParser.parseXML(stream, charset))
         } catch (exception: Exception) {
             listener.onError(exception)
         }

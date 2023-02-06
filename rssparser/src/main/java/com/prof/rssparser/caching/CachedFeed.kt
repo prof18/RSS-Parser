@@ -19,6 +19,6 @@ internal class CachedFeed(
         @ColumnInfo(name = "library_version")
         var libraryVersion: Int,
 
-        @ColumnInfo(name = "charset", defaultValue = "UTF-8")
+        @ColumnInfo(name = "charset")
         var charset: String
 )

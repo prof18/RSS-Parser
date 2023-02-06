@@ -20,8 +20,7 @@ class CoreXMLParserItunesFeedTest {
     @Before
     fun setUp() {
         val inputStream = javaClass.getResourceAsStream(feedPath)!!
-        val feed = inputStream.bufferedReader().use { it.readText() }
-        channel = CoreXMLParser.parseXML(feed)
+        channel = CoreXMLParser.parseXML(inputStream)
         articleList = channel.articles
         article = articleList[0]
     }

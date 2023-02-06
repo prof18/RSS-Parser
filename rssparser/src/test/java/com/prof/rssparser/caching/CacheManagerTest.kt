@@ -1,9 +1,15 @@
 package com.prof.rssparser.caching
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.room.Database
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import com.prof.rssparser.ChannelFactory
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -15,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import kotlin.Exception
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
@@ -257,4 +264,21 @@ class CacheManagerTest {
         val cachedChannel = cacheManager.getCachedFeed(url, Charsets.ISO_8859_1.toString())
         assertNull(cachedChannel)
     }
+
+    @Test
+    fun `If an exception on database happens, getCachedFeed returns null and the cache is cleared`() =
+        runTest(testDispatcher) {
+            val database = mockk<CacheDatabase>(relaxed = true)
+            val cacheManager = CacheManager(
+                database,
+                ChannelFactory.getOneDayCacheDuration(),
+                coroutineDispatcher = testDispatcher,
+            )
+            coEvery { database.cachedFeedDao().getCachedFeed(any(), any()) } throws Exception()
+
+            val result = cacheManager.getCachedFeed("url", "UTF-8")
+            assertNull(result)
+
+            coVerify { database.cachedFeedDao().deleteFeed(any()) }
+        }
 }
