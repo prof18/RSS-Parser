@@ -3,7 +3,6 @@ package com.prof.rssparser
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
-import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 
 object ChannelFactory {
@@ -67,7 +66,8 @@ object ChannelFactory {
                 sourceName = null,
                 sourceUrl = null,
                 categories = mutableListOf("News", "5G", "Japan"),
-                itunesArticleData = null
+                itunesArticleData = null,
+                commentsUrl = null,
             ),
             Article(
                 guid = "https://www.androidauthority.com/?p=986861",
@@ -96,8 +96,9 @@ object ChannelFactory {
                 sourceName = null,
                 sourceUrl = null,
                 categories = mutableListOf("News", "Samsung", "Samsung Galaxy Fold"),
-                itunesArticleData = null
-            )
+                itunesArticleData = null,
+                commentsUrl = null,
+                )
         )
 
         return Channel(

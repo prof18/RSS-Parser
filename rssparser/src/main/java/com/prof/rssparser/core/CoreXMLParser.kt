@@ -228,6 +228,12 @@ internal object CoreXMLParser {
                             itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
                         }
                     }
+                    xmlPullParser.contains(RSSKeyword.Item.Comments) -> {
+                        if (insideItem) {
+                            val url = xmlPullParser.nextTrimmedText()
+                            articleBuilder.commentUrl(url)
+                        }
+                    }
                     //endregion
 
                     //region Itunes Owner tags
