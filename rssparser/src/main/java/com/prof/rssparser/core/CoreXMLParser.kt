@@ -27,6 +27,7 @@ import com.prof.rssparser.utils.RSSKeyword
 import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
+import okhttp3.internal.closeQuietly
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.io.InputStream
@@ -364,6 +365,7 @@ internal object CoreXMLParser {
         }
         channelBuilder.itunesChannelData(itunesChannelBuilder.build())
 
+        inputStream.closeQuietly()
         return channelBuilder.build()
     }
 
