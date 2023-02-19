@@ -17,161 +17,22 @@
 
 package com.prof.rssparser.core
 
-import com.prof.rssparser.Article
-import com.prof.rssparser.Channel
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
+import com.prof.rssparser.testutils.BaseCoreXMLParserTest
 
-@RunWith(RobolectricTestRunner::class)
-class CoreXMLParserTimeFeedTest {
-    private lateinit var articleList: List<Article>
-    private lateinit var article: Article
-    private val feedPath = "/feed-test-time.xml"
-    private lateinit var channel: Channel
-
-    @Before
-    fun setUp() {
-        val inputStream = javaClass.getResourceAsStream(feedPath)!!
-        channel = CoreXMLParser.parseXML(inputStream)
-        articleList = channel.articles
-        article = articleList[0]
-    }
-
-    @Test
-    fun channelTitle_isCorrect() {
-        assertEquals("Drug Recalls", channel.title)
-    }
-
-    @Test
-    fun channelDesc_isCorrect() {
-        assertEquals("", channel.description)
-    }
-
-    @Test
-    fun channelLink_isCorrect() {
-        assertEquals(
-            "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml",
-            channel.link
-        )
-    }
-
-    @Test
-    fun channelImage_isNull() {
-        assertNull(channel.image)
-    }
-
-    @Test
-    fun channelLastBuild_isCorrect() {
-        assertNull(channel.lastBuildDate)
-    }
-
-    @Test
-    fun channelUpdatePeriod_isCorrect() {
-        assertNull(channel.updatePeriod)
-    }
-
-    @Test
-    @Throws
-    fun size_isCorrect() {
-        assertEquals(articleList.size, 20)
-    }
-
-    @Test
-    @Throws
-    fun title_isCorrect() {
-        assertEquals(
-            "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
+class CoreXMLParserTimeFeedTest : BaseCoreXMLParserTest(
+    feedPath = "/feed-test-time.xml",
+    channelTitle = "Drug Recalls",
+    channelLink = "http://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drug-recalls/rss.xml",
+    channelDescription = "",
+    articleGuid = "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
+    articleTitle = "Vivimed Life Sciences Pvt Ltd Issues Voluntary Nationwide Recall of Losartan\n" +
             "                Potassium 25 mg, 50 mg and 100 mg Tablets, USP Due to the Detection of Trace Amounts\n" +
             "                of N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) Impurity",
-            article.title
-        )
-    }
-
-    @Test
-    @Throws
-    fun author_isCorrect() {
-        assertEquals("FDA", article.author)
-    }
-
-    @Test
-    @Throws
-    fun link_isCorrect() {
-        assertEquals(
-            "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
-            article.link
-        )
-    }
-
-    @Test
-    @Throws
-    fun pubDate_isCorrect() {
-        assertEquals("Fri, 05/03/2019 - 15:21", article.pubDate)
-    }
-
-    @Test
-    @Throws
-    fun description_isCorrect() {
-        assertEquals(
-            "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
+    articleAuthor = "FDA",
+    articleLink = "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
+    articlePubDate = "Fri, 05/03/2019 - 15:21",
+    articleDescription = "Vivimed Life Sciences Pvt Ltd (Vivimed) is recalling 19 lots of Losartan\n" +
             "                Potassium Tablets USP 25 mg, 50 mg, and 100 mg to consumer level. Due to the\n" +
             "                detection of an impurity – N-Nitroso-N-methyl-4-aminobutyric acid (NMBA) – that is\n" +
             "                above the US Food & Drug Administration’s interim acceptable exposu",
-            article.description
-        )
-    }
-
-    @Test
-    @Throws
-    fun content_isCorrect() {
-        assertEquals(null, article.content)
-    }
-
-    @Test
-    @Throws
-    fun image_isCorrect() {
-        assertEquals(null, article.image)
-    }
-
-    @Test
-    @Throws
-    fun categories_isCorrect() {
-        assertEquals(mutableListOf<String>(), article.categories)
-    }
-
-    @Test
-    @Throws
-    fun guid_isCorrect() {
-        assertEquals(
-            "http://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vivimed-life-sciences-pvt-ltd-issues-voluntary-nationwide-recall-losartan-potassium-25-mg-50-mg-and",
-            article.guid
-        )
-    }
-
-    @Test
-    @Throws
-    fun audio_iCorrect() {
-        assertNull(article.audio)
-    }
-
-    @Test
-    @Throws
-    fun sourceName_iCorrect() {
-        assertNull(article.sourceName)
-    }
-
-    @Test
-    @Throws
-    fun sourceUrl_iCorrect() {
-        assertNull(article.sourceUrl)
-    }
-
-    @Test
-    @Throws
-    fun video_isCorrect() {
-        assertNull(article.video)
-    }
-}
+)

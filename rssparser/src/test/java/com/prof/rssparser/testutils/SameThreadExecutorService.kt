@@ -1,4 +1,4 @@
-package com.prof.rssparser
+package com.prof.rssparser.testutils
 
 import java.util.*
 import java.util.concurrent.AbstractExecutorService

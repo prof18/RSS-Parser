@@ -1,7 +1,7 @@
 package com.prof.rssparser.core
 
-import com.prof.rssparser.ChannelFactory
 import com.prof.rssparser.HTTPException
+import com.prof.rssparser.testutils.ChannelFactory
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
