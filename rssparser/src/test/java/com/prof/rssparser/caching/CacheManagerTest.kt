@@ -1,15 +1,12 @@
 package com.prof.rssparser.caching
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.room.Database
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import com.prof.rssparser.ChannelFactory
+import com.prof.rssparser.testutils.ChannelFactory
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -21,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import kotlin.Exception
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)

@@ -23,6 +23,8 @@ import android.net.NetworkCapabilities
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.VmPolicy
 import android.text.Html
 import android.text.method.LinkMovementMethod
 import android.view.Menu
@@ -35,7 +37,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +53,13 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        StrictMode.setVmPolicy(
+            VmPolicy.Builder()
+                .detectLeakedClosableObjects()
+                .penaltyLog()
+                .build()
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

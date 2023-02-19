@@ -17,162 +17,25 @@
 
 package com.prof.rssparser.core
 
-import com.prof.rssparser.Article
-import com.prof.rssparser.Channel
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNull
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
+import com.prof.rssparser.Image
+import com.prof.rssparser.testutils.BaseCoreXMLParserTest
 
-@RunWith(RobolectricTestRunner::class)
-class CoreXMLParserItemChannelImageTest {
-    private lateinit var articleList: List<Article>
-    private lateinit var article: Article
-    private val feedPath = "/feed-item-channel-image.xml"
-    private lateinit var channel: Channel
-
-    @Before
-    fun setUp() {
-        val inputStream = javaClass.getResourceAsStream(feedPath)!!
-        channel = CoreXMLParser.parseXML(inputStream)
-        articleList = channel.articles
-        article = articleList[0]
-    }
-
-    @Test
-    fun channelTitle_isCorrect() {
-        assertEquals("www.espn.com - TOP", channel.title)
-    }
-
-    @Test
-    fun channelDesc_isCorrect() {
-        assertEquals("Latest TOP news from www.espn.com", channel.description)
-    }
-
-    @Test
-    fun channelLink_isCorrect() {
-        assertEquals("https://www.espn.com", channel.link)
-    }
-
-    @Test
-    fun channelImageTitle_isCorrect() {
-        assertEquals("www.espn.com - TOP", channel.image?.title)
-    }
-
-    @Test
-    fun channelImageLink_isCorrect() {
-        assertEquals("https://www.espn.com", channel.image?.link)
-    }
-
-    @Test
-    fun channelImageUrl_isCorrect() {
-        assertEquals("https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif", channel.image?.url)
-    }
-
-    @Test
-    fun channelImageDescription_isCorrect() {
-        assertNull(channel.image?.description)
-    }
-
-    @Test
-    fun channelLastBuild_isCorrect() {
-        assertEquals("Fri, 7 May 2021 18:43:18 GMT", channel.lastBuildDate)
-    }
-
-    @Test
-    fun channelUpdatePeriod_isCorrect() {
-        assertNull(channel.updatePeriod)
-    }
-
-    @Test
-    @Throws
-    fun size_isCorrect() {
-        assertEquals(1, articleList.size)
-    }
-
-    @Test
-    @Throws
-    fun title_isCorrect() {
-        assertEquals("Inside the mysterious world of missing sports memorabilia", article.title)
-    }
-
-    @Test
-    @Throws
-    fun author_isCorrect() {
-        assertEquals(null, article.author)
-    }
-
-    @Test
-    @Throws
-    fun link_isCorrect() {
-        assertEquals(
-            "https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia",
-            article.link
-        )
-    }
-
-    @Test
-    @Throws
-    fun pubDate_isCorrect() {
-        assertEquals("Fri, 7 May 2021 10:44:02 EST", article.pubDate)
-    }
-
-    @Test
-    @Throws
-    fun description_isPresent() {
-        assertEquals(
-            "Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.",
-            article.description
-        )
-    }
-
-    @Test
-    @Throws
-    fun content_isCorrect() {
-        assertEquals(null, article.content)
-    }
-
-    @Test
-    @Throws
-    fun image_isCorrect() {
-        assertEquals("https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg", article.image)
-    }
-
-    @Test
-    @Throws
-    fun categories_isCorrect() {
-        assertEquals(listOf<String>(), article.categories)
-    }
-
-    @Test
-    @Throws
-    fun guid_isCorrect() {
-        assertEquals("31393791", article.guid)
-    }
-
-    @Test
-    @Throws
-    fun audio_iCorrect() {
-        assertNull(article.audio)
-    }
-
-    @Test
-    @Throws
-    fun sourceName_iCorrect() {
-        assertNull(article.sourceName)
-    }
-
-    @Test
-    @Throws
-    fun sourceUrl_iCorrect() {
-        assertNull(article.sourceUrl)
-    }
-
-    @Test
-    @Throws
-    fun video_isCorrect() {
-        assertNull(article.video)
-    }
-}
+class CoreXMLParserItemChannelImageTest : BaseCoreXMLParserTest(
+    feedPath = "/feed-item-channel-image.xml",
+    channelTitle = "www.espn.com - TOP",
+    channelLink = "https://www.espn.com",
+    channelDescription = "Latest TOP news from www.espn.com",
+    channelImage = Image(
+        title = "www.espn.com - TOP",
+        url = "https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif",
+        link = "https://www.espn.com",
+        description = null,
+    ),
+    channelLastBuildDate = "Fri, 7 May 2021 18:43:18 GMT",
+    articleGuid = "31393791",
+    articleTitle = "Inside the mysterious world of missing sports memorabilia",
+    articleLink = "https://www.espn.com/mlb/story/_/id/31393791/inside-mysterious-world-missing-sports-memorabilia",
+    articlePubDate = "Fri, 7 May 2021 10:44:02 EST",
+    articleDescription = "Some of the most treasured pieces of sports memorabilia are missing, can't be authenticated or... currently reside on the moon. A look at those mysterious historic items -- and what they'd be worth in a red-hot sports memorabilia market.",
+    articleImage = "https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg",
+)

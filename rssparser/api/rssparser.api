@@ -1,11 +1,12 @@
 public final class com/prof/rssparser/Article : java/io/Serializable {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/String;
 	public final fun component11 ()Ljava/lang/String;
 	public final fun component12 ()Ljava/lang/String;
 	public final fun component13 ()Ljava/util/List;
 	public final fun component14 ()Lcom/prof/rssparser/ItunesArticleData;
+	public final fun component15 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
@@ -14,12 +15,13 @@ public final class com/prof/rssparser/Article : java/io/Serializable {
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;)Lcom/prof/rssparser/Article;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/Article;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;ILjava/lang/Object;)Lcom/prof/rssparser/Article;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;Ljava/lang/String;)Lcom/prof/rssparser/Article;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/Article;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/Article;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudio ()Ljava/lang/String;
 	public final fun getAuthor ()Ljava/lang/String;
 	public final fun getCategories ()Ljava/util/List;
+	public final fun getCommentsUrl ()Ljava/lang/String;
 	public final fun getContent ()Ljava/lang/String;
 	public final fun getDescription ()Ljava/lang/String;
 	public final fun getGuid ()Ljava/lang/String;
@@ -64,6 +66,19 @@ public final class com/prof/rssparser/Channel : java/io/Serializable {
 	public final fun getLink ()Ljava/lang/String;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getUpdatePeriod ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof/rssparser/HTTPException : java/lang/Exception {
+	public fun <init> (ILjava/lang/String;)V
+	public final fun component1 ()I
+	public final fun component2 ()Ljava/lang/String;
+	public final fun copy (ILjava/lang/String;)Lcom/prof/rssparser/HTTPException;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/HTTPException;ILjava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/HTTPException;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getCode ()I
+	public fun getMessage ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

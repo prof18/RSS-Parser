@@ -131,11 +131,11 @@ class Parser private constructor(
         }
         executorService!!.submit {
             service = Executors.newFixedThreadPool(2)
-            val f1 = service.submit(XMLFetcher(url, callFactory))
+            val streamFuture = service.submit(XMLFetcher(url, callFactory))
             try {
-                val rssFeed = f1.get()
-                val f2 = service.submit(XMLParser(rssFeed, charset))
-                onComplete?.onTaskCompleted(f2.get())
+                val rssStream = streamFuture.get()
+                val channelFuture = service.submit(XMLParser(rssStream, charset))
+                onComplete?.onTaskCompleted(channelFuture.get())
             } catch (e: Exception) {
                 onComplete?.onError(e)
             } finally {
