@@ -32,6 +32,7 @@ object ChannelFactory {
                     .code(404)
                     .message("")
                     .request(chain.request())
+                    .body("Error!!!".toResponseBody(null))
                     .build()
             }
             .build()

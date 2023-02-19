@@ -1,5 +1,6 @@
 package com.prof.rssparser.core
 
+import com.prof.rssparser.HTTPException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
@@ -16,9 +17,15 @@ internal object CoreXMLFetcher {
         val request = createRequest(url)
         val response = callFactory.newCall(request).execute()
 
-        val body =  response.body
-        requireNotNull(body)
-        return body.byteStream()
+        if (response.isSuccessful) {
+            val body = requireNotNull(response.body)
+            return body.byteStream()
+        } else {
+            throw HTTPException(
+                code = response.code,
+                message = response.message,
+            )
+        }
     }
 
     suspend fun fetchXMLSuspendable(url: String, callFactory: Call.Factory): InputStream {
@@ -38,8 +45,17 @@ internal object CoreXMLFetcher {
 
         enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                val body = requireNotNull(response.body)
-                continuation.resume(body.byteStream())
+                if (response.isSuccessful) {
+                    val body = requireNotNull(response.body)
+                    continuation.resume(body.byteStream())
+                } else {
+                    val exception = HTTPException(
+                        code = response.code,
+                        message = response.message
+
+                    )
+                    continuation.resumeWithException(exception)
+                }
             }
 
             override fun onFailure(call: Call, e: IOException) {
