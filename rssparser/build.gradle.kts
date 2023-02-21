@@ -6,34 +6,42 @@ plugins {
 }
 
 android {
-    namespace 'com.prof.rssparser'
+    namespace = "com.prof.rssparser"
 
-    compileSdk Integer.parseInt(libs.versions.android.compile.sdk.get())
+    compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
-        minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())
-        targetSdkVersion Integer.parseInt(libs.versions.android.target.sdk.get())
-        versionCode Integer.parseInt(libs.versions.library.version.code.get())
-        versionName libs.versions.library.version.name.get()
-        buildConfigField 'int', 'VERSION_CODE', libs.versions.library.version.code.get()
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        targetSdk = Integer.parseInt(libs.versions.android.target.sdk.get())
+        buildConfigField(
+            "int",
+            "VERSION_CODE",
+            libs.versions.library.version.code.get()
+        )
     }
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            isMinifyEnabled =  false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 
-    compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+//    compileOptions {
+//        sourceCompatibility = 1.8
+//        targetCompatibility = 1.8
+//    }
+
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
     }
 
-    testOptions.unitTests.includeAndroidResources = true
-
     sourceSets {
-        test.assets.srcDirs += files("$projectDir/dbschemas".toString())
+        // Adds exported schema location as test app assets.
+        getByName("test").assets.srcDir("$projectDir/schemas")
     }
 }
 
