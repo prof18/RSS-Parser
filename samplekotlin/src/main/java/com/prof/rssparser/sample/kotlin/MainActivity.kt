@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.prof.rssparser.Parser
+import com.prof.rssparser.build
 import com.prof.rssparser.sample.kotlin.util.AlertDialogHelper
 
 class MainActivity : AppCompatActivity() {
@@ -71,12 +72,13 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        parser = Parser.Builder()
+        // TODO
+        parser = Parser/*.Builder()
             .context(this)
             // If you want to provide a custom charset (the default is utf-8):
             // .charset(Charset.forName("ISO-8859-7"))
             .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
-            .build()
+ */           .build()
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()

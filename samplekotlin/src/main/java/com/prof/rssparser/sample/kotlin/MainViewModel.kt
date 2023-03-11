@@ -23,6 +23,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.prof.rssparser.Channel
 import com.prof.rssparser.Parser
+import com.prof.rssparser.build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -62,7 +63,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun fetchForUrlAndParseRawData(url: String) {
-        val parser = Parser.Builder().build()
+//        val parser = Parser.Builder().build()
+        val parser = Parser.build()
 
         viewModelScope.launch(Dispatchers.IO) {
             val request = Request.Builder()
@@ -73,8 +75,9 @@ class MainViewModel : ViewModel() {
             if (raw == null) {
                 _snackbar.postValue("Something went wrong!")
             } else {
-                val channel = parser.parse(raw)
-                _rssChannel.postValue(channel)
+                // TODO: restore
+//                val channel = parser.parse(raw)
+//                _rssChannel.postValue(channel)
             }
         }
     }
