@@ -3,6 +3,7 @@ package com.prof.rssparser
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
+import kotlinx.coroutines.Dispatchers
 
 // TODO: or use the custom builder for better binary compatibility?
 fun Parser.Companion.build(
@@ -21,6 +22,7 @@ fun Parser.Companion.build(
         ),
         xmlParser = AndroidXmlParser(
             charset = charset,
+            dispatcher = Dispatchers.IO,
         ),
     )
 }

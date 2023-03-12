@@ -1,10 +1,3 @@
-public final class com/prof/rssparser/AndroidXmlParser : com/prof/rssparser/XmlParser {
-	public fun <init> ()V
-	public fun <init> (Ljava/nio/charset/Charset;)V
-	public synthetic fun <init> (Ljava/nio/charset/Charset;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun parseXML (Lcom/prof/rssparser/ParserInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/prof/rssparser/Article {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/ItunesArticleData;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -182,11 +175,6 @@ public final class com/prof/rssparser/ItunesOwner {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/prof/rssparser/JvmXmlFetcher : com/prof/rssparser/XmlFetcher {
-	public fun <init> (Lokhttp3/Call$Factory;)V
-	public fun fetchXml (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/prof/rssparser/Parser {
 	public static final field Companion Lcom/prof/rssparser/Parser$Companion;
 	public final fun cancel ()V
@@ -210,13 +198,5 @@ public final class com/prof/rssparser/ParserInput {
 public final class com/prof/rssparser/ParserKt {
 	public static final fun build (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;)Lcom/prof/rssparser/Parser;
 	public static synthetic fun build$default (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof/rssparser/Parser;
-}
-
-public abstract interface class com/prof/rssparser/XmlFetcher {
-	public abstract fun fetchXml (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/prof/rssparser/XmlParser {
-	public abstract fun parseXML (Lcom/prof/rssparser/ParserInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

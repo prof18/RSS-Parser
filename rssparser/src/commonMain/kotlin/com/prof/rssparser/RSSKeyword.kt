@@ -7,6 +7,7 @@ internal sealed class RSSKeyword(val value: String) {
     object Link: RSSKeyword("link")
     object Href: RSSKeyword("href")
     object Url: RSSKeyword("url")
+    object Description: RSSKeyword("description")
 
     object Itunes {
         object Author: RSSKeyword("itunes:author")
@@ -41,7 +42,6 @@ internal sealed class RSSKeyword(val value: String) {
         object Thumbnail: RSSKeyword("media:thumbnail")
         object MediaContent: RSSKeyword("media:content")
         object Enclosure: RSSKeyword("enclosure")
-        object Description: RSSKeyword("description")
         object Content: RSSKeyword("content:encoded")
         object PubDate: RSSKeyword("pubDate")
         object Time: RSSKeyword("time")

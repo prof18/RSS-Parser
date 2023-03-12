@@ -1,6 +1,6 @@
 package com.prof.rssparser
 
-interface XmlParser {
+internal interface XmlParser {
     suspend fun parseXML(input: ParserInput): Channel
 }
 

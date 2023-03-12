@@ -1,5 +1,5 @@
 package com.prof.rssparser
 
-actual object XmlParserFactory {
+internal actual object XmlParserFactory {
     actual fun createXmlParser(): XmlParser = IosXmlParser()
 }

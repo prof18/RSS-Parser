@@ -70,7 +70,7 @@ data class Article(
         fun content(content: String?) = apply { this.content = content }
         fun image(image: String?) = apply { this.image = image }
         fun imageIfNull(image: String?) = apply {
-            if (this.image == null) {
+            if (this.image == null && image?.isNotEmpty() == true) {
                 this.image = image
             }
         }

@@ -167,15 +167,9 @@ public final class com/prof/rssparser/ItunesOwner {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/prof/rssparser/JvmXmlFetcher : com/prof/rssparser/XmlFetcher {
-	public fun <init> (Lokhttp3/Call$Factory;)V
-	public fun fetchXml (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/prof/rssparser/JvmXmlParser : com/prof/rssparser/XmlParser {
-	public fun <init> ()V
-	public fun <init> (Ljava/nio/charset/Charset;)V
-	public synthetic fun <init> (Ljava/nio/charset/Charset;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Ljava/nio/charset/Charset;Lkotlinx/coroutines/CoroutineDispatcher;)V
+	public synthetic fun <init> (Ljava/nio/charset/Charset;Lkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun parseXML (Lcom/prof/rssparser/ParserInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
@@ -197,13 +191,5 @@ public final class com/prof/rssparser/ParserInput {
 	public final fun getInputStream ()Ljava/io/InputStream;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public abstract interface class com/prof/rssparser/XmlFetcher {
-	public abstract fun fetchXml (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
-public abstract interface class com/prof/rssparser/XmlParser {
-	public abstract fun parseXML (Lcom/prof/rssparser/ParserInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

@@ -10,7 +10,7 @@ import java.io.InputStream
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-class JvmXmlFetcher(
+internal class JvmXmlFetcher(
     private val callFactory: Call.Factory
 ): XmlFetcher {
 

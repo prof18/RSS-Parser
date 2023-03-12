@@ -1,5 +1,5 @@
 package com.prof.rssparser
 
-interface XmlFetcher {
+internal interface XmlFetcher {
     suspend fun fetchXml(url: String): ParserInput
 }
