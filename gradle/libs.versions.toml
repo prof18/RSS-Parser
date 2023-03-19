@@ -38,6 +38,7 @@ androidx-recyclerview = "1.0.0"
 androidx-swiperefreshlayout = "1.1.0"
 com-google-android-material = "1.6.1"
 com-squareup-picasso = "2.8"
+compose-multiplatform = "1.3.1"
 
 [libraries]
 # Library dependencies
@@ -88,3 +89,4 @@ com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version.
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
