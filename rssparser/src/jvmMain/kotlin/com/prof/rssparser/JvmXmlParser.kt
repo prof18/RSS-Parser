@@ -9,7 +9,7 @@ import org.xml.sax.Attributes
 import org.xml.sax.InputSource
 import org.xml.sax.helpers.DefaultHandler
 
-class JvmXmlParser(
+internal class JvmXmlParser(
     private val charset: Charset? = null,
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
@@ -34,7 +34,6 @@ class JvmXmlParser(
 
 private class SaxFeedHandler : DefaultHandler() {
 
-    // A flag just to be sure of the correct parsing
     var isInsideItem = false
     var isInsideChannel = false
     var isInsideChannelImage = false
@@ -81,7 +80,7 @@ private class SaxFeedHandler : DefaultHandler() {
                     when {
                         type != null && type.contains("image") -> {
                             // If there are multiple elements, we take only the first
-                            channelFactory.articleBuilder.imageIfNull(
+                            channelFactory.articleBuilder.image(
                                 attributes.getValue(RSSKeyword.URL.value)
                             )
                         }
@@ -162,7 +161,7 @@ private class SaxFeedHandler : DefaultHandler() {
                     }
 
                     RSSKeyword.Item.Enclosure.value -> {
-                        channelFactory.articleBuilder.imageIfNull(text)
+                        channelFactory.articleBuilder.image(text)
                     }
 
                     RSSKeyword.Item.Itunes.EpisodeType.value -> {

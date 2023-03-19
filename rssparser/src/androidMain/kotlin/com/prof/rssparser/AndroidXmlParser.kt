@@ -122,7 +122,7 @@ internal class AndroidXmlParser(
                             when {
                                 type != null && type.contains("image") -> {
                                     // If there are multiple elements, we take only the first
-                                    channelFactory.articleBuilder.imageIfNull(
+                                    channelFactory.articleBuilder.image(
                                         xmlPullParser.attributeValue(
                                             RSSKeyword.URL
                                         )
@@ -147,7 +147,7 @@ internal class AndroidXmlParser(
                                     )
                                 }
 
-                                else -> channelFactory.articleBuilder.imageIfNull(
+                                else -> channelFactory.articleBuilder.image(
                                     xmlPullParser.nextText().trim()
                                 )
                             }

@@ -13,7 +13,7 @@ internal class ChannelFactory {
     private var imageUrlFromContent: String? = null
 
     fun buildArticle() {
-        articleBuilder.imageIfNull(imageUrlFromContent)
+        articleBuilder.image(imageUrlFromContent)
         articleBuilder.itunesArticleData(itunesArticleBuilder.build())
         channelBuilder.addArticle(articleBuilder.build())
         // Reset temp data

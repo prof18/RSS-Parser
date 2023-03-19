@@ -68,8 +68,7 @@ data class Article(
 
         fun description(description: String?) = apply { this.description = description }
         fun content(content: String?) = apply { this.content = content }
-        fun image(image: String?) = apply { this.image = image }
-        fun imageIfNull(image: String?) = apply {
+        fun image(image: String?) = apply {
             if (this.image == null && image?.isNotEmpty() == true) {
                 this.image = image
             }
