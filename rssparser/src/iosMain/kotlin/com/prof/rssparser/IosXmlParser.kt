@@ -11,6 +11,7 @@ import platform.darwin.NSObject
 internal class IosXmlParser(
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
+
     override suspend fun parseXML(input: ParserInput): Channel = withContext(dispatcher) {
         suspendCoroutine { continuation ->
             NSXMLParser()

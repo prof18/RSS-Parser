@@ -33,16 +33,15 @@ internal class ChannelFactory {
      * @param content The content in which to search for the tag
      * @return The url, if there is one
      */
-    fun setImageFromContent(content: String?) = content?.let { content ->
-        val imgRegex = Regex(pattern = "(<img .*?>)")
-
-        imgRegex.find(content)?.value?.let { imgString ->
-            val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
-            urlRegex.find(imgString)?.groupValues?.getOrNull(2)?.trim().let { imgUrl ->
-                imageUrlFromContent = imgUrl
+    fun setImageFromContent(content: String?) =
+        content
+            ?.split("</a>")
+            ?.mapNotNull {
+                val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
+                urlRegex.find(it)?.groupValues?.getOrNull(2)?.trim()?.let { imgUrl ->
+                    imageUrlFromContent = imgUrl
+                }
             }
-        }
-    }
 
     fun setChannelItunesKeywords(keywords: String?) {
         val keywordList = extractItunesKeywords(keywords)
@@ -59,7 +58,7 @@ internal class ChannelFactory {
     }
 
     private fun extractItunesKeywords(keywords: String?): List<String> =
-       keywords?.split(",")?.mapNotNull {
+        keywords?.split(",")?.mapNotNull {
             it.ifEmpty {
                 null
             }

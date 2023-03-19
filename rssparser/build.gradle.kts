@@ -17,11 +17,11 @@ kotlin {
 
     android {
         publishAllLibraryVariants()
-            compilations.all {
-                kotlinOptions {
-                    jvmTarget = "11"
-                }
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
             }
+        }
     }
 
     ios()
@@ -45,9 +45,9 @@ kotlin {
         val commonJvmAndroidMain by creating {
             dependsOn(commonMain)
 
-             dependencies {
-                 api(libs.com.squareup.okhttp3)
-             }
+            dependencies {
+                api(libs.com.squareup.okhttp3)
+            }
         }
 
         val commonJvmAndroidTest by creating {

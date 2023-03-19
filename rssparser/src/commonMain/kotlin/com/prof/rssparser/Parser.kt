@@ -7,6 +7,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
+// TODO: maybe change the name
 class Parser internal constructor(
     private val xmlFetcher: XmlFetcher,
     private val xmlParser: XmlParser,
@@ -28,6 +29,8 @@ class Parser internal constructor(
      * @param url The url of the RSS feed
      *
      */
+
+    @Throws(Throwable::class)
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
         // If the charset is null, then "null" is saved in the database.
         // It's easier for retrieving data afterwards

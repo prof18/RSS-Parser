@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prof.rssparser.sample.android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
+        android:label="RSS Parser Sample"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">

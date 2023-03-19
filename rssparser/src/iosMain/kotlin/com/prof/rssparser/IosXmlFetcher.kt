@@ -14,8 +14,9 @@ import platform.Foundation.dataTaskWithURL
 internal class IosXmlFetcher(
     private val nsUrlSession: NSURLSession,
 ): XmlFetcher {
+
     override suspend fun fetchXml(url: String): ParserInput = suspendCancellableCoroutine {  continuation ->
-       val task = nsUrlSession.dataTaskWithURL(NSURL(url)) { data: NSData?, response: NSURLResponse?, error: NSError? ->
+       val task = nsUrlSession.dataTaskWithURL(NSURL(string = url)) { data: NSData?, response: NSURLResponse?, error: NSError? ->
            if (error != null) {
                val throwable = Throwable(
                    message = error.description
