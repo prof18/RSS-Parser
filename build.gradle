@@ -25,5 +25,5 @@ tasks.named("dependencyUpdates").configure {
 }
 
 apiValidation {
-    ignoredProjects += ["samplekotlin"]
+    ignoredProjects += ["sample", 'shared', 'androidApp', 'desktopApp']
 }

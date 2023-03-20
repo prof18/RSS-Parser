@@ -17,7 +17,6 @@ class Parser internal constructor(
     private val coroutineContext: CoroutineContext
         get() = parserJob + Dispatchers.Default
 
-
     /**
      * Returns a parsed RSS [Channel].
      *
@@ -34,7 +33,7 @@ class Parser internal constructor(
     suspend fun getChannel(url: String): Channel = withContext(coroutineContext) {
         // If the charset is null, then "null" is saved in the database.
         // It's easier for retrieving data afterwards
-
+        // TODO: add caching
         val parserInput = xmlFetcher.fetchXml(url)
         val channel = xmlParser.parseXML(parserInput)
 
@@ -57,6 +56,8 @@ class Parser internal constructor(
 //            return@withContext channel
 //        }
     }
+
+    // TODO: Add parsing from string
 
     /**
      *  Cancel the execution of the fetching and the parsing.

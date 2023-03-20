@@ -167,12 +167,6 @@ public final class com/prof/rssparser/ItunesOwner {
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/prof/rssparser/JvmXmlParser : com/prof/rssparser/XmlParser {
-	public fun <init> (Ljava/nio/charset/Charset;Lkotlinx/coroutines/CoroutineDispatcher;)V
-	public synthetic fun <init> (Ljava/nio/charset/Charset;Lkotlinx/coroutines/CoroutineDispatcher;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun parseXML (Lcom/prof/rssparser/ParserInput;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
-}
-
 public final class com/prof/rssparser/Parser {
 	public static final field Companion Lcom/prof/rssparser/Parser$Companion;
 	public final fun cancel ()V
@@ -182,14 +176,8 @@ public final class com/prof/rssparser/Parser {
 public final class com/prof/rssparser/Parser$Companion {
 }
 
-public final class com/prof/rssparser/ParserInput {
-	public fun <init> (Ljava/io/InputStream;)V
-	public final fun component1 ()Ljava/io/InputStream;
-	public final fun copy (Ljava/io/InputStream;)Lcom/prof/rssparser/ParserInput;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/ParserInput;Ljava/io/InputStream;ILjava/lang/Object;)Lcom/prof/rssparser/ParserInput;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getInputStream ()Ljava/io/InputStream;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+public final class com/prof/rssparser/ParserKt {
+	public static final fun build (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;)Lcom/prof/rssparser/Parser;
+	public static synthetic fun build$default (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof/rssparser/Parser;
 }
 
