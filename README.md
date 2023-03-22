@@ -182,7 +182,7 @@ If you are still using Java, this is the interface to use the library:
 ```Java
 import com.prof.rssparser.Article;
 import com.prof.rssparser.OnTaskCompleted;
-import Parser;
+import com.prof.rssparser.Parser;
 
 Parser parser = new Parser.Builder()
         .charset(Charset.forName("ISO-8859-7"))
@@ -219,7 +219,7 @@ For older versions of the library, the interface is marginally different:
 
 ```Java
 import com.prof.rssparser.Article;
-import Parser;
+import com.prof.rssparser.Parser;
 
 //url of RSS feed
 String urlString = "http://www.androidcentral.com/feed";

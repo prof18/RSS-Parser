@@ -1,7 +1,7 @@
 package com.prof.rssparser
 
 @Suppress("NO_ACTUAL_FOR_EXPECT")
-expect fun readBinaryResource(
+internal expect fun readBinaryResource(
     resourceName: String
 ): ParserInput
 

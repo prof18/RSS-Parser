@@ -4,7 +4,7 @@ import platform.Foundation.NSBundle
 import platform.Foundation.NSData
 import platform.Foundation.dataWithContentsOfFile
 
-actual fun readBinaryResource(
+internal actual fun readBinaryResource(
     resourceName: String
 ): ParserInput {
     val pathParts = resourceName.split("[.|/]".toRegex())

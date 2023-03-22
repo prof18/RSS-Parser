@@ -1,18 +1,30 @@
 name: Publish
+
+# TODO: restore, just for testing dev versions
+#on:
+#  release:
+#    # We'll run this workflow when a new GitHub release is created
+#    types: [released]
 on:
-  release:
-    # We'll run this workflow when a new GitHub release is created
-    types: [released]
+  push:
+    branches:
+      - 'multiplatform-support' #
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - name: Gradle Wrapper Validation
-        uses: gradle/wrapper-validation-action@v1
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v2
+        with:
+          gradle-home-cache-cleanup: true
 
       - name: Test
         run: ./gradlew clean check --no-daemon --stacktrace
@@ -33,7 +45,7 @@ jobs:
     needs: [build]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Upload Snapshot
         run: ./gradlew :rssparser:publishAllPublicationsToMavenCentral --no-daemon --no-parallel --no-configuration-cache --stacktrace
