@@ -113,14 +113,18 @@ kotlin {
     }
 }
 
-tasks.register<Copy>("copyIosTestResources") {
+tasks.register<Copy>("copyIosTestResourcesArm64") {
     from("src/commonTest/resources")
-    into("build/bin/iosX64/debugTest/resources")
     into("build/bin/iosSimulatorArm64/debugTest/resources")
 }
 
-tasks.findByName("compileTestKotlinIosX64")?.dependsOn("copyIosTestResources")
-tasks.findByName("compileTestKotlinIosSimulatorArm64")?.dependsOn("copyIosTestResources")
+tasks.register<Copy>("copyIosTestResourcesX64") {
+    from("src/commonTest/resources")
+    into("build/bin/iosX64/debugTest/resources")
+}
+
+tasks.findByName("iosX64Test")?.dependsOn("copyIosTestResourcesX64")
+tasks.findByName("iosSimulatorArm64Test")?.dependsOn("copyIosTestResourcesArm64")
 
 android {
     namespace = "com.prof.rssparser"
