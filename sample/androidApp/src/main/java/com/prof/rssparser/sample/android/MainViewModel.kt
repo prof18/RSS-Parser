@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val url = "https://www.androidauthority.com/feed"
+//    private val url = "https://www.androidauthority.com/feed"
+    private val url = "https://www.ilpost.it/feed/"
 
     private val feedRepository = DI.feedRepository
 

@@ -14,7 +14,6 @@ internal class IosXmlParser(
 
     override suspend fun parseXML(input: ParserInput): Channel = withContext(dispatcher) {
         suspendCoroutine { continuation ->
-            NSXMLParser()
             NSXMLParser(input.data).apply {
                 delegate = NSXMLParserDelegate { continuation.resume(it) }
             }.parse()

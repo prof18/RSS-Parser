@@ -33,15 +33,50 @@ internal class ChannelFactory {
      * @param content The content in which to search for the tag
      * @return The url, if there is one
      */
-    fun setImageFromContent(content: String?) =
-        content
-            ?.split("</a>")
-            ?.mapNotNull {
-                val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
-                urlRegex.find(it)?.groupValues?.getOrNull(2)?.trim()?.let { imgUrl ->
+    fun setImageFromContent(content: String?) {
+        println(">>>> Trying to get image from content")
+
+        val contentSplit = content
+            ?.split("</a>", "/>", "\">", "srcset=", "alt=")
+            ?.filter { it.contains("src=") }
+
+        println(">>>> Content Split: ${contentSplit?.size}")
+        contentSplit?.forEach {
+            println("++ Item")
+            println(it)
+        }
+
+        val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
+
+        contentSplit
+            ?.firstOrNull()
+            ?.let{ urlRegex.find(it) }
+            ?.let {
+                it.groupValues.getOrNull(2)?.trim()?.let { imgUrl ->
                     imageUrlFromContent = imgUrl
+                    println("Final image: $imageUrlFromContent")
                 }
             }
+
+//        contentSplit
+//            ?.mapNotNull {
+//                val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
+//                println(">>> GRoup values")
+//                println(">>> Finding stuff on: $it")
+//                try {
+//                    urlRegex.find(it)?.groupValues?.forEach {
+//                        println(">>> GRoup value: $it")
+//                    }
+//                    urlRegex.find(it)?.groupValues?.getOrNull(2)?.trim()?.let { imgUrl ->
+//                        imageUrlFromContent = imgUrl
+//                    }
+//                } catch (e: Exception) {
+//                    e.printStackTrace()
+//                    println(">>> Skipping because of exception")
+//                }
+//            }
+
+    }
 
     fun setChannelItunesKeywords(keywords: String?) {
         val keywordList = extractItunesKeywords(keywords)
