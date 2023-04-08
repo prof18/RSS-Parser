@@ -52,14 +52,14 @@ private class NSXMLParserDelegate(
             RSSKeyword.Image.value -> isInsideChannelImage = isInsideChannel && !isInsideItem
             RSSKeyword.Item.MediaContent.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValue(RSSKeyword.URL.value) as? String
+                    val url = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
 
             RSSKeyword.Item.Thumbnail.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValue(RSSKeyword.URL.value) as? String
+                    val url = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
@@ -72,21 +72,21 @@ private class NSXMLParserDelegate(
                         type != null && type.contains("image") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.image(
-                                attributes.getValue(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                             )
                         }
 
                         type != null && type.contains("audio") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.audioIfNull(
-                                attributes.getValue(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                             )
                         }
 
                         type != null && type.contains("video") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.videoIfNull(
-                                attributes.getValue(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                             )
                         }
                     }
@@ -94,7 +94,7 @@ private class NSXMLParserDelegate(
             }
 
             RSSKeyword.Itunes.Image.value -> {
-                val url = attributes.getValue(RSSKeyword.HREF.value) as? String
+                val url = attributes.getValueOrNull(RSSKeyword.HREF.value) as? String
                 when {
                     isInsideItem -> channelFactory.itunesArticleBuilder.image(url)
                     isInsideChannel -> channelFactory.itunesChannelBuilder.image(url)
@@ -103,14 +103,14 @@ private class NSXMLParserDelegate(
 
             RSSKeyword.Item.Source.value -> {
                 if (isInsideItem) {
-                    val sourceUrl = attributes.getValue(RSSKeyword.URL.value) as? String
+                    val sourceUrl = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
                     channelFactory.articleBuilder.sourceUrl(sourceUrl)
                 }
             }
 
             RSSKeyword.Channel.Itunes.Category.value -> {
                 if (isInsideChannel) {
-                    val category = attributes.getValue(RSSKeyword.Channel.Itunes.Text.value) as? String
+                    val category = attributes.getValueOrNull(RSSKeyword.Channel.Itunes.Text.value) as? String
                     channelFactory.itunesChannelBuilder.addCategory(category)
                 }
             }
