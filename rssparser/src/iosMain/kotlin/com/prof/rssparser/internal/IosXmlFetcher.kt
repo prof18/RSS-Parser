@@ -1,5 +1,6 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
+import com.prof.rssparser.model.HTTPException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -15,7 +16,7 @@ internal class IosXmlFetcher(
     private val nsUrlSession: NSURLSession,
 ): XmlFetcher {
 
-    override suspend fun fetchXml(url: String): ParserInput = suspendCancellableCoroutine {  continuation ->
+    override suspend fun fetchXml(url: String): ParserInput = suspendCancellableCoroutine { continuation ->
        val task = nsUrlSession.dataTaskWithURL(NSURL(string = url)) { data: NSData?, response: NSURLResponse?, error: NSError? ->
            if (error != null) {
                val throwable = Throwable(

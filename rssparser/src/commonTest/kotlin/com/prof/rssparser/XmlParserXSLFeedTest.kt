@@ -17,6 +17,8 @@
 
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+
 class XmlParserXSLFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-xsl.xml",
     channelTitle = "SkySports | Liverpool",

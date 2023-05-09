@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.JvmXmlFetcher
+import com.prof.rssparser.internal.JvmXmlParser
 import java.nio.charset.Charset
 import kotlinx.coroutines.Dispatchers
 import okhttp3.Call

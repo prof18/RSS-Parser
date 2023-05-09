@@ -25,6 +25,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
+          cache-read-only: false
 
       - name: Test
         run: ./gradlew clean check --no-daemon --stacktrace
@@ -56,6 +57,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-home-cache-cleanup: true
+          cache-read-only: false
 
       - name: Upload Snapshot
         run: ./gradlew :rssparser:publishAllPublicationsToMavenCentralRepository --no-daemon --no-parallel --no-configuration-cache --stacktrace

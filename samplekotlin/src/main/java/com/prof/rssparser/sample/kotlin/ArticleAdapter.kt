@@ -27,7 +27,7 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.prof.rssparser.Article
+import com.prof.rssparser.model.Article
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*

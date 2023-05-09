@@ -1,4 +1,4 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
 import platform.Foundation.NSData
 

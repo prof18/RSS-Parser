@@ -1,10 +1,10 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
+import com.prof.rssparser.model.Channel
 import okhttp3.internal.closeQuietly
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
 import java.nio.charset.Charset
-import java.util.regex.Pattern
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
@@ -106,13 +106,15 @@ internal class AndroidXmlParser(
 
                     xmlPullParser.contains(RSSKeyword.Item.Thumbnail) -> {
                         if (insideItem) {
-                            channelFactory.articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.URL))
+                            channelFactory.articleBuilder.image(xmlPullParser.attributeValue(
+                                RSSKeyword.URL))
                         }
                     }
 
                     xmlPullParser.contains(RSSKeyword.Item.MediaContent) -> {
                         if (insideItem) {
-                            channelFactory.articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.URL))
+                            channelFactory.articleBuilder.image(xmlPullParser.attributeValue(
+                                RSSKeyword.URL))
                         }
                     }
 

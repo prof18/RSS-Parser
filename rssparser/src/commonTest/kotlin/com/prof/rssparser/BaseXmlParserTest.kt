@@ -1,5 +1,10 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Article
+import com.prof.rssparser.model.Channel
+import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.ItunesChannelData
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

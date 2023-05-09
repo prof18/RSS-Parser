@@ -1,4 +1,4 @@
-package com.prof.rssparser
+package com.prof.rssparser.model
 
 data class HTTPException(
     val code: Int,

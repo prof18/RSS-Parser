@@ -1,13 +1,14 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
-import java.nio.charset.Charset
-import javax.xml.parsers.SAXParserFactory
+import com.prof.rssparser.model.Channel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.internal.closeQuietly
 import org.xml.sax.Attributes
 import org.xml.sax.InputSource
 import org.xml.sax.helpers.DefaultHandler
+import java.nio.charset.Charset
+import javax.xml.parsers.SAXParserFactory
 
 internal class JvmXmlParser(
     private val charset: Charset? = null,

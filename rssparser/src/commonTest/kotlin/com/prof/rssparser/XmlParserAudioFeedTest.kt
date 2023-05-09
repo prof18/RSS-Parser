@@ -17,6 +17,11 @@
 
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.ItunesChannelData
+import com.prof.rssparser.model.ItunesOwner
+
 class XmlParserAudioFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-audio.xml",
     channelTitle = "Stuff You Should Know",

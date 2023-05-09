@@ -1,5 +1,8 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
+import com.prof.rssparser.internal.ParserInput
+import com.prof.rssparser.internal.XmlFetcher
+import com.prof.rssparser.model.HTTPException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback

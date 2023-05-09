@@ -1,5 +1,6 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
+import com.prof.rssparser.model.Channel
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.CoroutineDispatcher

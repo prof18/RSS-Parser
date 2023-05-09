@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.AndroidXmlParser
+import com.prof.rssparser.internal.JvmXmlFetcher
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset

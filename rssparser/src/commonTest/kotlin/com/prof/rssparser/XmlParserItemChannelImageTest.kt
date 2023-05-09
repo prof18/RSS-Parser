@@ -17,6 +17,8 @@
 
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+
 class XmlParserItemChannelImageTest : BaseXmlParserTest(
     feedPath = "feed-item-channel-image.xml",
     channelTitle = "www.espn.com - TOP",

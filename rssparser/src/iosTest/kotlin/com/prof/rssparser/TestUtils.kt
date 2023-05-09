@@ -1,5 +1,6 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.ParserInput
 import platform.Foundation.NSBundle
 import platform.Foundation.NSData
 import platform.Foundation.dataWithContentsOfFile

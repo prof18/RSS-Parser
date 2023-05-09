@@ -15,7 +15,7 @@
 *
 */
 
-package com.prof.rssparser
+package com.prof.rssparser.model
 
 data class Article(
     val guid: String?,

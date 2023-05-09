@@ -1,5 +1,10 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.ItunesChannelData
+import com.prof.rssparser.model.ItunesOwner
+
 class XmlParserImageChannelReverseTest : BaseXmlParserTest(
     feedPath = "feed-test-image-channel-reverse.xml",
     channelTitle = "The Joe Rogan Experience",

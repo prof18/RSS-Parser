@@ -1,6 +1,6 @@
 package com.prof.rssparser
 
-import kotlin.test.Test
+import com.prof.rssparser.model.Image
 
 class XmlParserHindiChannelImageTest : BaseXmlParserTest(
     feedPath = "feed-test-hindi-channel-image.xml",

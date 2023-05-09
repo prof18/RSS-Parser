@@ -1,5 +1,8 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.XmlFetcher
+import com.prof.rssparser.internal.XmlParser
+import com.prof.rssparser.model.Channel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel

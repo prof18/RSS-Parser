@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+
 class XmlParserImageEnclosure : BaseXmlParserTest(
     feedPath = "feed-image-enclosure.xml",
     channelTitle = "Centrum dopravního výzkumu, v. v. i. (RSS 2.0)",

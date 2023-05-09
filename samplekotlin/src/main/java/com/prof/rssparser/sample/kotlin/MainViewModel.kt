@@ -21,7 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prof.rssparser.Channel
+import com.prof.rssparser.model.Channel
 import com.prof.rssparser.Parser
 import com.prof.rssparser.build
 import kotlinx.coroutines.Dispatchers

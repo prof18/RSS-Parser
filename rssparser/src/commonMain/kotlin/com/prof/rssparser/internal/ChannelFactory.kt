@@ -1,4 +1,11 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
+
+import com.prof.rssparser.model.Article
+import com.prof.rssparser.model.Channel
+import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.ItunesChannelData
+import com.prof.rssparser.model.ItunesOwner
 
 internal class ChannelFactory {
     val channelBuilder = Channel.Builder()

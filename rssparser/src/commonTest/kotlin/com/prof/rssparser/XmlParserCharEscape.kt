@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+
 class XmlParserCharEscape : BaseXmlParserTest(
     feedPath = "feed-char-escape.xml",
     channelTitle = "NYT > Health",

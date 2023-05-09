@@ -1,5 +1,6 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.ParserInput
 import java.io.File
 import java.io.FileInputStream
 

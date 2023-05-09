@@ -1,4 +1,4 @@
-package com.prof.rssparser
+package com.prof.rssparser.model
 
 // TODO: how to handle serialization?
 data class Channel(

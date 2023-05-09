@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.internal.IosXmlFetcher
+import com.prof.rssparser.internal.IosXmlParser
 import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSURLSession
 

@@ -1,4 +1,4 @@
-package com.prof.rssparser
+package com.prof.rssparser.internal
 
 internal sealed class RSSKeyword(val value: String) {
     object Rss: RSSKeyword("rss")

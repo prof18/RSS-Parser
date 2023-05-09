@@ -1,5 +1,7 @@
 package com.prof.rssparser
 
+import com.prof.rssparser.model.Image
+
 class XmlParserBingFeedImage : BaseXmlParserTest(
     feedPath = "feed-bing-image.xml",
     channelTitle = "madrid - BingNews",
