@@ -6,10 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSURLSession
 
 // TODO: or use the custom builder for better binary compatibility?
-fun Parser.Companion.build(
+fun RssParser.Companion.build(
     nsUrlSession: NSURLSession? = null,
-): Parser {
-    return Parser(
+): RssParser {
+    return RssParser(
         xmlFetcher = IosXmlFetcher(
             nsUrlSession = nsUrlSession ?: NSURLSession.sharedSession,
         ),

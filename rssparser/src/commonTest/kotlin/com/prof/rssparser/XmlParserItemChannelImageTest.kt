@@ -17,14 +17,14 @@
 
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserItemChannelImageTest : BaseXmlParserTest(
     feedPath = "feed-item-channel-image.xml",
     channelTitle = "www.espn.com - TOP",
     channelLink = "https://www.espn.com",
     channelDescription = "Latest TOP news from www.espn.com",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "www.espn.com - TOP",
         url = "https://a.espncdn.com/i/espn/teamlogos/lrg/trans/espn_dotcom_black.gif",
         link = "https://www.espn.com",

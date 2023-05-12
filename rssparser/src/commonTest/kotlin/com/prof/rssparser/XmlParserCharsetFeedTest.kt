@@ -17,8 +17,8 @@
 
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
-import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.RssImage
+import com.prof.rssparser.model.ItunesItemData
 import com.prof.rssparser.model.ItunesChannelData
 import com.prof.rssparser.model.ItunesOwner
 
@@ -27,7 +27,7 @@ class XmlParserCharsetFeedTest : BaseXmlParserTest(
     channelTitle = "Lørdagsrådet",
     channelLink = "https://radio.nrk.no/podkast/loerdagsraadet",
     channelDescription = "Hver uke blar tre (mer eller mindre) kvalifiserte rådgivere i sitt livserfaringsarkiv for å hjelpe deg. Lurer du på om du skal gjøre det slutt, er naboen din en tyrann eller er du håpløst forelsket? Vi skal prøve å gi deg gode råd. <a href=\"https://radio.nrk.no/podkast/loerdagsraadet?utm_source=thirdparty&utm_medium=rss&utm_content=podcastseries%3Aloerdagsraadet\">Hør alle episodene først i appen NRK Radio</a>",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "Lørdagsrådet",
         url = "https://gfx.nrk.no/B4Wi9oIWqfMo0PBc0Hk28AhpXzswFi4Ir3NcS4uO23PA.png",
         link = "https://radio.nrk.no/podkast/loerdagsraadet",
@@ -59,7 +59,7 @@ class XmlParserCharsetFeedTest : BaseXmlParserTest(
     articlePubDate = "Sat, 31 Dec 2022 08:00:00 GMT",
     articleDescription = "Høydepunkter fra 2022 - nr.11. <a href=\"https://radio.nrk.no/podkast/loerdagsraadet/l_e6338d4f-2777-43c4-b38d-4f2777e3c4de?utm_source=thirdparty&utm_medium=rss&utm_content=podcast%3Al_e6338d4f-2777-43c4-b38d-4f2777e3c4de\">Hør episoden i appen NRK Radio</a>",
     articleAudio = "https://podkast.nrk.no/fil/loerdagsraadet/23ee45fc-d869-4110-bf97-34138fcfaba6_0_ID192MP3.mp3",
-    articleItunesData = ItunesArticleData(
+    articleItunesData = ItunesItemData(
         author = "NRK",
         duration = "01:03:44",
         episode = null,

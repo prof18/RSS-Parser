@@ -1,7 +1,7 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
-import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.RssImage
+import com.prof.rssparser.model.ItunesItemData
 import com.prof.rssparser.model.ItunesChannelData
 import com.prof.rssparser.model.ItunesOwner
 
@@ -10,7 +10,7 @@ class XmlParserImageChannelReverseTest : BaseXmlParserTest(
     channelTitle = "The Joe Rogan Experience",
     channelLink = "https://www.joerogan.com",
     channelDescription = "The podcast of Comedian Joe Rogan..",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "The Joe Rogan Experience",
         url = "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg",
         link = "https://www.joerogan.com",
@@ -40,7 +40,7 @@ class XmlParserImageChannelReverseTest : BaseXmlParserTest(
     articleDescription = "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
     articleContent = "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
     articleAudio = "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997",
-    articleItunesData = ItunesArticleData(
+    articleItunesData = ItunesItemData(
         author = null,
         duration = "03:30:48",
         episode = "1405",

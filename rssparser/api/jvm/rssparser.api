@@ -1,79 +1,15 @@
-public final class com/prof/rssparser/Parser {
-	public static final field Companion Lcom/prof/rssparser/Parser$Companion;
+public final class com/prof/rssparser/RssParser {
+	public static final field Companion Lcom/prof/rssparser/RssParser$Companion;
 	public final fun cancel ()V
 	public final fun getChannel (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class com/prof/rssparser/Parser$Companion {
+public final class com/prof/rssparser/RssParser$Companion {
 }
 
-public final class com/prof/rssparser/ParserKt {
-	public static final fun build (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;)Lcom/prof/rssparser/Parser;
-	public static synthetic fun build$default (Lcom/prof/rssparser/Parser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof/rssparser/Parser;
-}
-
-public final class com/prof/rssparser/model/Article {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesArticleData;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ljava/lang/String;
-	public final fun component11 ()Ljava/lang/String;
-	public final fun component12 ()Ljava/lang/String;
-	public final fun component13 ()Ljava/util/List;
-	public final fun component14 ()Lcom/prof/rssparser/model/ItunesArticleData;
-	public final fun component15 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/lang/String;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesArticleData;Ljava/lang/String;)Lcom/prof/rssparser/model/Article;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/model/Article;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesArticleData;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/Article;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAudio ()Ljava/lang/String;
-	public final fun getAuthor ()Ljava/lang/String;
-	public final fun getCategories ()Ljava/util/List;
-	public final fun getCommentsUrl ()Ljava/lang/String;
-	public final fun getContent ()Ljava/lang/String;
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getGuid ()Ljava/lang/String;
-	public final fun getImage ()Ljava/lang/String;
-	public final fun getItunesArticleData ()Lcom/prof/rssparser/model/ItunesArticleData;
-	public final fun getLink ()Ljava/lang/String;
-	public final fun getPubDate ()Ljava/lang/String;
-	public final fun getSourceName ()Ljava/lang/String;
-	public final fun getSourceUrl ()Ljava/lang/String;
-	public final fun getTitle ()Ljava/lang/String;
-	public final fun getVideo ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/prof/rssparser/model/Channel {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/Image;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Lcom/prof/rssparser/model/Image;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Lcom/prof/rssparser/model/ItunesChannelData;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/Image;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;)Lcom/prof/rssparser/model/Channel;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/model/Channel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/Image;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;ILjava/lang/Object;)Lcom/prof/rssparser/model/Channel;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getArticles ()Ljava/util/List;
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getImage ()Lcom/prof/rssparser/model/Image;
-	public final fun getItunesChannelData ()Lcom/prof/rssparser/model/ItunesChannelData;
-	public final fun getLastBuildDate ()Ljava/lang/String;
-	public final fun getLink ()Ljava/lang/String;
-	public final fun getTitle ()Ljava/lang/String;
-	public final fun getUpdatePeriod ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
+public final class com/prof/rssparser/RssParserKt {
+	public static final fun build (Lcom/prof/rssparser/RssParser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;)Lcom/prof/rssparser/RssParser;
+	public static synthetic fun build$default (Lcom/prof/rssparser/RssParser$Companion;Lokhttp3/Call$Factory;Lokhttp3/OkHttpClient;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof/rssparser/RssParser;
 }
 
 public final class com/prof/rssparser/model/HTTPException : java/lang/Exception {
@@ -85,53 +21,6 @@ public final class com/prof/rssparser/model/HTTPException : java/lang/Exception 
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCode ()I
 	public fun getMessage ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/prof/rssparser/model/Image {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/prof/rssparser/model/Image;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/model/Image;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/Image;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDescription ()Ljava/lang/String;
-	public final fun getLink ()Ljava/lang/String;
-	public final fun getTitle ()Ljava/lang/String;
-	public final fun getUrl ()Ljava/lang/String;
-	public fun hashCode ()I
-	public final fun isNotEmpty ()Z
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/prof/rssparser/model/ItunesArticleData {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public final fun component1 ()Ljava/lang/String;
-	public final fun component10 ()Ljava/lang/String;
-	public final fun component2 ()Ljava/lang/String;
-	public final fun component3 ()Ljava/lang/String;
-	public final fun component4 ()Ljava/lang/String;
-	public final fun component5 ()Ljava/lang/String;
-	public final fun component6 ()Ljava/lang/String;
-	public final fun component7 ()Ljava/util/List;
-	public final fun component8 ()Ljava/lang/String;
-	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/prof/rssparser/model/ItunesArticleData;
-	public static synthetic fun copy$default (Lcom/prof/rssparser/model/ItunesArticleData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/ItunesArticleData;
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getAuthor ()Ljava/lang/String;
-	public final fun getDuration ()Ljava/lang/String;
-	public final fun getEpisode ()Ljava/lang/String;
-	public final fun getEpisodeType ()Ljava/lang/String;
-	public final fun getExplicit ()Ljava/lang/String;
-	public final fun getImage ()Ljava/lang/String;
-	public final fun getKeywords ()Ljava/util/List;
-	public final fun getSeason ()Ljava/lang/String;
-	public final fun getSubtitle ()Ljava/lang/String;
-	public final fun getSummary ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -168,6 +57,35 @@ public final class com/prof/rssparser/model/ItunesChannelData {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class com/prof/rssparser/model/ItunesItemData {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/prof/rssparser/model/ItunesItemData;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/model/ItunesItemData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/ItunesItemData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAuthor ()Ljava/lang/String;
+	public final fun getDuration ()Ljava/lang/String;
+	public final fun getEpisode ()Ljava/lang/String;
+	public final fun getEpisodeType ()Ljava/lang/String;
+	public final fun getExplicit ()Ljava/lang/String;
+	public final fun getImage ()Ljava/lang/String;
+	public final fun getKeywords ()Ljava/util/List;
+	public final fun getSeason ()Ljava/lang/String;
+	public final fun getSubtitle ()Ljava/lang/String;
+	public final fun getSummary ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/prof/rssparser/model/ItunesOwner {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public final fun component1 ()Ljava/lang/String;
@@ -177,6 +95,88 @@ public final class com/prof/rssparser/model/ItunesOwner {
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getEmail ()Ljava/lang/String;
 	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof/rssparser/model/RssChannel {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Lcom/prof/rssparser/model/RssImage;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/util/List;
+	public final fun component8 ()Lcom/prof/rssparser/model/ItunesChannelData;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;)Lcom/prof/rssparser/model/RssChannel;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/model/RssChannel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesChannelData;ILjava/lang/Object;)Lcom/prof/rssparser/model/RssChannel;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getImage ()Lcom/prof/rssparser/model/RssImage;
+	public final fun getItems ()Ljava/util/List;
+	public final fun getItunesChannelData ()Lcom/prof/rssparser/model/ItunesChannelData;
+	public final fun getLastBuildDate ()Ljava/lang/String;
+	public final fun getLink ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getUpdatePeriod ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof/rssparser/model/RssImage {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/prof/rssparser/model/RssImage;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/RssImage;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getLink ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getUrl ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isNotEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof/rssparser/model/RssItem {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesItemData;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component10 ()Ljava/lang/String;
+	public final fun component11 ()Ljava/lang/String;
+	public final fun component12 ()Ljava/lang/String;
+	public final fun component13 ()Ljava/util/List;
+	public final fun component14 ()Lcom/prof/rssparser/model/ItunesItemData;
+	public final fun component15 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/String;
+	public final fun component7 ()Ljava/lang/String;
+	public final fun component8 ()Ljava/lang/String;
+	public final fun component9 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesItemData;Ljava/lang/String;)Lcom/prof/rssparser/model/RssItem;
+	public static synthetic fun copy$default (Lcom/prof/rssparser/model/RssItem;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof/rssparser/model/ItunesItemData;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof/rssparser/model/RssItem;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAudio ()Ljava/lang/String;
+	public final fun getAuthor ()Ljava/lang/String;
+	public final fun getCategories ()Ljava/util/List;
+	public final fun getCommentsUrl ()Ljava/lang/String;
+	public final fun getContent ()Ljava/lang/String;
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getGuid ()Ljava/lang/String;
+	public final fun getImage ()Ljava/lang/String;
+	public final fun getItunesItemData ()Lcom/prof/rssparser/model/ItunesItemData;
+	public final fun getLink ()Ljava/lang/String;
+	public final fun getPubDate ()Ljava/lang/String;
+	public final fun getSourceName ()Ljava/lang/String;
+	public final fun getSourceUrl ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVideo ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

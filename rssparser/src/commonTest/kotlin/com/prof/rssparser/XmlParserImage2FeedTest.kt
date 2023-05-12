@@ -17,14 +17,14 @@
 
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserImage2FeedTest : BaseXmlParserTest(
     feedPath = "feed-test-image-2.xml",
     channelTitle = "F.C. Barcelona",
     channelLink = "https://www.mundodeportivo.com/futbol/fc-barcelona",
     channelDescription = "F.C. Barcelona",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "F.C. Barcelona",
         url = "https://www.mundodeportivo.com/rsc/images/logo_MD_feed.png",
         link = "https://www.mundodeportivo.com/futbol/fc-barcelona",

@@ -1,6 +1,6 @@
 package com.prof.rssparser.internal
 
-import com.prof.rssparser.model.Channel
+import com.prof.rssparser.model.RssChannel
 import okhttp3.internal.closeQuietly
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
@@ -14,7 +14,7 @@ internal class AndroidXmlParser(
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
 
-    override suspend fun parseXML(input: ParserInput): Channel = withContext(dispatcher) {
+    override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
         val channelFactory = ChannelFactory()
 
         val factory = XmlPullParserFactory.newInstance()

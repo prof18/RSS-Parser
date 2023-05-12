@@ -8,17 +8,17 @@ import java.nio.charset.Charset
 import kotlinx.coroutines.Dispatchers
 
 // TODO: or use the custom builder for better binary compatibility?
-fun Parser.Companion.build(
+fun RssParser.Companion.build(
     callFactory: Call.Factory? = null,
     okHttpClient: OkHttpClient? = null,
     charset: Charset? = null,
-): Parser {
+): RssParser {
     val client = when {
         callFactory != null -> callFactory
         okHttpClient != null -> okHttpClient
         else -> OkHttpClient()
     }
-    return Parser(
+    return RssParser(
         xmlFetcher = JvmXmlFetcher(
             callFactory = client,
         ),

@@ -17,7 +17,7 @@
 
 package com.prof.rssparser.model
 
-data class Article(
+data class RssItem(
     val guid: String?,
     val title: String?,
     val author: String?,
@@ -31,7 +31,7 @@ data class Article(
     val sourceName: String?,
     val sourceUrl: String?,
     val categories: List<String>,
-    val itunesArticleData: ItunesArticleData?,
+    val itunesItemData: ItunesItemData?,
     val commentsUrl: String?,
 ) {
 
@@ -49,7 +49,7 @@ data class Article(
         private var sourceName: String? = null,
         private var sourceUrl: String? = null,
         private val categories: MutableList<String> = mutableListOf(),
-        private var itunesArticleData: ItunesArticleData? = null,
+        private var itunesItemData: ItunesItemData? = null,
         private var commentUrl: String? = null,
     ) {
         fun guid(guid: String?) = apply { this.guid = guid }
@@ -96,27 +96,27 @@ data class Article(
             }
         }
 
-        fun itunesArticleData(itunesArticleData: ItunesArticleData?) =
-            apply { this.itunesArticleData = itunesArticleData }
+        fun itunesArticleData(itunesItemData: ItunesItemData?) =
+            apply { this.itunesItemData = itunesItemData }
 
         fun commentUrl(url: String?) = apply { this.commentUrl = url }
 
-        fun build() = Article(
-            guid,
-            title,
-            author,
-            link,
-            pubDate,
-            description,
-            content,
-            image,
-            audio,
-            video,
-            sourceName,
-            sourceUrl,
-            categories,
-            itunesArticleData,
-            commentUrl,
+        fun build() = RssItem(
+            guid = guid,
+            title = title,
+            author = author,
+            link = link,
+            pubDate = pubDate,
+            description = description,
+            content = content,
+            image = image,
+            audio = audio,
+            video = video,
+            sourceName = sourceName,
+            sourceUrl = sourceUrl,
+            categories = categories,
+            itunesItemData = itunesItemData,
+            commentsUrl = commentUrl,
         )
     }
 }

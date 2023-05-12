@@ -1,6 +1,6 @@
 package com.prof.rssparser.internal
 
-import com.prof.rssparser.model.Channel
+import com.prof.rssparser.model.RssChannel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import okhttp3.internal.closeQuietly
@@ -14,7 +14,7 @@ internal class JvmXmlParser(
     private val charset: Charset? = null,
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
-    override suspend fun parseXML(input: ParserInput): Channel = withContext(dispatcher) {
+    override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
         val parser = SAXParserFactory.newInstance().newSAXParser()
         val handler = SaxFeedHandler()
 
@@ -44,7 +44,7 @@ private class SaxFeedHandler : DefaultHandler() {
 
     private var channelFactory = ChannelFactory()
 
-    fun getChannel(): Channel = channelFactory.build()
+    fun getChannel(): RssChannel = channelFactory.build()
 
     override fun startElement(
         uri: String?,

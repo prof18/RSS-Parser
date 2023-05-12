@@ -1,7 +1,7 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
-import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.RssImage
+import com.prof.rssparser.model.ItunesItemData
 import com.prof.rssparser.model.ItunesChannelData
 import com.prof.rssparser.model.ItunesOwner
 
@@ -10,7 +10,7 @@ class XmlParserItunesFeedTest : BaseXmlParserTest(
     channelTitle = "The Joe Rogan Experience",
     channelLink = "https://www.joerogan.com",
     channelDescription = "Conduit to the Gaian Mind",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "The Joe Rogan Experience",
         url = "http://static.libsyn.com/p/assets/7/1/f/3/71f3014e14ef2722/JREiTunesImage2.jpg",
         link = "https://www.joerogan.com",
@@ -48,7 +48,7 @@ class XmlParserItunesFeedTest : BaseXmlParserTest(
     articleSourceUrl = null,
     articleCategories = listOf(),
     articleCommentsUrl = null,
-    articleItunesData = ItunesArticleData(
+    articleItunesData = ItunesItemData(
         author = "Joe Rogan",
         duration = "02:02:35",
         episode = "1109",

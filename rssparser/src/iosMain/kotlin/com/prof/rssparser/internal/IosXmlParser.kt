@@ -1,6 +1,6 @@
 package com.prof.rssparser.internal
 
-import com.prof.rssparser.model.Channel
+import com.prof.rssparser.model.RssChannel
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,7 +13,7 @@ internal class IosXmlParser(
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
 
-    override suspend fun parseXML(input: ParserInput): Channel = withContext(dispatcher) {
+    override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
         suspendCoroutine { continuation ->
             NSXMLParser(input.data).apply {
                 delegate = NSXMLParserDelegate { continuation.resume(it) }
@@ -23,7 +23,7 @@ internal class IosXmlParser(
 }
 
 private class NSXMLParserDelegate(
-    private val onEnd: (Channel) -> Unit
+    private val onEnd: (RssChannel) -> Unit
 ) : NSObject(), NSXMLParserDelegateProtocol {
 
     private var currentElement: String? = null

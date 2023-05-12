@@ -1,13 +1,13 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserImageEnclosure : BaseXmlParserTest(
     feedPath = "feed-image-enclosure.xml",
     channelTitle = "Centrum dopravního výzkumu, v. v. i. (RSS 2.0)",
     channelLink = "https://www.cdv.cz/",
     channelDescription = "Informace o novinkách na webu Centra dopravního výzkumu, pořádaných akcích v oblasti dopravy a odborných článcích z oblasti dopravy.",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "Logo Centrum dopravního výzkumu, v. v. i.",
         url = "https://www.cdv.cz/",
         link = "https://www.cdv.cz/image/logo-centrum-dopravniho-vyzkumu/",

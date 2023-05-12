@@ -17,14 +17,14 @@
 
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserXSLFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-xsl.xml",
     channelTitle = "SkySports | Liverpool",
     channelLink = "http://www.skysports.com",
     channelDescription = "Liverpool News",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "Sky Sports",
         url = "https://www.skysports.com/images/site/ss-logo-07.gif",
         link = "https://www.skysports.com",

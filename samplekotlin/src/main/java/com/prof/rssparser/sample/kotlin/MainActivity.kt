@@ -42,14 +42,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
-import com.prof.rssparser.Parser
+import com.prof.rssparser.RssParser
 import com.prof.rssparser.build
 import com.prof.rssparser.sample.kotlin.util.AlertDialogHelper
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArticleAdapter
-    private lateinit var parser: Parser
+    private lateinit var parser: RssParser
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         // TODO
-        parser = Parser/*.Builder()
+        parser = RssParser/*.Builder()
             .context(this)
             // If you want to provide a custom charset (the default is utf-8):
             // .charset(Charset.forName("ISO-8859-7"))
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                 if (channel.title != null) {
                     title = channel.title
                 }
-                adapter = ArticleAdapter(channel.articles)
+                adapter = ArticleAdapter(channel.items)
                 recyclerView.adapter = adapter
                 adapter.notifyDataSetChanged()
                 progressBar.visibility = View.GONE

@@ -1,9 +1,9 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Article
-import com.prof.rssparser.model.Channel
-import com.prof.rssparser.model.Image
-import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.RssItem
+import com.prof.rssparser.model.RssChannel
+import com.prof.rssparser.model.RssImage
+import com.prof.rssparser.model.ItunesItemData
 import com.prof.rssparser.model.ItunesChannelData
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
@@ -17,7 +17,7 @@ abstract class BaseXmlParserTest(
     val channelTitle: String? = null,
     val channelLink: String? = null,
     val channelDescription: String? = null,
-    val channelImage: Image? = null,
+    val channelImage: RssImage? = null,
     val channelLastBuildDate: String? = null,
     val channelUpdatePeriod: String? = null,
     val channelItunesData: ItunesChannelData? = null,
@@ -37,17 +37,17 @@ abstract class BaseXmlParserTest(
     val articleSourceUrl: String? = null,
     val articleCategories: List<String> = emptyList(),
     val articleCommentsUrl: String? = null,
-    val articleItunesData: ItunesArticleData? = null,
+    val articleItunesData: ItunesItemData? = null,
 ): XmlParserTestExecutor() {
 
-    private lateinit var channel: Channel
-    private lateinit var article: Article
+    private lateinit var channel: RssChannel
+    private lateinit var article: RssItem
 
     @BeforeTest
     fun setUp() = runTest {
         val input = readBinaryResource(feedPath)
         channel = XmlParserFactory.createXmlParser().parseXML(input)
-        article = channel.articles[0]
+        article = channel.items[0]
     }
 
     @Test
@@ -218,54 +218,54 @@ abstract class BaseXmlParserTest(
 
     @Test
     fun articleItunesAuthor_isCorrect() {
-        assertEquals(articleItunesData?.author, article.itunesArticleData?.author)
+        assertEquals(articleItunesData?.author, article.itunesItemData?.author)
     }
 
     @Test
     fun articleItunesDuration_isCorrect() {
-        assertEquals(articleItunesData?.duration, article.itunesArticleData?.duration)
+        assertEquals(articleItunesData?.duration, article.itunesItemData?.duration)
     }
 
     @Test
     fun articleItunesEpisode_isCorrect() {
-        assertEquals(articleItunesData?.episode, article.itunesArticleData?.episode)
+        assertEquals(articleItunesData?.episode, article.itunesItemData?.episode)
     }
 
     @Test
     fun articleItunesEpisodeType_isCorrect() {
-        assertEquals(articleItunesData?.episodeType, article.itunesArticleData?.episodeType)
+        assertEquals(articleItunesData?.episodeType, article.itunesItemData?.episodeType)
     }
 
     @Test
     fun articleItunesExplicit_isCorrect() {
-        assertEquals(articleItunesData?.explicit, article.itunesArticleData?.explicit)
+        assertEquals(articleItunesData?.explicit, article.itunesItemData?.explicit)
     }
 
     @Test
     fun articleItunesImage_isCorrect() {
-        assertEquals(articleItunesData?.image, article.itunesArticleData?.image)
+        assertEquals(articleItunesData?.image, article.itunesItemData?.image)
     }
 
     @Test
     fun articleItunesKeywords_isCorrect() {
         assertEquals(
             articleItunesData?.keywords ?: emptyList<String>(),
-            article.itunesArticleData?.keywords,
+            article.itunesItemData?.keywords,
         )
     }
 
     @Test
     fun articleItunesSubtitle_isCorrect() {
-        assertEquals(articleItunesData?.subtitle, article.itunesArticleData?.subtitle)
+        assertEquals(articleItunesData?.subtitle, article.itunesItemData?.subtitle)
     }
 
     @Test
     fun articleItunesSummary_isCorrect() {
-        assertEquals(articleItunesData?.summary, article.itunesArticleData?.summary)
+        assertEquals(articleItunesData?.summary, article.itunesItemData?.summary)
     }
 
     @Test
     fun articleItunesSeason_isCorrect() {
-        assertEquals(articleItunesData?.season, article.itunesArticleData?.season)
+        assertEquals(articleItunesData?.season, article.itunesItemData?.season)
     }
 }

@@ -27,12 +27,12 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.prof.rssparser.model.Article
+import com.prof.rssparser.model.RssItem
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ArticleAdapter(private var articles: List<Article>) :
+class ArticleAdapter(private var articles: List<RssItem>) :
     RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row, parent, false))
@@ -55,7 +55,7 @@ class ArticleAdapter(private var articles: List<Article>) :
         private val image = itemView.findViewById<ImageView>(R.id.image)
 
         @SuppressLint("SetJavaScriptEnabled")
-        fun bind(article: Article) {
+        fun bind(article: RssItem) {
 
             var pubDateString = article.pubDate
 

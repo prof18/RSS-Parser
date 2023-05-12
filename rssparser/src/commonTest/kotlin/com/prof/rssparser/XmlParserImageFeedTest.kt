@@ -17,14 +17,14 @@
 
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserImageFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-image.xml",
     channelTitle = "Movie Reviews",
     channelLink = "https://movieweb.com/movie-reviews/",
     channelDescription = "Movie Reviews at MovieWeb",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "Movie Reviews",
         url = "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png",
         link = "https://movieweb.com/movie-reviews/",

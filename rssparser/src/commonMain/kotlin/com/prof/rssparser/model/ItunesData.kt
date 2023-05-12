@@ -1,6 +1,6 @@
 package com.prof.rssparser.model
 
-data class ItunesArticleData(
+data class ItunesItemData(
     val author: String?,
     val duration: String?,
     val episode: String?,
@@ -34,17 +34,17 @@ data class ItunesArticleData(
         fun author(author: String?) = apply { this.author = author }
         fun summary(summary: String?) = apply { this.summary = summary }
         fun season(season: String?) = apply { this.season = season }
-        fun build() = ItunesArticleData(
-            author,
-            duration,
-            episode,
-            episodeType,
-            explicit,
-            image,
-            keywords,
-            subtitle,
-            summary,
-            season,
+        fun build() = ItunesItemData(
+            author = author,
+            duration = duration,
+            episode = episode,
+            episodeType = episodeType,
+            explicit = explicit,
+            image = image,
+            keywords = keywords,
+            subtitle = subtitle,
+            summary = summary,
+            season = season,
         )
     }
 
@@ -93,17 +93,17 @@ data class ItunesChannelData(
         fun duration(duration: String?) = apply { this.duration = duration }
         fun keywords(keywords: List<String>) = apply { this.keywords = keywords }
         fun build() = ItunesChannelData(
-            author,
-            categories,
-            duration,
-            explicit,
-            image,
-            keywords,
-            newsFeedUrl,
-            owner,
-            subtitle,
-            summary,
-            type,
+            author = author,
+            categories = categories,
+            duration = duration,
+            explicit = explicit,
+            image = image,
+            keywords = keywords,
+            newsFeedUrl = newsFeedUrl,
+            owner = owner,
+            subtitle = subtitle,
+            summary = summary,
+            type = type,
         )
     }
 }

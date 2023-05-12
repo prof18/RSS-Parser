@@ -1,13 +1,13 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserHindiChannelImageTest : BaseXmlParserTest(
     feedPath = "feed-test-hindi-channel-image.xml",
     channelTitle = "Latest News चीन News18 हिंदी",
     channelLink = "https://hindi.news18.com/rss/khabar/world/china.xml",
     channelDescription = "Latest news from चीन Section",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "News18 हिंदी",
         url = "https://static.hindi.news18.com/ibnkhabar/uploads/2017/01/mainlogo_hindi_new.png",
         link = "https://hindi.news18.com/rss/khabar/world/china.xml",

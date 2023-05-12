@@ -1,13 +1,13 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserCharEscape : BaseXmlParserTest(
     feedPath = "feed-char-escape.xml",
     channelTitle = "NYT > Health",
     channelLink = "https://www.nytimes.com/section/health",
     channelDescription = "",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "NYT > Health",
         url = "https://static01.nyt.com/images/misc/NYT_logo_rss_250x40.png",
         link = "https://www.nytimes.com/section/health",

@@ -1,18 +1,18 @@
 package com.prof.rssparser.internal
 
-import com.prof.rssparser.model.Article
-import com.prof.rssparser.model.Channel
-import com.prof.rssparser.model.Image
-import com.prof.rssparser.model.ItunesArticleData
+import com.prof.rssparser.model.RssItem
+import com.prof.rssparser.model.RssChannel
+import com.prof.rssparser.model.RssImage
+import com.prof.rssparser.model.ItunesItemData
 import com.prof.rssparser.model.ItunesChannelData
 import com.prof.rssparser.model.ItunesOwner
 
 internal class ChannelFactory {
-    val channelBuilder = Channel.Builder()
-    val channelImageBuilder = Image.Builder()
-    var articleBuilder = Article.Builder()
+    val channelBuilder = RssChannel.Builder()
+    val channelImageBuilder = RssImage.Builder()
+    var articleBuilder = RssItem.Builder()
     val itunesChannelBuilder = ItunesChannelData.Builder()
-    var itunesArticleBuilder = ItunesArticleData.Builder()
+    var itunesArticleBuilder = ItunesItemData.Builder()
     var itunesOwnerBuilder = ItunesOwner.Builder()
 
     // This image url is extracted from the content and the description of the rss item.
@@ -22,11 +22,11 @@ internal class ChannelFactory {
     fun buildArticle() {
         articleBuilder.image(imageUrlFromContent)
         articleBuilder.itunesArticleData(itunesArticleBuilder.build())
-        channelBuilder.addArticle(articleBuilder.build())
+        channelBuilder.addItem(articleBuilder.build())
         // Reset temp data
         imageUrlFromContent = null
-        articleBuilder = Article.Builder()
-        itunesArticleBuilder = ItunesArticleData.Builder()
+        articleBuilder = RssItem.Builder()
+        itunesArticleBuilder = ItunesItemData.Builder()
     }
 
     fun buildItunesOwner() {
@@ -73,7 +73,7 @@ internal class ChannelFactory {
         } ?: emptyList()
 
 
-    fun build(): Channel {
+    fun build(): RssChannel {
         val channelImage = channelImageBuilder.build()
         if (channelImage.isNotEmpty()) {
             channelBuilder.image(channelImage)

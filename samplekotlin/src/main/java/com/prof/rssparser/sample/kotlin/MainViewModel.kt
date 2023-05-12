@@ -21,8 +21,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prof.rssparser.model.Channel
-import com.prof.rssparser.Parser
+import com.prof.rssparser.model.RssChannel
+import com.prof.rssparser.RssParser
 import com.prof.rssparser.build
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,8 +37,8 @@ class MainViewModel : ViewModel() {
     val snackbar: LiveData<String>
         get() = _snackbar
 
-    private val _rssChannel = MutableLiveData<Channel>()
-    val rssChannel: LiveData<Channel>
+    private val _rssChannel = MutableLiveData<RssChannel>()
+    val rssChannel: LiveData<RssChannel>
         get() = _rssChannel
 
     private val okHttpClient by lazy {
@@ -49,7 +49,7 @@ class MainViewModel : ViewModel() {
         _snackbar.value = null
     }
 
-    fun fetchFeed(parser: Parser) {
+    fun fetchFeed(parser: RssParser) {
         viewModelScope.launch {
             try {
                 val channel = parser.getChannel(url)
@@ -57,14 +57,14 @@ class MainViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                _rssChannel.postValue(Channel(null, null, null, null, null, null, mutableListOf(), null))
+                _rssChannel.postValue(RssChannel(null, null, null, null, null, null, mutableListOf(), null))
             }
         }
     }
 
     fun fetchForUrlAndParseRawData(url: String) {
 //        val parser = Parser.Builder().build()
-        val parser = Parser.build()
+        val parser = RssParser.build()
 
         viewModelScope.launch(Dispatchers.IO) {
             val request = Request.Builder()

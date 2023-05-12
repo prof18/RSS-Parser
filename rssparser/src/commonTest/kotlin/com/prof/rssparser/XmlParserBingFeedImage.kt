@@ -1,13 +1,13 @@
 package com.prof.rssparser
 
-import com.prof.rssparser.model.Image
+import com.prof.rssparser.model.RssImage
 
 class XmlParserBingFeedImage : BaseXmlParserTest(
     feedPath = "feed-bing-image.xml",
     channelTitle = "madrid - BingNews",
     channelLink = "https://www.bing.com:443/news/search?q=madrid&format=rss",
     channelDescription = "Search results",
-    channelImage = Image(
+    channelImage = RssImage(
         title = "madrid",
         url = "http://www.bing.com/rsslogo.gif",
         link = "https://www.bing.com:443/news/search?q=madrid&format=rss",
