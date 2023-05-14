@@ -2,12 +2,11 @@ package com.prof.rssparser
 
 import com.prof.rssparser.internal.AndroidXmlParser
 import com.prof.rssparser.internal.JvmXmlFetcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
-import kotlinx.coroutines.Dispatchers
 
-// TODO: or use the custom builder for better binary compatibility?
 fun RssParser.Companion.build(
     callFactory: Call.Factory? = null,
     okHttpClient: OkHttpClient? = null,

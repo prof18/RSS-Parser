@@ -10,16 +10,15 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-// TODO: maybe change the name
 class RssParser internal constructor(
     private val xmlFetcher: XmlFetcher,
     private val xmlParser: XmlParser,
 ) {
 
-    private val parserJob = SupervisorJob()
-    private val coroutineContext: CoroutineContext
-        get() = parserJob + Dispatchers.Default
+    private val coroutineContext: CoroutineContext =
+        SupervisorJob() + Dispatchers.Default
 
+    // TODO: rewrite KDoc
     /**
      * Returns a parsed RSS [RssChannel].
      *
@@ -31,46 +30,13 @@ class RssParser internal constructor(
      * @param url The url of the RSS feed
      *
      */
-
     @Throws(Throwable::class)
     suspend fun getChannel(url: String): RssChannel = withContext(coroutineContext) {
-        // If the charset is null, then "null" is saved in the database.
-        // It's easier for retrieving data afterwards
-        // TODO: add caching
         val parserInput = xmlFetcher.fetchXml(url)
-        val channel = xmlParser.parseXML(parserInput)
-
-        return@withContext channel
-
-//        val charsetString = charset.toString()
-//        val cachedFeed = cacheManager?.getCachedFeed(url, charsetString)
-//        if (cachedFeed != null) {
-//            Log.d(TAG, "Returning object from cache")
-//            return@withContext cachedFeed
-//        } else {
-//            Log.d(TAG, "Returning data from network")
-//            val xml = CoroutineEngine.fetchXML(url, callFactory)
-//            val channel = CoroutineEngine.parseXML(xml, charset)
-//            cacheManager?.cacheFeed(
-//                url = url,
-//                channel = channel,
-//                charset = charsetString,
-//            )
-//            return@withContext channel
-//        }
+        return@withContext xmlParser.parseXML(parserInput)
     }
 
     // TODO: Add parsing from string
 
-    /**
-     *  Cancel the execution of the fetching and the parsing.
-     */
-    fun cancel() {
-        if (coroutineContext.isActive) {
-            coroutineContext.cancel()
-        }
-    }
-
     companion object
-
 }

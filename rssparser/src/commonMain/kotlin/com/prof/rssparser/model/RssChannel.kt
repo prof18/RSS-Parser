@@ -1,6 +1,5 @@
 package com.prof.rssparser.model
 
-// TODO: how to handle serialization?
 data class RssChannel(
     val title: String?,
     val link: String?,
@@ -8,7 +7,7 @@ data class RssChannel(
     val image: RssImage?,
     val lastBuildDate: String?,
     val updatePeriod: String?,
-    val items: List<RssItem>, // todo: rename to rssItems?
+    val items: List<RssItem>,
     val itunesChannelData: ItunesChannelData?
 ) {
 

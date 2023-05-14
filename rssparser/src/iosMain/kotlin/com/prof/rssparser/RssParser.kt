@@ -5,7 +5,6 @@ import com.prof.rssparser.internal.IosXmlParser
 import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSURLSession
 
-// TODO: or use the custom builder for better binary compatibility?
 fun RssParser.Companion.build(
     nsUrlSession: NSURLSession? = null,
 ): RssParser {

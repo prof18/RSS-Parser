@@ -4,7 +4,13 @@ plugins {
 }
 
 kotlin {
-    android()
+    android() {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "11"
+            }
+        }
+    }
 
     jvm("desktop") {
         jvmToolchain(11)
@@ -54,5 +60,10 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()
         targetSdk =  libs.versions.android.target.sdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }

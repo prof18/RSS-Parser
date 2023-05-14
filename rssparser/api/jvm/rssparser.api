@@ -1,6 +1,5 @@
 public final class com/prof/rssparser/RssParser {
 	public static final field Companion Lcom/prof/rssparser/RssParser$Companion;
-	public final fun cancel ()V
 	public final fun getChannel (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 

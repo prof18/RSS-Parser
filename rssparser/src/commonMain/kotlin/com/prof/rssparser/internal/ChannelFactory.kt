@@ -40,6 +40,7 @@ internal class ChannelFactory {
      * @param content The content in which to search for the tag
      * @return The url, if there is one
      */
+    // TODO: try/catch this?
     fun setImageFromContent(content: String?) {
         val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
         content

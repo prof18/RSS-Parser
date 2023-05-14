@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
-//    alias(libs.plugins.kotlin.android)
-//    alias(libs.plugins.com.google.devtools.ksp)
     alias(libs.plugins.com.vanniktech.maven.publish)
 }
 
@@ -28,6 +26,12 @@ kotlin {
     iosSimulatorArm64()
 
     sourceSets {
+        all {
+            languageSettings.apply {
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlinx.coroutines.core)
@@ -56,14 +60,10 @@ kotlin {
 
         val jvmMain by getting {
             dependsOn(commonJvmAndroidMain)
-
-            dependencies {
-            }
         }
         val jvmTest by getting {
             dependsOn(commonJvmAndroidTest)
             dependencies {
-                implementation(libs.junit)
                 implementation(kotlin("test-junit"))
             }
         }
@@ -78,13 +78,9 @@ kotlin {
 
             dependencies {
                 implementation(libs.org.robolectric)
-                implementation(libs.junit)
-//                implementation(kotlin("test-common"))
-//                implementation(kotlin("test-annotations-common"))
-
+                implementation(kotlin("test-junit"))
             }
         }
-
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -93,9 +89,6 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
-
-            dependencies {
-            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
@@ -105,11 +98,7 @@ kotlin {
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
-
-            dependencies {
-            }
         }
-
     }
 }
 
@@ -134,64 +123,14 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()
         targetSdk = Integer.parseInt(libs.versions.android.target.sdk.get())
-
-        // TODO: necessary?
-        buildConfigField(
-            "int",
-            "VERSION_CODE",
-            libs.versions.library.version.code.get()
-        )
     }
-
-    // TODO: necessary?
-//    buildTypes {
-//        release {
-//            isMinifyEnabled =  false
-//            proguardFiles(
-//                getDefaultProguardFile("proguard-android-optimize.txt"),
-//                "proguard-rules.pro"
-//            )
-//        }
-//    }
-
-//    compileOptions {
-//        sourceCompatibility = 1.8
-//        targetCompatibility = 1.8
-//    }
 
     testOptions.unitTests {
         isIncludeAndroidResources = true
     }
-//
-//    sourceSets {
-//        // Adds exported schema location as test app assets.
-//        getByName("test").assets.srcDir("$projectDir/schemas")
-//    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
 }
-
-//dependencies {
-//    api(libs.com.squareup.okhttp3)
-//    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
-//    implementation(libs.org.jetbrains.kotlinx.coroutines.android)
-//
-//    // Room
-//    implementation(libs.androidx.room.runtime)
-//    implementation(libs.androidx.room.ktx)
-//    implementation(libs.androidx.lifecycle.extensions)
-//
-//    testImplementation(libs.junit)
-//    testImplementation(libs.org.robolectric)
-//    testImplementation(libs.androidx.arch.core.testing)
-//    testImplementation(libs.androidx.test.core)
-//    testImplementation(libs.org.jetbrains.kotlinx.coroutines.test)
-//    testImplementation(libs.io.mockk)
-//
-//    testImplementation(libs.androidx.room.testing)
-//    testImplementation(libs.androidx.test.ext.junit)
-//
-//    ksp(libs.androidx.room.compiler)
-//}
-
-//ksp {
-//    arg("room.schemaLocation", "$projectDir/dbschemas".toString())
-//}
