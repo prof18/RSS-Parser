@@ -11,9 +11,8 @@ android {
     defaultConfig {
         minSdkVersion Integer.parseInt(libs.versions.android.min.sdk.get())
         targetSdkVersion Integer.parseInt(libs.versions.android.target.sdk.get())
-        versionCode Integer.parseInt(libs.versions.library.version.code.get())
-        versionName libs.versions.library.version.name.get()
-        buildConfigField 'int', 'VERSION_CODE', libs.versions.library.version.code.get()
+        versionCode 1
+        versionName "1.0"
     }
 
     buildTypes {
@@ -36,7 +35,6 @@ dependencies {
     implementation project(":rssparser")
 //    implementation(libs.com.prof18.rssparser)
 
-    implementation(libs.org.jetbrains.kotlin.stdlib)
     implementation(libs.androidx.appcompat)
     implementation(libs.com.google.android.material)
     implementation(libs.androidx.recyclerview)
@@ -45,8 +43,8 @@ dependencies {
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.com.squareup.picasso)
 
-    implementation(libs.org.jetbrains.kotlinx.coroutines.core)
-    implementation(libs.org.jetbrains.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.extensions)

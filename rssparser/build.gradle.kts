@@ -42,7 +42,7 @@ kotlin {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(libs.org.jetbrains.kotlinx.coroutines.test)
+                implementation(libs.kotlinx.coroutines.test)
             }
         }
 
