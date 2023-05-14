@@ -40,16 +40,19 @@ internal class ChannelFactory {
      * @param content The content in which to search for the tag
      * @return The url, if there is one
      */
-    // TODO: try/catch this?
     fun setImageFromContent(content: String?) {
-        val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
-        content
-            ?.let{ urlRegex.find(it) }
-            ?.let {
-                it.groupValues.getOrNull(2)?.trim()?.let { imgUrl ->
-                    imageUrlFromContent = imgUrl
+        try {
+            val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
+            content
+                ?.let{ urlRegex.find(it) }
+                ?.let {
+                    it.groupValues.getOrNull(2)?.trim()?.let { imgUrl ->
+                        imageUrlFromContent = imgUrl
+                    }
                 }
-            }
+        } catch (e: Exception) {
+            // Do nothing, on iOS it could fail for too much recursion
+        }
     }
 
     fun setChannelItunesKeywords(keywords: String?) {

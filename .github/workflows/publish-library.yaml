@@ -28,7 +28,7 @@ jobs:
           cache-read-only: false
 
       - name: Test
-        run: ./gradlew clean check --no-daemon --stacktrace
+        run: ./gradlew :rssparser:check --no-daemon --stacktrace
 
       - name: (Fail-only) Bundle test reports
         if: failure()
