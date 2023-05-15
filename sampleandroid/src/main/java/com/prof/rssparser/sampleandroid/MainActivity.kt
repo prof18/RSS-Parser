@@ -15,7 +15,7 @@
  *
  */
 
-package com.prof.rssparser.sample.kotlin
+package com.prof.rssparser.sampleandroid
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -44,7 +44,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import com.prof.rssparser.RssParser
 import com.prof.rssparser.build
-import com.prof.rssparser.sample.kotlin.util.AlertDialogHelper
+import com.prof.rssparser.sample.kotlin.R
+import com.prof.rssparser.sampleandroid.util.AlertDialogHelper
 
 class MainActivity : AppCompatActivity() {
 
@@ -118,7 +119,8 @@ class MainActivity : AppCompatActivity() {
             builder.setMessage(R.string.alert_message)
                 .setTitle(R.string.alert_title)
                 .setCancelable(false)
-                .setPositiveButton(R.string.alert_positive
+                .setPositiveButton(
+                    R.string.alert_positive
                 ) { _, _ -> finish() }
 
             val alert = builder.create()

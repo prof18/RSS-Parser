@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ':rssparser', ':samplekotlin'
+include ':rssparser', ':sampleandroid'
 include ':sample', 'sample:shared', 'sample:androidApp', 'sample:desktopApp'

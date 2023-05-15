@@ -1,4 +1,4 @@
-package com.prof.rssparser.sample.kotlin.util
+package com.prof.rssparser.sampleandroid.util
 
 import android.app.AlertDialog
 import android.content.Context

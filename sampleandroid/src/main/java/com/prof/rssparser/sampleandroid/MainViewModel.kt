@@ -15,7 +15,7 @@
  *
  */
 
-package com.prof.rssparser.sample.kotlin
+package com.prof.rssparser.sampleandroid
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -15,7 +15,7 @@
  *
  */
 
-package com.prof.rssparser.sample.kotlin
+package com.prof.rssparser.sampleandroid
 
 import android.annotation.SuppressLint
 import android.text.method.LinkMovementMethod
@@ -28,6 +28,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.prof.rssparser.model.RssItem
+import com.prof.rssparser.sample.kotlin.R
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,7 +40,7 @@ class ArticleAdapter(private var articles: List<RssItem>) :
 
     override fun getItemCount() = articles.size
 
-    override fun onBindViewHolder(holder: ArticleAdapter.ViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
         holder.bind(articles[position])
 
     fun clearArticles() {
