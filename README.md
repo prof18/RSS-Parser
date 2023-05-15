@@ -180,30 +180,30 @@ Starting from the version 2.x, the library has been completely rewritten using K
 If you are still using Java, this is the interface to use the library:
 
 ```Java
-import com.prof.rssparser.Article;
-import com.prof.rssparser.OnTaskCompleted;
-import com.prof.rssparser.Parser;
+import com.prof18.rssparser.Article;
+import com.prof18.rssparser.OnTaskCompleted;
+import com.prof18.rssparser.Parser;
 
-Parser parser = new Parser.Builder()
+Parser parser=new Parser.Builder()
         .charset(Charset.forName("ISO-8859-7"))
         // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
         .build();
-        
-parser.onFinish(new OnTaskCompleted() {
 
-    //what to do when the parsing is done
-    @Override
-    public void onTaskCompleted(Channel channel) {
+        parser.onFinish(new OnTaskCompleted(){
+
+//what to do when the parsing is done
+@Override
+public void onTaskCompleted(Channel channel){
         // Use the channel info
-    }
+        }
 
-    //what to do in case of error
-    @Override
-    public void onError(Exception e) {
+//what to do in case of error
+@Override
+public void onError(Exception e){
         // Handle the exception
-    }
-});
-parser.execute(urlString);
+        }
+        });
+        parser.execute(urlString);
 ```
 
 For parsing raw data there is a java compatible function which calls the listeners `OnTaskCompleted` and `onError` once done.
@@ -218,25 +218,25 @@ The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tr
 For older versions of the library, the interface is marginally different:
 
 ```Java
-import com.prof.rssparser.Article;
-import com.prof.rssparser.Parser;
+import com.prof18.rssparser.Article;
+import com.prof18.rssparser.Parser;
 
 //url of RSS feed
-String urlString = "http://www.androidcentral.com/feed";
-Parser parser = new Parser();
-parser.onFinish(new Parser.OnTaskCompleted() {
-    
-    @Override
-    public void onTaskCompleted(Channel channel) {
-      //what to do when the parsing is done
-    }
+String urlString="http://www.androidcentral.com/feed";
+        Parser parser=new Parser();
+        parser.onFinish(new Parser.OnTaskCompleted(){
 
-    @Override
-    public void onError() {
-      //what to do in case of error
-    }
-});
-parser.execute(urlString);
+@Override
+public void onTaskCompleted(Channel channel){
+        //what to do when the parsing is done
+        }
+
+@Override
+public void onError(){
+        //what to do in case of error
+        }
+        });
+        parser.execute(urlString);
 ```
 
 ## Sample app

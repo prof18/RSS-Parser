@@ -30,7 +30,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "com.prof.rssparser.sample.MainKt"
+        mainClass = "com.prof18.rssparser.sample.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "sample"

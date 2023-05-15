@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.prof.rssparser.example.MainActivity">
+    tools:context="com.prof18.rssparser.example.MainActivity">
     <item
         android:id="@+id/action_raw_parser"
         android:title="@string/action_raw_parser"

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.prof.rssparser.sample.kotlin'
+    namespace 'com.prof18.rssparser.sample.kotlin'
 
     compileSdk Integer.parseInt(libs.versions.android.compile.sdk.get())
 

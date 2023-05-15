@@ -116,7 +116,7 @@ tasks.findByName("iosX64Test")?.dependsOn("copyIosTestResourcesX64")
 tasks.findByName("iosSimulatorArm64Test")?.dependsOn("copyIosTestResourcesArm64")
 
 android {
-    namespace = "com.prof.rssparser"
+    namespace = "com.prof18.rssparser"
 
     compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
 

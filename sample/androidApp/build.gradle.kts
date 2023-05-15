@@ -1,16 +1,13 @@
-import com.android.build.api.dsl.Lint
-import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
-
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    namespace = "com.prof.rssparser.sample.android"
+    namespace = "com.prof18.rssparser.sample.android"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.prof.rssparser.sample.android"
+        applicationId = "com.prof18.rssparser.sample.android"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
