@@ -52,7 +52,7 @@ class MainViewModel : ViewModel() {
     fun fetchFeed(parser: RssParser) {
         viewModelScope.launch {
             try {
-                val channel = parser.getChannel(url)
+                val channel = parser.getRssChannel(url)
                 _rssChannel.postValue(channel)
             } catch (e: Exception) {
                 e.printStackTrace()

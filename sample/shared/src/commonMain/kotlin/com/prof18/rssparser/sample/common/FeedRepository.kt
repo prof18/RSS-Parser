@@ -7,7 +7,7 @@ class FeedRepository(
 ) {
     @Throws(Throwable::class)
     suspend fun getFeed(url: String): Feed {
-        val channel = parser.getChannel(url)
+        val channel = parser.getRssChannel(url)
         return Feed(
             title = channel.title ?: "",
             items = channel.items.mapNotNull {

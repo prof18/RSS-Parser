@@ -29,7 +29,7 @@ class RssParser internal constructor(
      *
      */
     @Throws(Throwable::class)
-    suspend fun getChannel(url: String): RssChannel = withContext(coroutineContext) {
+    suspend fun getRssChannel(url: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlFetcher.fetchXml(url)
         return@withContext xmlParser.parseXML(parserInput)
     }
