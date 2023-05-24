@@ -7,10 +7,15 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSData
 import platform.Foundation.NSError
 import platform.Foundation.NSHTTPURLResponse
+import platform.Foundation.NSString
+import platform.Foundation.NSStringEncoding
 import platform.Foundation.NSURL
 import platform.Foundation.NSURLResponse
 import platform.Foundation.NSURLSession
+import platform.Foundation.NSUTF8StringEncoding
+import platform.Foundation.create
 import platform.Foundation.dataTaskWithURL
+import platform.Foundation.dataUsingEncoding
 
 internal class IosXmlFetcher(
     private val nsUrlSession: NSURLSession,
@@ -39,5 +44,10 @@ internal class IosXmlFetcher(
         }
 
         task.resume()
+    }
+
+    override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
+        val data = NSString.create(string = rawRssFeed).dataUsingEncoding(NSUTF8StringEncoding)
+        return ParserInput(requireNotNull(data))
     }
 }

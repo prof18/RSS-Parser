@@ -74,9 +74,8 @@ class MainViewModel : ViewModel() {
             if (raw == null) {
                 _snackbar.postValue("Something went wrong!")
             } else {
-                // TODO: restore
-//                val channel = parser.parse(raw)
-//                _rssChannel.postValue(channel)
+                val channel = parser.parse(raw)
+                _rssChannel.postValue(channel)
             }
         }
     }

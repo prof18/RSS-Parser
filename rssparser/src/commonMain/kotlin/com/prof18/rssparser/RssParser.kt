@@ -28,13 +28,18 @@ class RssParser internal constructor(
      * @param url The url of the RSS feed
      *
      */
+    // TODO: write doc
     @Throws(Throwable::class)
     suspend fun getRssChannel(url: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlFetcher.fetchXml(url)
         return@withContext xmlParser.parseXML(parserInput)
     }
 
-    // TODO: Add parsing from string
+    // TODO: write doc
+    suspend fun parse(rawRssFeed: String): RssChannel = withContext(coroutineContext) {
+        val parserInput = xmlFetcher.generateParserInputFromString(rawRssFeed)
+        return@withContext xmlParser.parseXML(parserInput)
+    }
 
     companion object
 }

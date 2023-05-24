@@ -7,6 +7,7 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import java.nio.charset.Charset
 
+// TODO: write doc
 fun RssParser.Companion.build(
     callFactory: Call.Factory? = null,
     okHttpClient: OkHttpClient? = null,
@@ -20,6 +21,7 @@ fun RssParser.Companion.build(
     return RssParser(
         xmlFetcher = JvmXmlFetcher(
             callFactory = client,
+                charset = charset,
         ),
         xmlParser = AndroidXmlParser(
             charset = charset,

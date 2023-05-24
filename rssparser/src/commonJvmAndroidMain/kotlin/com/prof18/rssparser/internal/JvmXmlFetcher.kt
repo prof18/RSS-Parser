@@ -8,11 +8,13 @@ import okhttp3.Request
 import okhttp3.Response
 import java.io.IOException
 import java.io.InputStream
+import java.nio.charset.Charset
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 internal class JvmXmlFetcher(
-    private val callFactory: Call.Factory
+    private val callFactory: Call.Factory,
+        private val charset: Charset?,
 ): XmlFetcher {
 
     override suspend fun fetchXml(url: String): ParserInput {
@@ -20,6 +22,11 @@ internal class JvmXmlFetcher(
         return ParserInput(
             inputStream = callFactory.newCall(request).await()
         )
+    }
+
+    override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
+        val inputStream: InputStream = rawRssFeed.byteInputStream(charset ?: Charsets.UTF_8)
+        return ParserInput(inputStream)
     }
 
     private fun createRequest(url: String): Request =

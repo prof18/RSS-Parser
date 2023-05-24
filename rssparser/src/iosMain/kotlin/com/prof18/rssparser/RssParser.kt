@@ -5,6 +5,7 @@ import com.prof18.rssparser.internal.IosXmlParser
 import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSURLSession
 
+// TODO: write doc
 fun RssParser.Companion.build(
     nsUrlSession: NSURLSession? = null,
 ): RssParser {
