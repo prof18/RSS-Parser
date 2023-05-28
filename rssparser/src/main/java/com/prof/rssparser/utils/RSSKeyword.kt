@@ -1,11 +1,12 @@
 package com.prof.rssparser.utils
 
 internal sealed class RSSKeyword(val value: String) {
+    object Rss: RSSKeyword("rss")
     object Title: RSSKeyword("title")
     object Image: RSSKeyword("image")
     object Link: RSSKeyword("link")
-    object HREF: RSSKeyword("href")
-    object URL: RSSKeyword("url")
+    object Href: RSSKeyword("href")
+    object Url: RSSKeyword("url")
 
     object Itunes {
         object Author: RSSKeyword("itunes:author")
@@ -45,7 +46,7 @@ internal sealed class RSSKeyword(val value: String) {
         object PubDate: RSSKeyword("pubDate")
         object Time: RSSKeyword("time")
         object Type: RSSKeyword("type")
-        object GUID: RSSKeyword("guid")
+        object Guid: RSSKeyword("guid")
         object Source: RSSKeyword("source")
         object Comments: RSSKeyword("comments")
 
