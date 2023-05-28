@@ -1,18 +1,18 @@
 package com.prof.rssparser.utils
 
 internal sealed class AtomKeyword(val value: String) {
-    object ATOM : AtomKeyword("feed")
+    object Atom : AtomKeyword("feed")
     object Title : AtomKeyword("title")
     object Link : AtomKeyword("link") {
-        object HREF : AtomKeyword("href")
-        object REL : AtomKeyword("rel")
-        object TYPE : AtomKeyword("type")
+        object Href : AtomKeyword("href")
+        object Rel : AtomKeyword("rel")
+        object Edit : AtomKeyword("edit")
     }
-    object SUBTITLE : AtomKeyword("subtitle")
+    object Subtitle : AtomKeyword("subtitle")
 
     object Entry {
         object Item : AtomKeyword("entry")
-        object GUID : AtomKeyword("id")
+        object Guid : AtomKeyword("id")
         object Content : AtomKeyword("content")
         object PubDate : AtomKeyword("updated")
         object Category : AtomKeyword("category")

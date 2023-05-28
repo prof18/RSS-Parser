@@ -44,9 +44,9 @@ internal object CoreXMLParser {
         var eventType = xmlPullParser.eventType
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG) {
-                if (xmlPullParser.contains(RSSKeyword.RSS)) {
+                if (xmlPullParser.contains(RSSKeyword.Rss)) {
                     return extractRSSContent(xmlPullParser)
-                } else if (xmlPullParser.contains(AtomKeyword.ATOM)) {
+                } else if (xmlPullParser.contains(AtomKeyword.Atom)) {
                     return extractAtomContent(xmlPullParser)
                 }
             }
@@ -55,7 +55,7 @@ internal object CoreXMLParser {
 
         inputStream.closeQuietly()
 
-        throw IllegalArgumentException("XmlPullParser not support the xml content.")
+        throw IllegalArgumentException("The provided XML is not supported. Only RSS and Atom feeds are supported")
     }
 
     /**

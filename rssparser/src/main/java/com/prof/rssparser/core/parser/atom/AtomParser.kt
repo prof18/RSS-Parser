@@ -43,7 +43,7 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
 
     // A flag just to be sure of the correct parsing
     var insideItem = false
-    var insideAtom = false
+    var insideChannel = false
 
     var eventType = xmlPullParser.eventType
 
@@ -54,8 +54,8 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
         when {
             eventType == XmlPullParser.START_TAG -> when {
                 // Entering conditions
-                xmlPullParser.contains(AtomKeyword.ATOM) -> {
-                    insideAtom = true
+                xmlPullParser.contains(AtomKeyword.Atom) -> {
+                    insideChannel = true
                 }
 
                 xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
@@ -76,7 +76,7 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.GUID) -> {
+                xmlPullParser.contains(AtomKeyword.Entry.Guid) -> {
                     if (insideItem) {
                         articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
@@ -111,19 +111,8 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.PubDate) -> {
-                    if (insideItem) {
-                        val nextTokenType = xmlPullParser.next()
-                        if (nextTokenType == XmlPullParser.TEXT) {
-                            articleBuilder.pubDate(xmlPullParser.text.trim())
-                        }
-                        // Skip to be able to find date inside 'tag' tag
-                        continue@loop
-                    }
-                }
-
-                xmlPullParser.contains(AtomKeyword.SUBTITLE) -> {
-                    if (insideAtom) {
+                xmlPullParser.contains(AtomKeyword.Subtitle) -> {
+                    if (insideChannel) {
                         channelBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
@@ -137,7 +126,7 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                 }
                 //region Mixed tags
                 xmlPullParser.contains(AtomKeyword.Title) -> {
-                    if (insideAtom) {
+                    if (insideChannel) {
                         when {
                             insideItem -> articleBuilder.title(xmlPullParser.nextTrimmedText())
                             else -> channelBuilder.title(xmlPullParser.nextTrimmedText())
@@ -146,17 +135,14 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                 }
 
                 xmlPullParser.contains(AtomKeyword.Link) -> {
-                    if (insideAtom) {
+                    if (insideChannel) {
                         val href = xmlPullParser.attributeValue(
-                            AtomKeyword.Link.HREF
+                            AtomKeyword.Link.Href
                         )
                         val rel = xmlPullParser.attributeValue(
-                            AtomKeyword.Link.REL
+                            AtomKeyword.Link.Rel
                         )
-                        //val type = xmlPullParser.attributeValue(
-                        //    AtomKeyword.Link.TYPE
-                        //)
-                        if ("edit".equals(rel, true).not()) {
+                        if (rel != AtomKeyword.Link.Edit.value) {
                             when {
                                 insideItem -> articleBuilder.link(href)
                                 else -> channelBuilder.link(href)
@@ -180,9 +166,9 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                 itunesArticleBuilder = ItunesArticleData.Builder()
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ATOM) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Atom) -> {
                 // The channel is correctly parsed
-                insideAtom = false
+                insideChannel = false
             }
         }
         eventType = xmlPullParser.next()

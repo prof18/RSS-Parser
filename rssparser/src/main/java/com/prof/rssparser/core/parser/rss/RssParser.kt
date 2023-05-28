@@ -83,7 +83,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.URL) -> {
+                xmlPullParser.contains(RSSKeyword.Url) -> {
                     if (insideChannelImage) {
                         channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                     }
@@ -124,13 +124,13 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(RSSKeyword.Item.Thumbnail) -> {
                     if (insideItem) {
-                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.URL))
+                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.Url))
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.MediaContent) -> {
                     if (insideItem) {
-                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.URL))
+                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.Url))
                     }
                 }
 
@@ -142,7 +142,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                                 // If there are multiple elements, we take only the first
                                 articleBuilder.imageIfNull(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.URL
+                                        RSSKeyword.Url
                                     )
                                 )
                             }
@@ -151,7 +151,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                                 // If there are multiple elements, we take only the first
                                 articleBuilder.audioIfNull(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.URL
+                                        RSSKeyword.Url
                                     )
                                 )
                             }
@@ -160,7 +160,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                                 // If there are multiple elements, we take only the first
                                 articleBuilder.videoIfNull(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.URL
+                                        RSSKeyword.Url
                                     )
                                 )
                             }
@@ -176,7 +176,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(RSSKeyword.Item.Source) -> {
                     if (insideItem) {
-                        val sourceUrl = xmlPullParser.attributeValue(RSSKeyword.URL)
+                        val sourceUrl = xmlPullParser.attributeValue(RSSKeyword.Url)
                         val sourceName = xmlPullParser.nextText()
                         articleBuilder.sourceName(sourceName)
                         articleBuilder.sourceUrl(sourceUrl)
@@ -189,7 +189,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.GUID) -> {
+                xmlPullParser.contains(RSSKeyword.Item.Guid) -> {
                     if (insideItem) {
                         articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
@@ -329,13 +329,13 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 xmlPullParser.contains(RSSKeyword.Itunes.Image) -> when {
                     insideItem -> itunesArticleBuilder.image(
                         xmlPullParser.attributeValue(
-                            RSSKeyword.HREF
+                            RSSKeyword.Href
                         )
                     )
 
                     insideChannel -> itunesChannelBuilder.image(
                         xmlPullParser.attributeValue(
-                            RSSKeyword.HREF
+                            RSSKeyword.Href
                         )
                     )
                 }
