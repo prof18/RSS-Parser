@@ -16,6 +16,7 @@ internal sealed class AtomKeyword(val value: String) {
         object Content : AtomKeyword("content")
         object PubDate : AtomKeyword("updated")
         object Category : AtomKeyword("category")
+        object Term : AtomKeyword("term")
         object Description : AtomKeyword("summary")
         object Author : AtomKeyword("name")
         object Email : AtomKeyword("email")
