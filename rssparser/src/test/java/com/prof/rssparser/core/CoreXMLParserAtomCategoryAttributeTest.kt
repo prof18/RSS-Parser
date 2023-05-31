@@ -19,8 +19,8 @@ package com.prof.rssparser.core
 
 import com.prof.rssparser.testutils.BaseCoreXMLParserTest
 
-class CoreXMLParserCategoryAttributeTest : BaseCoreXMLParserTest(
-    feedPath = "/feed-test-category-attribute.xml",
+class CoreXMLParserAtomCategoryAttributeTest : BaseCoreXMLParserTest(
+    feedPath = "/feed-test-atom-category-attribute.xml",
     articleImage = "https://a.fsdn.com/sd/twitter_icon_large.png",
     channelTitle = "Slashdot",
     channelLink = "http://pubsubhubbub.appspot.com/",
