@@ -29,7 +29,6 @@ import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
 import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserException
 
 
 internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
@@ -265,14 +264,14 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 xmlPullParser.contains(RSSKeyword.Image) -> when {
                     insideChannel && !insideItem -> insideChannelImage = true
                     insideItem -> {
-                        try {
-                            // It would be ideal if we could peek ahead to see what is coming.
-                            // Attempt to get the image text if it's not contained in another tag
-                            articleBuilder.image(xmlPullParser.nextTrimmedText())
-                        } catch (exception: XmlPullParserException) {
-                            // if we get an exception from grabbing the next text,
-                            // assume we are inside the image tag and look inside the corresponding link tag and consume that
-                            if(xmlPullParser.contains(RSSKeyword.Link)) {
+                        xmlPullParser.next()
+                        val text = xmlPullParser.text.trim()
+                        // Get the image text if it's not contained in another tag
+                        if (text.isNotEmpty()) {
+                            articleBuilder.image(text)
+                        } else {
+                            xmlPullParser.next()
+                            if (xmlPullParser.contains(RSSKeyword.Link)) {
                                 articleBuilder.image(xmlPullParser.nextTrimmedText())
                             }
                         }
