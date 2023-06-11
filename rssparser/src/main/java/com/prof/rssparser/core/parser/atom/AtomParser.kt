@@ -24,7 +24,6 @@ import com.prof.rssparser.ItunesArticleData
 import com.prof.rssparser.ItunesChannelData
 import com.prof.rssparser.core.CoreXMLParser.getImageUrl
 import com.prof.rssparser.utils.AtomKeyword
-import com.prof.rssparser.utils.RSSKeyword
 import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
@@ -61,6 +60,12 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
                     insideItem = true
+                }
+                //endregion
+
+                //region Channel tags
+                xmlPullParser.contains(AtomKeyword.Icon) -> {
+                    channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                 }
                 //endregion
 
@@ -113,14 +118,15 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.PubDate) -> {
+                xmlPullParser.contains(AtomKeyword.Updated) -> {
+                    if (insideChannel) {
+                        channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Entry.Published) -> {
                     if (insideItem) {
-                        val nextTokenType = xmlPullParser.next()
-                        if (nextTokenType == XmlPullParser.TEXT) {
-                            articleBuilder.pubDate(xmlPullParser.text.trim())
-                        }
-                        // Skip to be able to find date inside 'tag' tag
-                        continue@loop
+                        articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
