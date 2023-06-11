@@ -24,6 +24,7 @@ import com.prof.rssparser.ItunesArticleData
 import com.prof.rssparser.ItunesChannelData
 import com.prof.rssparser.core.CoreXMLParser.getImageUrl
 import com.prof.rssparser.utils.AtomKeyword
+import com.prof.rssparser.utils.RSSKeyword
 import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
@@ -72,7 +73,19 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(AtomKeyword.Entry.Category) -> {
                     if (insideItem) {
-                        articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
+                        val nextText = xmlPullParser.nextTrimmedText()
+                        val termAttributeValue = xmlPullParser.attributeValue(AtomKeyword.Entry.Term)
+
+                        /**
+                         * We want to look at the 'term' attribute and use that if no text is present
+                         * such as `<category term="android"/>`
+                         */
+                        val categoryText = if (nextText?.isEmpty() == true) {
+                            termAttributeValue
+                        } else {
+                            nextText
+                        }
+                        articleBuilder.addCategory(categoryText)
                     }
                 }
 
