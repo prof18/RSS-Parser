@@ -58,7 +58,16 @@ data class Article(
         fun title(title: String?) = apply { this.title = title }
         fun author(author: String?) = apply { this.author = author }
         fun link(link: String?) = apply { this.link = link }
-        fun pubDate(pubDate: String?) = apply { this.pubDate = pubDate }
+        fun pubDate(pubDate: String?) = apply {
+            this.pubDate = pubDate
+        }
+
+        fun pubDateIfNull(pubDate: String?) = apply {
+            if (this.pubDate == null) {
+                this.pubDate = pubDate
+            }
+        }
+
         fun description(description: String?) = apply { this.description = description }
         fun content(content: String?) = apply { this.content = content }
         fun image(image: String?) = apply { this.image = image }

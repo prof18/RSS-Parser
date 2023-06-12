@@ -28,6 +28,7 @@ import com.prof.rssparser.utils.attributeValue
 import com.prof.rssparser.utils.contains
 import com.prof.rssparser.utils.nextTrimmedText
 import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserException
 
 
 internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
@@ -102,31 +103,31 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(AtomKeyword.Entry.Content) -> {
                     if (insideItem) {
-                        try {
-                            val content = xmlPullParser.nextTrimmedText()
-                            articleBuilder.content(content)
-                            imageUrlFromContent = getImageUrl(content)
-                        } catch (throwable: Throwable) {
-                            // TODO some content tag with the no CDATA html that like this:
-                            // <content type="html">
-                            //  This post was published externally on Cash App Code Blog. Read it at
-                            //  <a href="https://code.cash.app/the-state-of-managing-state-with-compose">https://code.cash.app/the-state-of-managing-state-with-compose</a>
-                            //  .
-                            // </content>
-                            continue@loop
+                        val content = try {
+                            xmlPullParser.nextTrimmedText()
+                        } catch (e: XmlPullParserException) {
+                            // If there's some html not escaped, the parsing is going to fail
+                            null
                         }
+                        articleBuilder.content(content)
+                        imageUrlFromContent = getImageUrl(content)
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Updated) -> {
-                    if (insideChannel) {
-                        channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
+                    when {
+                        insideItem -> {
+                            articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
+                        }
+                        insideChannel -> {
+                            channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
+                        }
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Entry.Published) -> {
                     if (insideItem) {
-                        articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
+                        articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
                     }
                 }
 

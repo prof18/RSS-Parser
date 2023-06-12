@@ -25,6 +25,7 @@ class CoreXMLParserAtomCategoryAttributeTest : BaseCoreXMLParserTest(
     channelTitle = "Slashdot",
     channelLink = "http://pubsubhubbub.appspot.com/",
     channelDescription = "News for nerds, stuff that matters",
+    channelLastBuildDate = "2023-05-29T00:14:18+00:00",
     articleTitle = "Automakers Ask Judge to Block Pending Enforcement of Massachusetts' Right-to-Repair Law",
     articlePubDate = "2023-05-28T22:44:00+00:00",
     articleLink = "https://yro.slashdot.org/story/23/05/28/2213240/automakers-ask-judge-to-block-pending-enforcement-of-massachusetts-right-to-repair-law?utm_source=atom1.0mainlinkanon&utm_medium=feed",
@@ -44,5 +45,4 @@ class CoreXMLParserAtomCategoryAttributeTest : BaseCoreXMLParserTest(
             "\n" +
             "\n" +
             "            </div></p><p><a href=\"https://yro.slashdot.org/story/23/05/28/2213240/automakers-ask-judge-to-block-pending-enforcement-of-massachusetts-right-to-repair-law?utm_source=atom1.0moreanon&amp;utm_medium=feed\">Read more of this story</a> at Slashdot.</p>",
-
 )

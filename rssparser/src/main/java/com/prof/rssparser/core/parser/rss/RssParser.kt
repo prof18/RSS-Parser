@@ -207,7 +207,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                     if (insideItem) {
                         val nextTokenType = xmlPullParser.next()
                         if (nextTokenType == XmlPullParser.TEXT) {
-                            articleBuilder.pubDate(xmlPullParser.text.trim())
+                            articleBuilder.pubDateIfNull(xmlPullParser.text.trim())
                         }
                         // Skip to be able to find date inside 'tag' tag
                         continue@loop
