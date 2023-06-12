@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-**RSS Parser** is an Android library to parse any RSS feed. With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed. 
+**RSS Parser** is an Android library to parse any RSS or Atom feed. With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed. 
 
 As of April 2020, it's been downloaded more than 30,000 times from 125 different countries (among them, North Korea, Madagascar and even Panama 🌴).
 
