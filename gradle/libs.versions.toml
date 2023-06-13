@@ -4,8 +4,8 @@ android-compile-sdk = "33"
 android-min-sdk = "21"
 android-target-sdk = "33"
 kotlin = "1.7.20"
-library-version-code = "50002"
-library-version-name = "5.0.3"
+library-version-code = "50004"
+library-version-name = "5.0.4"
 
 # Library dependencies
 androidx-lifecycle-extensions = "2.2.0"
@@ -70,7 +70,7 @@ androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref="androidx-swiperefreshlayout" }
 androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
 com-google-android-material = { module = "com.google.android.material:material", version.ref = "com-google-android-material" }
-com-prof18-rssparser = { module = "com.prof18.rssparser:rssparser", version = "library-version-name" }
+com-prof18-rssparser = { module = "com.prof18.rssparser:rssparser", version.ref = "library-version-name" }
 com-squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref="com-squareup-picasso" }
 
 [plugins]
