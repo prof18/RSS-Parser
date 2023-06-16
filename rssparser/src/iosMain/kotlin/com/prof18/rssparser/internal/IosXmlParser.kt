@@ -53,14 +53,14 @@ private class NSXMLParserDelegate(
             RSSKeyword.Image.value -> isInsideChannelImage = isInsideChannel && !isInsideItem
             RSSKeyword.Item.MediaContent.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                    val url = attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
 
             RSSKeyword.Item.Thumbnail.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                    val url = attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
@@ -73,21 +73,21 @@ private class NSXMLParserDelegate(
                         type != null && type.contains("image") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.image(
-                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                             )
                         }
 
                         type != null && type.contains("audio") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.audioIfNull(
-                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                             )
                         }
 
                         type != null && type.contains("video") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.videoIfNull(
-                                attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                                attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                             )
                         }
                     }
@@ -95,7 +95,7 @@ private class NSXMLParserDelegate(
             }
 
             RSSKeyword.Itunes.Image.value -> {
-                val url = attributes.getValueOrNull(RSSKeyword.HREF.value) as? String
+                val url = attributes.getValueOrNull(RSSKeyword.Href.value) as? String
                 when {
                     isInsideItem -> channelFactory.itunesArticleBuilder.image(url)
                     isInsideChannel -> channelFactory.itunesChannelBuilder.image(url)
@@ -104,7 +104,7 @@ private class NSXMLParserDelegate(
 
             RSSKeyword.Item.Source.value -> {
                 if (isInsideItem) {
-                    val sourceUrl = attributes.getValueOrNull(RSSKeyword.URL.value) as? String
+                    val sourceUrl = attributes.getValueOrNull(RSSKeyword.Url.value) as? String
                     channelFactory.articleBuilder.sourceUrl(sourceUrl)
                 }
             }
@@ -208,7 +208,7 @@ private class NSXMLParserDelegate(
                 }
 
                 channelFactory.articleBuilder.guid(
-                    itemData[RSSKeyword.Item.GUID.value]?.trim()
+                    itemData[RSSKeyword.Item.Guid.value]?.trim()
                 )
                 itemData[RSSKeyword.Item.Content.value]?.trim()?.let { content ->
                     channelFactory.setImageFromContent(content)
@@ -281,7 +281,7 @@ private class NSXMLParserDelegate(
 
             RSSKeyword.Image.value -> {
                 channelFactory.channelImageBuilder.url(
-                    channelImageData[RSSKeyword.URL.value]?.trim()
+                    channelImageData[RSSKeyword.Url.value]?.trim()
                 )
                 channelFactory.channelImageBuilder.title(
                     channelImageData[RSSKeyword.Title.value]?.trim()

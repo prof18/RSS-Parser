@@ -15,11 +15,9 @@
 *
 */
 
-package com.prof.rssparser.core
+package com.prof18.rssparser
 
-import com.prof.rssparser.testutils.BaseCoreXMLParserTest
-
-class CoreXMLParserImageLinkTest : BaseCoreXMLParserTest(
+class CoreXMLParserImageLinkTest : BaseXmlParserTest(
     feedPath = "/feed-test-image-link.xml",
     channelTitle = "Bleacher Report - Front Page",
     channelLink = "https://bleacherreport.com",

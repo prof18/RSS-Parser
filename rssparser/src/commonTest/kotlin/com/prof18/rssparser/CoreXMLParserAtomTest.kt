@@ -1,13 +1,12 @@
-package com.prof.rssparser.core
+package com.prof18.rssparser
 
-import com.prof.rssparser.Image
-import com.prof.rssparser.testutils.BaseCoreXMLParserTest
+import com.prof18.rssparser.model.RssImage
 
-class CoreXMLParserAtomTest: BaseCoreXMLParserTest(
+class CoreXMLParserAtomTest: BaseXmlParserTest(
     feedPath = "/feed-atom-test.xml",
     channelTitle = "The Verge -  All Posts",
     channelLink = "https://www.theverge.com/",
-    channelImage = Image(
+    channelImage = RssImage(
         title = null,
         link = null,
         description = null,

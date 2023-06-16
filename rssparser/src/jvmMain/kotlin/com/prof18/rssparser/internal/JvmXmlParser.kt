@@ -62,14 +62,14 @@ private class SaxFeedHandler : DefaultHandler() {
 
             RSSKeyword.Item.MediaContent.value -> {
                 if (isInsideItem) {
-                    val url = attributes?.getValue(RSSKeyword.URL.value)
+                    val url = attributes?.getValue(RSSKeyword.Url.value)
                     channelFactory.articleBuilder.image(url)
                 }
             }
 
             RSSKeyword.Item.Thumbnail.value -> {
                 if (isInsideItem) {
-                    val url = attributes?.getValue(RSSKeyword.URL.value)
+                    val url = attributes?.getValue(RSSKeyword.Url.value)
                     channelFactory.articleBuilder.image(url)
                 }
             }
@@ -82,21 +82,21 @@ private class SaxFeedHandler : DefaultHandler() {
                         type != null && type.contains("image") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.image(
-                                attributes.getValue(RSSKeyword.URL.value)
+                                attributes.getValue(RSSKeyword.Url.value)
                             )
                         }
 
                         type != null && type.contains("audio") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.audioIfNull(
-                                attributes.getValue(RSSKeyword.URL.value)
+                                attributes.getValue(RSSKeyword.Url.value)
                             )
                         }
 
                         type != null && type.contains("video") -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.videoIfNull(
-                                attributes.getValue(RSSKeyword.URL.value)
+                                attributes.getValue(RSSKeyword.Url.value)
                             )
                         }
                     }
@@ -104,7 +104,7 @@ private class SaxFeedHandler : DefaultHandler() {
             }
 
             RSSKeyword.Itunes.Image.value -> {
-                val url = attributes?.getValue(RSSKeyword.HREF.value)
+                val url = attributes?.getValue(RSSKeyword.Href.value)
                 when {
                     isInsideItem -> channelFactory.itunesArticleBuilder.image(url)
                     isInsideChannel -> channelFactory.itunesChannelBuilder.image(url)
@@ -113,7 +113,7 @@ private class SaxFeedHandler : DefaultHandler() {
 
             RSSKeyword.Item.Source.value -> {
                 if (isInsideItem) {
-                    val sourceUrl = attributes?.getValue(RSSKeyword.URL.value)
+                    val sourceUrl = attributes?.getValue(RSSKeyword.Url.value)
                     channelFactory.articleBuilder.sourceUrl(sourceUrl)
                 }
             }
@@ -141,7 +141,7 @@ private class SaxFeedHandler : DefaultHandler() {
                     RSSKeyword.Item.Category.value -> channelFactory.articleBuilder.addCategory(text)
                     RSSKeyword.Item.Source.value -> channelFactory.articleBuilder.sourceName(text)
                     RSSKeyword.Item.Time.value -> channelFactory.articleBuilder.pubDate(text)
-                    RSSKeyword.Item.GUID.value -> channelFactory.articleBuilder.guid(text)
+                    RSSKeyword.Item.Guid.value -> channelFactory.articleBuilder.guid(text)
                     RSSKeyword.Item.Content.value -> {
                         channelFactory.articleBuilder.content(text)
                         channelFactory.setImageFromContent(text)
@@ -197,7 +197,7 @@ private class SaxFeedHandler : DefaultHandler() {
 
             isInsideChannelImage -> {
                 when (qName) {
-                    RSSKeyword.URL.value -> channelFactory.channelImageBuilder.url(text)
+                    RSSKeyword.Url.value -> channelFactory.channelImageBuilder.url(text)
                     RSSKeyword.Title.value -> channelFactory.channelImageBuilder.title(text)
                     RSSKeyword.Link.value -> channelFactory.channelImageBuilder.link(text)
                     RSSKeyword.Description.value -> channelFactory.channelImageBuilder.description(text)

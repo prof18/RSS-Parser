@@ -15,33 +15,23 @@
 *
 */
 
-package com.prof.rssparser.core.parser.rss
+package com.prof18.rssparser.internal.rss
 
-import com.prof.rssparser.Article
-import com.prof.rssparser.Channel
-import com.prof.rssparser.Image
-import com.prof.rssparser.ItunesArticleData
-import com.prof.rssparser.ItunesChannelData
-import com.prof.rssparser.ItunesOwner
-import com.prof.rssparser.core.CoreXMLParser.getImageUrl
-import com.prof.rssparser.utils.RSSKeyword
-import com.prof.rssparser.utils.attributeValue
-import com.prof.rssparser.utils.contains
-import com.prof.rssparser.utils.nextTrimmedText
+import com.prof18.rssparser.internal.ChannelFactory
+import com.prof18.rssparser.internal.RSSKeyword
+import com.prof18.rssparser.internal.attributeValue
+import com.prof18.rssparser.internal.contains
+import com.prof18.rssparser.internal.nextTrimmedText
+import com.prof18.rssparser.model.RssChannel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.isActive
 import org.xmlpull.v1.XmlPullParser
 
 
-internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
-    val channelBuilder = Channel.Builder()
-    var articleBuilder = Article.Builder()
-    val channelImageBuilder = Image.Builder()
-    val itunesChannelBuilder = ItunesChannelData.Builder()
-    var itunesArticleBuilder = ItunesArticleData.Builder()
-    var itunesOwnerBuilder = ItunesOwner.Builder()
-
-    // This image url is extracted from the content and the description of the rss item.
-    // It's a fallback just in case there aren't any images in the enclosure tag.
-    var imageUrlFromContent: String? = null
+internal fun CoroutineScope.extractRSSContent(
+    xmlPullParser: XmlPullParser,
+): RssChannel {
+    val channelFactory = ChannelFactory()
 
     // A flag just to be sure of the correct parsing
     var insideItem = false
@@ -52,7 +42,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
     var eventType = xmlPullParser.eventType
 
     // Start parsing the xml
-    loop@ while (eventType != XmlPullParser.END_DOCUMENT) {
+    loop@ while (eventType != XmlPullParser.END_DOCUMENT && isActive) {
 
         // Start parsing the item
         when {
@@ -73,38 +63,38 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 //region Channel tags
                 xmlPullParser.contains(RSSKeyword.Channel.LastBuildDate) -> {
                     if (insideChannel) {
-                        channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
+                        channelFactory.channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Channel.UpdatePeriod) -> {
                     if (insideChannel) {
-                        channelBuilder.updatePeriod(xmlPullParser.nextTrimmedText())
+                        channelFactory.channelBuilder.updatePeriod(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Url) -> {
                     if (insideChannelImage) {
-                        channelImageBuilder.url(xmlPullParser.nextTrimmedText())
+                        channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Channel.Itunes.Category) -> {
                     if (insideChannel) {
                         val category = xmlPullParser.attributeValue(RSSKeyword.Channel.Itunes.Text)
-                        itunesChannelBuilder.addCategory(category)
+                        channelFactory.itunesChannelBuilder.addCategory(category)
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Channel.Itunes.Type) -> {
                     if (insideChannel) {
-                        itunesChannelBuilder.type(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesChannelBuilder.type(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Channel.Itunes.NewFeedUrl) -> {
                     if (insideChannel) {
-                        itunesChannelBuilder.newsFeedUrl(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesChannelBuilder.newsFeedUrl(xmlPullParser.nextTrimmedText())
                     }
                 }
                 //endregion
@@ -112,25 +102,31 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 //region Item tags
                 xmlPullParser.contains(RSSKeyword.Item.Author) -> {
                     if (insideItem) {
-                        articleBuilder.author(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Category) -> {
                     if (insideItem) {
-                        articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Thumbnail) -> {
                     if (insideItem) {
-                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.Url))
+                        channelFactory.articleBuilder.image(
+                            xmlPullParser.attributeValue(RSSKeyword.Url)
+                        )
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.MediaContent) -> {
                     if (insideItem) {
-                        articleBuilder.image(xmlPullParser.attributeValue(RSSKeyword.Url))
+                        channelFactory.articleBuilder.image(
+                            xmlPullParser.attributeValue(
+                                RSSKeyword.Url
+                            )
+                        )
                     }
                 }
 
@@ -140,7 +136,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                         when {
                             type != null && type.contains("image") -> {
                                 // If there are multiple elements, we take only the first
-                                articleBuilder.imageIfNull(
+                                channelFactory.articleBuilder.image(
                                     xmlPullParser.attributeValue(
                                         RSSKeyword.Url
                                     )
@@ -149,7 +145,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
                             type != null && type.contains("audio") -> {
                                 // If there are multiple elements, we take only the first
-                                articleBuilder.audioIfNull(
+                                channelFactory.articleBuilder.audioIfNull(
                                     xmlPullParser.attributeValue(
                                         RSSKeyword.Url
                                     )
@@ -158,18 +154,16 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
                             type != null && type.contains("video") -> {
                                 // If there are multiple elements, we take only the first
-                                articleBuilder.videoIfNull(
+                                channelFactory.articleBuilder.videoIfNull(
                                     xmlPullParser.attributeValue(
                                         RSSKeyword.Url
                                     )
                                 )
                             }
 
-                            else -> {
-                                articleBuilder.imageIfNull(
-                                    xmlPullParser.nextText().trim()
-                                )
-                            }
+                            else -> channelFactory.articleBuilder.image(
+                                xmlPullParser.nextText().trim()
+                            )
                         }
                     }
                 }
@@ -178,28 +172,28 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                     if (insideItem) {
                         val sourceUrl = xmlPullParser.attributeValue(RSSKeyword.Url)
                         val sourceName = xmlPullParser.nextText()
-                        articleBuilder.sourceName(sourceName)
-                        articleBuilder.sourceUrl(sourceUrl)
+                        channelFactory.articleBuilder.sourceName(sourceName)
+                        channelFactory.articleBuilder.sourceUrl(sourceUrl)
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Time) -> {
                     if (insideItem) {
-                        articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Guid) -> {
                     if (insideItem) {
-                        articleBuilder.guid(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Content) -> {
                     if (insideItem) {
                         val content = xmlPullParser.nextTrimmedText()
-                        articleBuilder.content(content)
-                        imageUrlFromContent = getImageUrl(content)
+                        channelFactory.articleBuilder.content(content)
+                        channelFactory.setImageFromContent(content)
                     }
                 }
 
@@ -207,7 +201,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                     if (insideItem) {
                         val nextTokenType = xmlPullParser.next()
                         if (nextTokenType == XmlPullParser.TEXT) {
-                            articleBuilder.pubDateIfNull(xmlPullParser.text.trim())
+                            channelFactory.articleBuilder.pubDate(xmlPullParser.text.trim())
                         }
                         // Skip to be able to find date inside 'tag' tag
                         continue@loop
@@ -216,32 +210,32 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
                 xmlPullParser.contains(RSSKeyword.Item.News.Image) -> {
                     if (insideItem) {
-                        articleBuilder.image(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.image(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Itunes.Episode) -> {
                     if (insideItem) {
-                        itunesArticleBuilder.episode(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesArticleBuilder.episode(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Itunes.EpisodeType) -> {
                     if (insideItem) {
-                        itunesArticleBuilder.episodeType(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesArticleBuilder.episodeType(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Itunes.Season) -> {
                     if (insideItem) {
-                        itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Item.Comments) -> {
                     if (insideItem) {
                         val url = xmlPullParser.nextTrimmedText()
-                        articleBuilder.commentUrl(url)
+                        channelFactory.articleBuilder.commentUrl(url)
                     }
                 }
                 //endregion
@@ -249,13 +243,13 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 //region Itunes Owner tags
                 xmlPullParser.contains(RSSKeyword.Channel.Itunes.OwnerName) -> {
                     if (insideItunesOwner) {
-                        itunesOwnerBuilder.name(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesOwnerBuilder.name(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Channel.Itunes.OwnerEmail) -> {
                     if (insideItunesOwner) {
-                        itunesOwnerBuilder.email(xmlPullParser.nextTrimmedText())
+                        channelFactory.itunesOwnerBuilder.email(xmlPullParser.nextTrimmedText())
                     }
                 }
                 //endregion
@@ -268,11 +262,11 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                         val text = xmlPullParser.text.trim()
                         // Get the image text if it's not contained in another tag
                         if (text.isNotEmpty()) {
-                            articleBuilder.image(text)
+                            channelFactory.articleBuilder.image(text)
                         } else {
                             xmlPullParser.next()
                             if (xmlPullParser.contains(RSSKeyword.Link)) {
-                                articleBuilder.image(xmlPullParser.nextTrimmedText())
+                                channelFactory.articleBuilder.image(xmlPullParser.nextTrimmedText())
                             }
                         }
                     }
@@ -281,9 +275,12 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 xmlPullParser.contains(RSSKeyword.Title) -> {
                     if (insideChannel) {
                         when {
-                            insideChannelImage -> channelImageBuilder.title(xmlPullParser.nextTrimmedText())
-                            insideItem -> articleBuilder.title(xmlPullParser.nextTrimmedText())
-                            else -> channelBuilder.title(xmlPullParser.nextTrimmedText())
+                            insideChannelImage -> {
+                                channelFactory.channelImageBuilder.title(xmlPullParser.nextTrimmedText())
+                            }
+
+                            insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
+                            else -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
@@ -291,61 +288,60 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 xmlPullParser.contains(RSSKeyword.Link) -> {
                     if (insideChannel) {
                         when {
-                            insideChannelImage -> channelImageBuilder.link(xmlPullParser.nextTrimmedText())
-                            insideItem -> articleBuilder.link(xmlPullParser.nextTrimmedText())
-                            else -> channelBuilder.link(xmlPullParser.nextTrimmedText())
+                            insideChannelImage -> {
+                                channelFactory.channelImageBuilder.link(xmlPullParser.nextTrimmedText())
+                            }
+
+                            insideItem -> channelFactory.articleBuilder.link(xmlPullParser.nextTrimmedText())
+                            else -> channelFactory.channelBuilder.link(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Description) -> {
+                xmlPullParser.contains(RSSKeyword.Description) -> {
                     if (insideChannel) {
                         when {
                             insideItem -> {
                                 val description = xmlPullParser.nextTrimmedText()
-                                articleBuilder.description(description)
-                                imageUrlFromContent = getImageUrl(description)
+                                channelFactory.articleBuilder.description(description)
+                                channelFactory.setImageFromContent(description)
                             }
 
-                            insideChannelImage -> channelImageBuilder.description(xmlPullParser.nextTrimmedText())
-                            else -> channelBuilder.description(xmlPullParser.nextTrimmedText())
+                            insideChannelImage -> {
+                                channelFactory.channelImageBuilder.description(xmlPullParser.nextTrimmedText())
+                            }
+
+                            else -> channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Author) -> when {
-                    insideItem -> itunesArticleBuilder.author(xmlPullParser.nextTrimmedText())
-                    insideChannel -> itunesChannelBuilder.author(xmlPullParser.nextTrimmedText())
+                    insideItem -> channelFactory.itunesArticleBuilder.author(xmlPullParser.nextTrimmedText())
+                    insideChannel -> channelFactory.itunesChannelBuilder.author(xmlPullParser.nextTrimmedText())
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Duration) -> when {
-                    insideItem -> itunesArticleBuilder.duration(xmlPullParser.nextTrimmedText())
-                    insideChannel -> itunesChannelBuilder.duration(xmlPullParser.nextTrimmedText())
+                    insideItem -> channelFactory.itunesArticleBuilder.duration(xmlPullParser.nextTrimmedText())
+                    insideChannel -> channelFactory.itunesChannelBuilder.duration(xmlPullParser.nextTrimmedText())
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Keywords) -> {
                     val keywords = xmlPullParser.nextTrimmedText()
-                    val keywordList = keywords?.split(",")?.mapNotNull {
-                        it.ifEmpty {
-                            null
-                        }
-                    } ?: emptyList()
-                    if (keywordList.isNotEmpty()) {
-                        when {
-                            insideItem -> itunesArticleBuilder.keywords(keywordList)
-                            insideChannel -> itunesChannelBuilder.keywords(keywordList)
-                        }
+                    when {
+                        insideItem -> channelFactory.setArticleItunesKeywords(keywords)
+                        insideChannel -> channelFactory.setChannelItunesKeywords(keywords)
                     }
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Image) -> when {
-                    insideItem -> itunesArticleBuilder.image(
+                    insideItem -> channelFactory.itunesArticleBuilder.image(
                         xmlPullParser.attributeValue(
                             RSSKeyword.Href
                         )
                     )
 
-                    insideChannel -> itunesChannelBuilder.image(
+                    insideChannel -> channelFactory.itunesChannelBuilder.image(
                         xmlPullParser.attributeValue(
                             RSSKeyword.Href
                         )
@@ -353,18 +349,18 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Explicit) -> when {
-                    insideItem -> itunesArticleBuilder.explicit(xmlPullParser.nextTrimmedText())
-                    insideChannel -> itunesChannelBuilder.explicit(xmlPullParser.nextTrimmedText())
+                    insideItem -> channelFactory.itunesArticleBuilder.explicit(xmlPullParser.nextTrimmedText())
+                    insideChannel -> channelFactory.itunesChannelBuilder.explicit(xmlPullParser.nextTrimmedText())
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Subtitle) -> when {
-                    insideItem -> itunesArticleBuilder.subtitle(xmlPullParser.nextTrimmedText())
-                    insideChannel -> itunesChannelBuilder.subtitle(xmlPullParser.nextTrimmedText())
+                    insideItem -> channelFactory.itunesArticleBuilder.subtitle(xmlPullParser.nextTrimmedText())
+                    insideChannel -> channelFactory.itunesChannelBuilder.subtitle(xmlPullParser.nextTrimmedText())
                 }
 
                 xmlPullParser.contains(RSSKeyword.Itunes.Summary) -> when {
-                    insideItem -> itunesArticleBuilder.summary(xmlPullParser.nextTrimmedText())
-                    insideChannel -> itunesChannelBuilder.summary(xmlPullParser.nextTrimmedText())
+                    insideItem -> channelFactory.itunesArticleBuilder.summary(xmlPullParser.nextTrimmedText())
+                    insideChannel -> channelFactory.itunesChannelBuilder.summary(xmlPullParser.nextTrimmedText())
                 }
                 //endregion
             }
@@ -374,13 +370,7 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
                 // The item is correctly parsed
                 insideItem = false
                 // Set data
-                articleBuilder.imageIfNull(imageUrlFromContent)
-                articleBuilder.itunesArticleData(itunesArticleBuilder.build())
-                channelBuilder.addArticle(articleBuilder.build())
-                // Reset temp data
-                imageUrlFromContent = null
-                articleBuilder = Article.Builder()
-                itunesArticleBuilder = ItunesArticleData.Builder()
+                channelFactory.buildArticle()
             }
 
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Channel.Channel) -> {
@@ -395,19 +385,12 @@ internal fun extractRSSContent(xmlPullParser: XmlPullParser): Channel {
 
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Channel.Itunes.Owner) -> {
                 // The itunes owner is correctly parsed
-                itunesChannelBuilder.owner(itunesOwnerBuilder.build())
-                itunesOwnerBuilder = ItunesOwner.Builder()
+                channelFactory.buildItunesOwner()
                 insideItunesOwner = false
             }
         }
         eventType = xmlPullParser.next()
     }
 
-    val channelImage = channelImageBuilder.build()
-    if (channelImage.isNotEmpty()) {
-        channelBuilder.image(channelImage)
-    }
-    channelBuilder.itunesChannelData(itunesChannelBuilder.build())
-
-    return channelBuilder.build()
+    return channelFactory.build()
 }

@@ -15,32 +15,23 @@
 *
 */
 
-package com.prof.rssparser.core.parser.atom
+package com.prof18.rssparser.internal.atom
 
-import com.prof.rssparser.Article
-import com.prof.rssparser.Channel
-import com.prof.rssparser.Image
-import com.prof.rssparser.ItunesArticleData
-import com.prof.rssparser.ItunesChannelData
-import com.prof.rssparser.core.CoreXMLParser.getImageUrl
-import com.prof.rssparser.utils.AtomKeyword
-import com.prof.rssparser.utils.attributeValue
-import com.prof.rssparser.utils.contains
-import com.prof.rssparser.utils.nextTrimmedText
+import com.prof18.rssparser.internal.AtomKeyword
+import com.prof18.rssparser.internal.ChannelFactory
+import com.prof18.rssparser.internal.attributeValue
+import com.prof18.rssparser.internal.contains
+import com.prof18.rssparser.internal.nextTrimmedText
+import com.prof18.rssparser.model.RssChannel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.isActive
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 
-
-internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
-    val channelBuilder = Channel.Builder()
-    var articleBuilder = Article.Builder()
-    val channelImageBuilder = Image.Builder()
-    val itunesChannelBuilder = ItunesChannelData.Builder()
-    var itunesArticleBuilder = ItunesArticleData.Builder()
-
-    // This image url is extracted from the content and the description of the rss item.
-    // It's a fallback just in case there aren't any images in the enclosure tag.
-    var imageUrlFromContent: String? = null
+internal fun CoroutineScope.extractAtomContent(
+    xmlPullParser: XmlPullParser,
+): RssChannel {
+    val channelFactory = ChannelFactory()
 
     // A flag just to be sure of the correct parsing
     var insideItem = false
@@ -49,7 +40,7 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
     var eventType = xmlPullParser.eventType
 
     // Start parsing the xml
-    loop@ while (eventType != XmlPullParser.END_DOCUMENT) {
+    loop@ while (eventType != XmlPullParser.END_DOCUMENT && isActive) {
 
         // Start parsing the item
         when {
@@ -66,14 +57,14 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
 
                 //region Channel tags
                 xmlPullParser.contains(AtomKeyword.Icon) -> {
-                    channelImageBuilder.url(xmlPullParser.nextTrimmedText())
+                    channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                 }
                 //endregion
 
                 //region Item tags
                 xmlPullParser.contains(AtomKeyword.Entry.Author) -> {
                     if (insideItem) {
-                        articleBuilder.author(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
@@ -91,13 +82,13 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                         } else {
                             nextText
                         }
-                        articleBuilder.addCategory(categoryText)
+                        channelFactory.articleBuilder.addCategory(categoryText)
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Entry.Guid) -> {
                     if (insideItem) {
-                        articleBuilder.guid(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
                 }
 
@@ -109,47 +100,47 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                             // If there's some html not escaped, the parsing is going to fail
                             null
                         }
-                        articleBuilder.content(content)
-                        imageUrlFromContent = getImageUrl(content)
+                        channelFactory.articleBuilder.content(content)
+                        channelFactory.setImageFromContent(content)
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Updated) -> {
                     when {
                         insideItem -> {
-                            articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
+                            channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
                         }
                         insideChannel -> {
-                            channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
+                            channelFactory.channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Entry.Published) -> {
                     if (insideItem) {
-                        articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
+                        channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Subtitle) -> {
                     if (insideChannel) {
-                        channelBuilder.description(xmlPullParser.nextTrimmedText())
+                        channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.Entry.Description) -> {
                     if (insideItem) {
                         val description = xmlPullParser.nextTrimmedText()
-                        articleBuilder.description(description)
-                        imageUrlFromContent = getImageUrl(description)
+                        channelFactory.articleBuilder.description(description)
+                        channelFactory.setImageFromContent(description)
                     }
                 }
                 //region Mixed tags
                 xmlPullParser.contains(AtomKeyword.Title) -> {
                     if (insideChannel) {
                         when {
-                            insideItem -> articleBuilder.title(xmlPullParser.nextTrimmedText())
-                            else -> channelBuilder.title(xmlPullParser.nextTrimmedText())
+                            insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
+                            else -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
@@ -164,8 +155,8 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
                         )
                         if (rel != AtomKeyword.Link.Edit.value) {
                             when {
-                                insideItem -> articleBuilder.link(href)
-                                else -> channelBuilder.link(href)
+                                insideItem -> channelFactory.articleBuilder.link(href)
+                                else -> channelFactory.channelBuilder.link(href)
                             }
                         }
                     }
@@ -176,14 +167,7 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
                 // The item is correctly parsed
                 insideItem = false
-                // Set data
-                articleBuilder.imageIfNull(imageUrlFromContent)
-                articleBuilder.itunesArticleData(itunesArticleBuilder.build())
-                channelBuilder.addArticle(articleBuilder.build())
-                // Reset temp data
-                imageUrlFromContent = null
-                articleBuilder = Article.Builder()
-                itunesArticleBuilder = ItunesArticleData.Builder()
+                channelFactory.buildArticle()
             }
 
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Atom) -> {
@@ -193,12 +177,5 @@ internal fun extractAtomContent(xmlPullParser: XmlPullParser): Channel {
         }
         eventType = xmlPullParser.next()
     }
-
-    val channelImage = channelImageBuilder.build()
-    if (channelImage.isNotEmpty()) {
-        channelBuilder.image(channelImage)
-    }
-    channelBuilder.itunesChannelData(itunesChannelBuilder.build())
-
-    return channelBuilder.build()
+    return channelFactory.build()
 }

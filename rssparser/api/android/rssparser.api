@@ -7,7 +7,8 @@ public final class com/prof18/rssparser/BuildConfig {
 
 public final class com/prof18/rssparser/RssParser {
 	public static final field Companion Lcom/prof18/rssparser/RssParser$Companion;
-	public final fun getChannel (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun getRssChannel (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun parse (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
 public final class com/prof18/rssparser/RssParser$Companion {
