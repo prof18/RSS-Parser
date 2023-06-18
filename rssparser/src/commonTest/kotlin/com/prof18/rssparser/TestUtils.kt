@@ -8,3 +8,6 @@ internal expect fun readBinaryResource(
 ): ParserInput
 
 const val RESOURCES_PATH = "./src/commonTest/resources"
+
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+internal expect val currentTarget: CurrentTarget

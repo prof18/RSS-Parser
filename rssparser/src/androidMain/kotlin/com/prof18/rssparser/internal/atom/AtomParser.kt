@@ -57,7 +57,9 @@ internal fun CoroutineScope.extractAtomContent(
 
                 //region Channel tags
                 xmlPullParser.contains(AtomKeyword.Icon) -> {
-                    channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
+                    if (insideChannel) {
+                        channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
+                    }
                 }
                 //endregion
 
@@ -110,6 +112,7 @@ internal fun CoroutineScope.extractAtomContent(
                         insideItem -> {
                             channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
                         }
+
                         insideChannel -> {
                             channelFactory.channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
                         }
@@ -137,11 +140,9 @@ internal fun CoroutineScope.extractAtomContent(
                 }
                 //region Mixed tags
                 xmlPullParser.contains(AtomKeyword.Title) -> {
-                    if (insideChannel) {
-                        when {
-                            insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
-                            else -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
-                        }
+                    when {
+                        insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
+                        insideChannel -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 

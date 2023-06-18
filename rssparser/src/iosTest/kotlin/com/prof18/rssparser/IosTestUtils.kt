@@ -16,3 +16,5 @@ internal actual fun readBinaryResource(
 
     return ParserInput(data!!)
 }
+
+internal actual val currentTarget = CurrentTarget.IOS

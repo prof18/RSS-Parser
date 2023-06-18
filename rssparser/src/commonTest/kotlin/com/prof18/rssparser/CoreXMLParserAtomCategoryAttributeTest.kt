@@ -18,7 +18,7 @@
 package com.prof18.rssparser
 
 class CoreXMLParserAtomCategoryAttributeTest : BaseXmlParserTest(
-    feedPath = "/feed-test-atom-category-attribute.xml",
+    feedPath = "feed-test-atom-category-attribute.xml",
     articleImage = "https://a.fsdn.com/sd/twitter_icon_large.png",
     channelTitle = "Slashdot",
     channelLink = "http://pubsubhubbub.appspot.com/",

@@ -1,7 +1,7 @@
 package com.prof18.rssparser
 
 class CoreXMLParserAtomExampleTest: BaseXmlParserTest(
-    feedPath = "/atom-test-example.xml",
+    feedPath = "atom-test-example.xml",
     channelTitle = "Example Feed",
     channelLink = "http://example.org/",
     channelDescription = "A subtitle.",
@@ -12,4 +12,9 @@ class CoreXMLParserAtomExampleTest: BaseXmlParserTest(
     articleLink = "http://example.org/2003/12/13/atom03.html",
     articlePubDate = "2003-12-13T18:30:02Z",
     articleDescription = "Some text.",
+    articleContent = if (currentTarget == CurrentTarget.JVM) {
+        "This is the entry content."
+    } else {
+        null
+    }
 )

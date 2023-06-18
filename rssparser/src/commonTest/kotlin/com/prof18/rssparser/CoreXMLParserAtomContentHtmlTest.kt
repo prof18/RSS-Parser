@@ -1,7 +1,7 @@
 package com.prof18.rssparser
 
 class CoreXMLParserAtomContentHtmlTest : BaseXmlParserTest(
-    feedPath = "/feed-test-atom-content-html.xml",
+    feedPath = "feed-test-atom-content-html.xml",
     channelTitle = "Jake Wharton",
     channelLink = "https://jakewharton.com/",
     channelLastBuildDate = "2023-04-28T20:00:30+00:00",
@@ -9,4 +9,9 @@ class CoreXMLParserAtomContentHtmlTest : BaseXmlParserTest(
     articlePubDate = "2021-11-11T00:00:00+00:00",
     articleLink = "https://code.cash.app/the-state-of-managing-state-with-compose",
     articleGuid = "https://jakewharton.com/the-state-of-managing-state-with-compose",
+    articleContent = if (currentTarget == CurrentTarget.JVM) {
+        "https://code.cash.app/the-state-of-managing-state-with-compose."
+    } else {
+        null
+    }
 )

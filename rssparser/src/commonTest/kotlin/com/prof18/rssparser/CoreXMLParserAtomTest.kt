@@ -3,7 +3,7 @@ package com.prof18.rssparser
 import com.prof18.rssparser.model.RssImage
 
 class CoreXMLParserAtomTest: BaseXmlParserTest(
-    feedPath = "/feed-atom-test.xml",
+    feedPath = "feed-atom-test.xml",
     channelTitle = "The Verge -  All Posts",
     channelLink = "https://www.theverge.com/",
     channelImage = RssImage(
