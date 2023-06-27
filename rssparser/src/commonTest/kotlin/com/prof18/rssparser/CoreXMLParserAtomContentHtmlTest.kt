@@ -9,9 +9,15 @@ class CoreXMLParserAtomContentHtmlTest : BaseXmlParserTest(
     articlePubDate = "2021-11-11T00:00:00+00:00",
     articleLink = "https://code.cash.app/the-state-of-managing-state-with-compose",
     articleGuid = "https://jakewharton.com/the-state-of-managing-state-with-compose",
-    articleContent = if (currentTarget == CurrentTarget.JVM) {
-        "https://code.cash.app/the-state-of-managing-state-with-compose."
-    } else {
-        null
+    articleContent = when (currentTarget) {
+        CurrentTarget.JVM -> {
+            "https://code.cash.app/the-state-of-managing-state-with-compose."
+        }
+        CurrentTarget.IOS -> {
+            "This post was published externally on Cash App Code Blog. Read it at"
+        }
+        else -> {
+            null
+        }
     }
 )

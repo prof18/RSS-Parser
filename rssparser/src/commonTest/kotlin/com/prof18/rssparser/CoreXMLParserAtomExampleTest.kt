@@ -12,9 +12,15 @@ class CoreXMLParserAtomExampleTest: BaseXmlParserTest(
     articleLink = "http://example.org/2003/12/13/atom03.html",
     articlePubDate = "2003-12-13T18:30:02Z",
     articleDescription = "Some text.",
-    articleContent = if (currentTarget == CurrentTarget.JVM) {
-        "This is the entry content."
-    } else {
-        null
+    articleContent = when (currentTarget) {
+        CurrentTarget.JVM -> {
+            "This is the entry content."
+        }
+        CurrentTarget.IOS -> {
+            ""
+        }
+        else -> {
+            null
+        }
     }
 )

@@ -7,12 +7,10 @@ import com.prof18.rssparser.internal.RSSKeyword
 import com.prof18.rssparser.model.RssChannel
 import org.xml.sax.Attributes
 
-class AtomFeedHandler : FeedHandler {
+internal class AtomFeedHandler : FeedHandler {
 
     private var isInsideItem = false
     private var isInsideChannel = true
-    private var isInsideChannelImage = false
-    private var isInsideItunesOwner = false
 
     private var channelFactory = ChannelFactory()
 

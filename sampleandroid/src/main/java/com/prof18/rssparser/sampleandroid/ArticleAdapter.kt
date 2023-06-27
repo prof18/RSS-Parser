@@ -27,9 +27,9 @@ import android.webkit.WebView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.sample.kotlin.R
-import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -76,10 +76,7 @@ class ArticleAdapter(private var articles: List<RssItem>) :
 
             title.text = article.title
 
-            Picasso.get()
-                .load(article.image)
-                .placeholder(R.drawable.placeholder)
-                .into(image)
+            image.load(article.image)
 
             pubDate.text = pubDateString
 
