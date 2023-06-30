@@ -51,7 +51,7 @@ private class SaxFeedHandler : DefaultHandler() {
         textBuilder.setLength(0)
 
         when (qName) {
-            RSSKeyword.Rss.value -> {
+            RssKeyword.Rss.value -> {
                 feedHandler = RssFeedHandler()
             }
             AtomKeyword.Atom.value -> {

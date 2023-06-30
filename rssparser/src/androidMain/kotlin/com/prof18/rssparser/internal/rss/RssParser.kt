@@ -18,7 +18,7 @@
 package com.prof18.rssparser.internal.rss
 
 import com.prof18.rssparser.internal.ChannelFactory
-import com.prof18.rssparser.internal.RSSKeyword
+import com.prof18.rssparser.internal.RssKeyword
 import com.prof18.rssparser.internal.attributeValue
 import com.prof18.rssparser.internal.contains
 import com.prof18.rssparser.internal.nextTrimmedText
@@ -48,51 +48,51 @@ internal fun CoroutineScope.extractRSSContent(
         when {
             eventType == XmlPullParser.START_TAG -> when {
                 // Entering conditions
-                xmlPullParser.contains(RSSKeyword.Channel.Channel) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Channel) -> {
                     insideChannel = true
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Item) -> {
+                xmlPullParser.contains(RssKeyword.Item.Item) -> {
                     insideItem = true
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.Owner) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.Owner) -> {
                     insideItunesOwner = true
                 }
 
                 //region Channel tags
-                xmlPullParser.contains(RSSKeyword.Channel.LastBuildDate) -> {
+                xmlPullParser.contains(RssKeyword.Channel.LastBuildDate) -> {
                     if (insideChannel) {
                         channelFactory.channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.UpdatePeriod) -> {
+                xmlPullParser.contains(RssKeyword.Channel.UpdatePeriod) -> {
                     if (insideChannel) {
                         channelFactory.channelBuilder.updatePeriod(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Url) -> {
+                xmlPullParser.contains(RssKeyword.Url) -> {
                     if (insideChannelImage) {
                         channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.Category) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.Category) -> {
                     if (insideChannel) {
-                        val category = xmlPullParser.attributeValue(RSSKeyword.Channel.Itunes.Text)
+                        val category = xmlPullParser.attributeValue(RssKeyword.Channel.Itunes.Text)
                         channelFactory.itunesChannelBuilder.addCategory(category)
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.Type) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.Type) -> {
                     if (insideChannel) {
                         channelFactory.itunesChannelBuilder.type(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.NewFeedUrl) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.NewFeedUrl) -> {
                     if (insideChannel) {
                         channelFactory.itunesChannelBuilder.newsFeedUrl(xmlPullParser.nextTrimmedText())
                     }
@@ -100,45 +100,45 @@ internal fun CoroutineScope.extractRSSContent(
                 //endregion
 
                 //region Item tags
-                xmlPullParser.contains(RSSKeyword.Item.Author) -> {
+                xmlPullParser.contains(RssKeyword.Item.Author) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Category) -> {
+                xmlPullParser.contains(RssKeyword.Item.Category) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Thumbnail) -> {
+                xmlPullParser.contains(RssKeyword.Item.Thumbnail) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.image(
-                            xmlPullParser.attributeValue(RSSKeyword.Url)
+                            xmlPullParser.attributeValue(RssKeyword.Url)
                         )
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.MediaContent) -> {
+                xmlPullParser.contains(RssKeyword.Item.MediaContent) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.image(
                             xmlPullParser.attributeValue(
-                                RSSKeyword.Url
+                                RssKeyword.Url
                             )
                         )
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Enclosure) -> {
+                xmlPullParser.contains(RssKeyword.Item.Enclosure) -> {
                     if (insideItem) {
-                        val type = xmlPullParser.attributeValue(RSSKeyword.Item.Type)
+                        val type = xmlPullParser.attributeValue(RssKeyword.Item.Type)
                         when {
                             type != null && type.contains("image") -> {
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.image(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.Url
+                                        RssKeyword.Url
                                     )
                                 )
                             }
@@ -147,7 +147,7 @@ internal fun CoroutineScope.extractRSSContent(
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.audioIfNull(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.Url
+                                        RssKeyword.Url
                                     )
                                 )
                             }
@@ -156,7 +156,7 @@ internal fun CoroutineScope.extractRSSContent(
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.videoIfNull(
                                     xmlPullParser.attributeValue(
-                                        RSSKeyword.Url
+                                        RssKeyword.Url
                                     )
                                 )
                             }
@@ -168,28 +168,28 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Source) -> {
+                xmlPullParser.contains(RssKeyword.Item.Source) -> {
                     if (insideItem) {
-                        val sourceUrl = xmlPullParser.attributeValue(RSSKeyword.Url)
+                        val sourceUrl = xmlPullParser.attributeValue(RssKeyword.Url)
                         val sourceName = xmlPullParser.nextText()
                         channelFactory.articleBuilder.sourceName(sourceName)
                         channelFactory.articleBuilder.sourceUrl(sourceUrl)
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Time) -> {
+                xmlPullParser.contains(RssKeyword.Item.Time) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Guid) -> {
+                xmlPullParser.contains(RssKeyword.Item.Guid) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Content) -> {
+                xmlPullParser.contains(RssKeyword.Item.Content) -> {
                     if (insideItem) {
                         val content = xmlPullParser.nextTrimmedText()
                         channelFactory.articleBuilder.content(content)
@@ -197,7 +197,7 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.PubDate) -> {
+                xmlPullParser.contains(RssKeyword.Item.PubDate) -> {
                     if (insideItem) {
                         val nextTokenType = xmlPullParser.next()
                         if (nextTokenType == XmlPullParser.TEXT) {
@@ -208,31 +208,31 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.News.Image) -> {
+                xmlPullParser.contains(RssKeyword.Item.News.Image) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.image(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Itunes.Episode) -> {
+                xmlPullParser.contains(RssKeyword.Item.Itunes.Episode) -> {
                     if (insideItem) {
                         channelFactory.itunesArticleBuilder.episode(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Itunes.EpisodeType) -> {
+                xmlPullParser.contains(RssKeyword.Item.Itunes.EpisodeType) -> {
                     if (insideItem) {
                         channelFactory.itunesArticleBuilder.episodeType(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Itunes.Season) -> {
+                xmlPullParser.contains(RssKeyword.Item.Itunes.Season) -> {
                     if (insideItem) {
                         channelFactory.itunesArticleBuilder.season(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Item.Comments) -> {
+                xmlPullParser.contains(RssKeyword.Item.Comments) -> {
                     if (insideItem) {
                         val url = xmlPullParser.nextTrimmedText()
                         channelFactory.articleBuilder.commentUrl(url)
@@ -241,13 +241,13 @@ internal fun CoroutineScope.extractRSSContent(
                 //endregion
 
                 //region Itunes Owner tags
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.OwnerName) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.OwnerName) -> {
                     if (insideItunesOwner) {
                         channelFactory.itunesOwnerBuilder.name(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Channel.Itunes.OwnerEmail) -> {
+                xmlPullParser.contains(RssKeyword.Channel.Itunes.OwnerEmail) -> {
                     if (insideItunesOwner) {
                         channelFactory.itunesOwnerBuilder.email(xmlPullParser.nextTrimmedText())
                     }
@@ -255,7 +255,7 @@ internal fun CoroutineScope.extractRSSContent(
                 //endregion
 
                 //region Mixed tags
-                xmlPullParser.contains(RSSKeyword.Image) -> when {
+                xmlPullParser.contains(RssKeyword.Image) -> when {
                     insideChannel && !insideItem -> insideChannelImage = true
                     insideItem -> {
                         xmlPullParser.next()
@@ -265,14 +265,14 @@ internal fun CoroutineScope.extractRSSContent(
                             channelFactory.articleBuilder.image(text)
                         } else {
                             xmlPullParser.next()
-                            if (xmlPullParser.contains(RSSKeyword.Link)) {
+                            if (xmlPullParser.contains(RssKeyword.Link)) {
                                 channelFactory.articleBuilder.image(xmlPullParser.nextTrimmedText())
                             }
                         }
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Title) -> {
+                xmlPullParser.contains(RssKeyword.Title) -> {
                     if (insideChannel) {
                         when {
                             insideChannelImage -> {
@@ -285,7 +285,7 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Link) -> {
+                xmlPullParser.contains(RssKeyword.Link) -> {
                     if (insideChannel) {
                         when {
                             insideChannelImage -> {
@@ -298,7 +298,7 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Description) -> {
+                xmlPullParser.contains(RssKeyword.Description) -> {
                     if (insideChannel) {
                         when {
                             insideItem -> {
@@ -316,17 +316,17 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Author) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Author) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.author(xmlPullParser.nextTrimmedText())
                     insideChannel -> channelFactory.itunesChannelBuilder.author(xmlPullParser.nextTrimmedText())
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Duration) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Duration) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.duration(xmlPullParser.nextTrimmedText())
                     insideChannel -> channelFactory.itunesChannelBuilder.duration(xmlPullParser.nextTrimmedText())
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Keywords) -> {
+                xmlPullParser.contains(RssKeyword.Itunes.Keywords) -> {
                     val keywords = xmlPullParser.nextTrimmedText()
                     when {
                         insideItem -> channelFactory.setArticleItunesKeywords(keywords)
@@ -334,31 +334,31 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Image) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Image) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.image(
                         xmlPullParser.attributeValue(
-                            RSSKeyword.Href
+                            RssKeyword.Href
                         )
                     )
 
                     insideChannel -> channelFactory.itunesChannelBuilder.image(
                         xmlPullParser.attributeValue(
-                            RSSKeyword.Href
+                            RssKeyword.Href
                         )
                     )
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Explicit) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Explicit) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.explicit(xmlPullParser.nextTrimmedText())
                     insideChannel -> channelFactory.itunesChannelBuilder.explicit(xmlPullParser.nextTrimmedText())
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Subtitle) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Subtitle) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.subtitle(xmlPullParser.nextTrimmedText())
                     insideChannel -> channelFactory.itunesChannelBuilder.subtitle(xmlPullParser.nextTrimmedText())
                 }
 
-                xmlPullParser.contains(RSSKeyword.Itunes.Summary) -> when {
+                xmlPullParser.contains(RssKeyword.Itunes.Summary) -> when {
                     insideItem -> channelFactory.itunesArticleBuilder.summary(xmlPullParser.nextTrimmedText())
                     insideChannel -> channelFactory.itunesChannelBuilder.summary(xmlPullParser.nextTrimmedText())
                 }
@@ -366,24 +366,24 @@ internal fun CoroutineScope.extractRSSContent(
             }
 
             // Exit conditions
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Item.Item) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.Item.Item) -> {
                 // The item is correctly parsed
                 insideItem = false
                 // Set data
                 channelFactory.buildArticle()
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Channel.Channel) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.Channel.Channel) -> {
                 // The channel is correctly parsed
                 insideChannel = false
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Image) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.Image) -> {
                 // The channel image is correctly parsed
                 insideChannelImage = false
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RSSKeyword.Channel.Itunes.Owner) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.Channel.Itunes.Owner) -> {
                 // The itunes owner is correctly parsed
                 channelFactory.buildItunesOwner()
                 insideItunesOwner = false

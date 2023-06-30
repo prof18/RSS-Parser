@@ -10,7 +10,6 @@ data class RssChannel(
     val items: List<RssItem>,
     val itunesChannelData: ItunesChannelData?
 ) {
-
     internal data class Builder(
         private var title: String? = null,
         private var link: String? = null,

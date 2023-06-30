@@ -3,7 +3,6 @@ package com.prof18.rssparser.internal.atom
 import com.prof18.rssparser.internal.AtomKeyword
 import com.prof18.rssparser.internal.ChannelFactory
 import com.prof18.rssparser.internal.FeedHandler
-import com.prof18.rssparser.internal.RSSKeyword
 import com.prof18.rssparser.model.RssChannel
 import org.xml.sax.Attributes
 

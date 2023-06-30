@@ -47,7 +47,7 @@ internal class AndroidXmlParser(
         var eventType = xmlPullParser.eventType
         while (eventType != XmlPullParser.END_DOCUMENT) {
             if (eventType == XmlPullParser.START_TAG) {
-                if (xmlPullParser.contains(RSSKeyword.Rss)) {
+                if (xmlPullParser.contains(RssKeyword.Rss)) {
                     rssChannel = extractRSSContent(xmlPullParser)
                 } else if (xmlPullParser.contains(AtomKeyword.Atom)) {
                     rssChannel = extractAtomContent(xmlPullParser)

@@ -6,7 +6,6 @@ data class RssImage(
     val link: String?,
     val description: String?
 ) {
-
     fun isNotEmpty(): Boolean {
         return !url.isNullOrBlank() || !link.isNullOrBlank()
     }

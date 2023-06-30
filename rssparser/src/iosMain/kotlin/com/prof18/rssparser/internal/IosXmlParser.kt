@@ -39,7 +39,7 @@ private class NSXMLParserDelegate(
     ) {
         when (didStartElement) {
 
-            RSSKeyword.Rss.value -> {
+            RssKeyword.Rss.value -> {
                 feedHandler = RssFeedHandler()
             }
 
