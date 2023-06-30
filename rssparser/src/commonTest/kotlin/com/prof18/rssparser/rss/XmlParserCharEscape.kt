@@ -1,5 +1,6 @@
-package com.prof18.rssparser
+package com.prof18.rssparser.rss
 
+import com.prof18.rssparser.BaseXmlParserTest
 import com.prof18.rssparser.model.RssImage
 
 class XmlParserCharEscape : BaseXmlParserTest(

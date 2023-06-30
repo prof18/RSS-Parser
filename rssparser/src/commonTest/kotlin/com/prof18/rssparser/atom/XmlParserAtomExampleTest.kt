@@ -1,6 +1,10 @@
-package com.prof18.rssparser
+package com.prof18.rssparser.atom
 
-class CoreXMLParserAtomExampleTest: BaseXmlParserTest(
+import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.CurrentTarget
+import com.prof18.rssparser.currentTarget
+
+class XmlParserAtomExampleTest: BaseXmlParserTest(
     feedPath = "atom-test-example.xml",
     channelTitle = "Example Feed",
     channelLink = "http://example.org/",

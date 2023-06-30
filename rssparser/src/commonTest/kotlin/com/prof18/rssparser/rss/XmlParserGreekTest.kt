@@ -1,4 +1,6 @@
-package com.prof18.rssparser
+package com.prof18.rssparser.rss
+
+import com.prof18.rssparser.BaseXmlParserTest
 
 class XmlParserGreekTest : BaseXmlParserTest(
     feedPath = "feed-test-greek.xml",

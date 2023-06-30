@@ -15,9 +15,11 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof18.rssparser.atom
 
-class CoreXMLParserAtomCategoryAttributeTest : BaseXmlParserTest(
+import com.prof18.rssparser.BaseXmlParserTest
+
+class XmlParserAtomCategoryAttributeTest : BaseXmlParserTest(
     feedPath = "feed-test-atom-category-attribute.xml",
     articleImage = "https://a.fsdn.com/sd/twitter_icon_large.png",
     channelTitle = "Slashdot",

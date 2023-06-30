@@ -15,7 +15,9 @@
 *
 */
 
-package com.prof18.rssparser
+package com.prof18.rssparser.rss
+
+import com.prof18.rssparser.BaseXmlParserTest
 
 class XmlParserStandardFeedTest : BaseXmlParserTest(
     feedPath = "feed-test.xml",
