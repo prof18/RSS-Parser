@@ -46,6 +46,7 @@ import com.prof18.rssparser.RssParser
 import com.prof18.rssparser.build
 import com.prof18.rssparser.sample.kotlin.R
 import com.prof18.rssparser.sampleandroid.util.AlertDialogHelper
+import okhttp3.OkHttpClient
 
 class MainActivity : AppCompatActivity() {
 
@@ -79,7 +80,10 @@ class MainActivity : AppCompatActivity() {
             // If you want to provide a custom charset (the default is utf-8):
             // .charset(Charset.forName("ISO-8859-7"))
             .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
- */           .build()
+ */
+            .build(
+                callFactory = OkHttpClient(),
+            )
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()
