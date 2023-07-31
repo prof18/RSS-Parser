@@ -8,6 +8,7 @@ internal sealed class AtomKeyword(val value: String) {
         object Href : AtomKeyword("href")
         object Rel : AtomKeyword("rel")
         object Edit : AtomKeyword("edit")
+        object Self : AtomKeyword("self")
     }
     object Subtitle : AtomKeyword("subtitle")
     object Updated: AtomKeyword("updated")

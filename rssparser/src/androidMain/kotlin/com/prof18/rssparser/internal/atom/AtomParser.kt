@@ -154,7 +154,7 @@ internal fun CoroutineScope.extractAtomContent(
                         val rel = xmlPullParser.attributeValue(
                             AtomKeyword.Link.Rel
                         )
-                        if (rel != AtomKeyword.Link.Edit.value) {
+                        if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
                             when {
                                 insideItem -> channelFactory.articleBuilder.link(href)
                                 else -> channelFactory.channelBuilder.link(href)

@@ -28,7 +28,7 @@ internal class AtomFeedHandler : FeedHandler {
             AtomKeyword.Link.value -> {
                 val href = attributes?.getValue(AtomKeyword.Link.Href.value)
                 val rel = attributes?.getValue(AtomKeyword.Link.Rel.value)
-                if (rel != AtomKeyword.Link.Edit.value) {
+                if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
                     when {
                         isInsideItem -> channelFactory.articleBuilder.link(href)
                         else -> channelFactory.channelBuilder.link(href)
