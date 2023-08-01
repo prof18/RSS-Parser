@@ -12,7 +12,7 @@ public final class com/prof18/rssparser/RssParserKt {
 	public static synthetic fun build$default (Lcom/prof18/rssparser/RssParser$Companion;Lokhttp3/Call$Factory;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof18/rssparser/RssParser;
 }
 
-public final class com/prof18/rssparser/model/HTTPException : java/lang/Exception {
+public final class com/prof18/rssparser/model/HTTPException : java/lang/Throwable {
 	public fun <init> (ILjava/lang/String;)V
 	public final fun component1 ()I
 	public final fun component2 ()Ljava/lang/String;
