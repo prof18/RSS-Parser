@@ -1,15 +1,17 @@
 public final class com/prof18/rssparser/RssParser {
-	public static final field Companion Lcom/prof18/rssparser/RssParser$Companion;
 	public final fun getRssChannel (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun parse (Ljava/lang/String;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 }
 
-public final class com/prof18/rssparser/RssParser$Companion {
+public final class com/prof18/rssparser/RssParserBuilder : com/prof18/rssparser/RssParser$Builder {
+	public fun <init> ()V
+	public fun <init> (Lokhttp3/Call$Factory;Ljava/nio/charset/Charset;)V
+	public synthetic fun <init> (Lokhttp3/Call$Factory;Ljava/nio/charset/Charset;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun build ()Lcom/prof18/rssparser/RssParser;
 }
 
-public final class com/prof18/rssparser/RssParserKt {
-	public static final fun build (Lcom/prof18/rssparser/RssParser$Companion;Lokhttp3/Call$Factory;Ljava/nio/charset/Charset;)Lcom/prof18/rssparser/RssParser;
-	public static synthetic fun build$default (Lcom/prof18/rssparser/RssParser$Companion;Lokhttp3/Call$Factory;Ljava/nio/charset/Charset;ILjava/lang/Object;)Lcom/prof18/rssparser/RssParser;
+public final class com/prof18/rssparser/RssParserBuilderKt {
+	public static final fun RssParser ()Lcom/prof18/rssparser/RssParser;
 }
 
 public final class com/prof18/rssparser/model/HTTPException : java/lang/Throwable {

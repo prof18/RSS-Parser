@@ -16,6 +16,13 @@ class RssParser internal constructor(
     private val coroutineContext: CoroutineContext =
         SupervisorJob() + Dispatchers.Default
 
+    internal interface Builder {
+        /**
+         * Creates a [RssParser] object
+         */
+        fun build(): RssParser
+    }
+
     /**
      * Download and parses a Rss feed from an [url] and returns a [RssChannel].
      */
@@ -31,6 +38,11 @@ class RssParser internal constructor(
         val parserInput = xmlFetcher.generateParserInputFromString(rawRssFeed)
         return@withContext xmlParser.parseXML(parserInput)
     }
-
-    companion object
 }
+
+/**
+ * Returns a default [RssParser] instance.
+ *
+ * Check the platform specific RssParserBuilder for details on the default behaviour.
+ */
+expect fun RssParser(): RssParser

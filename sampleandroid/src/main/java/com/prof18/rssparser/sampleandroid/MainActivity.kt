@@ -42,16 +42,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
-import com.prof18.rssparser.RssParser
-import com.prof18.rssparser.build
 import com.prof18.rssparser.sample.kotlin.R
 import com.prof18.rssparser.sampleandroid.util.AlertDialogHelper
-import okhttp3.OkHttpClient
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: ArticleAdapter
-    private lateinit var parser: RssParser
 
     private val viewModel: MainViewModel by viewModels()
 
@@ -74,22 +70,11 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        // TODO
-        parser = RssParser/*.Builder()
-            .context(this)
-            // If you want to provide a custom charset (the default is utf-8):
-            // .charset(Charset.forName("ISO-8859-7"))
-            .cacheExpirationMillis(24L * 60L * 60L * 100L) // one day
- */
-            .build(
-                callFactory = OkHttpClient(),
-            )
-
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.setHasFixedSize(true)
 
-        viewModel.rssChannel.observe(this, { channel ->
+        viewModel.rssChannel.observe(this) { channel ->
             if (channel != null) {
                 if (channel.title != null) {
                     title = channel.title
@@ -101,21 +86,21 @@ class MainActivity : AppCompatActivity() {
                 swipeLayout.isRefreshing = false
             }
 
-        })
+        }
 
-        viewModel.snackbar.observe(this, { value ->
+        viewModel.snackbar.observe(this) { value ->
             value?.let {
                 Snackbar.make(rootLayout, value, Snackbar.LENGTH_LONG).show()
                 viewModel.onSnackbarShowed()
             }
-        })
+        }
 
         swipeLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark)
         swipeLayout.canChildScrollUp()
         swipeLayout.setOnRefreshListener {
             adapter.clearArticles()
             swipeLayout.isRefreshing = true
-            viewModel.fetchFeed(parser)
+            viewModel.fetchFeed()
         }
 
         if (!isOnline()) {
@@ -130,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             val alert = builder.create()
             alert.show()
         } else if (isOnline()) {
-            viewModel.fetchFeed(parser)
+            viewModel.fetchFeed()
         }
     }
 
@@ -146,14 +131,20 @@ class MainActivity : AppCompatActivity() {
         if (id == R.id.action_settings) {
             val alertDialog = AlertDialog.Builder(this@MainActivity).create()
             alertDialog.setTitle(R.string.app_name)
-            alertDialog.setMessage(Html.fromHtml(this@MainActivity.getString(R.string.info_text) +
-                " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
-                this@MainActivity.getString(R.string.author)))
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK"
+            alertDialog.setMessage(
+                Html.fromHtml(
+                    this@MainActivity.getString(R.string.info_text) +
+                            " <a href='http://github.com/prof18/RSS-Parser'>GitHub.</a>" +
+                            this@MainActivity.getString(R.string.author)
+                )
+            )
+            alertDialog.setButton(
+                AlertDialog.BUTTON_NEUTRAL, "OK"
             ) { dialog, _ -> dialog.dismiss() }
             alertDialog.show()
 
-            (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod = LinkMovementMethod.getInstance()
+            (alertDialog.findViewById<View>(android.R.id.message) as TextView).movementMethod =
+                LinkMovementMethod.getInstance()
         } else if (id == R.id.action_raw_parser) {
             AlertDialogHelper(
                 title = R.string.alert_raw_parser_title,

@@ -21,9 +21,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.RssParser
-import com.prof18.rssparser.build
+import com.prof18.rssparser.RssParserBuilder
+import com.prof18.rssparser.model.RssChannel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -49,7 +49,11 @@ class MainViewModel : ViewModel() {
         _snackbar.value = null
     }
 
-    fun fetchFeed(parser: RssParser) {
+    fun fetchFeed() {
+        val parser = RssParserBuilder(
+            callFactory = OkHttpClient(),
+        ).build()
+
         viewModelScope.launch {
             try {
                 val channel = parser.getRssChannel(url)
@@ -63,7 +67,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun fetchForUrlAndParseRawData(url: String) {
-        val parser = RssParser.build()
+        val parser = RssParserBuilder().build()
 
         viewModelScope.launch(Dispatchers.IO) {
             val request = Request.Builder()
