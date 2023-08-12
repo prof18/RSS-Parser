@@ -1,14 +1,8 @@
 name: Publish
 
-# TODO: restore, just for testing dev versions
-#on:
-#  release:
-#    # We'll run this workflow when a new GitHub release is created
-#    types: [released]
 on:
-  push:
-    branches:
-      - 'multiplatform-support'
+  release:
+    types: [released]
 
 jobs:
   build:
