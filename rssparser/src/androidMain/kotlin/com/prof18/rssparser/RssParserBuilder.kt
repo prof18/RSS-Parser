@@ -33,7 +33,6 @@ class RssParserBuilder(
             ),
         )
     }
-
 }
 
 actual fun RssParser(): RssParser = RssParserBuilder().build()
