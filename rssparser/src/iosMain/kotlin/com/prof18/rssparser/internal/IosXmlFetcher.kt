@@ -1,6 +1,9 @@
+@file:OptIn(BetaInteropApi::class)
+
 package com.prof18.rssparser.internal
 
 import com.prof18.rssparser.model.HTTPException
+import kotlinx.cinterop.BetaInteropApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.suspendCancellableCoroutine

@@ -13,7 +13,7 @@ kotlin {
         }
     }
 
-    android {
+    androidTarget {
         publishAllLibraryVariants()
         compilations.all {
             kotlinOptions {
@@ -73,7 +73,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.android)
             }
         }
-        val androidTest by getting {
+        val androidUnitTest by getting {
             dependsOn(commonJvmAndroidTest)
 
             dependencies {
@@ -122,7 +122,6 @@ android {
 
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()
-        targetSdk = Integer.parseInt(libs.versions.android.target.sdk.get())
     }
 
     testOptions.unitTests {

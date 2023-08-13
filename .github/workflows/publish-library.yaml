@@ -1,8 +1,15 @@
 name: Publish
 
+#on:
+#  release:
+#    types: [released]
+
+# TODO: delete
 on:
-  release:
-    types: [released]
+  push:
+    branches:
+      - 'multiplatform-support'
+
 
 jobs:
   build:
