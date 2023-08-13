@@ -138,7 +138,7 @@ RssParser is available on the Android, iOS and JVM platforms and it's using [Cor
 
 ### Creating an RssParser instance
 
-To interact with the library, it's necessary first to create an instance of `RssParser`
+An `RssParser` instance is the entry point of the library. 
 
 It's possible to create an instance of `RssParser` directly in the common code, without having to pass any platform-specific dependencies. 
 
