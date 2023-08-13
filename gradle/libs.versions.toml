@@ -7,7 +7,7 @@ kotlin = "1.9.0"
 library-version-name = "6.0.0-alpha04"
 
 # Library dependencies
-com-squareup-okhttp3 = "4.11.0"
+com-squareup-okhttp3 = "4.10.0"
 com-vanniktech-maven-publish="0.22.0"
 org-robolectric = "4.9"
 binary-compatibility-validator = "0.13.2"
