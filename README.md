@@ -53,7 +53,7 @@ If you are in an Android-only project, simply add the dependency:
 ```kotlin
 dependencies {
     // ...
-    implementation 'com.prof18.rssparser:rssparser:<latest-version>'
+    implementation("com.prof18.rssparser:rssparser:<latest-version>")
 }
 ```
 
@@ -134,7 +134,7 @@ Items support the following attributes:
 
 ## Usage
 
-RssParser is available on the Android, iOS and JVM platforms and it's using [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) for all the asynchronous work.
+RssParser uses [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) for all the asynchronous work.
 
 ### Creating an RssParser instance
 

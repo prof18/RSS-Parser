@@ -27,7 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive
 import org.xmlpull.v1.XmlPullParser
 
-
 internal fun CoroutineScope.extractRSSContent(
     xmlPullParser: XmlPullParser,
 ): RssChannel {
