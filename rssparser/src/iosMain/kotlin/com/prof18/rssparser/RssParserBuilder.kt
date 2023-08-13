@@ -6,10 +6,10 @@ import kotlinx.coroutines.Dispatchers
 import platform.Foundation.NSURLSession
 
 /**
- * A Builder that creates a new instance of [RssParser]
+ * A builder that creates new instances of [RssParser]
  *
- * @property nsUrlSession A custom [NSURLSession] that can be provided by outside.
- *  If not provided, it will be created for you.
+ * @property nsUrlSession A custom [NSURLSession] that can be provided by the caller.
+ *  If not provided, the created `RssParser` will use the shared session.
  */
 class RssParserBuilder(
     private val nsUrlSession: NSURLSession? = null,

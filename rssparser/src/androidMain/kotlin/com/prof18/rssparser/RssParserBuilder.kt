@@ -12,9 +12,9 @@ import java.nio.charset.Charset
  * A Builder that creates a new instance of [RssParser]
  *
  * @property callFactory A custom [OkHttpClient] that can be provided by outside.
- *  If not provided, it will be created for you.
- * @property charset The [Charset] of the RSS feed. The field is optional; if nothing is provided,
- *  it will be inferred from the feed
+ *  If not provided, the created `RssParser` will use default one.
+ * @property charset The [Charset] of the RSS feed. This field is optional. If nothing is provided,
+ *  it will be inferred from the feed.
  */
 class RssParserBuilder(
     private val callFactory: Call.Factory? = null,

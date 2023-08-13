@@ -35,7 +35,7 @@ internal class ChannelFactory {
     }
 
     /**
-     * Finds the first img tag and get the src as featured image
+     * Finds the first img tag and gets the src as the featured image.
      *
      * @param content The content in which to search for the tag
      * @return The url, if there is one

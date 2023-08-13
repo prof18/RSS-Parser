@@ -24,7 +24,7 @@ class RssParser internal constructor(
     }
 
     /**
-     * Download and parses a Rss feed from an [url] and returns a [RssChannel].
+     * Downloads and parses an RSS feed from an [url] and returns an [RssChannel].
      */
     suspend fun getRssChannel(url: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlFetcher.fetchXml(url)
@@ -32,7 +32,7 @@ class RssParser internal constructor(
     }
 
     /**
-     * Parses a Rss feed provided by [rawRssFeed] and returns a [RssChannel]
+     * Parses an RSS feed provided by [rawRssFeed] and returns an [RssChannel]
      */
     suspend fun parse(rawRssFeed: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlFetcher.generateParserInputFromString(rawRssFeed)
