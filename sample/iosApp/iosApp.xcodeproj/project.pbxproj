@@ -15,6 +15,9 @@
 		CC02D3B229C7B15100BAC7D7 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */; };
 		CC02D3B429C7B16600BAC7D7 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */; };
 		CC02D3B629C7B19600BAC7D7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */; };
+		CC48EFBE2A8A20E800C67F13 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBD2A8A20E800C67F13 /* Route.swift */; };
+		CC48EFC02A8A211C00C67F13 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */; };
+		CC48EFC42A8A21C000C67F13 /* CheckerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +44,9 @@
 		CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
 		CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CC48EFBD2A8A20E800C67F13 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +97,9 @@
 				CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */,
 				CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */,
 				CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */,
+				CC48EFBD2A8A20E800C67F13 /* Route.swift */,
+				CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */,
+				CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -194,11 +203,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC48EFC02A8A211C00C67F13 /* MainScreen.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				CC48EFC42A8A21C000C67F13 /* CheckerScreen.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				CC02D3B029C7AA6000BAC7D7 /* MainViewModel.swift in Sources */,
 				CC02D3B229C7B15100BAC7D7 /* ErrorView.swift in Sources */,
 				CC02D3B429C7B16600BAC7D7 /* ImageLoadingView.swift in Sources */,
+				CC48EFBE2A8A20E800C67F13 /* Route.swift in Sources */,
 				CC02D3B629C7B19600BAC7D7 /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,7 +347,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -365,7 +377,7 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
