@@ -198,7 +198,7 @@ Version 6 of the library introduced the following breaking changes:
 - `com.prof.rssparser.Parser.Builder` has been moved and renamed to `com.prof18.rssparser.RssParserBuilder`;
 - `com.prof.rssparser.Channel` has been moved and renamed to `com.prof18.rssparser.model.RssChannel`;
 - `com.prof.rssparser.Article` has been moved and renamed to `com.prof18.rssparser.model.RssItem`;
-- `com.prof.rssparser.HTTPException` has been moved to `com.prof18.rssparser.model.HTTPException`;
+- `com.prof.rssparser.HTTPException` has been moved and renamed to `com.prof18.rssparser.exception.HttpException`;
 - `com.prof.rssparser.Image` has been moved and renamed to `com.prof18.rssparser.RssImage`;
 - `com.prof.rssparser.ItunesOwner` has been moved to `com.prof18.rssparser.model.ItunesOwner`;
 - `com.prof.rssparser.ItunesArticleData` has been moved and renamed to `com.prof18.rssparser.model.ItunesItemData`;

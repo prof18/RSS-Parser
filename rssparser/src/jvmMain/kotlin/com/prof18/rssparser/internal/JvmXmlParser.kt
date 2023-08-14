@@ -1,5 +1,6 @@
 package com.prof18.rssparser.internal
 
+import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.AtomFeedHandler
 import com.prof18.rssparser.internal.rss.RssFeedHandler
 import com.prof18.rssparser.model.RssChannel
@@ -8,6 +9,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.internal.closeQuietly
 import org.xml.sax.Attributes
 import org.xml.sax.InputSource
+import org.xml.sax.SAXParseException
 import org.xml.sax.helpers.DefaultHandler
 import java.nio.charset.Charset
 import javax.xml.parsers.SAXParserFactory
@@ -17,21 +19,28 @@ internal class JvmXmlParser(
     private val dispatcher: CoroutineDispatcher,
 ) : XmlParser {
     override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
-        val parser = SAXParserFactory.newInstance().newSAXParser()
-        val handler = SaxFeedHandler()
+        try {
+            val parser = SAXParserFactory.newInstance().newSAXParser()
+            val handler = SaxFeedHandler()
 
-        if (charset != null) {
-            val inputSource = InputSource(input.inputStream).apply {
-                encoding = charset.toString()
+            if (charset != null) {
+                val inputSource = InputSource(input.inputStream).apply {
+                    encoding = charset.toString()
+                }
+                parser.parse(inputSource, handler)
+            } else {
+                parser.parse(input.inputStream, handler)
             }
-            parser.parse(inputSource, handler)
-        } else {
-            parser.parse(input.inputStream, handler)
-        }
 
-        val channel = handler.getChannel()
-        input.inputStream.closeQuietly()
-        return@withContext channel
+            return@withContext handler.getChannel()
+        } catch (exception: SAXParseException) {
+            throw RssParsingException(
+                message = "Something went wrong during the parsing of the feed. Please double check if the XML is valid",
+                cause = exception
+            )
+        } finally {
+            input.inputStream.closeQuietly()
+        }
     }
 }
 

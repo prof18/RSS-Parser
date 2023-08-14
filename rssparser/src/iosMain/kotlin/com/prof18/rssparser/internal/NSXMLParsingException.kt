@@ -1,8 +1,8 @@
-package com.prof18.rssparser
+package com.prof18.rssparser.internal
 
 import platform.Foundation.NSError
 
-data class ParsingException(
+internal data class NSXMLParsingException(
     val nsError: NSError,
     val failureReason: String?,
     val recoverySuggestion: String?,

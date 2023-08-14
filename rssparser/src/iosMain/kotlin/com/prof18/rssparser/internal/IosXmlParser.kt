@@ -1,6 +1,6 @@
 package com.prof18.rssparser.internal
 
-import com.prof18.rssparser.ParsingException
+import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.AtomFeedHandler
 import com.prof18.rssparser.internal.rss.RssFeedHandler
 import com.prof18.rssparser.model.RssChannel
@@ -14,7 +14,6 @@ import platform.Foundation.NSXMLParserDelegateProtocol
 import platform.darwin.NSObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 internal class IosXmlParser(
     private val dispatcher: CoroutineDispatcher,
@@ -29,7 +28,11 @@ internal class IosXmlParser(
                         continuation.resume(rssChannel)
                     },
                     onError = { exception ->
-                        continuation.resumeWithException(exception)
+                        val error = RssParsingException(
+                            message = "Something went wrong during the parsing of the feed. Please if the XML is valid",
+                            cause = exception
+                        )
+                        continuation.resumeWithException(error)
                     }
                 )
             }
@@ -44,7 +47,7 @@ internal class IosXmlParser(
 
 private class NSXMLParserDelegate(
     private val onEnd: (RssChannel) -> Unit,
-    private val onError: (ParsingException) -> Unit,
+    private val onError: (NSXMLParsingException) -> Unit,
 ) : NSObject(), NSXMLParserDelegateProtocol {
 
     private var feedHandler: FeedHandler? = null
@@ -91,12 +94,12 @@ private class NSXMLParserDelegate(
     }
 
     override fun parser(parser: NSXMLParser, parseErrorOccurred: NSError) {
-        val parsingException = ParsingException(
+        val NSXMLParsingException = NSXMLParsingException(
             nsError = parseErrorOccurred,
             message = parseErrorOccurred.localizedDescription,
             failureReason = parseErrorOccurred.localizedFailureReason,
             recoverySuggestion = parseErrorOccurred.localizedRecoverySuggestion,
         )
-        onError(parsingException)
+        onError(NSXMLParsingException)
     }
 }

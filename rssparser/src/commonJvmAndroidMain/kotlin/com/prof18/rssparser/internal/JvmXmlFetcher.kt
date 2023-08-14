@@ -1,6 +1,6 @@
 package com.prof18.rssparser.internal
 
-import com.prof18.rssparser.model.HTTPException
+import com.prof18.rssparser.exception.HttpException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
@@ -45,7 +45,7 @@ internal class JvmXmlFetcher(
                     val body = requireNotNull(response.body)
                     continuation.resume(body.byteStream())
                 } else {
-                    val exception = HTTPException(
+                    val exception = HttpException(
                         code = response.code,
                         message = response.message,
                     )
