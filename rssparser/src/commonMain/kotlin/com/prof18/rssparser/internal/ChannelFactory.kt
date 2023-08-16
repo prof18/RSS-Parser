@@ -42,15 +42,17 @@ internal class ChannelFactory {
      */
     fun setImageFromContent(content: String?) {
         try {
-            val urlRegex = Regex(pattern = "src\\s*=\\s*([\"'])(.+?)([\"'])")
+            val urlRegex = Regex(pattern = "https?:\\/\\/[^\\s<>\"]+\\.(?:jpg|jpeg|png|gif|bmp|webp)")
             content
                 ?.let{ urlRegex.find(it) }
                 ?.let {
-                    it.groupValues.getOrNull(2)?.trim()?.let { imgUrl ->
-                        imageUrlFromContent = imgUrl
+                    it.value.trim().let { imgUrl ->
+                        if (!imgUrl.contains(EMOJI_WEBSITE)) {
+                            imageUrlFromContent = imgUrl
+                        }
                     }
                 }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             // Do nothing, on iOS it could fail for too much recursion
         }
     }
@@ -84,5 +86,9 @@ internal class ChannelFactory {
         }
         channelBuilder.itunesChannelData(itunesChannelBuilder.build())
         return channelBuilder.build()
+    }
+
+    private companion object {
+        const val EMOJI_WEBSITE = "https://s.w.org/images/core/emoji"
     }
 }
