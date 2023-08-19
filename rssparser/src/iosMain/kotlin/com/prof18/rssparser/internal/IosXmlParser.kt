@@ -29,7 +29,7 @@ internal class IosXmlParser(
                     },
                     onError = { exception ->
                         val error = RssParsingException(
-                            message = "Something went wrong during the parsing of the feed. Please if the XML is valid",
+                            message = "Something went wrong during the parsing of the feed. Please check if the XML is valid",
                             cause = exception
                         )
                         continuation.resumeWithException(error)
