@@ -94,12 +94,12 @@ private class NSXMLParserDelegate(
     }
 
     override fun parser(parser: NSXMLParser, parseErrorOccurred: NSError) {
-        val NSXMLParsingException = NSXMLParsingException(
+        val nSXMLParsingException = NSXMLParsingException(
             nsError = parseErrorOccurred,
             message = parseErrorOccurred.localizedDescription,
             failureReason = parseErrorOccurred.localizedFailureReason,
             recoverySuggestion = parseErrorOccurred.localizedRecoverySuggestion,
         )
-        onError(NSXMLParsingException)
+        onError(nSXMLParsingException)
     }
 }
