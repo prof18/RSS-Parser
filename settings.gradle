@@ -7,14 +7,15 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
         maven {
-            url  "https://dl.bintray.com/kotlin/dokka"
+            url "https://dl.bintray.com/kotlin/dokka"
         }
     }
 }
 
-include ':rssparser', ':samplekotlin', ':samplejava'
+include ':rssparser', ':sampleandroid'
+include ':sample', 'sample:shared', 'sample:androidApp', 'sample:desktopApp'

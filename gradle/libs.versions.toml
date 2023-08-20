@@ -1,84 +1,79 @@
 [versions]
-android-gradle-plugin = "7.3.1"
+android-gradle-plugin = "7.4.2"
 android-compile-sdk = "33"
 android-min-sdk = "21"
 android-target-sdk = "33"
-kotlin = "1.7.20"
-library-version-code = "50004"
-library-version-name = "5.0.4"
+kotlin = "1.8.22"
+library-version-name = "6.0.0"
 
 # Library dependencies
-androidx-lifecycle-extensions = "2.2.0"
-androidx-room = "2.4.3"
-androidx-test-core = "1.4.0"
-androidx-test-ext-junit = "1.1.3"
-com-github-ben-manes-versions = "0.43.0"
-com-google-devtools-ksp = "1.7.20-1.0.8"
 com-squareup-okhttp3 = "4.10.0"
 com-vanniktech-maven-publish="0.22.0"
-io-mockk = "1.12.0"
-junit = "4.13.2"
-org-jetbrains-dokka = "1.7.10"
-org-jetbrains-kotlinx-coroutines = "1.6.4"
 org-robolectric = "4.9"
-binary-compatibility-validator = "0.12.1"
+binary-compatibility-validator = "0.13.2"
+coroutines = "1.7.3"
+com-github-ben-manes-versions = "0.43.0"
 
 # Sample dependencies
-androidx-activity = "1.5.1"
-androidx-appcompat = "1.5.0"
-androidx-arch-core = "2.1.0"
+androidx-activity = "1.7.1"
+androidx-appcompat = "1.6.1"
 androidx-cardview = "1.0.0"
 androidx-constraintlayout = "2.1.4"
-androidx-core = "1.8.0"
-androidx-lifecycle-runtime = "2.5.1"
-androidx-lifecycle-viewmodel-ktx = "2.5.1"
-androidx-recyclerview = "1.0.0"
+androidx-lifecycle-runtime = "2.6.1"
+androidx-lifecycle-viewmodel-ktx = "2.6.1"
+androidx-recyclerview = "1.3.0"
 androidx-swiperefreshlayout = "1.1.0"
-com-google-android-material = "1.6.1"
-com-squareup-picasso = "2.8"
+com-google-android-material = "1.9.0"
+compose-multiplatform = "1.4.3"
+io-coil = "2.2.2"
+androidx-lifecycle-extensions = "2.2.0"
+compose-compiler = "1.4.8"
+androidx-compose-bom = "2023.06.01"
+activity-compose = "1.7.2"
 
 [libraries]
 # Library dependencies
-androidx-arch-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidx-arch-core" }
-androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref="androidx-lifecycle-extensions" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
-androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "androidx-room" }
-androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-test-core" }
-com-android-tools-build-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
 com-squareup-okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "com-squareup-okhttp3" }
-io-mockk = { module = "io.mockk:mockk", version.ref = "io-mockk" }
-junit = { module = "junit:junit", version.ref = "junit" }
-org-jetbrains-dokka-gradle-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "org-jetbrains-dokka" }
-org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-org-jetbrains-kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-org-jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "org-jetbrains-kotlinx-coroutines" }
-org-jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "org-jetbrains-kotlinx-coroutines" }
-org-jetbrains-kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "org-jetbrains-kotlinx-coroutines" }
 org-robolectric = { module = "org.robolectric:robolectric", version.ref = "org-robolectric" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 # Sample dependencies
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "androidx-cardview" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref="androidx-lifecycle-extensions" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref="androidx-constraintlayout" }
-androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime", version.ref="androidx-lifecycle-runtime" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref="androidx-lifecycle-runtime" }
 androidx-lifecycle-viewmodel-ktx = {module=  "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref="androidx-lifecycle-viewmodel-ktx" }
 androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref="androidx-swiperefreshlayout" }
-androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-ext-junit" }
 com-google-android-material = { module = "com.google.android.material:material", version.ref = "com-google-android-material" }
-com-prof18-rssparser = { module = "com.prof18.rssparser:rssparser", version.ref = "library-version-name" }
-com-squareup-picasso = { module = "com.squareup.picasso:picasso", version.ref="com-squareup-picasso" }
+com-prof18-rssparser = { module = "com.prof18.rssparser:rssparser", version = "library-version-name" }
+io-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "io-coil" }
+io-coil = { module = "io.coil-kt:coil", version.ref = "io-coil" }
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
+androidx-compose-material = { module = "androidx.compose.material:material" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidx-compose-bom" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
-com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "com-github-ben-manes-versions" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "com-vanniktech-maven-publish" }
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+com-github-ben-manes-versions = { id = "com.github.ben-manes.versions", version.ref = "com-github-ben-manes-versions" }
+
+[bundles]
+compose = [
+    "androidx-activity-compose", "androidx-compose-foundation", "androidx-compose-material",
+    "androidx-compose-ui", "androidx-compose-ui-tooling-preview", "androidx-compose-ui-tooling",
+    "io-coil-compose"
+]

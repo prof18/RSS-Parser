@@ -4,13 +4,64 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-**RSS Parser** is an Android library to parse any RSS or Atom feed. With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed. 
+**RSS Parser** is a Kotlin Multiplatform library for parsing RSS and Atom feeds. It supports Android, iOS, and the JVM.
 
-As of April 2020, it's been downloaded more than 30,000 times from 125 different countries (among them, North Korea, Madagascar and even Panama 🌴).
+With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed.
 
-## ⚠️ Important Notice
+## Table of Contents
 
-The library artifacts have been moved to MavenCentral. The group id is changed from `com.prof.rssparser` to `com.prof18.rssparser`.
+- [Installation](#installation)
+- [Important Notices](#important-notices)
+    - [Artifact change](#artifact-change)
+    - [Breaking changes](#breaking-changes)
+- [Available data](#available-data)
+- [Usage](#usage)
+    - [Creating a RssParser instance](#creating-a-rssparser-instance)
+        - [Builder](#builder)
+    - [RSS Parsing from URL](#rss-parsing-from-url)
+    - [RSS Parsing from string](#rss-parsing-from-string)
+- [Migration from version 5](#migration-from-version-5)
+- [Sample project](#sample-project)
+- [Changelog](#changelog)
+- [License](#license)
+- [Apps using RSS Parser](#apps-using-rss-parser)
+
+## Installation
+
+RSS Parser is currently published to Maven Central, so add it to your project's repositories.
+
+```kotlin
+repositories {
+    mavenCentral()
+    // ...
+}
+```
+
+Then, add the dependency to your common source set's dependencies.
+
+```kotlin
+commonMain {
+    dependencies {
+        // ...
+        implementation("com.prof18.rssparser:rssparser:<latest-version>")
+    }
+}
+```
+
+If you are in an Android-only project, simply add the dependency:
+
+```kotlin
+dependencies {
+    // ...
+    implementation("com.prof18.rssparser:rssparser:<latest-version>")
+}
+```
+
+## Important Notices
+
+### Artifact change
+
+Since February 2022, the library artifacts have been moved to MavenCentral. The group ID changed from `com.prof.rssparser` to `com.prof18.rssparser`.
 Be sure to add the gradle dependency to your root `build.gradle` file.
 ```
 allprojects {
@@ -20,29 +71,24 @@ allprojects {
 }
 ```
 
-## Table of Contents
+### Breaking changes
 
-* [Available data](#available-data)
-* [Features](#features)
-  * [Caching](#caching)
-  * [RSS Parsing from string](rss-parsing-from-string)
-* [Installation](#installation)
-* [Usage](#usage)
-  * [Kotlin](#kotlin)
-  * [Java (deprecated)](#java)
-* [Sample app](#sample-app)
-* [Changelog](#changelog)
-* [License](#license)
-* [Apps using RSS Parser](#app-using-rss-parser)
+From version 6.0, RSSParser has become Multiplatform. This update brought some breaking changes:
+
+- Some class names and packages have been changed. Check out the [migration guide](#migration-from-version-5) for further info.
+- Caching of feeds is not supported anymore. After some consideration, I decided that the aim of this library is not meant to provide a caching solution for RSS feeds, but just to do the parsing. The user of the library should implement any caching/storing solutions their project requires.
+- Support for Java with the `OnTaskCompleted` and `onError` callbacks has been dropped.
+
+[Here](https://github.com/prof18/RSS-Parser/blob/version-5/README.md) you can find the README for version 5 of RSSParser.
 
 ## Available data
 
-The RSS channel resulting object provides you with the following data:
+The [`RssChannel` result object](https://github.com/prof18/RSS-Parser/blob/master/rssparser/src/commonMain/kotlin/com/prof18/rssparser/model/RssChannel.kt) provides the following data:
 
 - Title
 - Description
 - Link
-- Articles
+- Items
 - Image (Title, Url and Link)
 - Last build data
 - Update period
@@ -59,7 +105,7 @@ The RSS channel resulting object provides you with the following data:
   - Summary
   - Type
 
-Articles, on the other hand, support the following attributes:
+Items support the following attributes:
 
 - Title
 - Author
@@ -73,6 +119,7 @@ Articles, on the other hand, support the following attributes:
 - Source (name and URL)
 - GUID
 - Video
+- Comments URL
 - Itunes Data:
   - Author
   - Duration
@@ -83,172 +130,81 @@ Articles, on the other hand, support the following attributes:
   - Keywords
   - Subtitle
   - Summary
-
-## Features
-
-### Caching
-
-The library provides a caching layer to avoid wasting data with very long feeds. All you need to do is provide an expiration date. For more details, give a look to the [Usage section](#usage)
-
-⚠️ For the time being caching is only supported if you are using Kotlin.
-
-### RSS Parsing from string
-
-The library provides a way of simply parsing raw data from a string.
-
-## Installation
-
-The library is uploaded on MavenCentral, so you can easily add the dependency:
-
-```Gradle
-dependencies {
-  implementation 'com.prof18.rssparser:rssparser:<latest-version>'
-}
-```
+  - Season
 
 ## Usage
 
-### Kotlin
+RssParser uses [Coroutines](https://kotlinlang.org/docs/coroutines-overview.html) for all the asynchronous work.
 
-First of all, you have to create a `Parser` object with the Parser Builder. In the builder you can provided some custom and optional fields:
+### Creating an RssParser instance
 
-- A custom `OkHttpClient`; if not provided, the library will create one for you.
-- A custom Charset; if not provided, it will automatically inferred from the XML.
-- The Android Context, mandatory to make the caching layer work.
-- The cache expiration date in milliseconds, mandatory to make the caching layer work.
+An `RssParser` instance is the entry point of the library. 
 
-If you don't provide the Android Context and the cache expiration date, the library will continue working but without the caching feature.
-
-```Kotlin
-val parser = Parser.Builder()
-                .context(this)
-                .charset(Charset.forName("ISO-8859-7"))
-                .cacheExpirationMillis(24L * 60L * 60L * 1000L) // one day
-                .build()
-```
-
-The library uses the Kotlin Coroutines to retrieve, parse and cache the feed. So to start the process, you need to [launch](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html) the coroutine.
-
-```Kotlin
-
-//url of RSS feed
-private val url = "https://www.androidauthority.com/feed"
-
-viewModelScope.launch {
-    try {
-        val channel = parser.getChannel(url)
-        // Do something with your data
-    } catch (e: Exception) {
-        e.printStackTrace()
-        // Handle the exception
-    }
-}
-```
-
-For flushing the cache:
-
-```Kotlin
-parser.flushCache(url)
-```
-
-For simply parsing raw data:
-- A `suspend` function `Parser#parser(rawRssFeed)` which returns the channel.  
+It's possible to create an instance of `RssParser` directly in the common code, without having to pass any platform-specific dependencies. 
 
 ```kotlin
-// parser without any network or caching configuration
-val parser = Parser.Builder().build()
-
-viewModelScope.launch {
-    try {
-        val channel = parser.parse(raw)
-        // Do something with your data
-    } catch (e: Exception) {
-        e.printStackTrace()
-        // Handle the exception
-    }
-}
+val rssParser: RssParser = RssParser()
 ```
 
-You can give a look to the full Kotlin sample by clicking [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin)
+#### Builder
 
-### Java
+An `RssParser` instance can also be built with a platform-specific `RssParserBuilder`. Some custom and optional fields can be provided to the builder.
 
-Starting from the version 2.x, the library has been completely rewritten using Kotlin and the coroutines. However, the compatibility with Java has been preserved and the same code of the versions 1.x can still be used.
+**On Android and the JVM**, a custom `OkHttpClient` instance and a custom `Charset` can be provided. If an `OkHttpClient` instance is not provided, the library will create one. If no `Charset` is provided, it will automatically be inferred from the feed XML.
 
-⚠️ For the time being, the caching is not supported if you are using Java.
-
-If you are still using Java, this is the interface to use the library:
-
-```Java
-import com.prof.rssparser.Article;
-import com.prof.rssparser.OnTaskCompleted;
-import com.prof.rssparser.Parser;
-
-Parser parser = new Parser.Builder()
-        .charset(Charset.forName("ISO-8859-7"))
-        // .cacheExpirationMillis() and .context() not called because on Java side, caching is NOT supported
-        .build();
-        
-parser.onFinish(new OnTaskCompleted() {
-
-    //what to do when the parsing is done
-    @Override
-    public void onTaskCompleted(Channel channel) {
-        // Use the channel info
-    }
-
-    //what to do in case of error
-    @Override
-    public void onError(Exception e) {
-        // Handle the exception
-    }
-});
-parser.execute(urlString);
+```kotlin
+val builder = RssParserBuilder(
+    callFactory = OkHttpClient(),
+    charset = Charsets.UTF_8,
+)
+val rssParser = builder.build() 
 ```
 
-For parsing raw data there is a java compatible function which calls the listeners `OnTaskCompleted` and `onError` once done.
+**On iOS**, a custom `NSURLSession` instance can be provided. If an `NSURLSession` instance is not provided, the library will use the shared `NSURLSession`. 
 
-`Parser.parser(rawRssFeed, OnTaskCompleted)`
-
-
-The full Java sample is available [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
-
-#### Version 1.4.4 and below
-
-For older versions of the library, the interface is marginally different:
-
-```Java
-import com.prof.rssparser.Article;
-import com.prof.rssparser.Parser;
-
-//url of RSS feed
-String urlString = "http://www.androidcentral.com/feed";
-Parser parser = new Parser();
-parser.onFinish(new Parser.OnTaskCompleted() {
-    
-    @Override
-    public void onTaskCompleted(Channel channel) {
-      //what to do when the parsing is done
-    }
-
-    @Override
-    public void onError() {
-      //what to do in case of error
-    }
-});
-parser.execute(urlString);
+```kotlin
+val builder = RssParserBuilder(
+    nsUrlSession = NSURLSession(),
+)
+val rssParser = builder.build() 
 ```
 
-## Sample app
+### RSS Parsing from URL
+To parse an RSS feed from a URL, the suspending `getRssChannel` function can be used.
 
-I wrote a simple app that shows articles from Android Authority. If in the article's content there isn't an image, a placeholder will be loaded. 
+```kotlin
+val rssChannel: RssChannel = rssParser.getRssChannel("https://www.rssfeed.com")
+```
 
-<img src="https://github.com/prof18/RSS-Parser/blob/master/Screen.png" width="30%" height="30%">
+### RSS Parsing from string
 
-The sample is written both in Kotlin and Java. You can browse the Kotlin code [here](https://github.com/prof18/RSS-Parser/tree/master/samplekotlin) and the Java code [here](https://github.com/prof18/RSS-Parser/tree/master/samplejava)
-You can also download the <a href="https://github.com/prof18/RSS-Parser/blob/master/RSS%20Parser.apk"> apk file</a> to try it!
+To parse an RSS feed from an XML string, the suspending `parse` function can be used
 
-Please use the issues tracker only to report issues. If you have any kind of question you can ask it on [the blog post that I wrote](https://www.marcogomiero.com/posts/2017/rss-parser-library/)
+```kotlin
+val xmlString: String = "xml-string"
+val rssChannel: RssChannel = rssParser.parse(xmlString)
+```
+
+## Sample projects
+
+The repository contains two samples projects: a [multiplatform](/sample/) and an [Android](/sampleandroid/) project to showcase the usage in a multiplatform app and an Android one.
+
+## Migration from version 5
+
+Version 6 of the library introduced the following breaking changes:
+
+- The main package name has been changed from `com.prof.rssparser` to `com.prof18.rssparser`;
+- `com.prof.rssparser.Parser` has been moved and renamed to `com.prof18.rssparser.RssParser`;
+- `com.prof.rssparser.Parser.Builder` has been moved and renamed to `com.prof18.rssparser.RssParserBuilder`;
+- `com.prof.rssparser.Channel` has been moved and renamed to `com.prof18.rssparser.model.RssChannel`;
+- `com.prof.rssparser.Article` has been moved and renamed to `com.prof18.rssparser.model.RssItem`;
+- `com.prof.rssparser.HTTPException` has been moved and renamed to `com.prof18.rssparser.exception.HttpException`;
+- `com.prof.rssparser.Image` has been moved and renamed to `com.prof18.rssparser.RssImage`;
+- `com.prof.rssparser.ItunesOwner` has been moved to `com.prof18.rssparser.model.ItunesOwner`;
+- `com.prof.rssparser.ItunesArticleData` has been moved and renamed to `com.prof18.rssparser.model.ItunesItemData`;
+- `com.prof.rssparser.ItunesChannelData` has been moved to `com.prof18.rssparser.model.ItunesChannelData`;
+- `getChannel()` has been renamed to `getRssChannel()`;
+- `cancel()` is not available anymore, the cancellation can be handled by the caller.
 
 ## Changelog
 
@@ -263,27 +219,28 @@ From version 1.4.4 and above, the changelog is available in the [release section
 ## License
 
 ```
-   Copyright 2016-2020 Marco Gomiero
+Copyright 2016-2023 Marco Gomiero
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
 ## Apps using RSS Parser
 If you are using RSS Parser in your app and would like to be listed here, please open a pull request!
 
 <details>
-  <summary>List of Apps using RSS Parser</summary>
+    <summary>List of Apps using RSS Parser</summary>
 
-* [Your App Name](www.yourapplink.com)
+    * [FeedFlow](https://www.feedflow.com)
 
 </details>
+
