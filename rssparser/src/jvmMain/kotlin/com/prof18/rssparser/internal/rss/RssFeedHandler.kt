@@ -151,6 +151,10 @@ internal class RssFeedHandler : FeedHandler {
                         channelFactory.articleBuilder.image(text)
                     }
 
+                    RssKeyword.Item.Thumb.value -> {
+                        channelFactory.articleBuilder.image(text)
+                    }
+
                     RssKeyword.Item.Itunes.EpisodeType.value -> {
                         channelFactory.itunesArticleBuilder.episodeType(text)
                     }

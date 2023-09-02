@@ -49,6 +49,7 @@ internal sealed class RssKeyword(val value: String) {
         object Guid : RssKeyword("guid")
         object Source : RssKeyword("source")
         object Comments : RssKeyword("comments")
+        object Thumb: RssKeyword("thumb")
 
         object News {
             object Image : RssKeyword("News:Image")
