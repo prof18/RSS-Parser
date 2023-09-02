@@ -237,6 +237,13 @@ internal fun CoroutineScope.extractRSSContent(
                         channelFactory.articleBuilder.commentUrl(url)
                     }
                 }
+
+                xmlPullParser.contains(RssKeyword.Item.Thumb) -> {
+                    if (insideItem) {
+                        val imageUrl = xmlPullParser.nextTrimmedText()
+                        channelFactory.articleBuilder.image(imageUrl)
+                    }
+                }
                 //endregion
 
                 //region Itunes Owner tags

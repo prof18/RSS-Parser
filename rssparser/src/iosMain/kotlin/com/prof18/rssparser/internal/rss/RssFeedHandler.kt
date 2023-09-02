@@ -232,6 +232,9 @@ internal class RssFeedHandler : FeedHandler {
                 channelFactory.articleBuilder.image(
                     itemData[RssKeyword.Item.Enclosure.value]?.trim()
                 )
+                channelFactory.articleBuilder.image(
+                    itemData[RssKeyword.Item.Thumb.value]?.trim()
+                )
                 channelFactory.itunesArticleBuilder.episode(
                     itemData[RssKeyword.Item.Itunes.Episode.value]?.trim()
                 )
