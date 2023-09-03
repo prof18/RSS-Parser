@@ -70,6 +70,12 @@ private class NSXMLParserDelegate(
             }
 
             else -> {
+
+                if (feedHandler == null) {
+                    throw IllegalArgumentException(
+                        "The provided XML is not supported. Only RSS and Atom feeds are supported",
+                    )
+                }
                 feedHandler?.didStartElement(didStartElement, attributes)
             }
         }
