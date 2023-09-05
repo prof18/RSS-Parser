@@ -25,6 +25,7 @@ internal class IosXmlParser(
             val parser = NSXMLParser(stream).apply {
                 delegate = NSXMLParserDelegate(
                     onEnd = { rssChannel ->
+                        stream.close()
                         continuation.resume(rssChannel)
                     },
                     onError = { exception ->
@@ -32,6 +33,7 @@ internal class IosXmlParser(
                             message = "Something went wrong during the parsing of the feed. Please check if the XML is valid",
                             cause = exception
                         )
+                        stream.close()
                         continuation.resumeWithException(error)
                     }
                 )
@@ -40,6 +42,7 @@ internal class IosXmlParser(
 
             continuation.invokeOnCancellation {
                 parser.abortParsing()
+                stream.close()
             }
         }
     }
@@ -106,6 +109,7 @@ private class NSXMLParserDelegate(
             failureReason = parseErrorOccurred.localizedFailureReason,
             recoverySuggestion = parseErrorOccurred.localizedRecoverySuggestion,
         )
+        parser.abortParsing()
         onError(nSXMLParsingException)
     }
 }
