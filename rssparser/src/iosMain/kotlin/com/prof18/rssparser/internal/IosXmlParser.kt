@@ -20,24 +20,23 @@ internal class IosXmlParser(
 ) : XmlParser {
 
     override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
+        val stream = NSInputStream(input.data)
+        val parser = NSXMLParser(stream)
         suspendCancellableCoroutine { continuation ->
-            val stream = NSInputStream(input.data)
-            val parser = NSXMLParser(stream).apply {
-                delegate = NSXMLParserDelegate(
-                    onEnd = { rssChannel ->
-                        stream.close()
-                        continuation.resume(rssChannel)
-                    },
-                    onError = { exception ->
-                        val error = RssParsingException(
-                            message = "Something went wrong during the parsing of the feed. Please check if the XML is valid",
-                            cause = exception
-                        )
-                        stream.close()
-                        continuation.resumeWithException(error)
-                    }
-                )
-            }
+            parser.delegate = NSXMLParserDelegate(
+                onEnd = { rssChannel ->
+                    stream.close()
+                    continuation.resume(rssChannel)
+                },
+                onError = { exception ->
+                    val error = RssParsingException(
+                        message = "Something went wrong during the parsing of the feed. Please check if the XML is valid",
+                        cause = exception
+                    )
+                    stream.close()
+                    continuation.resumeWithException(error)
+                }
+            )
             parser.parse()
 
             continuation.invokeOnCancellation {
@@ -92,7 +91,7 @@ private class NSXMLParserDelegate(
         parser: NSXMLParser,
         didEndElement: String,
         namespaceURI: String?,
-        qualifiedName: String?
+        qualifiedName: String?,
     ) {
         feedHandler?.didEndElement(didEndElement)
     }
