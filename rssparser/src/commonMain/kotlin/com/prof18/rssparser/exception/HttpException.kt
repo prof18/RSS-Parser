@@ -9,4 +9,4 @@ package com.prof18.rssparser.exception
 data class HttpException(
     val code: Int,
     override val message: String?,
-) : Throwable()
+) : Exception()

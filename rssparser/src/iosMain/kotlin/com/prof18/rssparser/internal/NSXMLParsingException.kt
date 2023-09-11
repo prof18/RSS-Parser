@@ -7,4 +7,4 @@ internal data class NSXMLParsingException(
     val failureReason: String?,
     val recoverySuggestion: String?,
     override val message: String?,
-) : Throwable()
+) : Exception()

@@ -9,4 +9,4 @@ package com.prof18.rssparser.exception
 data class RssParsingException(
     override val message: String?,
     override val cause: Throwable?,
-) : Throwable()
+) : Exception()
