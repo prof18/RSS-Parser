@@ -241,6 +241,7 @@ If you are using RSS Parser in your app and would like to be listed here, please
     <summary>List of Apps using RSS Parser</summary>
 
     * [FeedFlow](https://www.feedflow.com)
+    * [ReLabs](https://github.com/theimpulson/ReLabs)
 
 </details>
 
