@@ -238,10 +238,10 @@ limitations under the License.
 If you are using RSS Parser in your app and would like to be listed here, please open a pull request!
 
 <details>
-    <summary>List of Apps using RSS Parser</summary>
+  <summary>List of Apps using RSS Parser</summary>
 
-    * [FeedFlow](https://www.feedflow.com)
-    * [ReLabs](https://github.com/theimpulson/ReLabs)
-
+* [FeedFlow](https://www.feedflow.dev)
+* [ReLabs](https://github.com/theimpulson/ReLabs)
+    
 </details>
 
