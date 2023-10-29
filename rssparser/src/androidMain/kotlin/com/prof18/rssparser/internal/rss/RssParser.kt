@@ -265,9 +265,9 @@ internal fun CoroutineScope.extractRSSContent(
                     insideChannel && !insideItem -> insideChannelImage = true
                     insideItem -> {
                         xmlPullParser.next()
-                        val text = xmlPullParser.text.trim()
+                        val text = xmlPullParser.text?.trim()
                         // Get the image text if it's not contained in another tag
-                        if (text.isNotEmpty()) {
+                        if (!text.isNullOrEmpty()) {
                             channelFactory.articleBuilder.image(text)
                         } else {
                             xmlPullParser.next()
