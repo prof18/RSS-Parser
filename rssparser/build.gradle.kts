@@ -13,7 +13,7 @@ kotlin {
         }
     }
 
-    android {
+    androidTarget {
         publishAllLibraryVariants()
         compilations.all {
             kotlinOptions {

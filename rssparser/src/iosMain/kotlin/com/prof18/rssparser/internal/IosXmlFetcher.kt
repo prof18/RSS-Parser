@@ -1,6 +1,7 @@
 package com.prof18.rssparser.internal
 
 import com.prof18.rssparser.exception.HttpException
+import kotlinx.cinterop.BetaInteropApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.Foundation.NSData
 import platform.Foundation.NSError
@@ -47,6 +48,7 @@ internal class IosXmlFetcher(
         task.resume()
     }
 
+    @OptIn(BetaInteropApi::class)
     override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
         val data = NSString.create(string = rawRssFeed).dataUsingEncoding(NSUTF8StringEncoding)
         return ParserInput(requireNotNull(data))
