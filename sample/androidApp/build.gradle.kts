@@ -5,11 +5,12 @@ plugins {
 
 android {
     namespace = "com.prof18.rssparser.sample.android"
-    compileSdk = 33
+    compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
     defaultConfig {
         applicationId = "com.prof18.rssparser.sample.android"
-        minSdk = 24
-        targetSdk = 33
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        targetSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
+
         versionCode = 1
         versionName = "1.0"
     }
