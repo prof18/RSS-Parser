@@ -4,10 +4,11 @@ import com.prof18.rssparser.internal.ParserInput
 import java.io.File
 import java.io.FileInputStream
 
-internal actual fun readBinaryResource(
+internal actual fun readFileFromResources(
     resourceName: String,
 ): ParserInput {
-    val file = File("$RESOURCES_PATH/$resourceName")
+    val path = System.getenv("TEST_RESOURCES_ROOT")
+    val file = File("$path/$resourceName")
     return ParserInput(
         inputStream = FileInputStream(file)
     )
