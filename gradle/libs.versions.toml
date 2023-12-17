@@ -12,7 +12,7 @@ com-vanniktech-maven-publish="0.22.0"
 org-robolectric = "4.11.1"
 binary-compatibility-validator = "0.13.2"
 coroutines = "1.7.3"
-com-github-ben-manes-versions = "0.43.0"
+com-github-ben-manes-versions = "0.50.0"
 
 # Sample dependencies
 androidx-activity = "1.8.1"
