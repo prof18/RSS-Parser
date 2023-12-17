@@ -17,6 +17,13 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Cache KMP tooling
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
       - uses: gradle/gradle-build-action@v2.4.2
         with:
           gradle-home-cache-cleanup: true
@@ -53,6 +60,13 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Cache KMP tooling
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
       - name: Build Android Sample
         run: ./gradlew :sample:androidApp:assembleRelease
 
@@ -72,6 +86,13 @@ jobs:
       - uses: gradle/gradle-build-action@v2.4.2
         with:
           gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Build Android Sample
         run: ./gradlew :sampleandroid:assembleRelease
@@ -93,6 +114,13 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Cache KMP tooling
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
       - name: Build Desktop App
         run: ./gradlew :sample:desktopApp:packageDistributionForCurrentOS
 
@@ -113,5 +141,12 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Cache KMP tooling
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
       - name: Build iOS Sample
-        run: xcodebuild -project sample/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 15 Pro' build
+        run: xcodebuild -project sample/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14 Pro' build
