@@ -7,15 +7,18 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-//    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
         maven {
-            url "https://dl.bintray.com/kotlin/dokka"
+            url = uri("https://dl.bintray.com/kotlin/")
         }
     }
 }
 
-include ':rssparser', ':sampleandroid'
-include ':sample', 'sample:shared', 'sample:androidApp', 'sample:desktopApp'
+include(":rssparser")
+include(":sampleandroid")
+include(":sample")
+include(":sample:shared")
+include(":sample:androidApp")
+include(":sample:desktopApp")

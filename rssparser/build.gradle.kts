@@ -30,12 +30,8 @@ kotlin {
 
     applyDefaultHierarchyTemplate()
 
-    tasks.withType(KotlinCompile::class).configureEach {
-        compilerOptions {
-            freeCompilerArgs.addAll("-Xexpect-actual-classes")
-        }
-
-        kotlinOptions.freeCompilerArgs += "-Xexpect-actual-classes"
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 
     sourceSets {
@@ -94,19 +90,6 @@ kotlin {
         }
     }
 }
-
-tasks.register<Copy>("copyIosTestResourcesArm64") {
-    from("src/commonTest/resources")
-    into("build/bin/iosSimulatorArm64/debugTest/resources")
-}
-
-tasks.register<Copy>("copyIosTestResourcesX64") {
-    from("src/commonTest/resources")
-    into("build/bin/iosX64/debugTest/resources")
-}
-
-tasks.findByName("iosX64Test")?.dependsOn("copyIosTestResourcesX64")
-tasks.findByName("iosSimulatorArm64Test")?.dependsOn("copyIosTestResourcesArm64")
 
 android {
     namespace = "com.prof18.rssparser"

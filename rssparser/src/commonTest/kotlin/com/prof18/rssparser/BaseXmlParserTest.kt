@@ -45,7 +45,7 @@ abstract class BaseXmlParserTest(
 
     @BeforeTest
     fun setUp() = runTest {
-        val input = readBinaryResource(feedPath)
+        val input = readFileFromResources(feedPath)
         channel = XmlParserFactory.createXmlParser().parseXML(input)
         article = channel.items[0]
     }
