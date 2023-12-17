@@ -15,7 +15,7 @@ coroutines = "1.7.3"
 com-github-ben-manes-versions = "0.43.0"
 
 # Sample dependencies
-androidx-activity = "1.8.1"
+androidx-activity = "1.8.2"
 androidx-appcompat = "1.6.1"
 androidx-cardview = "1.0.0"
 androidx-constraintlayout = "2.1.4"
