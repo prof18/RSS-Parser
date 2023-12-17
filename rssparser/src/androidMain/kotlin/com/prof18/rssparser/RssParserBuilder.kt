@@ -17,11 +17,11 @@ import java.nio.charset.Charset
  *  it will be inferred from the feed.
  */
 class RssParserBuilder(
-    private val callFactory: Call.Factory? = null,
+    private val callFactory: Call.Factory = OkHttpClient(),
     private val charset: Charset? = null,
 ): RssParser.Builder {
     override fun build(): RssParser {
-        val client = callFactory ?: OkHttpClient()
+        val client = callFactory
         return RssParser(
             xmlFetcher = JvmXmlFetcher(
                 callFactory = client,
