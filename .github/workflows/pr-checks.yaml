@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Test
-        run: ./gradlew :rssparser:check --no-daemon --stacktrace
+        run: ./gradlew :rssparser:check
 
       - name: (Fail-only) Bundle test reports
         if: failure()
