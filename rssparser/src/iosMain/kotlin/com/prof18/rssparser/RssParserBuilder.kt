@@ -12,12 +12,12 @@ import platform.Foundation.NSURLSession
  *  If not provided, the created `RssParser` will use the shared session.
  */
 class RssParserBuilder(
-    private val nsUrlSession: NSURLSession? = null,
+    private val nsUrlSession: NSURLSession = NSURLSession.sharedSession,
 ): RssParser.Builder {
     override fun build(): RssParser {
         return RssParser(
             xmlFetcher = IosXmlFetcher(
-                nsUrlSession = nsUrlSession ?: NSURLSession.sharedSession,
+                nsUrlSession = nsUrlSession,
             ),
             xmlParser = IosXmlParser(
                 Dispatchers.Default
