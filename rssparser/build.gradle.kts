@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
@@ -22,8 +24,19 @@ kotlin {
         }
     }
 
-    ios()
+    iosArm64()
+    iosX64()
     iosSimulatorArm64()
+
+    applyDefaultHierarchyTemplate()
+
+    tasks.withType(KotlinCompile::class).configureEach {
+        compilerOptions {
+            freeCompilerArgs.addAll("-Xexpect-actual-classes")
+        }
+
+        kotlinOptions.freeCompilerArgs += "-Xexpect-actual-classes"
+    }
 
     sourceSets {
         all {
@@ -32,22 +45,20 @@ kotlin {
             }
         }
 
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.kotlinx.coroutines.core)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-                implementation(libs.kotlinx.coroutines.test)
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
         }
 
+       commonTest.dependencies {
+           implementation(kotlin("test"))
+           implementation(kotlin("test-common"))
+           implementation(kotlin("test-annotations-common"))
+           implementation(libs.kotlinx.coroutines.test)
+        }
+
+
         val commonJvmAndroidMain by creating {
-            dependsOn(commonMain)
+            dependsOn(commonMain.get())
 
             dependencies {
                 api(libs.com.squareup.okhttp3)
@@ -55,24 +66,24 @@ kotlin {
         }
 
         val commonJvmAndroidTest by creating {
-            dependsOn(commonTest)
+            dependsOn(commonTest.get())
         }
 
-        val jvmMain by getting {
-            dependsOn(commonJvmAndroidMain)
-        }
-        val jvmTest by getting {
+        jvmMain.get().dependsOn(commonJvmAndroidMain)
+        jvmTest {
             dependsOn(commonJvmAndroidTest)
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
-        val androidMain by getting {
+
+        androidMain {
             dependsOn(commonJvmAndroidMain)
             dependencies {
                 implementation(libs.kotlinx.coroutines.android)
             }
         }
+
         val androidUnitTest by getting {
             dependsOn(commonJvmAndroidTest)
 
@@ -80,24 +91,6 @@ kotlin {
                 implementation(libs.org.robolectric)
                 implementation(kotlin("test-junit"))
             }
-        }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by getting {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        val iosSimulatorArm64Test by getting
-        val iosTest by getting {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }

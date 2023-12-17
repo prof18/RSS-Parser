@@ -45,3 +45,4 @@ captures/
 *.hprof
 
 
+!/renovate.json
