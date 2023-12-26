@@ -42,6 +42,7 @@ internal class AtomFeedHandler : FeedHandler {
         when {
             isInsideItem -> {
                 when (qName) {
+                    AtomKeyword.Entry.Published.value -> channelFactory.articleBuilder.pubDate(text)
                     AtomKeyword.Updated.value -> channelFactory.articleBuilder.pubDateIfNull(text)
                     AtomKeyword.Title.value -> channelFactory.articleBuilder.title(text)
                     AtomKeyword.Entry.Author.value -> channelFactory.articleBuilder.author(text)
