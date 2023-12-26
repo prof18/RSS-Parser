@@ -66,9 +66,9 @@ fun <T> AsyncImage(
 }
 
 sealed class ImageData<out T> {
-    object Loading : ImageData<Nothing>()
+    data object Loading : ImageData<Nothing>()
     data class Success<T>(val data: T) : ImageData<T>()
-    object Error : ImageData<Nothing>()
+    data object Error : ImageData<Nothing>()
 }
 
 fun loadImageBitmap(url: String): ImageBitmap =

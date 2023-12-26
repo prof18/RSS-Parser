@@ -1,64 +1,64 @@
 package com.prof18.rssparser.internal
 
 internal sealed class RssKeyword(val value: String) {
-    object Rss: RssKeyword("rss")
-    object Title : RssKeyword("title")
-    object Image : RssKeyword("image")
-    object Link : RssKeyword("link")
-    object Href : RssKeyword("href")
-    object Url : RssKeyword("url")
-    object Description : RssKeyword("description")
+    data object Rss: RssKeyword("rss")
+    data object Title : RssKeyword("title")
+    data object Image : RssKeyword("image")
+    data object Link : RssKeyword("link")
+    data object Href : RssKeyword("href")
+    data object Url : RssKeyword("url")
+    data object Description : RssKeyword("description")
 
     object Itunes {
-        object Author : RssKeyword("itunes:author")
-        object Duration : RssKeyword("itunes:duration")
-        object Keywords : RssKeyword("itunes:keywords")
-        object Image : RssKeyword("itunes:image")
-        object Explicit : RssKeyword("itunes:explicit")
-        object Subtitle : RssKeyword("itunes:subtitle")
-        object Summary : RssKeyword("itunes:summary")
+        data object Author : RssKeyword("itunes:author")
+        data object Duration : RssKeyword("itunes:duration")
+        data object Keywords : RssKeyword("itunes:keywords")
+        data object Image : RssKeyword("itunes:image")
+        data object Explicit : RssKeyword("itunes:explicit")
+        data object Subtitle : RssKeyword("itunes:subtitle")
+        data object Summary : RssKeyword("itunes:summary")
     }
 
     object Channel {
-        object Channel : RssKeyword("channel")
-        object UpdatePeriod : RssKeyword("sy:updatePeriod")
-        object LastBuildDate : RssKeyword("lastBuildDate")
+        data object Channel : RssKeyword("channel")
+        data object UpdatePeriod : RssKeyword("sy:updatePeriod")
+        data object LastBuildDate : RssKeyword("lastBuildDate")
 
         object Itunes {
-            object Category : RssKeyword("itunes:category")
-            object Owner : RssKeyword("itunes:owner")
-            object OwnerName : RssKeyword("itunes:name")
-            object OwnerEmail : RssKeyword("itunes:email")
-            object Type : RssKeyword("itunes:type")
-            object NewFeedUrl : RssKeyword("itunes:new-feed-url")
-            object Text : RssKeyword("text")
+            data object Category : RssKeyword("itunes:category")
+            data object Owner : RssKeyword("itunes:owner")
+            data object OwnerName : RssKeyword("itunes:name")
+            data object OwnerEmail : RssKeyword("itunes:email")
+            data object Type : RssKeyword("itunes:type")
+            data object NewFeedUrl : RssKeyword("itunes:new-feed-url")
+            data object Text : RssKeyword("text")
         }
     }
 
     object Item {
-        object Item : RssKeyword("item")
-        object Author : RssKeyword("dc:creator")
-        object Category : RssKeyword("category")
-        object Thumbnail : RssKeyword("media:thumbnail")
-        object MediaContent : RssKeyword("media:content")
-        object Enclosure : RssKeyword("enclosure")
-        object Content : RssKeyword("content:encoded")
-        object PubDate : RssKeyword("pubDate")
-        object Time : RssKeyword("time")
-        object Type : RssKeyword("type")
-        object Guid : RssKeyword("guid")
-        object Source : RssKeyword("source")
-        object Comments : RssKeyword("comments")
-        object Thumb: RssKeyword("thumb")
+        data object Item : RssKeyword("item")
+        data object Author : RssKeyword("dc:creator")
+        data object Category : RssKeyword("category")
+        data object Thumbnail : RssKeyword("media:thumbnail")
+        data object MediaContent : RssKeyword("media:content")
+        data object Enclosure : RssKeyword("enclosure")
+        data object Content : RssKeyword("content:encoded")
+        data object PubDate : RssKeyword("pubDate")
+        data object Time : RssKeyword("time")
+        data object Type : RssKeyword("type")
+        data object Guid : RssKeyword("guid")
+        data object Source : RssKeyword("source")
+        data object Comments : RssKeyword("comments")
+        data object Thumb: RssKeyword("thumb")
 
         object News {
-            object Image : RssKeyword("News:Image")
+            data object Image : RssKeyword("News:Image")
         }
 
         object Itunes {
-            object Episode : RssKeyword("itunes:episode")
-            object Season : RssKeyword("itunes:season")
-            object EpisodeType : RssKeyword("itunes:episodeType")
+            data object Episode : RssKeyword("itunes:episode")
+            data object Season : RssKeyword("itunes:season")
+            data object EpisodeType : RssKeyword("itunes:episodeType")
         }
     }
 }
