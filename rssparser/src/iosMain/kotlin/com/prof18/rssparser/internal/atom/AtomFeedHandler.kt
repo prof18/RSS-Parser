@@ -75,8 +75,13 @@ internal class AtomFeedHandler : FeedHandler {
             }
 
             AtomKeyword.Entry.Item.value -> {
-                channelFactory.articleBuilder.pubDateIfNull(
+                val pubDate = if (itemData[AtomKeyword.Entry.Published.value] != null) {
+                    itemData[AtomKeyword.Entry.Published.value]?.trim()
+                } else {
                     itemData[AtomKeyword.Updated.value]?.trim()
+                }
+                channelFactory.articleBuilder.pubDate(
+                    pubDate
                 )
                 channelFactory.articleBuilder.title(
                     itemData[AtomKeyword.Title.value]?.trim()
