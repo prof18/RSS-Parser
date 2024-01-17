@@ -25,7 +25,7 @@ jobs:
           gradle-home-cache-cleanup: true
 
       - name: Cache KMP tooling
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
@@ -64,7 +64,7 @@ jobs:
           gradle-home-cache-cleanup: true
 
       - name: Cache KMP tooling
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
@@ -91,7 +91,7 @@ jobs:
           gradle-home-cache-cleanup: true
 
       - name: Cache KMP tooling
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
@@ -118,7 +118,7 @@ jobs:
           gradle-home-cache-cleanup: true
 
       - name: Cache KMP tooling
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
@@ -145,7 +145,7 @@ jobs:
           gradle-home-cache-cleanup: true
 
       - name: Cache KMP tooling
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/.konan
