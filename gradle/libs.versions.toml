@@ -3,7 +3,7 @@ android-gradle-plugin = "8.2.0"
 android-compile-sdk = "34"
 android-min-sdk = "21"
 android-target-sdk = "34"
-kotlin = "1.9.21"
+kotlin = "1.9.23"
 library-version-name = "6.0.6"
 
 # Library dependencies
