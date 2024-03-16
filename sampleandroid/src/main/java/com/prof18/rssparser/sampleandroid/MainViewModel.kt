@@ -32,8 +32,8 @@ class MainViewModel : ViewModel() {
 
     private val url = "https://www.androidauthority.com/feed"
 
-    private val _snackbar = MutableLiveData<String>()
-    val snackbar: LiveData<String>
+    private val _snackbar = MutableLiveData<String?>()
+    val snackbar: LiveData<String?>
         get() = _snackbar
 
     private val _rssChannel = MutableLiveData<RssChannel>()
