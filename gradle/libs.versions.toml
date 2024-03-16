@@ -11,7 +11,7 @@ com-squareup-okhttp3 = "4.12.0"
 com-vanniktech-maven-publish="0.26.0"
 org-robolectric = "4.11.1"
 binary-compatibility-validator = "0.14.0"
-coroutines = "1.7.3"
+coroutines = "1.8.0"
 
 # Sample dependencies
 androidx-activity = "1.8.2"
