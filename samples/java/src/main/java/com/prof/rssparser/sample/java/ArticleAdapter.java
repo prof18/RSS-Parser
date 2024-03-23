@@ -90,11 +90,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
         viewHolder.title.setText(currentArticle.getTitle());
 
-//        Picasso.get()
-//                .load(currentArticle.getImage())
-//                .placeholder(R.drawable.placeholder)
-//                .into(viewHolder.image);
-
         viewHolder.pubDate.setText(pubDateString);
 
         StringBuilder categories = new StringBuilder();
@@ -148,7 +143,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView pubDate;
-        ImageView image;
         TextView category;
 
         public ViewHolder(View itemView) {
@@ -156,7 +150,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             super(itemView);
             title = itemView.findViewById(R.id.title);
             pubDate = itemView.findViewById(R.id.pubDate);
-            image = itemView.findViewById(R.id.image);
             category = itemView.findViewById(R.id.categories);
         }
     }

@@ -17,6 +17,8 @@
 
 package com.prof.rssparser.sample.java;
 
+import static com.prof.rssparser.sample.java.CoroutineBridgeKt.parseFeed;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -52,11 +54,9 @@ public class MainViewModel extends ViewModel {
     }
 
     public void fetchFeed() {
-
         RssParser parser = new RssParserBuilder().build();
-
         try {
-            RssChannel channel = CoroutineBridgeKt.parseFeed(parser, urlString).get();
+            RssChannel channel = parseFeed(parser, urlString).get();
             setChannel(channel);
         } catch (Exception e) {
             e.printStackTrace();

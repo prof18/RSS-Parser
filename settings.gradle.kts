@@ -17,9 +17,9 @@ dependencyResolutionManagement {
 }
 
 include(":rssparser")
-include(":sampleandroid")
-include(":sample")
-include(":samplejava")
-include(":sample:shared")
-include(":sample:androidApp")
-include(":sample:desktopApp")
+include(":samples:android")
+include(":samples:multiplatform")
+include(":samples:java")
+include(":samples:multiplatform:shared")
+include(":samples:multiplatform:androidApp")
+include(":samples:multiplatform:desktopApp")
