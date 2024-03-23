@@ -20,6 +20,7 @@ With **RSS Parser**, you can fetch plenty of useful information from any RSS cha
         - [Builder](#builder)
     - [RSS Parsing from URL](#rss-parsing-from-url)
     - [RSS Parsing from string](#rss-parsing-from-string)
+    - [Using the library in a Java project](#using-the-library-in-a-java-project)
 - [Migration from version 5](#migration-from-version-5)
 - [Sample project](#sample-project)
 - [Changelog](#changelog)
@@ -77,7 +78,7 @@ From version 6.0, RSSParser has become Multiplatform. This update brought some b
 
 - Some class names and packages have been changed. Check out the [migration guide](#migration-from-version-5) for further info.
 - Caching of feeds is not supported anymore. After some consideration, I decided that the aim of this library is not meant to provide a caching solution for RSS feeds, but just to do the parsing. The user of the library should implement any caching/storing solutions their project requires.
-- Support for Java with the `OnTaskCompleted` and `onError` callbacks has been dropped.
+- Support for Java with the `OnTaskCompleted` and `onError` callbacks has been dropped. You can still use the library in a Java project, but you will need to write some Kotlin code to handle Coroutines. More details in the [section below](#using-the-library-in-a-java-project).
 
 [Here](https://github.com/prof18/RSS-Parser/blob/version-5/README.md) you can find the README for version 5 of RSSParser.
 
@@ -185,9 +186,45 @@ val xmlString: String = "xml-string"
 val rssChannel: RssChannel = rssParser.parse(xmlString)
 ```
 
+### Using the library in a Java project
+
+The support for Java with the `OnTaskCompleted` and `onError` callbacks has been dropped.
+However, you can still use the library in a Java project, but you will need to write some Kotlin code to handle Coroutines. 
+
+You can transform a Coroutine into a `CompletableFuture` using the `future` extension function from
+the `kotlinx-coroutines-core` library. 
+
+```kotlin
+@JvmName("parseFeed")
+fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> = GlobalScope.future {
+    parser.getRssChannel(url)
+}
+```
+
+then, in your Java code, you can use the `CompletableFuture` API to handle the result.
+
+```java
+RssParser parser = new RssParserBuilder().build();
+try {
+    RssChannel channel = parseFeed(parser, urlString).get();
+    setChannel(channel);
+} catch (Exception e) {
+    e.printStackTrace();
+    snackbar.postValue("An error has occurred. Please try again");
+}
+```
+
+N.B. To use CompletableFuture, you need to have a minimum API level of 24.
+
+If you prefer Guava's `ListenableFuture`, you can use the `listenableFuture` extension function 
+from the `kotlinx-coroutines-guava` library. 
+More info in the official documentation [here](https://github.com/Kotlin/kotlinx.coroutines/blob/master/integration/kotlinx-coroutines-guava/README.md).
+
 ## Sample projects
 
-The repository contains two samples projects: a [multiplatform](/sample/) and an [Android](/sampleandroid/) project to showcase the usage in a multiplatform app and an Android one.
+The repository contains three samples projects: a [multiplatform](/samples/multiplatform), 
+an [Android](/samples/android) and an [Android with Java](samples/java) project to showcase the
+usage in a multiplatform app and an Android one.
 
 ## Migration from version 5
 
