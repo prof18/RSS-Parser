@@ -4,13 +4,18 @@ import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.AtomFeedHandler
 import com.prof18.rssparser.internal.rss.RssFeedHandler
 import com.prof18.rssparser.model.RssChannel
+import kotlinx.cinterop.BetaInteropApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 import platform.Foundation.NSError
 import platform.Foundation.NSInputStream
+import platform.Foundation.NSString
+import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.NSXMLParser
 import platform.Foundation.NSXMLParserDelegateProtocol
+import platform.Foundation.create
+import platform.Foundation.dataUsingEncoding
 import platform.darwin.NSObject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -44,6 +49,13 @@ internal class IosXmlParser(
                 stream.close()
             }
         }
+    }
+
+    @OptIn(BetaInteropApi::class)
+    override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
+        val cleanedXml = rawRssFeed.trim()
+        val data = NSString.create(string = cleanedXml).dataUsingEncoding(NSUTF8StringEncoding)
+        return ParserInput(requireNotNull(data))
     }
 }
 

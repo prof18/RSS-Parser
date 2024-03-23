@@ -25,7 +25,6 @@ class RssParserBuilder(
         return RssParser(
             xmlFetcher = JvmXmlFetcher(
                 callFactory = client,
-                charset = charset,
             ),
             xmlParser = AndroidXmlParser(
                 charset = charset,
