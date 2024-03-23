@@ -13,7 +13,6 @@ import platform.Foundation.NSURLSession
 import platform.Foundation.NSUTF8StringEncoding
 import platform.Foundation.create
 import platform.Foundation.dataTaskWithURL
-import platform.Foundation.dataUsingEncoding
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -49,8 +48,8 @@ internal class IosXmlFetcher(
     }
 
     @OptIn(BetaInteropApi::class)
-    override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
-        val data = NSString.create(string = rawRssFeed).dataUsingEncoding(NSUTF8StringEncoding)
-        return ParserInput(requireNotNull(data))
+    override suspend fun fetchXmlAsString(url: String): String {
+        val input = fetchXml(url)
+        return NSString.create(input.data, NSUTF8StringEncoding).toString()
     }
 }

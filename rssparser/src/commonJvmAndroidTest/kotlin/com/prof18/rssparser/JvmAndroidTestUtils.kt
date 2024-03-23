@@ -13,3 +13,11 @@ internal actual fun readFileFromResources(
         inputStream = FileInputStream(file)
     )
 }
+
+internal actual fun readFileFromResourcesAsString(
+    resourceName: String,
+): String {
+    val path = System.getenv("TEST_RESOURCES_ROOT")
+    val file = File("$path/$resourceName")
+    return file.readText()
+}

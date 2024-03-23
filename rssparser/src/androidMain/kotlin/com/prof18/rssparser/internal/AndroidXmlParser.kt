@@ -26,6 +26,7 @@ import kotlinx.coroutines.withContext
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import org.xmlpull.v1.XmlPullParserFactory
+import java.io.InputStream
 import java.nio.charset.Charset
 
 internal class AndroidXmlParser(
@@ -70,5 +71,11 @@ internal class AndroidXmlParser(
         } finally {
             input.inputStream.closeQuietly()
         }
+    }
+
+    override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
+        val cleanedXml = rawRssFeed.trim()
+        val inputStream: InputStream = cleanedXml.byteInputStream(charset ?: Charsets.UTF_8)
+        return ParserInput(inputStream)
     }
 }
