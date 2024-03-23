@@ -43,7 +43,7 @@ android {
 
 
 dependencies {
-    implementation(project(":sample:shared"))
+    implementation(project(":samples:multiplatform:shared"))
     implementation(libs.androidx.appcompat)
 
     val composeBom = platform(libs.androidx.compose.bom)

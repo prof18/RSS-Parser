@@ -18,7 +18,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
 
-                implementation(project(":sample:shared"))
+                implementation(project(":samples:multiplatform:shared"))
                 implementation(compose.desktop.currentOs)
                 implementation(compose.runtime)
                 implementation(compose.foundation)

@@ -71,7 +71,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Build Android Sample
-        run: ./gradlew :sample:androidApp:assembleRelease
+        run: ./gradlew :samples:multiplatform:androidApp:assembleRelease
 
   build-android-sample:
     name: Build Android Sample
@@ -98,7 +98,34 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Build Android Sample
-        run: ./gradlew :sampleandroid:assembleRelease
+        run: ./gradlew :samples:android:assembleRelease
+
+  build-android-java-sample:
+    name: Build Android Java Sample
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v3.1.0
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
+      - name: Build Android Sample
+        run: ./gradlew :samples:java:assembleRelease
 
   build-desktop-app:
     name: Build Desktop App
@@ -125,7 +152,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Build Desktop App
-        run: ./gradlew :sample:desktopApp:packageDistributionForCurrentOS
+        run: ./gradlew :samples:multiplatform:desktopApp:packageDistributionForCurrentOS
 
   build-ios-sample:
     name: Build iOS Sample
@@ -152,4 +179,4 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
 
       - name: Build iOS Sample
-        run: xcodebuild -project sample/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14 Pro' build
+        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14 Pro' build
