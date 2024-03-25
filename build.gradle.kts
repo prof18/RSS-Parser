@@ -9,18 +9,18 @@ plugins {
 }
 
 
-//apiValidation {
-//    ignoredProjects.addAll(
-//        listOf(
-//            ":samples:multiplatform",
-//            ":samples:multiplatform:shared",
-//            ":samples:multiplatform:androidApp",
-//            ":samples:multiplatform:desktopApp",
-//            ":samples:android",
-//            ":samples:java"
-//        )
-//    )
-//}
+apiValidation {
+    ignoredProjects.addAll(
+        listOf(
+            "multiplatform",
+            "shared",
+            "androidApp",
+            "desktopApp",
+            "android",
+            "java"
+        )
+    )
+}
 
 allprojects {
     val rootDir = "${rootProject.rootDir.path}/rssparser/src/commonTest/resources"
