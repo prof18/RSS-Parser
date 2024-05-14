@@ -26,7 +26,7 @@ com-google-android-material = "1.11.0"
 compose-multiplatform = "1.6.1"
 io-coil = "2.6.0"
 androidx-lifecycle-extensions = "2.2.0"
-compose-compiler = "1.5.11"
+compose-compiler = "1.5.14"
 androidx-compose-bom = "2024.03.00"
 activity-compose = "1.8.2"
 
