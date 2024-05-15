@@ -11,12 +11,11 @@ class FeedRepository(
         return Feed(
             title = channel.title ?: "",
             items = channel.items.mapNotNull {
-
                 val title = it.title
                 val subtitle = it.description
                 val pubDate = it.pubDate
 
-                if (title == null || subtitle == null || pubDate == null) {
+                if (title == null || pubDate == null) {
                     return@mapNotNull null
                 }
 
