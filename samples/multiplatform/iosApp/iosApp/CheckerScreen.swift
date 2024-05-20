@@ -20,8 +20,6 @@ struct CheckerScreen: View {
                 "Rss link",
                 text: $rssLink
             )
-            .keyboardType(.webSearch)
-            .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(16)
 
             Text(parsingResult)

@@ -10,12 +10,10 @@ import Foundation
 import SwiftUI
 
 struct MainScreen: View {
-    @StateObject var viewModel = MainViewModel()
+    
+    @ObservedObject var viewModel: MainViewModel
     
     var body: some View {
-        
-        NavigationView {
-            
             VStack(alignment: .leading) {
                 if viewModel.uiState.isLoading {
                     LoadingView()
@@ -27,8 +25,6 @@ struct MainScreen: View {
                         }
                     )
                 } else if let feed = viewModel.uiState.feed {
-                    
-                    
                     List {
                         ForEach(feed.items, id: \.self) { feedItem in
                             
@@ -51,6 +47,8 @@ struct MainScreen: View {
                                         .font(.caption)
                                 }
                                 
+                                Spacer()
+                                
                                 if let imageUrl = feedItem.imageUrl {
                                     AsyncImage(
                                         url: URL(string: imageUrl),
@@ -72,22 +70,7 @@ struct MainScreen: View {
                     }
                 }
             }
-            
-        }
-        .toolbar {
-            
-            ToolbarItem(placement: .navigationBarLeading) {
-                Text(viewModel.uiState.feed?.title ?? "")
-                    .font(.title)
-            }
-            
-            ToolbarItem(placement: .primaryAction) {
-                
-                NavigationLink(value: Route.checker) {
-                    Text("Feed checker")
-                }
-            }
-        }.onAppear {
+        .onAppear {
             viewModel.getFeed()
         }
     }
