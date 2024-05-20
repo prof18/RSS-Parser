@@ -17,7 +17,7 @@ class XmlParserAtomContentHtmlTest : BaseXmlParserTest(
         CurrentTarget.JVM -> {
             "https://code.cash.app/the-state-of-managing-state-with-compose."
         }
-        CurrentTarget.IOS -> {
+        CurrentTarget.APPLE -> {
             "This post was published externally on Cash App Code Blog. Read it at"
         }
         else -> {
