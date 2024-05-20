@@ -13,10 +13,32 @@
 		CC02D3B229C7B15100BAC7D7 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */; };
 		CC02D3B429C7B16600BAC7D7 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */; };
 		CC02D3B629C7B19600BAC7D7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */; };
+		CC2BCF722BFBF7D400523E82 /* RssParserDemo Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CC2BCF712BFBF7D400523E82 /* RssParserDemo Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CC2BCF772BFBF7D400523E82 /* RssParserDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BCF762BFBF7D400523E82 /* RssParserDemoApp.swift */; };
+		CC2BCF7B2BFBF7D500523E82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC2BCF7A2BFBF7D500523E82 /* Assets.xcassets */; };
+		CC2BCF7E2BFBF7D500523E82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC2BCF7D2BFBF7D500523E82 /* Preview Assets.xcassets */; };
+		CC2BCF8D2BFBFF0A00523E82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		CC2BCF8E2BFBFF1500523E82 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3AF29C7AA6000BAC7D7 /* MainViewModel.swift */; };
+		CC2BCF8F2BFBFF1800523E82 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */; };
+		CC2BCF902BFBFF1B00523E82 /* ImageLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */; };
+		CC2BCF912BFBFF1D00523E82 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */; };
+		CC2BCF922BFBFF2000523E82 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBD2A8A20E800C67F13 /* Route.swift */; };
+		CC2BCF932BFBFF2300523E82 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */; };
+		CC2BCF942BFBFF2500523E82 /* CheckerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */; };
 		CC48EFBE2A8A20E800C67F13 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBD2A8A20E800C67F13 /* Route.swift */; };
 		CC48EFC02A8A211C00C67F13 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */; };
 		CC48EFC42A8A21C000C67F13 /* CheckerScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC2BCF732BFBF7D400523E82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7555FF73242A565900829871 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CC2BCF702BFBF7D400523E82;
+			remoteInfo = "RssParserDemo Watch App";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7555FFB4242A642300829871 /* Embed Frameworks */ = {
@@ -27,6 +49,26 @@
 			files = (
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2BCF822BFBF7D500523E82 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				CC2BCF722BFBF7D400523E82 /* RssParserDemo Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2BCF8C2BFBFA6E00523E82 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -40,6 +82,11 @@
 		CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CC02D3B329C7B16600BAC7D7 /* ImageLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadingView.swift; sourceTree = "<group>"; };
 		CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		CC2BCF6C2BFBF7D400523E82 /* RssParserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RssParserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2BCF712BFBF7D400523E82 /* RssParserDemo Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RssParserDemo Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2BCF762BFBF7D400523E82 /* RssParserDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RssParserDemoApp.swift; sourceTree = "<group>"; };
+		CC2BCF7A2BFBF7D500523E82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CC2BCF7D2BFBF7D500523E82 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CC48EFBD2A8A20E800C67F13 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		CC48EFBF2A8A211C00C67F13 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		CC48EFC32A8A21C000C67F13 /* CheckerScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerScreen.swift; sourceTree = "<group>"; };
@@ -53,6 +100,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC2BCF6E2BFBF7D400523E82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -60,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				7555FF7D242A565900829871 /* iosApp */,
+				CC2BCF752BFBF7D400523E82 /* RssParserDemo Watch App */,
 				7555FF7C242A565900829871 /* Products */,
 				7555FFB0242A642200829871 /* Frameworks */,
 			);
@@ -69,6 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				7555FF7B242A565900829871 /* iosApp.app */,
+				CC2BCF6C2BFBF7D400523E82 /* RssParserDemo.app */,
+				CC2BCF712BFBF7D400523E82 /* RssParserDemo Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,6 +154,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		CC2BCF752BFBF7D400523E82 /* RssParserDemo Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				CC2BCF762BFBF7D400523E82 /* RssParserDemoApp.swift */,
+				CC2BCF7A2BFBF7D500523E82 /* Assets.xcassets */,
+				CC2BCF7C2BFBF7D500523E82 /* Preview Content */,
+			);
+			path = "RssParserDemo Watch App";
+			sourceTree = "<group>";
+		};
+		CC2BCF7C2BFBF7D500523E82 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CC2BCF7D2BFBF7D500523E82 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,18 +194,61 @@
 			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		CC2BCF6B2BFBF7D400523E82 /* RssParserDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC2BCF832BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo" */;
+			buildPhases = (
+				CC2BCF6A2BFBF7D400523E82 /* Resources */,
+				CC2BCF822BFBF7D500523E82 /* Embed Watch Content */,
+				CC2BCF8A2BFBF9CB00523E82 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC2BCF742BFBF7D400523E82 /* PBXTargetDependency */,
+			);
+			name = RssParserDemo;
+			productName = RssParserDemo;
+			productReference = CC2BCF6C2BFBF7D400523E82 /* RssParserDemo.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		CC2BCF702BFBF7D400523E82 /* RssParserDemo Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC2BCF7F2BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo Watch App" */;
+			buildPhases = (
+				CC2BCF6D2BFBF7D400523E82 /* Sources */,
+				CC2BCF6E2BFBF7D400523E82 /* Frameworks */,
+				CC2BCF6F2BFBF7D400523E82 /* Resources */,
+				CC2BCF8B2BFBF9E400523E82 /* ShellScript */,
+				CC2BCF8C2BFBFA6E00523E82 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RssParserDemo Watch App";
+			productName = "RssParserDemo Watch App";
+			productReference = CC2BCF712BFBF7D400523E82 /* RssParserDemo Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		7555FF73242A565900829871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1530;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = orgName;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
 						CreatedOnToolsVersion = 11.3.1;
+					};
+					CC2BCF6B2BFBF7D400523E82 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					CC2BCF702BFBF7D400523E82 = {
+						CreatedOnToolsVersion = 15.3;
 					};
 				};
 			};
@@ -148,6 +266,8 @@
 			projectRoot = "";
 			targets = (
 				7555FF7A242A565900829871 /* iosApp */,
+				CC2BCF6B2BFBF7D400523E82 /* RssParserDemo */,
+				CC2BCF702BFBF7D400523E82 /* RssParserDemo Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -157,6 +277,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2BCF6A2BFBF7D400523E82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CC2BCF6F2BFBF7D400523E82 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC2BCF7E2BFBF7D500523E82 /* Preview Assets.xcassets in Resources */,
+				CC2BCF7B2BFBF7D500523E82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +316,40 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
 		};
+		CC2BCF8A2BFBF9CB00523E82 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"AAAAA\"\necho $SRCROOT\ncd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
+		};
+		CC2BCF8B2BFBF9E400523E82 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"AAAAA\"\necho $SRCROOT\ncd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -199,7 +369,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CC2BCF6D2BFBF7D400523E82 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC2BCF932BFBFF2300523E82 /* MainScreen.swift in Sources */,
+				CC2BCF8D2BFBFF0A00523E82 /* ContentView.swift in Sources */,
+				CC2BCF942BFBFF2500523E82 /* CheckerScreen.swift in Sources */,
+				CC2BCF772BFBF7D400523E82 /* RssParserDemoApp.swift in Sources */,
+				CC2BCF8E2BFBFF1500523E82 /* MainViewModel.swift in Sources */,
+				CC2BCF8F2BFBFF1800523E82 /* ErrorView.swift in Sources */,
+				CC2BCF902BFBFF1B00523E82 /* ImageLoadingView.swift in Sources */,
+				CC2BCF922BFBFF2000523E82 /* Route.swift in Sources */,
+				CC2BCF912BFBFF1D00523E82 /* LoadingView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC2BCF742BFBF7D400523E82 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CC2BCF702BFBF7D400523E82 /* RssParserDemo Watch App */;
+			targetProxy = CC2BCF732BFBF7D400523E82 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		7555FFA3242A565B00829871 /* Debug */ = {
@@ -336,6 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -343,8 +538,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prof.rssparser.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Debug;
 		};
@@ -366,6 +564,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -373,8 +572,141 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.prof.rssparser.sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
+			};
+			name = Release;
+		};
+		CC2BCF802BFBF7D500523E82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"RssParserDemo Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RssParserDemo;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prof18.RssParserDemo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Debug;
+		};
+		CC2BCF812BFBF7D500523E82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"RssParserDemo Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RssParserDemo;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKWatchOnly = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prof18.RssParserDemo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.4;
+			};
+			name = Release;
+		};
+		CC2BCF842BFBF7D500523E82 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				INFOPLIST_KEY_CFBundleDisplayName = RssParserDemo;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prof18.RssParserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CC2BCF852BFBF7D500523E82 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				INFOPLIST_KEY_CFBundleDisplayName = RssParserDemo;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prof18.RssParserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -395,6 +727,24 @@
 			buildConfigurations = (
 				7555FFA6242A565B00829871 /* Debug */,
 				7555FFA7242A565B00829871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC2BCF7F2BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC2BCF802BFBF7D500523E82 /* Debug */,
+				CC2BCF812BFBF7D500523E82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC2BCF832BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC2BCF842BFBF7D500523E82 /* Debug */,
+				CC2BCF852BFBF7D500523E82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
