@@ -31,4 +31,4 @@ internal actual fun readFileFromResourcesAsString(
     return NSString.create(data, NSUTF8StringEncoding).toString()
 }
 
-internal actual val currentTarget = CurrentTarget.IOS
+internal actual val currentTarget = CurrentTarget.APPLE

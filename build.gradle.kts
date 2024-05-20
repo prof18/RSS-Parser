@@ -30,6 +30,7 @@ allprojects {
     }
 
     tasks.withType<KotlinNativeTest>().configureEach {
+        environment("TEST_RESOURCES_ROOT", rootDir)
         // https://stackoverflow.com/questions/34618580/xcrun-is-there-a-way-to-set-environment-variable-via-xcrun-simctl-cli/53604237#53604237
         environment("SIMCTL_CHILD_TEST_RESOURCES_ROOT", rootDir)
     }

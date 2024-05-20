@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -27,9 +27,20 @@ kotlin {
     iosArm64()
     iosX64()
     iosSimulatorArm64()
+    macosArm64()
+    macosX64()
+    tvosArm64()
+    tvosSimulatorArm64()
+    tvosX64()
+
+    // From S8 processor, only full 64-bit processors
+    watchosDeviceArm64()
+    watchosSimulatorArm64()
+    watchosX64()
 
     applyDefaultHierarchyTemplate()
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
@@ -45,13 +56,12 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
         }
 
-       commonTest.dependencies {
-           implementation(kotlin("test"))
-           implementation(kotlin("test-common"))
-           implementation(kotlin("test-annotations-common"))
-           implementation(libs.kotlinx.coroutines.test)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+            implementation(libs.kotlinx.coroutines.test)
         }
-
 
         val commonJvmAndroidMain by creating {
             dependsOn(commonMain.get())

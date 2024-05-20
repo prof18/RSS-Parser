@@ -20,7 +20,7 @@ class XmlParserAtomExampleTest: BaseXmlParserTest(
         CurrentTarget.JVM -> {
             "This is the entry content."
         }
-        CurrentTarget.IOS -> {
+        CurrentTarget.APPLE -> {
             ""
         }
         else -> {
