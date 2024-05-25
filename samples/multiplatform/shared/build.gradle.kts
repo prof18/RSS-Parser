@@ -13,7 +13,7 @@ kotlin {
     }
 
     jvm("desktop") {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 
     listOf(

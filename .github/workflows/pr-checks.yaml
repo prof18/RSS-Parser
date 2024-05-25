@@ -180,3 +180,85 @@ jobs:
 
       - name: Build iOS Sample
         run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14 Pro' build
+
+  build-macos-sample:
+    name: Build macOS Sample
+    runs-on: macos-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v3.1.0
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
+      - name: Build macOS Sample
+        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
+
+  build-tvos-sample:
+    name: Build tvOS Sample
+    runs-on: macos-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v3.1.0
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
+      - name: Build tvOS Sample
+        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'platform=tvOS Simulator,name=Apple TV' build
+
+
+  build-watchOS-sample:
+    name: Build watchOS Sample
+    runs-on: macos-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/gradle-build-action@v3.1.0
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+
+      - name: Build watchOS Sample
+        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination 'platform=watchOS Simulator,name=Apple Watch Series 8 (41mm),OS=10.5' -configuration Debug build

@@ -15,8 +15,6 @@
 		CC02D3B629C7B19600BAC7D7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B529C7B19600BAC7D7 /* LoadingView.swift */; };
 		CC2BCF722BFBF7D400523E82 /* RssParserDemo Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CC2BCF712BFBF7D400523E82 /* RssParserDemo Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CC2BCF772BFBF7D400523E82 /* RssParserDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2BCF762BFBF7D400523E82 /* RssParserDemoApp.swift */; };
-		CC2BCF7B2BFBF7D500523E82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC2BCF7A2BFBF7D500523E82 /* Assets.xcassets */; };
-		CC2BCF7E2BFBF7D500523E82 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC2BCF7D2BFBF7D500523E82 /* Preview Assets.xcassets */; };
 		CC2BCF8D2BFBFF0A00523E82 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		CC2BCF8E2BFBFF1500523E82 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3AF29C7AA6000BAC7D7 /* MainViewModel.swift */; };
 		CC2BCF8F2BFBFF1800523E82 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC02D3B129C7B15100BAC7D7 /* ErrorView.swift */; };
@@ -198,9 +196,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC2BCF832BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo" */;
 			buildPhases = (
+				CC2BCF8A2BFBF9CB00523E82 /* ShellScript */,
 				CC2BCF6A2BFBF7D400523E82 /* Resources */,
 				CC2BCF822BFBF7D500523E82 /* Embed Watch Content */,
-				CC2BCF8A2BFBF9CB00523E82 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -216,10 +214,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CC2BCF7F2BFBF7D500523E82 /* Build configuration list for PBXNativeTarget "RssParserDemo Watch App" */;
 			buildPhases = (
+				CC2BCF8B2BFBF9E400523E82 /* ShellScript */,
 				CC2BCF6D2BFBF7D400523E82 /* Sources */,
 				CC2BCF6E2BFBF7D400523E82 /* Frameworks */,
 				CC2BCF6F2BFBF7D400523E82 /* Resources */,
-				CC2BCF8B2BFBF9E400523E82 /* ShellScript */,
 				CC2BCF8C2BFBFA6E00523E82 /* CopyFiles */,
 			);
 			buildRules = (
@@ -291,8 +289,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC2BCF7E2BFBF7D500523E82 /* Preview Assets.xcassets in Resources */,
-				CC2BCF7B2BFBF7D500523E82 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,7 +327,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"AAAAA\"\necho $SRCROOT\ncd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "echo \"AAAAA\"\nech \"aaaaaaaa\"\necho $SRCROOT\ncd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
 		};
 		CC2BCF8B2BFBF9E400523E82 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -348,7 +344,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"AAAAA\"\necho $SRCROOT\ncd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
+			shellScript = "cd \"$SRCROOT/../../..\"\n./gradlew :samples:multiplatform:shared:embedAndSignAppleFrameworkForXcode\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -518,7 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				DEVELOPMENT_TEAM = 2LS7B6UW98;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -552,7 +548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				DEVELOPMENT_TEAM = 2LS7B6UW98;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -590,8 +586,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"RssParserDemo Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 2LS7B6UW98;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -630,8 +626,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"RssParserDemo Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = Q7CUB3RNAK;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 2LS7B6UW98;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
