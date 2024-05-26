@@ -9,8 +9,7 @@
       "groupSlug": "kotlin",
       "matchPackageNames": [
         "org.jetbrains.kotlin",
-        "org.jetbrains.compose",
-        "androidx.compose.compiler"
+        "org.jetbrains.compose"
       ]
     }
   ]
