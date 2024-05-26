@@ -1,3 +1,4 @@
+import kotlinx.validation.ExperimentalBCVApi
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 
 plugins {
@@ -20,6 +21,12 @@ apiValidation {
             "java"
         )
     )
+
+    @OptIn(ExperimentalBCVApi::class)
+    klib {
+        enabled = true
+        strictValidation = true
+    }
 }
 
 allprojects {
