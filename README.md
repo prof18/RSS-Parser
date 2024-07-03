@@ -195,7 +195,6 @@ You can transform a Coroutine into a `CompletableFuture` using the `future` exte
 the `kotlinx-coroutines-core` library. 
 
 ```kotlin
-@JvmName("parseFeed")
 fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> = GlobalScope.future {
     parser.getRssChannel(url)
 }
