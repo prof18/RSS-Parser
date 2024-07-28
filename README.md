@@ -278,6 +278,7 @@ If you are using RSS Parser in your app and would like to be listed here, please
 
 * [FeedFlow](https://www.feedflow.dev)
 * [ReLabs](https://github.com/theimpulson/ReLabs)
-    
+* [CapyReader](https://capyreader.com/)
+
 </details>
 
