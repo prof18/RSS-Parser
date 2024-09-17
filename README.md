@@ -212,6 +212,7 @@ try {
     snackbar.postValue("An error has occurred. Please try again");
 }
 ```
+An implementation of these code snippets is available in the [Java sample](samples/java/src/main/java/com/prof/rssparser/sample/java/), in `CoroutineBridge.kt` and `MainViewModel.java`.
 
 N.B. To use CompletableFuture, you need to have a minimum API level of 24.
 
