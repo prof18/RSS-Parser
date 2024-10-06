@@ -3,15 +3,15 @@ android-gradle-plugin = "8.2.2"
 android-compile-sdk = "34"
 android-min-sdk = "21"
 android-target-sdk = "34"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 library-version-name = "6.0.7"
 
 # Library dependencies
 com-squareup-okhttp3 = "4.12.0"
 com-vanniktech-maven-publish="0.28.0"
-org-robolectric = "4.12.2"
-binary-compatibility-validator = "0.15.0-Beta.2"
-coroutines = "1.8.1"
+org-robolectric = "4.13"
+binary-compatibility-validator = "0.16.3"
+coroutines = "1.9.0"
 
 # Sample dependencies
 androidx-activity = "1.9.0"
