@@ -14,7 +14,7 @@ binary-compatibility-validator = "0.16.3"
 coroutines = "1.9.0"
 
 # Sample dependencies
-androidx-activity = "1.9.0"
+androidx-activity = "1.9.2"
 androidx-appcompat = "1.6.1"
 androidx-cardview = "1.0.0"
 androidx-constraintlayout = "2.1.4"
