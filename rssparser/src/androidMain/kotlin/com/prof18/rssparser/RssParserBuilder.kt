@@ -21,10 +21,9 @@ class RssParserBuilder(
     private val charset: Charset? = null,
 ): RssParser.Builder {
     override fun build(): RssParser {
-        val client = callFactory
         return RssParser(
             xmlFetcher = JvmXmlFetcher(
-                callFactory = client,
+                callFactory = callFactory,
             ),
             xmlParser = AndroidXmlParser(
                 charset = charset,
