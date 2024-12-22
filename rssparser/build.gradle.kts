@@ -37,10 +37,11 @@ kotlin {
 
     applyDefaultHierarchyTemplate()
 
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
+
+    explicitApi()
 
     sourceSets {
         all {

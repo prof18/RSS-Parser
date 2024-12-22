@@ -11,7 +11,7 @@ import platform.Foundation.NSURLSession
  * @property nsUrlSession A custom [NSURLSession] that can be provided by the caller.
  *  If not provided, the created `RssParser` will use the shared session.
  */
-class RssParserBuilder(
+public class RssParserBuilder(
     private val nsUrlSession: NSURLSession = NSURLSession.sharedSession,
 ): RssParser.Builder {
     override fun build(): RssParser {
@@ -26,4 +26,4 @@ class RssParserBuilder(
     }
 }
 
-actual fun RssParser(): RssParser = RssParserBuilder().build()
+public actual fun RssParser(): RssParser = RssParserBuilder().build()

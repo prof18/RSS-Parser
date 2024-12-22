@@ -1,12 +1,12 @@
 package com.prof18.rssparser.model
 
-data class RssImage(
+public data class RssImage(
     val title: String?,
     val url: String?,
     val link: String?,
     val description: String?
 ) {
-    fun isNotEmpty(): Boolean {
+    internal fun isNotEmpty(): Boolean {
         return !url.isNullOrBlank() || !link.isNullOrBlank()
     }
 

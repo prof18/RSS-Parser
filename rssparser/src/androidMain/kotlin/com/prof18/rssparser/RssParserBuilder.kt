@@ -16,7 +16,7 @@ import java.nio.charset.Charset
  * @property charset The [Charset] of the RSS feed. This field is optional. If nothing is provided,
  *  it will be inferred from the feed.
  */
-class RssParserBuilder(
+public class RssParserBuilder(
     private val callFactory: Call.Factory = OkHttpClient(),
     private val charset: Charset? = null,
 ): RssParser.Builder {
@@ -33,4 +33,4 @@ class RssParserBuilder(
     }
 }
 
-actual fun RssParser(): RssParser = RssParserBuilder().build()
+public actual fun RssParser(): RssParser = RssParserBuilder().build()

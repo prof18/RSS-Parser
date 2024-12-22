@@ -17,7 +17,7 @@
 
 package com.prof18.rssparser.model
 
-data class RssItem(
+public data class RssItem(
     val guid: String?,
     val title: String?,
     val author: String?,
