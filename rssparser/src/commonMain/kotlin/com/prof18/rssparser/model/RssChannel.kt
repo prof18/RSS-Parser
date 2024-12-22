@@ -1,6 +1,6 @@
 package com.prof18.rssparser.model
 
-data class RssChannel(
+public data class RssChannel(
     val title: String?,
     val link: String?,
     val description: String?,

@@ -6,7 +6,7 @@ package com.prof18.rssparser.exception
  * @property message the detail message string.
  * @property cause the cause of this throwable.
  */
-data class RssParsingException(
+public data class RssParsingException(
     override val message: String?,
     override val cause: Throwable?,
 ) : Exception()

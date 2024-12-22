@@ -1,6 +1,6 @@
 package com.prof18.rssparser.model
 
-data class ItunesItemData(
+public data class ItunesItemData(
     val author: String?,
     val duration: String?,
     val episode: String?,
@@ -50,7 +50,7 @@ data class ItunesItemData(
 
 }
 
-data class ItunesChannelData(
+public data class ItunesChannelData(
     val author: String?,
     val categories: List<String> = emptyList(),
     val duration: String?,
@@ -108,7 +108,7 @@ data class ItunesChannelData(
     }
 }
 
-data class ItunesOwner(
+public data class ItunesOwner(
     val name: String?,
     val email: String?,
 ) {

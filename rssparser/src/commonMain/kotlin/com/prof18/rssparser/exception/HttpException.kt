@@ -6,7 +6,7 @@ package com.prof18.rssparser.exception
  * @property code the HTTP error code
  * @property message the detail message string.
  */
-data class HttpException(
+public data class HttpException(
     val code: Int,
     override val message: String?,
 ) : Exception()

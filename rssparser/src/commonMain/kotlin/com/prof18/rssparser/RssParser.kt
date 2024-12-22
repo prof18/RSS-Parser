@@ -9,7 +9,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-class RssParser internal constructor(
+public class RssParser internal constructor(
     private val xmlFetcher: XmlFetcher,
     private val xmlParser: XmlParser,
 ) {
@@ -30,7 +30,7 @@ class RssParser internal constructor(
      * If the parsing fails because the XML is malformed, it will re-download the XML as a string,
      * clean it up and try to parse it again. If it fails again, it will throw an [RssParsingException].
      */
-    suspend fun getRssChannel(url: String): RssChannel = withContext(coroutineContext) {
+    public suspend fun getRssChannel(url: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlFetcher.fetchXml(url)
         return@withContext try {
             xmlParser.parseXML(parserInput)
@@ -44,7 +44,7 @@ class RssParser internal constructor(
     /**
      * Parses an RSS feed provided by [rawRssFeed] and returns an [RssChannel]
      */
-    suspend fun parse(rawRssFeed: String): RssChannel = withContext(coroutineContext) {
+    public suspend fun parse(rawRssFeed: String): RssChannel = withContext(coroutineContext) {
         val parserInput = xmlParser.generateParserInputFromString(rawRssFeed)
         return@withContext xmlParser.parseXML(parserInput)
     }
@@ -55,4 +55,4 @@ class RssParser internal constructor(
  *
  * Check the platform specific RssParserBuilder for details on the default behaviour.
  */
-expect fun RssParser(): RssParser
+public expect fun RssParser(): RssParser
