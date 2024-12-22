@@ -29,7 +29,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Test
         run: ./gradlew :rssparser:check
@@ -68,7 +68,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build Android Sample
         run: ./gradlew :samples:multiplatform:androidApp:assembleRelease
@@ -95,7 +95,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build Android Sample
         run: ./gradlew :samples:android:assembleRelease
@@ -122,7 +122,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build Android Sample
         run: ./gradlew :samples:java:assembleRelease
@@ -149,7 +149,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build Desktop App
         run: ./gradlew :samples:multiplatform:desktopApp:packageDistributionForCurrentOS
@@ -167,6 +167,18 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version   
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version           
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-home-cache-cleanup: true
@@ -176,10 +188,10 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build iOS Sample
-        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 14 Pro' build
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 15 Pro' build | xcbeautify --renderer github-actions
 
   build-macos-sample:
     name: Build macOS Sample
@@ -194,6 +206,18 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version   
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version       
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-home-cache-cleanup: true
@@ -203,10 +227,10 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build macOS Sample
-        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
 
   build-tvos-sample:
     name: Build tvOS Sample
@@ -221,6 +245,18 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version   
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version           
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-home-cache-cleanup: true
@@ -230,10 +266,10 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build tvOS Sample
-        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'platform=tvOS Simulator,name=Apple TV' build
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'platform=tvOS Simulator,name=Apple TV' build | xcbeautify --renderer github-actions
 
 
   build-watchOS-sample:
@@ -249,6 +285,18 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version   
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Xcode version
+        run: |
+          /usr/bin/xcodebuild -version           
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-home-cache-cleanup: true
@@ -258,7 +306,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('*.gradle.kts') }}
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build watchOS Sample
-        run: xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination 'platform=watchOS Simulator,name=Apple Watch Series 8 (41mm),OS=10.5' -configuration Debug build
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination "platform=watchOS Simulator,name=Apple Watch Series 9 (41mm),OS=10.4" -configuration Debug CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
