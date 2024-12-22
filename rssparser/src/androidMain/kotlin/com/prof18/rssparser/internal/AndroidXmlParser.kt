@@ -65,7 +65,7 @@ internal class AndroidXmlParser(
                 )
         } catch (exception: XmlPullParserException) {
             throw RssParsingException(
-                message = "Something went wrong during the parsing of the feed. Please check if the XML is valid",
+                message = "Something went wrong when parsing the feed. Please check if the XML is valid",
                 cause = exception
             )
         } finally {
