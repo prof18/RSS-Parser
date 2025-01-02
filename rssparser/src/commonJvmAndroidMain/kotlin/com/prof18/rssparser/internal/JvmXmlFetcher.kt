@@ -17,8 +17,10 @@ internal class JvmXmlFetcher(
 
     override suspend fun fetchXml(url: String): ParserInput {
         val request = createRequest(url)
+        val baseUrl = request.url.scheme + "://" + request.url.host
         return ParserInput(
-            inputStream = callFactory.newCall(request).awaitForInputStream()
+            inputStream = callFactory.newCall(request).awaitForInputStream(),
+            baseUrl = baseUrl,
         )
     }
 

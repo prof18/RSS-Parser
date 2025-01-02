@@ -10,7 +10,8 @@ internal actual fun readFileFromResources(
     val path = System.getenv("TEST_RESOURCES_ROOT")
     val file = File("$path/$resourceName")
     return ParserInput(
-        inputStream = FileInputStream(file)
+        inputStream = FileInputStream(file),
+        baseUrl = BASE_FEED_URL,
     )
 }
 

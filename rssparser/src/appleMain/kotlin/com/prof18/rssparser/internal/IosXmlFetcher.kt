@@ -19,10 +19,11 @@ import kotlin.coroutines.resumeWithException
 internal class IosXmlFetcher(
     private val nsUrlSession: NSURLSession,
 ) : XmlFetcher {
-
     override suspend fun fetchXml(url: String): ParserInput = suspendCancellableCoroutine { continuation ->
+        val nsUrl = NSURL(string = url)
+        val baseUrl = nsUrl.scheme + "://" + nsUrl.host
         val task = nsUrlSession.dataTaskWithURL(
-            url = NSURL(string = url)
+            url = nsUrl
         ) { data: NSData?, response: NSURLResponse?, error: NSError? ->
             if (error != null) {
                 val throwable = Throwable(
@@ -36,7 +37,7 @@ internal class IosXmlFetcher(
                 )
                 continuation.resumeWithException(exception)
             } else if (data != null) {
-                continuation.resume(ParserInput(data))
+                continuation.resume(ParserInput(data, baseUrl))
             }
         }
 

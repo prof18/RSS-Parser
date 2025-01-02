@@ -3,5 +3,6 @@ package com.prof18.rssparser.internal
 import java.io.InputStream
 
 internal actual data class ParserInput(
-    val inputStream: InputStream
+    val inputStream: InputStream,
+    val baseUrl: String? = null,
 )

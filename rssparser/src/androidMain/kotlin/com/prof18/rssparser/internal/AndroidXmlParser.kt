@@ -53,7 +53,7 @@ internal class AndroidXmlParser(
                     if (xmlPullParser.contains(RssKeyword.Rss)) {
                         rssChannel = extractRSSContent(xmlPullParser)
                     } else if (xmlPullParser.contains(AtomKeyword.Atom)) {
-                        rssChannel = extractAtomContent(xmlPullParser)
+                        rssChannel = extractAtomContent(xmlPullParser, input)
                     }
                 }
                 eventType = xmlPullParser.next()

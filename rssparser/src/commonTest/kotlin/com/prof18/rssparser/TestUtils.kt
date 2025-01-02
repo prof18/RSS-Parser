@@ -11,3 +11,5 @@ internal expect fun readFileFromResourcesAsString(
 ): String
 
 internal expect val currentTarget: CurrentTarget
+
+internal const val BASE_FEED_URL = "https://www.base-feed-url.com"

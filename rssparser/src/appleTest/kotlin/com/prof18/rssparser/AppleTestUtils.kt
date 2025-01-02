@@ -13,17 +13,17 @@ import platform.posix.getenv
 
 @OptIn(ExperimentalForeignApi::class)
 internal actual fun readFileFromResources(
-    resourceName: String
+    resourceName: String,
 ): ParserInput {
     val s = getenv("TEST_RESOURCES_ROOT")?.toKString()
     val path = "$s/${resourceName}"
     val data = NSData.dataWithContentsOfFile(path)
-    return ParserInput(requireNotNull(data))
+    return ParserInput(requireNotNull(value = data), baseUrl = BASE_FEED_URL)
 }
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
 internal actual fun readFileFromResourcesAsString(
-    resourceName: String
+    resourceName: String,
 ): String {
     val s = getenv("TEST_RESOURCES_ROOT")?.toKString()
     val path = "$s/${resourceName}"
