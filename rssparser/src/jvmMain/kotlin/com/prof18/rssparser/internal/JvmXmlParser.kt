@@ -21,7 +21,7 @@ internal class JvmXmlParser(
     override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
         try {
             val parser = SAXParserFactory.newInstance().newSAXParser()
-            val handler = SaxFeedHandler()
+            val handler = SaxFeedHandler(input.baseUrl)
 
             if (charset != null) {
                 val inputSource = InputSource(input.inputStream).apply {
@@ -46,11 +46,14 @@ internal class JvmXmlParser(
     override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
         val cleanedXml = rawRssFeed.trim()
         val inputStream: InputStream = cleanedXml.byteInputStream(charset ?: Charsets.UTF_8)
-        return ParserInput(inputStream)
+        // TODO: changeme
+        return ParserInput(inputStream, "TODO")
     }
 }
 
-private class SaxFeedHandler : DefaultHandler() {
+private class SaxFeedHandler (
+    private val feedUrl: String?,
+) : DefaultHandler() {
     private var feedHandler: FeedHandler? = null
     private val textBuilder: StringBuilder = StringBuilder()
 
@@ -70,7 +73,7 @@ private class SaxFeedHandler : DefaultHandler() {
                 feedHandler = RssFeedHandler()
             }
             AtomKeyword.Atom.value -> {
-                feedHandler = AtomFeedHandler()
+                feedHandler = AtomFeedHandler(feedUrl)
             }
             else -> feedHandler?.onStartRssElement(qName, attributes)
         }

@@ -29,6 +29,7 @@ internal class IosXmlParser(
         val parser = NSXMLParser(stream)
         suspendCancellableCoroutine { continuation ->
             parser.delegate = NSXMLParserDelegate(
+                baseFeedUrl = input.baseUrl,
                 onEnd = { rssChannel ->
                     stream.close()
                     continuation.resume(rssChannel)
@@ -60,6 +61,7 @@ internal class IosXmlParser(
 }
 
 private class NSXMLParserDelegate(
+    private val baseFeedUrl: String?,
     private val onEnd: (RssChannel) -> Unit,
     private val onError: (NSXMLParsingException) -> Unit,
 ) : NSObject(), NSXMLParserDelegateProtocol {
@@ -80,7 +82,7 @@ private class NSXMLParserDelegate(
             }
 
             AtomKeyword.Atom.value -> {
-                feedHandler = AtomFeedHandler()
+                feedHandler = AtomFeedHandler(baseFeedUrl)
             }
 
             else -> {

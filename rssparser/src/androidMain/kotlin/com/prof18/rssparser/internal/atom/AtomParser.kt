@@ -19,6 +19,7 @@ package com.prof18.rssparser.internal.atom
 
 import com.prof18.rssparser.internal.AtomKeyword
 import com.prof18.rssparser.internal.ChannelFactory
+import com.prof18.rssparser.internal.ParserInput
 import com.prof18.rssparser.internal.attributeValue
 import com.prof18.rssparser.internal.contains
 import com.prof18.rssparser.internal.nextTrimmedText
@@ -30,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserException
 
 internal fun CoroutineScope.extractAtomContent(
     xmlPullParser: XmlPullParser,
+    input: ParserInput,
 ): RssChannel {
     val channelFactory = ChannelFactory()
 
@@ -41,7 +43,6 @@ internal fun CoroutineScope.extractAtomContent(
 
     // Start parsing the xml
     loop@ while (eventType != XmlPullParser.END_DOCUMENT && isActive) {
-
         // Start parsing the item
         when {
             eventType == XmlPullParser.START_TAG -> when {
@@ -154,10 +155,19 @@ internal fun CoroutineScope.extractAtomContent(
                         val rel = xmlPullParser.attributeValue(
                             AtomKeyword.Link.Rel
                         )
+                        val link = if (input.baseUrl != null &&
+                            rel == AtomKeyword.Link.Rel.Alternate.value &&
+                            // Some feeds have full links
+                            href?.startsWith("/") == true
+                        ) {
+                            input.baseUrl + href
+                        } else {
+                            href
+                        }
                         if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
                             when {
-                                insideItem -> channelFactory.articleBuilder.link(href)
-                                else -> channelFactory.channelBuilder.link(href)
+                                insideItem -> channelFactory.articleBuilder.link(link)
+                                else -> channelFactory.channelBuilder.link(link)
                             }
                         }
                     }

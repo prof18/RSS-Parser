@@ -1,0 +1,22 @@
+<feed>
+    <generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator>
+    <link href="/feed.xml" rel="self" type="application/atom+xml"/>
+    <link href="/" rel="alternate" type="text/html"/>
+    <updated>2024-12-19T06:13:47+00:00</updated>
+    <id>/feed.xml</id>
+    <title type="html">Aurimas Liutikas</title>
+    <subtitle>A personal page of Aurimas Liutikas. </subtitle>
+    <entry>
+        <title type="html">
+            What The Distribution - What Is Inside Gradle Distribution Zips?
+        </title>
+        <link href="/2024/12/18/What-The-Distribution.html" rel="alternate" type="text/html" title="What The Distribution - What Is Inside Gradle Distribution Zips?"/>
+        <published>2024-12-18T00:00:00+00:00</published>
+        <updated>2024-12-18T00:00:00+00:00</updated>
+        <id>/2024/12/18/What-The-Distribution</id>
+        <author>
+            <name/>
+        </author>
+        <summary type="html">When I saw this post</summary>
+    </entry>
+</feed>

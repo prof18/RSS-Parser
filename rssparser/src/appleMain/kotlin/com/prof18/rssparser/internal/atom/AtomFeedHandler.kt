@@ -6,7 +6,9 @@ import com.prof18.rssparser.internal.FeedHandler
 import com.prof18.rssparser.internal.getValueOrNull
 import com.prof18.rssparser.model.RssChannel
 
-internal class AtomFeedHandler : FeedHandler {
+internal class AtomFeedHandler(
+    private val baseFeedUrl: String?,
+) : FeedHandler {
 
     private var currentElement: String? = null
 
@@ -28,7 +30,7 @@ internal class AtomFeedHandler : FeedHandler {
                 if (isInsideItem) {
                     val category = attributes.getValueOrNull(
                         AtomKeyword.Entry.Term.value,
-                        ) as? String
+                    ) as? String
                     channelFactory.articleBuilder.addCategory(category)
                 }
             }
@@ -36,10 +38,20 @@ internal class AtomFeedHandler : FeedHandler {
             AtomKeyword.Link.value -> {
                 val href = attributes.getValueOrNull(AtomKeyword.Link.Href.value) as? String
                 val rel = attributes.getValueOrNull(AtomKeyword.Link.Rel.value) as? String
+                val link = if (
+                    baseFeedUrl != null &&
+                    rel == AtomKeyword.Link.Rel.Alternate.value &&
+                    // Some feeds have full links
+                    href?.startsWith("/") == true
+                ) {
+                    baseFeedUrl + href
+                } else {
+                    href
+                }
                 if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
                     when {
-                        isInsideItem -> channelFactory.articleBuilder.link(href)
-                        else -> channelFactory.channelBuilder.link(href)
+                        isInsideItem -> channelFactory.articleBuilder.link(link)
+                        else -> channelFactory.channelBuilder.link(link)
                     }
                 }
             }
