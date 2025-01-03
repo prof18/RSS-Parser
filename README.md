@@ -4,9 +4,9 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-**RSS Parser** is a Kotlin Multiplatform library for parsing RSS and Atom feeds. It supports Android, iOS, and the JVM.
+**RSS Parser** is a Kotlin Multiplatform library for parsing RSS, Atom and RDF feeds. It supports Android, iOS, macOS, tvOS, watchOS and the JVM.
 
-With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, or even a podcast feed.
+With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, a YouTube channel or even a podcast feed.
 
 ## Table of Contents
 
@@ -105,6 +105,8 @@ The [`RssChannel` result object](https://github.com/prof18/RSS-Parser/blob/maste
   - Subtitle
   - Summary
   - Type
+- Youtube Data
+  - Channel ID
 
 Items support the following attributes:
 
@@ -132,6 +134,14 @@ Items support the following attributes:
   - Subtitle
   - Summary
   - Season
+- Youtube Data
+  - Video ID
+  - Video Title
+  - Video URL
+  - Thumbnail URL
+  - Description
+  - Views count
+  - Likes count
 
 ## Usage
 
