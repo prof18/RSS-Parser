@@ -5,6 +5,7 @@ import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserItunesFeedTest : BaseXmlParserTest(
     feedPath = "feed-itunes.xml",
@@ -72,5 +73,10 @@ class XmlParserItunesFeedTest : BaseXmlParserTest(
         subtitle = "#1109 - Matthew Walker",
         summary = null,
         season = null,
-    )
+    ),
+    rawEnclosure = RawEnclosure(
+        url = "http://traffic.libsyn.com/joeroganexp/p1109.mp3?dest-id=19997",
+        length = 118001817,
+        type = "audio/mpeg",
+    ),
 )

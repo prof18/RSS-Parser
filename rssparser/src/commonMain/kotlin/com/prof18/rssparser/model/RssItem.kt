@@ -34,6 +34,7 @@ public data class RssItem(
     val itunesItemData: ItunesItemData?,
     val commentsUrl: String?,
     val youtubeItemData: YoutubeItemData?,
+    val rawEnclosure: RawEnclosure?,
 ) {
     internal data class Builder(
         private var guid: String? = null,
@@ -52,6 +53,7 @@ public data class RssItem(
         private var itunesItemData: ItunesItemData? = null,
         private var commentUrl: String? = null,
         private var youtubeItemData: YoutubeItemData? = null,
+        private var rawEnclosure: RawEnclosure? = null,
     ) {
         fun guid(guid: String?) = apply { this.guid = guid }
         fun title(title: String?) = apply { this.title = title }
@@ -104,6 +106,8 @@ public data class RssItem(
 
         fun youtubeItemData(youtubeItemData: YoutubeItemData?) = apply { this.youtubeItemData = youtubeItemData }
 
+        fun rawEnclosure(rawEnclosure: RawEnclosure?) = apply { this.rawEnclosure = rawEnclosure }
+
         fun build() = RssItem(
             guid = guid,
             title = title,
@@ -121,6 +125,7 @@ public data class RssItem(
             itunesItemData = itunesItemData,
             commentsUrl = commentUrl,
             youtubeItemData = youtubeItemData,
+            rawEnclosure = rawEnclosure,
         )
     }
 }

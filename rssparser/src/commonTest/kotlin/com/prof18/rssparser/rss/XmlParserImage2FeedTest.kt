@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssImage
 
 class XmlParserImage2FeedTest : BaseXmlParserTest(
@@ -50,4 +51,9 @@ class XmlParserImage2FeedTest : BaseXmlParserTest(
     articleCategories = listOf("F.C. Barcelona"),
     articleCommentsUrl = null,
     articleItunesData = null,
+    rawEnclosure = RawEnclosure(
+        url = "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg",
+        length = 228,
+        type = "image/jpeg",
+    ),
 )

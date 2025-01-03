@@ -18,10 +18,11 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
-import com.prof18.rssparser.model.RssImage
-import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssImage
 
 class XmlParserCharsetFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-charset.xml",
@@ -73,5 +74,10 @@ class XmlParserCharsetFeedTest : BaseXmlParserTest(
                 "                href=\"https://radio.nrk.no/podkast/loerdagsraadet/l_e6338d4f-2777-43c4-b38d-4f2777e3c4de?utm_source=thirdparty&utm_medium=rss&utm_content=podcast%3Al_e6338d4f-2777-43c4-b38d-4f2777e3c4de\">Hør\n" +
                 "                episoden i appen NRK Radio</a>",
         season = null,
+    ),
+    rawEnclosure = RawEnclosure(
+        url = "https://podkast.nrk.no/fil/loerdagsraadet/23ee45fc-d869-4110-bf97-34138fcfaba6_0_ID192MP3.mp3",
+        length = 91795437,
+        type = "audio/mpeg",
     ),
 )

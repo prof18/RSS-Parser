@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssImage
 
 class XmlParserXSLFeedTest : BaseXmlParserTest(
@@ -38,4 +39,9 @@ class XmlParserXSLFeedTest : BaseXmlParserTest(
     articleDescription = "Liverpool just missed out on clinching the Premier League title and have a Champions League final to look forward to - so where could they improve?",
     articleImage = "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948",
     articleCategories = listOf("News Story"),
+    rawEnclosure = RawEnclosure(
+        url = "https://e2.365dm.com/19/04/128x67/skysports-jurgen-klopp-liverpool_4654732.jpg?20190430113948",
+        length = 123456,
+        type = "image/jpg",
+    ),
 )

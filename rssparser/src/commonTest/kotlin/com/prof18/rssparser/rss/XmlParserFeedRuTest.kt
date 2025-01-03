@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserFeedRuTest : BaseXmlParserTest(
     feedPath = "feed-test-ru.xml",
@@ -31,4 +32,9 @@ class XmlParserFeedRuTest : BaseXmlParserTest(
     articleDescription = "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей",
     articleImage = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
     articleCategories = listOf("Происшествия"),
+    rawEnclosure = RawEnclosure(
+        url = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
+        length = 30000,
+        type = "image/jpeg",
+    ),
 )

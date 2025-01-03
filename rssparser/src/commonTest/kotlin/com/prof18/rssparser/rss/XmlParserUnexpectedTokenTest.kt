@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserUnexpectedTokenTest : BaseXmlParserTest(
     feedPath = "feed-test-unexpected-token.xml",
@@ -29,4 +30,9 @@ class XmlParserUnexpectedTokenTest : BaseXmlParserTest(
     articlePubDate = "Wed, 23 Sep 2020 14:45:10 +0200",
     articleDescription = "Range Rover updated its desirable Velar range by adding new engine choices and a 640Nm hybrid model.",
     articleImage = "https://scripts.24.co.za/img/sites/wheels24.png",
+    rawEnclosure = RawEnclosure(
+        url = "https://scripts.24.co.za/img/sites/wheels24.png",
+        length = 1,
+        type = "image/png",
+    ),
 )

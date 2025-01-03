@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssImage
 
 class XmlParserImageFeedTest : BaseXmlParserTest(
@@ -38,4 +39,9 @@ class XmlParserImageFeedTest : BaseXmlParserTest(
     articlePubDate = "Wed, 15 May 2019 16:52:24 PDT",
     articleDescription = "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.",
     articleImage = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
+    rawEnclosure = RawEnclosure(
+        url = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
+        length = null,
+        type = "image/jpeg",
+    ),
 )
