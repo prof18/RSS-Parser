@@ -55,6 +55,30 @@ internal class AtomFeedHandler(
                     }
                 }
             }
+
+            AtomKeyword.Youtube.MediaGroup.MediaContent.value -> {
+                val url = attributes.getValueOrNull(AtomKeyword.Youtube.MediaGroup.MediaContent.Url.value) as? String
+                channelFactory.youtubeItemDataBuilder.videoUrl(url)
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.value -> {
+                val url = attributes.getValueOrNull(AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url.value) as? String
+                channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.value -> {
+                val views = attributes.getValueOrNull(
+                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views.value,
+                ) as? String
+                channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.value -> {
+                val count = attributes.getValueOrNull(
+                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count.value,
+                ) as? String
+                channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
+            }
         }
     }
 
@@ -117,6 +141,20 @@ internal class AtomFeedHandler(
                 if (!category.isNullOrEmpty()) {
                     channelFactory.articleBuilder.addCategory(category)
                 }
+
+                // Youtube
+
+                val channelId = itemData[AtomKeyword.Youtube.ChannelId.value]?.trim()
+                channelFactory.youtubeChannelDataBuilder.channelId(channelId)
+
+                val videoId = itemData[AtomKeyword.Youtube.VideoId.value]?.trim()
+                channelFactory.youtubeItemDataBuilder.videoId(videoId)
+
+                val title = itemData[AtomKeyword.Youtube.MediaGroup.MediaTitle.value]?.trim()
+                channelFactory.youtubeItemDataBuilder.title(title)
+
+                val videoDescription = itemData[AtomKeyword.Youtube.MediaGroup.MediaDescription.value]?.trim()
+                channelFactory.youtubeItemDataBuilder.description(videoDescription)
 
                 channelFactory.buildArticle()
                 itemData.clear()
