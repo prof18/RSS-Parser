@@ -16,6 +16,10 @@ internal fun XmlPullParser.contains(key: AtomKeyword): Boolean {
     return this.name.equals(key.value, ignoreCase = true)
 }
 
+internal fun XmlPullParser.contains(key: RdfKeyword): Boolean {
+    return this.name.equals(key.value, ignoreCase = true)
+}
+
 internal fun XmlPullParser.attributeValue(key: AtomKeyword): String? {
     return this.getAttributeValue(null, key.value)?.trim()
 }
