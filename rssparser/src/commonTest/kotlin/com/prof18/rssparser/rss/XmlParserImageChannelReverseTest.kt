@@ -5,6 +5,7 @@ import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserImageChannelReverseTest : BaseXmlParserTest(
     feedPath = "feed-test-image-channel-reverse.xml",
@@ -72,5 +73,10 @@ class XmlParserImageChannelReverseTest : BaseXmlParserTest(
         subtitle = "Joe is joined by Ari Shaffir, Bert Kreischer & Tom Segura to recap their 3rd annual Sober October challenge.",
         summary = null,
         season = null,
+    ),
+    rawEnclosure = RawEnclosure(
+        url = "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997",
+        length = 202715961,
+        type = "audio/mpeg",
     ),
 )

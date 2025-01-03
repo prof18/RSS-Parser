@@ -56,27 +56,27 @@ internal class RssFeedHandler : FeedHandler {
             RssKeyword.Item.Enclosure.value -> {
                 if (isInsideItem) {
                     val type = attributes[RssKeyword.Item.Type.value] as? String
+                    val length = attributes[RssKeyword.Item.Length.value] as? String
+                    val url = attributes[RssKeyword.Url.value] as? String
+
+                    channelFactory.rawEnclosureBuilder.length(length?.toLongOrNull())
+                    channelFactory.rawEnclosureBuilder.type(type)
+                    channelFactory.rawEnclosureBuilder.url(url)
 
                     when {
                         type != null && type.contains("image") -> {
                             // If there are multiple elements, we take only the first
-                            channelFactory.articleBuilder.image(
-                                attributes.getValueOrNull(RssKeyword.Url.value) as? String
-                            )
+                            channelFactory.articleBuilder.image(url)
                         }
 
                         type != null && type.contains("audio") -> {
                             // If there are multiple elements, we take only the first
-                            channelFactory.articleBuilder.audioIfNull(
-                                attributes.getValueOrNull(RssKeyword.Url.value) as? String
-                            )
+                            channelFactory.articleBuilder.audioIfNull(url)
                         }
 
                         type != null && type.contains("video") -> {
                             // If there are multiple elements, we take only the first
-                            channelFactory.articleBuilder.videoIfNull(
-                                attributes.getValueOrNull(RssKeyword.Url.value) as? String
-                            )
+                            channelFactory.articleBuilder.videoIfNull(url)
                         }
                     }
                 }

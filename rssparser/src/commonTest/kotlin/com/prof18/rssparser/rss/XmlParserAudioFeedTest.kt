@@ -22,6 +22,7 @@ import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserAudioFeedTest : BaseXmlParserTest(
     feedPath = "feed-test-audio.xml",
@@ -69,5 +70,10 @@ class XmlParserAudioFeedTest : BaseXmlParserTest(
         summary = "As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.\n" +
                 "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
         season = null,
+    ),
+    rawEnclosure = RawEnclosure(
+        url = "https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW3157672398.mp3",
+        length = 0,
+        type = "audio/mpeg",
     ),
 )

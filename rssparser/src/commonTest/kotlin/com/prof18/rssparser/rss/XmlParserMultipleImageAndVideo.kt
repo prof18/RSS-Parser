@@ -1,6 +1,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.model.RawEnclosure
 
 class XmlParserMultipleImageAndVideo : BaseXmlParserTest(
     feedPath = "feed-test-multiple-image-and-video.xml",
@@ -26,4 +27,9 @@ class XmlParserMultipleImageAndVideo : BaseXmlParserTest(
     articleCategories = listOf("Новости"),
     articleCommentsUrl = null,
     articleItunesData = null,
+    rawEnclosure = RawEnclosure(
+        url = "https://motor.media.eagleplatform.com/index/player?record_id=1410861",
+        length = null,
+        type = "video/mp4",
+    ),
 )

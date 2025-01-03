@@ -2,6 +2,7 @@ package com.prof18.rssparser
 
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
@@ -42,6 +43,7 @@ abstract class BaseXmlParserTest(
     val articleCommentsUrl: String? = null,
     val articleItunesData: ItunesItemData? = null,
     val articleYoutubeData: YoutubeItemData? = null,
+    val rawEnclosure: RawEnclosure? = null,
 ) : XmlParserTestExecutor() {
 
     private lateinit var channel: RssChannel
@@ -311,5 +313,20 @@ abstract class BaseXmlParserTest(
     @Test
     fun youtubeLikesCount_isCorrect() {
         assertEquals(articleYoutubeData?.likesCount, article.youtubeItemData?.likesCount)
+    }
+
+    @Test
+    fun rawEnclosureUrl_isCorrect() {
+        assertEquals(rawEnclosure?.url, article.rawEnclosure?.url)
+    }
+
+    @Test
+    fun rawEnclosureLength_isCorrect() {
+        assertEquals(rawEnclosure?.length, article.rawEnclosure?.length)
+    }
+
+    @Test
+    fun rawEnclosureType_isCorrect() {
+        assertEquals(rawEnclosure?.type, article.rawEnclosure?.type)
     }
 }

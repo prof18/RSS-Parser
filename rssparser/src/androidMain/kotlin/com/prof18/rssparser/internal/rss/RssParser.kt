@@ -131,32 +131,27 @@ internal fun CoroutineScope.extractRSSContent(
                 xmlPullParser.contains(RssKeyword.Item.Enclosure) -> {
                     if (insideItem) {
                         val type = xmlPullParser.attributeValue(RssKeyword.Item.Type)
+                        val url = xmlPullParser.attributeValue(RssKeyword.Url)
+                        val length = xmlPullParser.attributeValue(RssKeyword.Item.Length)
+
+                        channelFactory.rawEnclosureBuilder.length(length?.toLongOrNull())
+                        channelFactory.rawEnclosureBuilder.type(type)
+                        channelFactory.rawEnclosureBuilder.url(url)
+
                         when {
                             type != null && type.contains("image") -> {
                                 // If there are multiple elements, we take only the first
-                                channelFactory.articleBuilder.image(
-                                    xmlPullParser.attributeValue(
-                                        RssKeyword.Url
-                                    )
-                                )
+                                channelFactory.articleBuilder.image(url)
                             }
 
                             type != null && type.contains("audio") -> {
                                 // If there are multiple elements, we take only the first
-                                channelFactory.articleBuilder.audioIfNull(
-                                    xmlPullParser.attributeValue(
-                                        RssKeyword.Url
-                                    )
-                                )
+                                channelFactory.articleBuilder.audioIfNull(url)
                             }
 
                             type != null && type.contains("video") -> {
                                 // If there are multiple elements, we take only the first
-                                channelFactory.articleBuilder.videoIfNull(
-                                    xmlPullParser.attributeValue(
-                                        RssKeyword.Url
-                                    )
-                                )
+                                channelFactory.articleBuilder.videoIfNull(url)
                             }
 
                             else -> channelFactory.articleBuilder.image(

@@ -1,11 +1,12 @@
 package com.prof18.rssparser.internal
 
-import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesOwner
+import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.model.YoutubeChannelData
 import com.prof18.rssparser.model.YoutubeItemData
 
@@ -18,6 +19,7 @@ internal class ChannelFactory {
     var itunesOwnerBuilder = ItunesOwner.Builder()
     var youtubeChannelDataBuilder = YoutubeChannelData.Builder()
     var youtubeItemDataBuilder = YoutubeItemData.Builder()
+    var rawEnclosureBuilder = RawEnclosure.Builder()
 
     // This image url is extracted from the content and the description of the rss item.
     // It's a fallback just in case there aren't any images in the enclosure tag.
@@ -27,12 +29,14 @@ internal class ChannelFactory {
         articleBuilder.image(imageUrlFromContent)
         articleBuilder.itunesArticleData(itunesArticleBuilder.build())
         articleBuilder.youtubeItemData(youtubeItemDataBuilder.build())
+        articleBuilder.rawEnclosure(rawEnclosureBuilder.build())
         channelBuilder.addItem(articleBuilder.build())
         // Reset temp data
         imageUrlFromContent = null
         articleBuilder = RssItem.Builder()
         itunesArticleBuilder = ItunesItemData.Builder()
         youtubeItemDataBuilder = YoutubeItemData.Builder()
+        rawEnclosureBuilder = RawEnclosure.Builder()
     }
 
     fun buildItunesOwner() {
@@ -50,7 +54,7 @@ internal class ChannelFactory {
         try {
             val urlRegex = Regex(pattern = "https?:\\/\\/[^\\s<>\"]+\\.(?:jpg|jpeg|png|gif|bmp|webp)")
             content
-                ?.let{ urlRegex.find(it) }
+                ?.let { urlRegex.find(it) }
                 ?.let {
                     it.value.trim().let { imgUrl ->
                         if (!imgUrl.contains(EMOJI_WEBSITE)) {
@@ -58,7 +62,7 @@ internal class ChannelFactory {
                         }
                     }
                 }
-        } catch (e: Throwable) {
+        } catch (_: Throwable) {
             // Do nothing, on iOS it could fail for too much recursion
         }
     }
@@ -83,7 +87,6 @@ internal class ChannelFactory {
                 null
             }
         } ?: emptyList()
-
 
     fun build(): RssChannel {
         val channelImage = channelImageBuilder.build()
