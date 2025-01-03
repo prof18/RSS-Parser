@@ -2,6 +2,7 @@ package com.prof18.rssparser.internal
 
 import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.AtomFeedHandler
+import com.prof18.rssparser.internal.rdf.RdfFeedHandler
 import com.prof18.rssparser.internal.rss.RssFeedHandler
 import com.prof18.rssparser.model.RssChannel
 import kotlinx.cinterop.BetaInteropApi
@@ -76,7 +77,6 @@ private class NSXMLParserDelegate(
         attributes: Map<Any?, *>,
     ) {
         when (didStartElement) {
-
             RssKeyword.Rss.value -> {
                 feedHandler = RssFeedHandler()
             }
@@ -85,8 +85,11 @@ private class NSXMLParserDelegate(
                 feedHandler = AtomFeedHandler(baseFeedUrl)
             }
 
-            else -> {
+            RdfKeyword.Rdf.value -> {
+                feedHandler = RdfFeedHandler()
+            }
 
+            else -> {
                 if (feedHandler == null) {
                     throw IllegalArgumentException(
                         "The provided XML is not supported. Only RSS and Atom feeds are supported",

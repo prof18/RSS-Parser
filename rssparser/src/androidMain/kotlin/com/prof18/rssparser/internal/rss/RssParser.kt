@@ -42,7 +42,6 @@ internal fun CoroutineScope.extractRSSContent(
 
     // Start parsing the xml
     loop@ while (eventType != XmlPullParser.END_DOCUMENT && isActive) {
-
         // Start parsing the item
         when {
             eventType == XmlPullParser.START_TAG -> when {

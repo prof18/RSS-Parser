@@ -19,6 +19,7 @@ package com.prof18.rssparser.internal
 
 import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.extractAtomContent
+import com.prof18.rssparser.internal.rdf.extractRdfContent
 import com.prof18.rssparser.internal.rss.extractRSSContent
 import com.prof18.rssparser.model.RssChannel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -35,7 +36,6 @@ internal class AndroidXmlParser(
 ) : XmlParser {
 
     override suspend fun parseXML(input: ParserInput): RssChannel = withContext(dispatcher) {
-
         try {
             val factory = XmlPullParserFactory.newInstance()
             factory.isNamespaceAware = false
@@ -50,10 +50,16 @@ internal class AndroidXmlParser(
             var eventType = xmlPullParser.eventType
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
-                    if (xmlPullParser.contains(RssKeyword.Rss)) {
-                        rssChannel = extractRSSContent(xmlPullParser)
-                    } else if (xmlPullParser.contains(AtomKeyword.Atom)) {
-                        rssChannel = extractAtomContent(xmlPullParser, input)
+                    when {
+                        xmlPullParser.contains(RssKeyword.Rss) -> {
+                            rssChannel = extractRSSContent(xmlPullParser)
+                        }
+                        xmlPullParser.contains(AtomKeyword.Atom) -> {
+                            rssChannel = extractAtomContent(xmlPullParser, input)
+                        }
+                        xmlPullParser.contains(RdfKeyword.Rdf) -> {
+                            rssChannel = extractRdfContent(xmlPullParser)
+                        }
                     }
                 }
                 eventType = xmlPullParser.next()

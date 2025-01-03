@@ -2,6 +2,7 @@ package com.prof18.rssparser.internal
 
 import com.prof18.rssparser.exception.RssParsingException
 import com.prof18.rssparser.internal.atom.AtomFeedHandler
+import com.prof18.rssparser.internal.rdf.RdfFeedHandler
 import com.prof18.rssparser.internal.rss.RssFeedHandler
 import com.prof18.rssparser.model.RssChannel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -73,6 +74,9 @@ private class SaxFeedHandler(
             }
             AtomKeyword.Atom.value -> {
                 feedHandler = AtomFeedHandler(feedUrl)
+            }
+            RdfKeyword.Rdf.value -> {
+                feedHandler = RdfFeedHandler()
             }
             else -> feedHandler?.onStartRssElement(qName, attributes)
         }
