@@ -8,7 +8,8 @@ public data class RssChannel(
     val lastBuildDate: String?,
     val updatePeriod: String?,
     val items: List<RssItem>,
-    val itunesChannelData: ItunesChannelData?
+    val itunesChannelData: ItunesChannelData?,
+    val youtubeChannelData: YoutubeChannelData?,
 ) {
     internal data class Builder(
         private var title: String? = null,
@@ -18,7 +19,8 @@ public data class RssChannel(
         private var lastBuildDate: String? = null,
         private var updatePeriod: String? = null,
         private val items: MutableList<RssItem> = mutableListOf(),
-        private var itunesChannelData: ItunesChannelData? = null
+        private var itunesChannelData: ItunesChannelData? = null,
+        private var youtubeChannelData: YoutubeChannelData? = null,
     ) {
         fun title(title: String?) = apply { this.title = title }
         fun link(link: String?) = apply { this.link = link }
@@ -29,6 +31,8 @@ public data class RssChannel(
         fun addItem(item: RssItem) = apply { this.items.add(item) }
         fun itunesChannelData(itunesChannelData: ItunesChannelData?) =
             apply { this.itunesChannelData = itunesChannelData }
+        fun youtubeChannelData(youtubeChannelData: YoutubeChannelData?) =
+            apply { this.youtubeChannelData = youtubeChannelData }
 
         fun build() = RssChannel(
             title = title,
@@ -38,7 +42,8 @@ public data class RssChannel(
             lastBuildDate = lastBuildDate,
             updatePeriod = updatePeriod,
             items = items,
-            itunesChannelData = itunesChannelData
+            itunesChannelData = itunesChannelData,
+            youtubeChannelData = youtubeChannelData,
         )
     }
 }

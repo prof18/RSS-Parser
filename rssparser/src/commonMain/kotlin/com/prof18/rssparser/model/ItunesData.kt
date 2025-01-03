@@ -11,7 +11,7 @@ public data class ItunesItemData(
     val subtitle: String?,
     val summary: String?,
     val season: String?,
-)  {
+) {
     internal data class Builder(
         private var author: String? = null,
         private var duration: String? = null,
@@ -47,7 +47,6 @@ public data class ItunesItemData(
             season = season,
         )
     }
-
 }
 
 public data class ItunesChannelData(
@@ -62,7 +61,7 @@ public data class ItunesChannelData(
     val subtitle: String?,
     val summary: String?,
     val type: String?,
-)  {
+) {
     internal data class Builder(
         private var author: String? = null,
         private var categories: MutableList<String> = mutableListOf(),

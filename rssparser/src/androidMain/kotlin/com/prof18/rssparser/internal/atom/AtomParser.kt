@@ -172,6 +172,64 @@ internal fun CoroutineScope.extractAtomContent(
                         }
                     }
                 }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.ChannelId) -> {
+                    if (insideItem) {
+                        channelFactory.youtubeChannelDataBuilder.channelId(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.VideoId) -> {
+                    if (insideItem) {
+                        channelFactory.youtubeItemDataBuilder.videoId(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaTitle) -> {
+                    if (insideItem) {
+                        channelFactory.youtubeItemDataBuilder.title(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaDescription) -> {
+                    if (insideItem) {
+                        channelFactory.youtubeItemDataBuilder.description(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaContent) -> {
+                    if (insideItem) {
+                        val videoUrl = xmlPullParser.attributeValue(AtomKeyword.Youtube.MediaGroup.MediaContent.Url)
+                        channelFactory.youtubeItemDataBuilder.videoUrl(videoUrl)
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaThumbnail) -> {
+                    if (insideItem) {
+                        val thumbnailUrl = xmlPullParser.attributeValue(
+                            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url
+                        )
+                        channelFactory.youtubeItemDataBuilder.thumbnailUrl(thumbnailUrl)
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics) -> {
+                    if (insideItem) {
+                        val views = xmlPullParser.attributeValue(
+                            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views
+                        )
+                        channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
+                    }
+                }
+
+                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating) -> {
+                    if (insideItem) {
+                        val count = xmlPullParser.attributeValue(
+                            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count
+                        )
+                        channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
+                    }
+                }
             }
 
             // Exit conditions

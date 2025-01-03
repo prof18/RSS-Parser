@@ -1,7 +1,7 @@
 package com.prof18.rssparser.internal
 
 internal sealed class RssKeyword(val value: String) {
-    data object Rss: RssKeyword("rss")
+    data object Rss : RssKeyword("rss")
     data object Title : RssKeyword("title")
     data object Image : RssKeyword("image")
     data object Link : RssKeyword("link")
@@ -49,7 +49,7 @@ internal sealed class RssKeyword(val value: String) {
         data object Guid : RssKeyword("guid")
         data object Source : RssKeyword("source")
         data object Comments : RssKeyword("comments")
-        data object Thumb: RssKeyword("thumb")
+        data object Thumb : RssKeyword("thumb")
 
         object News {
             data object Image : RssKeyword("News:Image")

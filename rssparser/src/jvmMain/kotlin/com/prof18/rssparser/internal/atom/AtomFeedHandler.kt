@@ -46,6 +46,30 @@ internal class AtomFeedHandler(
                     }
                 }
             }
+
+            AtomKeyword.Youtube.MediaGroup.MediaContent.value -> {
+                val url = attributes?.getValue(AtomKeyword.Youtube.MediaGroup.MediaContent.Url.value)
+                channelFactory.youtubeItemDataBuilder.videoUrl(url)
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.value -> {
+                val url = attributes?.getValue(AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url.value)
+                channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.value -> {
+                val views = attributes?.getValue(
+                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views.value
+                )
+                channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
+            }
+
+            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.value -> {
+                val count = attributes?.getValue(
+                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count.value
+                )
+                channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
+            }
         }
     }
 
@@ -76,6 +100,12 @@ internal class AtomFeedHandler(
                     AtomKeyword.Entry.Item.value -> {
                         channelFactory.buildArticle()
                         isInsideItem = false
+                    }
+                    AtomKeyword.Youtube.ChannelId.value -> channelFactory.youtubeChannelDataBuilder.channelId(text)
+                    AtomKeyword.Youtube.VideoId.value -> channelFactory.youtubeItemDataBuilder.videoId(text)
+                    AtomKeyword.Youtube.MediaGroup.MediaTitle.value -> channelFactory.youtubeItemDataBuilder.title(text)
+                    AtomKeyword.Youtube.MediaGroup.MediaDescription.value -> {
+                        channelFactory.youtubeItemDataBuilder.description(text)
                     }
                 }
             }

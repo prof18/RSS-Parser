@@ -115,7 +115,7 @@ public final class com/prof18/rssparser/model/ItunesOwner {
 }
 
 public final class com/prof18/rssparser/model/RssChannel {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;Lcom/prof18/rssparser/model/YoutubeChannelData;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
@@ -124,8 +124,9 @@ public final class com/prof18/rssparser/model/RssChannel {
 	public final fun component6 ()Ljava/lang/String;
 	public final fun component7 ()Ljava/util/List;
 	public final fun component8 ()Lcom/prof18/rssparser/model/ItunesChannelData;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;)Lcom/prof18/rssparser/model/RssChannel;
-	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/RssChannel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;ILjava/lang/Object;)Lcom/prof18/rssparser/model/RssChannel;
+	public final fun component9 ()Lcom/prof18/rssparser/model/YoutubeChannelData;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;Lcom/prof18/rssparser/model/YoutubeChannelData;)Lcom/prof18/rssparser/model/RssChannel;
+	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/RssChannel;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/prof18/rssparser/model/RssImage;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesChannelData;Lcom/prof18/rssparser/model/YoutubeChannelData;ILjava/lang/Object;)Lcom/prof18/rssparser/model/RssChannel;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getDescription ()Ljava/lang/String;
 	public final fun getImage ()Lcom/prof18/rssparser/model/RssImage;
@@ -135,6 +136,7 @@ public final class com/prof18/rssparser/model/RssChannel {
 	public final fun getLink ()Ljava/lang/String;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getUpdatePeriod ()Ljava/lang/String;
+	public final fun getYoutubeChannelData ()Lcom/prof18/rssparser/model/YoutubeChannelData;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -157,7 +159,7 @@ public final class com/prof18/rssparser/model/RssImage {
 }
 
 public final class com/prof18/rssparser/model/RssItem {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;Lcom/prof18/rssparser/model/YoutubeItemData;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component10 ()Ljava/lang/String;
 	public final fun component11 ()Ljava/lang/String;
@@ -165,6 +167,7 @@ public final class com/prof18/rssparser/model/RssItem {
 	public final fun component13 ()Ljava/util/List;
 	public final fun component14 ()Lcom/prof18/rssparser/model/ItunesItemData;
 	public final fun component15 ()Ljava/lang/String;
+	public final fun component16 ()Lcom/prof18/rssparser/model/YoutubeItemData;
 	public final fun component2 ()Ljava/lang/String;
 	public final fun component3 ()Ljava/lang/String;
 	public final fun component4 ()Ljava/lang/String;
@@ -173,8 +176,8 @@ public final class com/prof18/rssparser/model/RssItem {
 	public final fun component7 ()Ljava/lang/String;
 	public final fun component8 ()Ljava/lang/String;
 	public final fun component9 ()Ljava/lang/String;
-	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;)Lcom/prof18/rssparser/model/RssItem;
-	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/RssItem;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof18/rssparser/model/RssItem;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;Lcom/prof18/rssparser/model/YoutubeItemData;)Lcom/prof18/rssparser/model/RssItem;
+	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/RssItem;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;Lcom/prof18/rssparser/model/ItunesItemData;Ljava/lang/String;Lcom/prof18/rssparser/model/YoutubeItemData;ILjava/lang/Object;)Lcom/prof18/rssparser/model/RssItem;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getAudio ()Ljava/lang/String;
 	public final fun getAuthor ()Ljava/lang/String;
@@ -191,6 +194,41 @@ public final class com/prof18/rssparser/model/RssItem {
 	public final fun getSourceUrl ()Ljava/lang/String;
 	public final fun getTitle ()Ljava/lang/String;
 	public final fun getVideo ()Ljava/lang/String;
+	public final fun getYoutubeItemData ()Lcom/prof18/rssparser/model/YoutubeItemData;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof18/rssparser/model/YoutubeChannelData {
+	public fun <init> (Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;)Lcom/prof18/rssparser/model/YoutubeChannelData;
+	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/YoutubeChannelData;Ljava/lang/String;ILjava/lang/Object;)Lcom/prof18/rssparser/model/YoutubeChannelData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChannelId ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/prof18/rssparser/model/YoutubeItemData {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun component4 ()Ljava/lang/String;
+	public final fun component5 ()Ljava/lang/String;
+	public final fun component6 ()Ljava/lang/Integer;
+	public final fun component7 ()Ljava/lang/Integer;
+	public final fun copy (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;)Lcom/prof18/rssparser/model/YoutubeItemData;
+	public static synthetic fun copy$default (Lcom/prof18/rssparser/model/YoutubeItemData;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Integer;ILjava/lang/Object;)Lcom/prof18/rssparser/model/YoutubeItemData;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDescription ()Ljava/lang/String;
+	public final fun getLikesCount ()Ljava/lang/Integer;
+	public final fun getThumbnailUrl ()Ljava/lang/String;
+	public final fun getTitle ()Ljava/lang/String;
+	public final fun getVideoId ()Ljava/lang/String;
+	public final fun getVideoUrl ()Ljava/lang/String;
+	public final fun getViewsCount ()Ljava/lang/Integer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }

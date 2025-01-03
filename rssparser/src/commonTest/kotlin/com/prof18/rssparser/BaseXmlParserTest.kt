@@ -1,10 +1,12 @@
 package com.prof18.rssparser
 
-import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -21,6 +23,7 @@ abstract class BaseXmlParserTest(
     val channelLastBuildDate: String? = null,
     val channelUpdatePeriod: String? = null,
     val channelItunesData: ItunesChannelData? = null,
+    val youtubeChannelData: YoutubeChannelData? = null,
 
     // Article Data
     val articleGuid: String? = null,
@@ -38,7 +41,8 @@ abstract class BaseXmlParserTest(
     val articleCategories: List<String> = emptyList(),
     val articleCommentsUrl: String? = null,
     val articleItunesData: ItunesItemData? = null,
-): XmlParserTestExecutor() {
+    val articleYoutubeData: YoutubeItemData? = null,
+) : XmlParserTestExecutor() {
 
     private lateinit var channel: RssChannel
     private lateinit var article: RssItem
@@ -144,6 +148,11 @@ abstract class BaseXmlParserTest(
     @Test
     fun channelItunesType_isCorrect() {
         assertEquals(channelItunesData?.type, channel.itunesChannelData?.type)
+    }
+
+    @Test
+    fun youtubeChannelId_isCorrect() {
+        assertEquals(youtubeChannelData?.channelId, channel.youtubeChannelData?.channelId)
     }
 
     @Test
@@ -267,5 +276,40 @@ abstract class BaseXmlParserTest(
     @Test
     fun articleItunesSeason_isCorrect() {
         assertEquals(articleItunesData?.season, article.itunesItemData?.season)
+    }
+
+    @Test
+    fun youtubeVideoId_isCorrect() {
+        assertEquals(articleYoutubeData?.videoId, article.youtubeItemData?.videoId)
+    }
+
+    @Test
+    fun youtubeTitle_isCorrect() {
+        assertEquals(articleYoutubeData?.title, article.youtubeItemData?.title)
+    }
+
+    @Test
+    fun youtubeVideoUrl_isCorrect() {
+        assertEquals(articleYoutubeData?.videoUrl, article.youtubeItemData?.videoUrl)
+    }
+
+    @Test
+    fun youtubeThumbnailUrl_isCorrect() {
+        assertEquals(articleYoutubeData?.thumbnailUrl, article.youtubeItemData?.thumbnailUrl)
+    }
+
+    @Test
+    fun youtubeDescription_isCorrect() {
+        assertEquals(articleYoutubeData?.description, article.youtubeItemData?.description)
+    }
+
+    @Test
+    fun youtubeViewsCount_isCorrect() {
+        assertEquals(articleYoutubeData?.viewsCount, article.youtubeItemData?.viewsCount)
+    }
+
+    @Test
+    fun youtubeLikesCount_isCorrect() {
+        assertEquals(articleYoutubeData?.likesCount, article.youtubeItemData?.likesCount)
     }
 }

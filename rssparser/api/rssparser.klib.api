@@ -138,7 +138,7 @@ final class com.prof18.rssparser.model/ItunesOwner { // com.prof18.rssparser.mod
 }
 
 final class com.prof18.rssparser.model/RssChannel { // com.prof18.rssparser.model/RssChannel|null[0]
-    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?, com.prof18.rssparser.model/RssImage?, kotlin/String?, kotlin/String?, kotlin.collections/List<com.prof18.rssparser.model/RssItem>, com.prof18.rssparser.model/ItunesChannelData?) // com.prof18.rssparser.model/RssChannel.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?;com.prof18.rssparser.model.RssImage?;kotlin.String?;kotlin.String?;kotlin.collections.List<com.prof18.rssparser.model.RssItem>;com.prof18.rssparser.model.ItunesChannelData?){}[0]
+    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?, com.prof18.rssparser.model/RssImage?, kotlin/String?, kotlin/String?, kotlin.collections/List<com.prof18.rssparser.model/RssItem>, com.prof18.rssparser.model/ItunesChannelData?, com.prof18.rssparser.model/YoutubeChannelData?) // com.prof18.rssparser.model/RssChannel.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?;com.prof18.rssparser.model.RssImage?;kotlin.String?;kotlin.String?;kotlin.collections.List<com.prof18.rssparser.model.RssItem>;com.prof18.rssparser.model.ItunesChannelData?;com.prof18.rssparser.model.YoutubeChannelData?){}[0]
 
     final val description // com.prof18.rssparser.model/RssChannel.description|{}description[0]
         final fun <get-description>(): kotlin/String? // com.prof18.rssparser.model/RssChannel.description.<get-description>|<get-description>(){}[0]
@@ -156,6 +156,8 @@ final class com.prof18.rssparser.model/RssChannel { // com.prof18.rssparser.mode
         final fun <get-title>(): kotlin/String? // com.prof18.rssparser.model/RssChannel.title.<get-title>|<get-title>(){}[0]
     final val updatePeriod // com.prof18.rssparser.model/RssChannel.updatePeriod|{}updatePeriod[0]
         final fun <get-updatePeriod>(): kotlin/String? // com.prof18.rssparser.model/RssChannel.updatePeriod.<get-updatePeriod>|<get-updatePeriod>(){}[0]
+    final val youtubeChannelData // com.prof18.rssparser.model/RssChannel.youtubeChannelData|{}youtubeChannelData[0]
+        final fun <get-youtubeChannelData>(): com.prof18.rssparser.model/YoutubeChannelData? // com.prof18.rssparser.model/RssChannel.youtubeChannelData.<get-youtubeChannelData>|<get-youtubeChannelData>(){}[0]
 
     final fun component1(): kotlin/String? // com.prof18.rssparser.model/RssChannel.component1|component1(){}[0]
     final fun component2(): kotlin/String? // com.prof18.rssparser.model/RssChannel.component2|component2(){}[0]
@@ -165,7 +167,8 @@ final class com.prof18.rssparser.model/RssChannel { // com.prof18.rssparser.mode
     final fun component6(): kotlin/String? // com.prof18.rssparser.model/RssChannel.component6|component6(){}[0]
     final fun component7(): kotlin.collections/List<com.prof18.rssparser.model/RssItem> // com.prof18.rssparser.model/RssChannel.component7|component7(){}[0]
     final fun component8(): com.prof18.rssparser.model/ItunesChannelData? // com.prof18.rssparser.model/RssChannel.component8|component8(){}[0]
-    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., com.prof18.rssparser.model/RssImage? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.prof18.rssparser.model/RssItem> = ..., com.prof18.rssparser.model/ItunesChannelData? = ...): com.prof18.rssparser.model/RssChannel // com.prof18.rssparser.model/RssChannel.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?;com.prof18.rssparser.model.RssImage?;kotlin.String?;kotlin.String?;kotlin.collections.List<com.prof18.rssparser.model.RssItem>;com.prof18.rssparser.model.ItunesChannelData?){}[0]
+    final fun component9(): com.prof18.rssparser.model/YoutubeChannelData? // com.prof18.rssparser.model/RssChannel.component9|component9(){}[0]
+    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., com.prof18.rssparser.model/RssImage? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<com.prof18.rssparser.model/RssItem> = ..., com.prof18.rssparser.model/ItunesChannelData? = ..., com.prof18.rssparser.model/YoutubeChannelData? = ...): com.prof18.rssparser.model/RssChannel // com.prof18.rssparser.model/RssChannel.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?;com.prof18.rssparser.model.RssImage?;kotlin.String?;kotlin.String?;kotlin.collections.List<com.prof18.rssparser.model.RssItem>;com.prof18.rssparser.model.ItunesChannelData?;com.prof18.rssparser.model.YoutubeChannelData?){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.prof18.rssparser.model/RssChannel.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.prof18.rssparser.model/RssChannel.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.prof18.rssparser.model/RssChannel.toString|toString(){}[0]
@@ -194,7 +197,7 @@ final class com.prof18.rssparser.model/RssImage { // com.prof18.rssparser.model/
 }
 
 final class com.prof18.rssparser.model/RssItem { // com.prof18.rssparser.model/RssItem|null[0]
-    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin.collections/List<kotlin/String>, com.prof18.rssparser.model/ItunesItemData?, kotlin/String?) // com.prof18.rssparser.model/RssItem.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>;com.prof18.rssparser.model.ItunesItemData?;kotlin.String?){}[0]
+    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin.collections/List<kotlin/String>, com.prof18.rssparser.model/ItunesItemData?, kotlin/String?, com.prof18.rssparser.model/YoutubeItemData?) // com.prof18.rssparser.model/RssItem.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>;com.prof18.rssparser.model.ItunesItemData?;kotlin.String?;com.prof18.rssparser.model.YoutubeItemData?){}[0]
 
     final val audio // com.prof18.rssparser.model/RssItem.audio|{}audio[0]
         final fun <get-audio>(): kotlin/String? // com.prof18.rssparser.model/RssItem.audio.<get-audio>|<get-audio>(){}[0]
@@ -226,6 +229,8 @@ final class com.prof18.rssparser.model/RssItem { // com.prof18.rssparser.model/R
         final fun <get-title>(): kotlin/String? // com.prof18.rssparser.model/RssItem.title.<get-title>|<get-title>(){}[0]
     final val video // com.prof18.rssparser.model/RssItem.video|{}video[0]
         final fun <get-video>(): kotlin/String? // com.prof18.rssparser.model/RssItem.video.<get-video>|<get-video>(){}[0]
+    final val youtubeItemData // com.prof18.rssparser.model/RssItem.youtubeItemData|{}youtubeItemData[0]
+        final fun <get-youtubeItemData>(): com.prof18.rssparser.model/YoutubeItemData? // com.prof18.rssparser.model/RssItem.youtubeItemData.<get-youtubeItemData>|<get-youtubeItemData>(){}[0]
 
     final fun component1(): kotlin/String? // com.prof18.rssparser.model/RssItem.component1|component1(){}[0]
     final fun component10(): kotlin/String? // com.prof18.rssparser.model/RssItem.component10|component10(){}[0]
@@ -234,6 +239,7 @@ final class com.prof18.rssparser.model/RssItem { // com.prof18.rssparser.model/R
     final fun component13(): kotlin.collections/List<kotlin/String> // com.prof18.rssparser.model/RssItem.component13|component13(){}[0]
     final fun component14(): com.prof18.rssparser.model/ItunesItemData? // com.prof18.rssparser.model/RssItem.component14|component14(){}[0]
     final fun component15(): kotlin/String? // com.prof18.rssparser.model/RssItem.component15|component15(){}[0]
+    final fun component16(): com.prof18.rssparser.model/YoutubeItemData? // com.prof18.rssparser.model/RssItem.component16|component16(){}[0]
     final fun component2(): kotlin/String? // com.prof18.rssparser.model/RssItem.component2|component2(){}[0]
     final fun component3(): kotlin/String? // com.prof18.rssparser.model/RssItem.component3|component3(){}[0]
     final fun component4(): kotlin/String? // com.prof18.rssparser.model/RssItem.component4|component4(){}[0]
@@ -242,10 +248,54 @@ final class com.prof18.rssparser.model/RssItem { // com.prof18.rssparser.model/R
     final fun component7(): kotlin/String? // com.prof18.rssparser.model/RssItem.component7|component7(){}[0]
     final fun component8(): kotlin/String? // com.prof18.rssparser.model/RssItem.component8|component8(){}[0]
     final fun component9(): kotlin/String? // com.prof18.rssparser.model/RssItem.component9|component9(){}[0]
-    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<kotlin/String> = ..., com.prof18.rssparser.model/ItunesItemData? = ..., kotlin/String? = ...): com.prof18.rssparser.model/RssItem // com.prof18.rssparser.model/RssItem.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>;com.prof18.rssparser.model.ItunesItemData?;kotlin.String?){}[0]
+    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin.collections/List<kotlin/String> = ..., com.prof18.rssparser.model/ItunesItemData? = ..., kotlin/String? = ..., com.prof18.rssparser.model/YoutubeItemData? = ...): com.prof18.rssparser.model/RssItem // com.prof18.rssparser.model/RssItem.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.collections.List<kotlin.String>;com.prof18.rssparser.model.ItunesItemData?;kotlin.String?;com.prof18.rssparser.model.YoutubeItemData?){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.prof18.rssparser.model/RssItem.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.prof18.rssparser.model/RssItem.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.prof18.rssparser.model/RssItem.toString|toString(){}[0]
+}
+
+final class com.prof18.rssparser.model/YoutubeChannelData { // com.prof18.rssparser.model/YoutubeChannelData|null[0]
+    constructor <init>(kotlin/String?) // com.prof18.rssparser.model/YoutubeChannelData.<init>|<init>(kotlin.String?){}[0]
+
+    final val channelId // com.prof18.rssparser.model/YoutubeChannelData.channelId|{}channelId[0]
+        final fun <get-channelId>(): kotlin/String? // com.prof18.rssparser.model/YoutubeChannelData.channelId.<get-channelId>|<get-channelId>(){}[0]
+
+    final fun component1(): kotlin/String? // com.prof18.rssparser.model/YoutubeChannelData.component1|component1(){}[0]
+    final fun copy(kotlin/String? = ...): com.prof18.rssparser.model/YoutubeChannelData // com.prof18.rssparser.model/YoutubeChannelData.copy|copy(kotlin.String?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.prof18.rssparser.model/YoutubeChannelData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.prof18.rssparser.model/YoutubeChannelData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.prof18.rssparser.model/YoutubeChannelData.toString|toString(){}[0]
+}
+
+final class com.prof18.rssparser.model/YoutubeItemData { // com.prof18.rssparser.model/YoutubeItemData|null[0]
+    constructor <init>(kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/String?, kotlin/Int?, kotlin/Int?) // com.prof18.rssparser.model/YoutubeItemData.<init>|<init>(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.Int?;kotlin.Int?){}[0]
+
+    final val description // com.prof18.rssparser.model/YoutubeItemData.description|{}description[0]
+        final fun <get-description>(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.description.<get-description>|<get-description>(){}[0]
+    final val likesCount // com.prof18.rssparser.model/YoutubeItemData.likesCount|{}likesCount[0]
+        final fun <get-likesCount>(): kotlin/Int? // com.prof18.rssparser.model/YoutubeItemData.likesCount.<get-likesCount>|<get-likesCount>(){}[0]
+    final val thumbnailUrl // com.prof18.rssparser.model/YoutubeItemData.thumbnailUrl|{}thumbnailUrl[0]
+        final fun <get-thumbnailUrl>(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.thumbnailUrl.<get-thumbnailUrl>|<get-thumbnailUrl>(){}[0]
+    final val title // com.prof18.rssparser.model/YoutubeItemData.title|{}title[0]
+        final fun <get-title>(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.title.<get-title>|<get-title>(){}[0]
+    final val videoId // com.prof18.rssparser.model/YoutubeItemData.videoId|{}videoId[0]
+        final fun <get-videoId>(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.videoId.<get-videoId>|<get-videoId>(){}[0]
+    final val videoUrl // com.prof18.rssparser.model/YoutubeItemData.videoUrl|{}videoUrl[0]
+        final fun <get-videoUrl>(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.videoUrl.<get-videoUrl>|<get-videoUrl>(){}[0]
+    final val viewsCount // com.prof18.rssparser.model/YoutubeItemData.viewsCount|{}viewsCount[0]
+        final fun <get-viewsCount>(): kotlin/Int? // com.prof18.rssparser.model/YoutubeItemData.viewsCount.<get-viewsCount>|<get-viewsCount>(){}[0]
+
+    final fun component1(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.component1|component1(){}[0]
+    final fun component2(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.component2|component2(){}[0]
+    final fun component3(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.component3|component3(){}[0]
+    final fun component4(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.component4|component4(){}[0]
+    final fun component5(): kotlin/String? // com.prof18.rssparser.model/YoutubeItemData.component5|component5(){}[0]
+    final fun component6(): kotlin/Int? // com.prof18.rssparser.model/YoutubeItemData.component6|component6(){}[0]
+    final fun component7(): kotlin/Int? // com.prof18.rssparser.model/YoutubeItemData.component7|component7(){}[0]
+    final fun copy(kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/String? = ..., kotlin/Int? = ..., kotlin/Int? = ...): com.prof18.rssparser.model/YoutubeItemData // com.prof18.rssparser.model/YoutubeItemData.copy|copy(kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.String?;kotlin.Int?;kotlin.Int?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.prof18.rssparser.model/YoutubeItemData.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.prof18.rssparser.model/YoutubeItemData.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.prof18.rssparser.model/YoutubeItemData.toString|toString(){}[0]
 }
 
 final class com.prof18.rssparser/RssParser { // com.prof18.rssparser/RssParser|null[0]

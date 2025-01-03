@@ -46,12 +46,11 @@ internal class JvmXmlParser(
     override fun generateParserInputFromString(rawRssFeed: String): ParserInput {
         val cleanedXml = rawRssFeed.trim()
         val inputStream: InputStream = cleanedXml.byteInputStream(charset ?: Charsets.UTF_8)
-        // TODO: changeme
-        return ParserInput(inputStream, "TODO")
+        return ParserInput(inputStream)
     }
 }
 
-private class SaxFeedHandler (
+private class SaxFeedHandler(
     private val feedUrl: String?,
 ) : DefaultHandler() {
     private var feedHandler: FeedHandler? = null

@@ -26,4 +26,27 @@ internal sealed class AtomKeyword(val value: String) {
         data object Author : AtomKeyword("name")
         data object Email : AtomKeyword("email")
     }
+
+    data object Youtube {
+        data object ChannelId : AtomKeyword("yt:channelId")
+        data object VideoId : AtomKeyword("yt:videoId")
+        data object MediaGroup : AtomKeyword("media:group") {
+            data object MediaTitle : AtomKeyword("media:title")
+            data object MediaContent : AtomKeyword("media:content") {
+                data object Url : AtomKeyword("url")
+            }
+            data object MediaThumbnail : AtomKeyword("media:thumbnail") {
+                data object Url : AtomKeyword("url")
+            }
+            data object MediaDescription : AtomKeyword("media:description")
+            data object MediaCommunity : AtomKeyword("media:community") {
+                data object MediaStarRating : AtomKeyword("media:starRating") {
+                    data object Count : AtomKeyword("count")
+                }
+                data object MediaStatistics : AtomKeyword("media:statistics") {
+                    data object Views : AtomKeyword("views")
+                }
+            }
+        }
+    }
 }

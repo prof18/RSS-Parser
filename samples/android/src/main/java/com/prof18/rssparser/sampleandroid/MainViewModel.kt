@@ -60,7 +60,7 @@ class MainViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
                 _snackbar.value = "An error has occurred. Please retry"
-                _rssChannel.postValue(RssChannel(null, null, null, null, null, null, mutableListOf(), null))
+                _rssChannel.postValue(RssChannel(null, null, null, null, null, null, mutableListOf(), null, null))
             }
         }
     }
