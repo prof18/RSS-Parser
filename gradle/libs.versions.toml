@@ -27,7 +27,7 @@ compose-multiplatform = "1.7.3"
 io-coil = "2.7.0"
 androidx-lifecycle-extensions = "2.2.0"
 androidx-compose-bom = "2024.12.01"
-activity-compose = "1.9.3"
+activity-compose = "1.10.0"
 
 [libraries]
 # Library dependencies
