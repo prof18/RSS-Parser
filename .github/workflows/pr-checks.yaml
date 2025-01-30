@@ -173,7 +173,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.1
 
       - name: Xcode version
         run: |
@@ -212,7 +212,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.1
 
       - name: Xcode version
         run: |
@@ -251,7 +251,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.1
 
       - name: Xcode version
         run: |
@@ -291,7 +291,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.1
 
       - name: Xcode version
         run: |
