@@ -30,7 +30,11 @@ internal class AtomFeedHandler(
             AtomKeyword.Link.value -> {
                 val href = attributes?.getValue(AtomKeyword.Link.Href.value)
                 val rel = attributes?.getValue(AtomKeyword.Link.Rel.value)
-                if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
+                if (
+                    rel != AtomKeyword.Link.Edit.value &&
+                    rel != AtomKeyword.Link.Self.value &&
+                    rel != AtomKeyword.Link.Rel.Enclosure.value
+                ) {
                     val link = if (baseFeedUrl != null &&
                         rel == AtomKeyword.Link.Rel.Alternate.value &&
                         // Some feeds have full links

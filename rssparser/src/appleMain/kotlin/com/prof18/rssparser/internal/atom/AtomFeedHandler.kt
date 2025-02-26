@@ -48,7 +48,11 @@ internal class AtomFeedHandler(
                 } else {
                     href
                 }
-                if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
+                if (
+                    rel != AtomKeyword.Link.Edit.value &&
+                    rel != AtomKeyword.Link.Self.value &&
+                    rel != AtomKeyword.Link.Rel.Enclosure.value
+                ) {
                     when {
                         isInsideItem -> channelFactory.articleBuilder.link(link)
                         else -> channelFactory.channelBuilder.link(link)
