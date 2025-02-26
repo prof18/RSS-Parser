@@ -120,6 +120,7 @@ internal class RssFeedHandler : FeedHandler {
             isInsideItem -> {
                 when (qName) {
                     RssKeyword.Item.Author.value -> channelFactory.articleBuilder.author(text)
+                    RssKeyword.Item.Date.value -> channelFactory.articleBuilder.pubDateIfNull(text)
                     RssKeyword.Item.Category.value -> channelFactory.articleBuilder.addCategory(text)
                     RssKeyword.Item.Source.value -> channelFactory.articleBuilder.sourceName(text)
                     RssKeyword.Item.Time.value -> channelFactory.articleBuilder.pubDate(text)

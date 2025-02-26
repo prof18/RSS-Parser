@@ -202,6 +202,10 @@ internal class RssFeedHandler : FeedHandler {
                     )
                 }
 
+                channelFactory.articleBuilder.pubDateIfNull(
+                    itemData[RssKeyword.Item.Date.value]?.trim()
+                )
+
                 channelFactory.articleBuilder.guid(
                     itemData[RssKeyword.Item.Guid.value]?.trim()
                 )
