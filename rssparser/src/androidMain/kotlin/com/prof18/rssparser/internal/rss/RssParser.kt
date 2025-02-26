@@ -104,6 +104,12 @@ internal fun CoroutineScope.extractRSSContent(
                     }
                 }
 
+                xmlPullParser.contains(RssKeyword.Item.Date) -> {
+                    if (insideItem) {
+                        channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
+                    }
+                }
+
                 xmlPullParser.contains(RssKeyword.Item.Category) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
