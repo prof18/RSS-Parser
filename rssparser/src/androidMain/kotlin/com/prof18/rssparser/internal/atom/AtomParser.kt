@@ -99,7 +99,7 @@ internal fun CoroutineScope.extractAtomContent(
                     if (insideItem) {
                         val content = try {
                             xmlPullParser.nextTrimmedText()
-                        } catch (e: XmlPullParserException) {
+                        } catch (_: XmlPullParserException) {
                             // If there's some html not escaped, the parsing is going to fail
                             null
                         }
@@ -164,7 +164,10 @@ internal fun CoroutineScope.extractAtomContent(
                         } else {
                             href
                         }
-                        if (rel != AtomKeyword.Link.Edit.value && rel != AtomKeyword.Link.Self.value) {
+                        if (rel != AtomKeyword.Link.Edit.value &&
+                            rel != AtomKeyword.Link.Self.value &&
+                            rel != AtomKeyword.Link.Rel.Enclosure.value
+                        ) {
                             when {
                                 insideItem -> channelFactory.articleBuilder.link(link)
                                 else -> channelFactory.channelBuilder.link(link)
