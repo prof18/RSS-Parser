@@ -63,10 +63,11 @@ public class RssParser internal constructor(
      * - Escapes standalone ampersands that aren't part of valid entity references
      * - Fixes self-closing or unclosed tags that should be properly closed
      * - Fixes duplicate closing tags with content between them
+     * - Handles special cases for ampersands in URLs and text content
      */
     private fun escapeInvalidXmlEntities(xml: String): String {
         return xml
-            // Fix standalone ampersands
+            // Fix standalone ampersands in URLs and text
             .replace(
                 Regex("&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))"),
                 "&amp;"
@@ -87,6 +88,15 @@ public class RssParser internal constructor(
             .replace(
                 Regex("<(meta|img|br|hr|input|area|base|col|embed|keygen|param|track|wbr)([^>]*?)/?>(?!</\\1>)"),
                 "<$1$2></$1>"
+            )
+            // Additional pass to catch any ampersands in CDATA sections or attribute values that might have been missed
+            .replace(
+                Regex("(<!\\[CDATA\\[.*?)&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))(.*?\\]\\]>)"),
+                "$1&amp;$3"
+            )
+            .replace(
+                Regex("=\"(.*?)&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))(.*?)\""),
+                "=\"$1&amp;$3\""
             )
     }
 }

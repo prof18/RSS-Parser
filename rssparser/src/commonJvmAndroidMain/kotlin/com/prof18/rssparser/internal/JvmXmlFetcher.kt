@@ -49,6 +49,7 @@ internal class JvmXmlFetcher(
                         code = response.code,
                         message = response.message,
                     )
+                    response.close()
                     continuation.resumeWithException(exception)
                 }
             }
@@ -74,6 +75,7 @@ internal class JvmXmlFetcher(
                         code = response.code,
                         message = response.message,
                     )
+                    response.close()
                     continuation.resumeWithException(exception)
                 }
             }
