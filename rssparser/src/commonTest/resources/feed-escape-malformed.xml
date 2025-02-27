@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>llimllib's notes</title>
+    <id>http://notes.billmill.org/</id>
+    <link href="https://notes.billmill.org/atom.xml" rel="self" />
+    <updated>2025-02-24T15:45:46.035455Z</updated>
+    <generator uri="https://github.com/llimllib/obsidian_notes/" version="1.0">
+        Obsidian Notes
+    </generator>
+    <author><name>Bill Mill</name></author>
+    <entry>
+        <id>https://notes.billmill.org/modeling/augurs.html</id>
+        <link type="text/html" href="https://notes.billmill.org/modeling/augurs.html" />
+        <title>augurs</title>
+        <published>2025-02-24T15:43:09.452Z</published>
+        <updated>2025-02-24T15:43:09.452Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/grafana/augurs&quot; class=&quot;external-link&quot;&gt;https://github.com/grafana/augurs&lt;/a&gt;&lt;br /&gt;
+            &lt;a href=&quot;https://demo.augu.rs/&quot; class=&quot;external-link&quot;&gt;demo&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;To be honest, I don&#x27;t much understand the demo. But I might have some uses for a time series forecasting and outlier-detection tool&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/NBA_Stats/nba_play_by_play_data_on_github.html</id>
+        <link type="text/html" href="https://notes.billmill.org/NBA_Stats/nba_play_by_play_data_on_github.html" />
+        <title>nba play by play data on github</title>
+        <published>2025-02-14T14:22:27.863Z</published>
+        <updated>2025-02-14T14:22:27.863Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/shufinskiy/nba_data&quot; class=&quot;external-link&quot;&gt;https://github.com/shufinskiy/nba_data&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;via &lt;a href=&quot;https://thef5.substack.com/p/how-to-use-duckdb-to-analyze-nba&quot; class=&quot;external-link&quot;&gt;Owen Phillips&lt;/a&gt;&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/02/Visualizing_Data_Is_An_Art_-_We_Should_Treat_It_Like_One.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/02/Visualizing_Data_Is_An_Art_-_We_Should_Treat_It_Like_One.html" />
+        <title>Visualizing Data Is An Art - We Should Treat It Like One</title>
+        <published>2025-02-12T14:38:06.243Z</published>
+        <updated>2025-02-12T14:38:06.243Z</updated>
+        <content type="html">&lt;blockquote&gt;
+            &lt;p&gt;The mental model I&#x27;ve settled on for now is to think of data visualization as a combination of primitives, dimensions, and goals.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;Primitives are the building blocks of a visualization. They&#x27;re the shapes, colors, typography, encodings, interactions, and everything else that tangibly makes up a chart.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;Dimensions are the different aspects of a visualization that we need to trade off against each other, like precision, aesthetics, and ethics.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;Goals are the things we hope our audience can do with our visualizations, like communicating a specific insight, making it easy to spot trends in a dense dataset, or making the audience feel a certain emotion.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;The general question of data visualization can then be framed as: how do I combine the right primitives in a way that will achieve my goal?&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;https://perthirtysix.com/visualizing-data-is-an-art&quot; class=&quot;external-link&quot;&gt;Shri Khalpada&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;This article follows up on what they said in an interview I linked in &lt;a href=&quot;/link_blog/2025/01/on_pie_charts.html&quot; class=&quot;internal-link&quot;&gt;on pie charts&lt;/a&gt;, with a lot more detail explaining their view that data visualization is an art, not a science&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/music/music_blog/2025/02/No_Gold_Teeth_-_Danger_Mouse___Black_Thought.html</id>
+        <link type="text/html" href="https://notes.billmill.org/music/music_blog/2025/02/No_Gold_Teeth_-_Danger_Mouse___Black_Thought.html" />
+        <title>No Gold Teeth - Danger Mouse & Black Thought</title>
+        <published>2025-02-11T13:30:11.074Z</published>
+        <updated>2025-02-11T13:30:11.074Z</updated>
+        <content type="html">&lt;p&gt;What an incredible beat, and Black Thought kills it&lt;/p&gt;
+            &lt;iframe style=&quot;border-radius:12px&quot; src=&quot;https://open.spotify.com/embed/track/4oFsGGBX4TlvowJ0fWczSW?utm_source=generator&quot; width=&quot;100%&quot; height=&quot;352&quot; frameBorder=&quot;0&quot; allowfullscreen=&quot;&quot; allow=&quot;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;</content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/music/music_blog/2025/02/Cigarettes__Whiskey_and_Wild_Wild_Women.html</id>
+        <link type="text/html" href="https://notes.billmill.org/music/music_blog/2025/02/Cigarettes__Whiskey_and_Wild_Wild_Women.html" />
+        <title>Cigarettes, Whiskey and Wild Wild Women</title>
+        <published>2025-02-10T13:00:15.667Z</published>
+        <updated>2025-02-10T13:00:15.667Z</updated>
+        <content type="html">&lt;p&gt;I woke up this morning with Jim Croce singing &amp;quot;Cigarettes, Whiskey and Wild Wild Women&amp;quot; in my head:&lt;/p&gt;
+            &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/CVuk-pAr1h4?si=y8csZ7dmu0sB_XgM&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;
+            &lt;p&gt;The earliest version I can find of it is by Red Ingle and the Natural Seven, published as &amp;quot;Cigareetes, Whuskey and Wild Wild Women&amp;quot; in 1947. This version is a riot:&lt;/p&gt;
+            &lt;iframe src=&quot;https://archive.org/embed/capitol-15045-b-cigarettes-whiskey-and-wild-wild-women&quot; width=&quot;500&quot; height=&quot;60&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;true&quot; mozallowfullscreen=&quot;true&quot; allowfullscreen&gt;&lt;/iframe&gt;
+            &lt;p&gt;Buck Owens covered it in a very similar style:&lt;/p&gt;
+            &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/v4rY52SWklc?si=ty1e0fZ1G3zzj4VA&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;
+            &lt;p&gt;And there&#x27;s also a notable cover... by Peter Sellers on the Muppet Show?&lt;/p&gt;
+            &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/gkT5J2C8IVs?si=SEI0gmiLM5YYLRcX&quot; title=&quot;YouTube video player&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot; referrerpolicy=&quot;strict-origin-when-cross-origin&quot; allowfullscreen&gt;&lt;/iframe&gt;</content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/gis/Terra_Draw.html</id>
+        <link type="text/html" href="https://notes.billmill.org/gis/Terra_Draw.html" />
+        <title>Terra Draw</title>
+        <published>2025-02-10T12:27:56.549Z</published>
+        <updated>2025-02-10T12:27:56.549Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://github.com/JamesLMilner/terra-draw&quot; class=&quot;external-link&quot;&gt;https://github.com/JamesLMilner/terra-draw&lt;/a&gt;&lt;br /&gt;
+            &lt;a href=&quot;https://terradraw.io/&quot; class=&quot;external-link&quot;&gt;https://terradraw.io/&lt;/a&gt;&lt;/p&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;A library for drawing on maps that supports Mapbox, MapLibre, Google Maps, OpenLayers and Leaflet out the box&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;Frictionless map drawing across mapping libraries.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;Terra Draw centralizes map drawing logic and provides a host of out-of-the-box drawing modes that work across different JavaScript mapping libraries. It also allows you to bring your own modes!&lt;/p&gt;
+            &lt;/blockquote&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/02/WikiTok.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/02/WikiTok.html" />
+        <title>WikiTok</title>
+        <published>2025-02-08T03:48:30.407Z</published>
+        <updated>2025-02-08T03:48:30.407Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://wikitok.vercel.app/&quot; class=&quot;external-link&quot;&gt;https://wikitok.vercel.app/&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Wikipedia as if it were tiktok&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/music/music_blog/2025/02/The_Purple_Bird_-_Bonnie_Prince_Billy.html</id>
+        <link type="text/html" href="https://notes.billmill.org/music/music_blog/2025/02/The_Purple_Bird_-_Bonnie_Prince_Billy.html" />
+        <title>The Purple Bird - Bonnie Prince Billy</title>
+        <published>2025-02-07T13:30:31.349Z</published>
+        <updated>2025-02-07T13:30:31.349Z</updated>
+        <content type="html">&lt;iframe style=&quot;border-radius:12px&quot; src=&quot;https://open.spotify.com/embed/album/6VpdeIfQLH0HhlJVbftwP6?utm_source=generator&quot; width=&quot;100%&quot; height=&quot;352&quot; frameBorder=&quot;0&quot; allowfullscreen=&quot;&quot; allow=&quot;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;</content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/music/music_blog/2025/02/Mendelssohn_and_Chopin_played_by_Alicia_de_Larrocha.html</id>
+        <link type="text/html" href="https://notes.billmill.org/music/music_blog/2025/02/Mendelssohn_and_Chopin_played_by_Alicia_de_Larrocha.html" />
+        <title>Mendelssohn and Chopin played by Alicia de Larrocha</title>
+        <published>2025-02-06T18:04:24.531Z</published>
+        <updated>2025-02-06T18:04:24.531Z</updated>
+        <content type="html">&lt;iframe style=&quot;border-radius:12px&quot; src=&quot;https://open.spotify.com/embed/album/524iYNRrWTqAJg3mejEqg9?utm_source=generator&quot; width=&quot;100%&quot; height=&quot;352&quot; frameBorder=&quot;0&quot; allowfullscreen=&quot;&quot; allow=&quot;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;
+            &lt;p&gt;I don&#x27;t remember how I came to love this album, maybe I had a physical copy that I found at a used cd shop?&lt;/p&gt;
+            &lt;p&gt;But I love it, and have listened to it probably a thousand times. I find it simultaneously stimulating and calming, and the playing masterful without being overbearing.&lt;/p&gt;
+            &lt;p&gt;(But I&#x27;m no classical music judge; it just works for me)&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/02/Let_s_get_real.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/02/Let_s_get_real.html" />
+        <title>Let's get real</title>
+        <published>2025-02-06T17:36:51.56Z</published>
+        <updated>2025-02-06T17:36:51.56Z</updated>
+        <content type="html">&lt;blockquote&gt;
+            &lt;p&gt;Nor do I think Trump is a carbon copy of Mussolini or Hitler or his regime will fully resemble theirs. I don’t think this is as virulent an instantiation. But there is much more to the comparison than has been allowed by otherwise smart and well-read people who just sneer at it. To the critics of the fascism thesis, I’d just quote Oliver Cromwell, “I beseech you…think it possible that you may be mistaken.”&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;https://www.unpopularfront.news/p/lets-get-real&quot; class=&quot;external-link&quot;&gt;John Ganz&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;p&gt;A thorough and interesting examination of the state of Trump&#x27;s attempt to consolidate executive power through the lens of other fascist movements.&lt;/p&gt;
+            &lt;p&gt;Pairs well with &lt;a href=&quot;/link_blog/2024/12/Ur-fascism.html&quot; class=&quot;internal-link&quot;&gt;Ur-fascism&lt;/a&gt;, which I just re-re-read and continue to get something new from every time I do.&lt;/p&gt;
+            &lt;p&gt;via &lt;a href=&quot;https://zirk.us/@interfluidity/113957740249894702&quot; class=&quot;external-link&quot;&gt;Steve Randy Waldman&lt;/a&gt;&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/02/Practicing_graphical_debugging_using_too_many_visualizations_of_the_hilbert_curve.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/02/Practicing_graphical_debugging_using_too_many_visualizations_of_the_hilbert_curve.html" />
+        <title>Practicing graphical debugging using too many visualizations of the hilbert curve</title>
+        <published>2025-02-04T19:36:13.759Z</published>
+        <updated>2025-02-04T19:36:13.759Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://akkartik.name/debugUIs.html&quot; class=&quot;external-link&quot;&gt;https://akkartik.name/debugUIs.html&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Kartik Agaram shows how they used graphical methods to gain an intuition for a surprising function that calculates the points on a hilbert curve&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/02/Everyone_gets_bidirectional_BFS_wrong.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/02/Everyone_gets_bidirectional_BFS_wrong.html" />
+        <title>Everyone gets bidirectional BFS wrong</title>
+        <published>2025-02-04T19:28:29.359Z</published>
+        <updated>2025-02-04T19:28:29.359Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://zdimension.fr/everyone-gets-bidirectional-bfs-wrong/&quot; class=&quot;external-link&quot;&gt;https://zdimension.fr/everyone-gets-bidirectional-bfs-wrong/&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Wonderful article that starts with a description of the algorithm and &lt;a href=&quot;/visualization/interactive_explainers/Interactive_explainer.html&quot; class=&quot;internal-link&quot;&gt;Interactive explainer&lt;/a&gt;s, then shows how most people get it wrong, and finally delves into the history of why almost every online source gets it wrong.&lt;/p&gt;
+            &lt;p&gt;Ends by showing that LLMs happily plagiarize the subtly-incorrect version, so that if you trust an LLM to write it for you, you&#x27;ll get it wrong.&lt;/p&gt;
+            &lt;p&gt;via &lt;a href=&quot;https://bsky.app/profile/redblobgames.com/post/3lherughk2226&quot; class=&quot;external-link&quot;&gt;red blob games&lt;/a&gt; on bsky&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/01/sapf_-_sound_as_pure_form.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/01/sapf_-_sound_as_pure_form.html" />
+        <title>sapf - sound as pure form</title>
+        <published>2025-01-31T15:26:36.195Z</published>
+        <updated>2025-01-31T15:26:36.195Z</updated>
+        <content type="html">&lt;p&gt;A new audio programming language from the author of &lt;a href=&quot;https://supercollider.github.io/&quot; class=&quot;external-link&quot;&gt;supercollider&lt;/a&gt;, with a very nice manifesto in the README:&lt;/p&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;APL and FORTH (from which Joy derives) are both widely derided for being write-only languages. Nevertheless, there has yet to be a language of such concise expressive power as APL or its descendants. APL is powerful not because of its bizarre symbols or syntax, but due to the way it automatically maps operations over arrays and allows iterations at depth within arrays. This means one almost never needs to write a loop or think about operations one-at-a-time. Instead one can think about operations on whole structures.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;p&gt;...&lt;/p&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;There are several reasons I like the concatenative style of programming:&lt;br /&gt;
+            Function composition is concatenation.&lt;br /&gt;
+            Pipelining values through functions to get new values is the most natural idiom.&lt;br /&gt;
+            Functions are applied from left to right instead of inside out.&lt;/p&gt;
+            &lt;/blockquote&gt;
+            &lt;p&gt;Some examples of the language:&lt;/p&gt;
+            &lt;pre&gt;&lt;code&gt;&lt;div class=&quot;highlight&quot;&gt;;; play a sine wave at 800 Hz and initial phase of zero.
+            800 0 sinosc .3 * play
+
+            ;; the analog bubbles example from SuperCollider:
+            .4 0 lfsaw 2 * [8 7.23] 0 lfsaw .25 * 5/3 + + ohz 0 sinosc .04 * .2 0 4 combn play
+            &lt;/div&gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;p&gt;more &lt;a href=&quot;https://github.com/lfnoise/sapf/blob/main/sapf-examples.txt&quot; class=&quot;external-link&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;via &lt;a href=&quot;https://sonomu.club/@madskjeldgaard/113921744905363935&quot; class=&quot;external-link&quot;&gt;toot&lt;/a&gt;&lt;/p&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/01/How_I_AI.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/01/How_I_AI.html" />
+        <title>How I AI</title>
+        <published>2025-01-30T12:00:28.599Z</published>
+        <updated>2025-01-30T12:00:28.599Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://lucumr.pocoo.org/2025/1/30/how-i-ai/&quot; class=&quot;external-link&quot;&gt;https://lucumr.pocoo.org/2025/1/30/how-i-ai/&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Armin Ronacher describes how and when they use AI.&lt;/p&gt;
+            &lt;p&gt;I particularly like how they describe the use of the ChatGPT&#x27;s voice chat as a pair programming partner and with their children.&lt;/p&gt;
+            &lt;blockquote&gt;
+            &lt;p&gt;AI tools, at their best, feel less like disruptive and dark magic and more like a natural extension of the creative process as long as you see them as curious collaborators. My approach isn&#x27;t about outsourcing thinking, but augmenting it: using LLMs to accelerate grunt work, untangle mental knots, and prototype ideas faster. Skepticism is healthy, but dismissing AI outright risks missing its potential as a multiplier for those willing to engage critically.&lt;/p&gt;
+            &lt;/blockquote&gt;
+        </content>
+    </entry>
+    <entry>
+        <id>https://notes.billmill.org/link_blog/2025/01/The_communal_plot.html</id>
+        <link type="text/html" href="https://notes.billmill.org/link_blog/2025/01/The_communal_plot.html" />
+        <title>The communal plot</title>
+        <published>2025-01-29T12:54:55.575Z</published>
+        <updated>2025-01-29T12:54:55.575Z</updated>
+        <content type="html">&lt;p&gt;&lt;a href=&quot;https://perthirtysix.com/communal-plot-daily-poll&quot; class=&quot;external-link&quot;&gt;https://perthirtysix.com/communal-plot-daily-poll&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Every day, there&#x27;s a new two-axis plot to put yourself on. Once you answer, you see the responses from everybody else.&lt;/p&gt;
+            &lt;p&gt;via &lt;a href=&quot;https://thef5.substack.com/p/amen-escaped&quot; class=&quot;external-link&quot;&gt;Owen Phillips&lt;/a&gt;&lt;/p&gt;
+        </content>
+    </entry>
+</feed>
