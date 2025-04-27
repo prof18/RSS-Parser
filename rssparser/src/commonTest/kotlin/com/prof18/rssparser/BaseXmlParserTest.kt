@@ -52,7 +52,7 @@ abstract class BaseXmlParserTest(
     @BeforeTest
     fun setUp() = runTest {
         val input = readFileFromResources(feedPath)
-        channel = XmlParserFactory.createXmlParser().parseXML(input)
+        channel = createXmlParser().parseXML(input)
         article = channel.items[0]
     }
 
