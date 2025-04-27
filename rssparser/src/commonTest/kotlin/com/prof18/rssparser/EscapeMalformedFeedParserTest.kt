@@ -18,7 +18,7 @@ class EscapeMalformedFeedParserTest : XmlParserTestExecutor() {
                 override suspend fun fetchXmlAsString(url: String): String =
                     readFileFromResourcesAsString("feed-escape-malformed.xml")
             },
-            xmlParser = XmlParserFactory.createXmlParser()
+            xmlParser = createXmlParser()
         )
 
         val channel = rssParser.getRssChannel("feed-url")
