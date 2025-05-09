@@ -4,7 +4,7 @@ android-compile-sdk = "34"
 android-min-sdk = "21"
 android-target-sdk = "34"
 kotlin = "2.1.20"
-library-version-name = "6.0.10"
+library-version-name = "6.0.11"
 
 # Library dependencies
 com-squareup-okhttp3 = "4.12.0"
