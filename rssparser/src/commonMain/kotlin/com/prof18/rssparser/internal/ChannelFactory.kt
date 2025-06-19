@@ -52,8 +52,19 @@ internal class ChannelFactory {
      */
     fun setImageFromContent(content: String?) {
         try {
-            val urlRegex = Regex(pattern = "https?:\\/\\/[^\\s<>\"]+\\.(?:jpg|jpeg|png|gif|bmp|webp)")
-            content
+            val decoded = content
+                ?.replace("&amp;amp;", "&amp;")
+                ?.replace("&amp;", "&")
+                ?.replace("&quot;", "\"")
+                ?.replace("&lt;", "<")
+                ?.replace("&gt;", ">")
+
+            val urlRegex = Regex(
+                pattern = """https?://[^\s<>"']+\.(?:jpg|jpeg|png|gif|bmp|webp)(?:\?[^\s<>"']*)?""",
+                options = setOf(RegexOption.IGNORE_CASE)
+            )
+
+            decoded
                 ?.let { urlRegex.find(it) }
                 ?.let {
                     it.value.trim().let { imgUrl ->
