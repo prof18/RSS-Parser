@@ -33,7 +33,8 @@
         "androidx.compose.material:material",
         "androidx.activity:activity-compose",
         "androidx.compose:compose-bom",
-        "org.jetbrains.compose:compose-multiplatform"
+        "org.jetbrains.compose:compose-multiplatform",
+        "org.jetbrains.compose"
       ],
       "enabled": false
     }

@@ -48,3 +48,4 @@ captures/
 !/renovate.json
 /.kotlin/
 /samples/multiplatform/iosApp/iosApp.xcodeproj/project.xcworkspace/xcuserdata/
+samples/multiplatform/iosApp/iosApp.xcodeproj/xcuserdata/

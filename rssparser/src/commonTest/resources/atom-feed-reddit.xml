@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed
+    xmlns="http://www.w3.org/2005/Atom"
+    xmlns:media="http://search.yahoo.com/mrss/">
+    <category term="Minecraft" label="r/Minecraft"/>
+    <updated>2025-06-22T10:10:32+00:00</updated>
+    <icon>https://www.redditstatic.com/icon.png/</icon>
+    <id>/r/minecraft.rss</id>
+    <link rel="self" href="https://www.reddit.com/r/minecraft.rss" type="application/atom+xml" />
+    <link rel="alternate" href="https://www.reddit.com/r/minecraft" type="text/html" />
+    <logo>https://b.thumbs.redditmedia.com/_J-qf37qKLV9YDnyzSrazonFiPR7LSZTOTUILuaXp5A.png</logo>
+    <subtitle>Minecraft community on Reddit</subtitle>
+    <title>Minecraft on reddit</title>
+    <entry>
+        <author>
+            <name>/u/Mlakuss</name>
+            <uri>https://www.reddit.com/user/Mlakuss</uri>
+        </author>
+        <category term="Minecraft" label="r/Minecraft"/>
+        <content type="html">&lt;table&gt; &lt;tr&gt;&lt;td&gt; &lt;a href=&quot;https://www.reddit.com/r/Minecraft/comments/1ldu6hr/vibrant_visuals_troubleshooting/&quot;&gt; &lt;img src=&quot;https://external-preview.redd.it/bqEhLTi2rlzVDgMqeUu4xWmTgN16qIfQKQ3BsX5ozbQ.jpeg?width=640&amp;amp;crop=smart&amp;amp;auto=webp&amp;amp;s=a8773a88f096deba46da1d25c1f80f0d5330bb04&quot; alt=&quot;Vibrant Visuals - Troubleshooting&quot; title=&quot;Vibrant Visuals - Troubleshooting&quot; /&gt; &lt;/a&gt; &lt;/td&gt;&lt;td&gt; &lt;!-- SC_OFF --&gt;&lt;div class=&quot;md&quot;&gt;&lt;p&gt;Hello,&lt;/p&gt; &lt;p&gt;As we are seeing a huge number of identical threads, here are some answers to the question &amp;quot;Why isn&amp;#39;t Vibrant Visual working?&amp;quot;&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;strong&gt;It&amp;#39;s on Bedrock only.&lt;/strong&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;If you are playing on computer, you may be using the Java version. Java does not have Vibrant Visuals, but will have it later.&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;strong&gt;It&amp;#39;s only on some supported devices&lt;/strong&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Shaders require some specific hardware. The &lt;a href=&quot;https://minecraft.wiki/w/Vibrant_Visuals#Availability&quot;&gt;list of supported devices can be found here&lt;/a&gt;. In short, it is not on Nintendo Switch (1 &amp;amp; 2), ChromeOS, Amazon Fire and old devices.&lt;/p&gt; &lt;p&gt;For Windows, to know if your computer has DirectX 12 (required), &lt;a href=&quot;https://support.microsoft.com/en-us/windows/which-version-of-directx-is-on-your-pc-3c688307-6c44-2ff5-9df7-d90d92bf5239&quot;&gt;see this&lt;/a&gt;. It it does and still have troubles, &lt;a href=&quot;https://www.reddit.com/r/Minecraft/comments/1ldu6hr/comment/myu323c/&quot;&gt;check this&lt;/a&gt;.&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;strong&gt;I can&amp;#39;t enable/disable Vibrant Visuals, option is grayed out&lt;/strong&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Try leaving your world and change the video settings from the main menu (not in world options). It&amp;#39;s in the Video Settings&lt;/p&gt; &lt;p&gt;&lt;a href=&quot;https://preview.redd.it/8bl85u4r7j7f1.png?width=3836&amp;amp;format=png&amp;amp;auto=webp&amp;amp;s=86586f3583b123772e6c06fbedb066f57b461774&quot;&gt;Turn on \&amp;quot;Allow In-Game Graphics Mode Switching\&amp;quot; to be able to change this setting when you are playing in your world&lt;/a&gt;&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;strong&gt;It requires a supported resource pack (vanilla is supported)&lt;/strong&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;If you have a texture pack, try turning it off. You may also need to disable some addons if they require a texture pack. Servers/Realms sometimes use resource pack too that can prevent Vibrant Visuals being turned on.&lt;/p&gt; &lt;ul&gt; &lt;li&gt;&lt;strong&gt;Improve Performance&lt;/strong&gt;&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;Reducing the Volumetric Fog setting can significantly increase the performance if Vibrant Visuals are tanking your FPS too much.&lt;/p&gt; &lt;ul&gt; &lt;li&gt;Getting more help&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;If you need further help, make sure to indicate what device you are using (exact model of the phone, model of the graphic card, version of your graphic drivers, OS version...).&lt;/p&gt; &lt;p&gt;The wiki also has a &lt;a href=&quot;https://minecraft.wiki/w/Vibrant_Visuals#Issues&quot;&gt;list of known issues&lt;/a&gt; related to Vibrant Visuals.&lt;/p&gt; &lt;/div&gt;&lt;!-- SC_ON --&gt; &amp;#32; submitted by &amp;#32; &lt;a href=&quot;https://www.reddit.com/user/Mlakuss&quot;&gt; /u/Mlakuss &lt;/a&gt; &lt;br/&gt; &lt;span&gt;&lt;a href=&quot;https://www.reddit.com/r/Minecraft/comments/1ldu6hr/vibrant_visuals_troubleshooting/&quot;&gt;[link]&lt;/a&gt;&lt;/span&gt; &amp;#32; &lt;span&gt;&lt;a href=&quot;https://www.reddit.com/r/Minecraft/comments/1ldu6hr/vibrant_visuals_troubleshooting/&quot;&gt;[comments]&lt;/a&gt;&lt;/span&gt; &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</content>
+        <id>https://www.redditstatic.com/icon.png/</id>
+        <link href="https://www.reddit.com/r/Minecraft/comments/1ldu6hr/vibrant_visuals_troubleshooting/" />
+        <updated>2025-06-17T18:02:33+00:00</updated>
+        <published>2025-06-17T18:02:33+00:00</published>
+        <title>Vibrant Visuals - Troubleshooting</title>
+    </entry>
+</feed>
