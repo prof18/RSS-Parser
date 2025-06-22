@@ -9,7 +9,7 @@ library-version-name = "6.0.11"
 # Library dependencies
 com-squareup-okhttp3 = "4.12.0"
 com-vanniktech-maven-publish="0.32.0"
-org-robolectric = "4.14.1"
+org-robolectric = "4.15.1"
 binary-compatibility-validator = "0.17.0"
 coroutines = "1.10.2"
 
