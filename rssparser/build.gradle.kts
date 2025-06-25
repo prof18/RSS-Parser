@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
@@ -35,7 +37,14 @@ kotlin {
     watchosSimulatorArm64()
     watchosX64()
 
-    applyDefaultHierarchyTemplate()
+    applyDefaultHierarchyTemplate {
+        common {
+            group("jvmAndroid") {
+                withAndroidTarget()
+                withJvm()
+            }
+        }
+    }
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -61,40 +70,27 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
         }
 
-        val commonJvmAndroidMain by creating {
-            dependsOn(commonMain.get())
-
-            dependencies {
-                api(libs.com.squareup.okhttp3)
-            }
-        }
-
-        val commonJvmAndroidTest by creating {
-            dependsOn(commonTest.get())
-        }
-
-        jvmMain.get().dependsOn(commonJvmAndroidMain)
         jvmTest {
-            dependsOn(commonJvmAndroidTest)
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
 
         androidMain {
-            dependsOn(commonJvmAndroidMain)
             dependencies {
                 implementation(libs.kotlinx.coroutines.android)
             }
         }
 
-        val androidUnitTest by getting {
-            dependsOn(commonJvmAndroidTest)
-
+        androidUnitTest {
             dependencies {
                 implementation(libs.org.robolectric)
                 implementation(kotlin("test-junit"))
             }
+        }
+
+        get("jvmAndroidMain").dependencies {
+            api(libs.com.squareup.okhttp3)
         }
     }
 }
