@@ -1,27 +1,102 @@
 package com.prof18.rssparser.atom
 
-import com.prof18.rssparser.BaseXmlParserTest
 import com.prof18.rssparser.CurrentTarget
+import com.prof18.rssparser.XmlParserTestExecutor
 import com.prof18.rssparser.currentTarget
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserAtomContentHtmlTest : BaseXmlParserTest(
-    feedPath = "feed-test-atom-content-html.xml",
-    channelTitle = "Jake Wharton",
-    channelLink = "https://jakewharton.com/",
-    channelLastBuildDate = "2023-04-28T20:00:30+00:00",
-    articleTitle = "The state of managing state (with Compose)",
-    articlePubDate = "2021-11-11T00:00:00+00:00",
-    articleLink = "https://code.cash.app/the-state-of-managing-state-with-compose",
-    articleGuid = "https://jakewharton.com/the-state-of-managing-state-with-compose",
-    articleContent = when (currentTarget) {
-        CurrentTarget.JVM -> {
-            "https://code.cash.app/the-state-of-managing-state-with-compose."
-        }
-        CurrentTarget.APPLE -> {
-            "This post was published externally on Cash App Code Blog. Read it at"
-        }
-        else -> {
-            null
-        }
+class XmlParserAtomContentHtmlTest : XmlParserTestExecutor() {
+
+    val expectedChannel = RssChannel(
+        title = "Jake Wharton",
+        link = "https://jakewharton.com/",
+        description = null,
+        image = null,
+        lastBuildDate = "2023-04-28T20:00:30+00:00",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = emptyList(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = emptyList(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                guid = "https://jakewharton.com/the-state-of-managing-state-with-compose",
+                title = "The state of managing state (with Compose)",
+                author = null,
+                link = "https://code.cash.app/the-state-of-managing-state-with-compose",
+                pubDate = "2021-11-11T00:00:00+00:00",
+                description = null,
+                content = when (currentTarget) {
+                    CurrentTarget.JVM -> {
+                        "https://code.cash.app/the-state-of-managing-state-with-compose."
+                    }
+                    CurrentTarget.APPLE -> {
+                        "This post was published externally on Cash App Code Blog. Read it at"
+                    }
+                    else -> {
+                        null
+                    }
+                },
+                image = null,
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                categories = emptyList(),
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = emptyList(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun channelIsParsedCorrectly() = runTest {
+        val channel = parseFeed("feed-test-atom-content-html.xml")
+        assertEquals(expectedChannel, channel)
     }
-)
+}

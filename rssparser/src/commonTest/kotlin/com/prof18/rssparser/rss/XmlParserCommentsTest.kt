@@ -17,16 +17,91 @@
 
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserCommentsTest : BaseXmlParserTest(
-    feedPath = "feed-comment.xml",
-    channelTitle = "Hacker News",
-    channelLink = "https://news.ycombinator.com/",
-    channelDescription = "Links for the intellectually curious, ranked by readers.",
-    articleTitle = "GPTZero case study discovers it&#x27;s only accurate on less than 50% of text",
-    articleLink = "https://gonzoknows.com/posts/GPTZero-Case-Study/",
-    articlePubDate = "Sun, 19 Feb 2023 15:22:39 +0000",
-    articleDescription = "<a href=\"https://news.ycombinator.com/item?id=34858307\">Comments</a>",
-    articleCommentsUrl = "https://news.ycombinator.com/item?id=34858307",
-)
+class XmlParserCommentsTest : XmlParserTestExecutor() {
+
+    val expectedChannel = RssChannel(
+        title = "Hacker News",
+        link = "https://news.ycombinator.com/",
+        description = "Links for the intellectually curious, ranked by readers.",
+        image = null,
+        lastBuildDate = null,
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                guid = null,
+                title = "GPTZero case study discovers it&#x27;s only accurate on less than 50% of text",
+                author = null,
+                link = "https://gonzoknows.com/posts/GPTZero-Case-Study/",
+                pubDate = "Sun, 19 Feb 2023 15:22:39 +0000",
+                description = "<a href=\"https://news.ycombinator.com/item?id=34858307\">Comments</a>",
+                content = null,
+                image = null,
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                categories = listOf(),
+                commentsUrl = "https://news.ycombinator.com/item?id=34858307",
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun channelIsParsedCorrectly() = runTest {
+        val channel = parseFeed("feed-comment.xml")
+        assertEquals(expectedChannel, channel)
+    }
+}

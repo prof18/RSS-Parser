@@ -17,31 +17,97 @@
 
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserImageFeedTest : BaseXmlParserTest(
-    feedPath = "feed-test-image.xml",
-    channelTitle = "Movie Reviews",
-    channelLink = "https://movieweb.com/movie-reviews/",
-    channelDescription = "Movie Reviews at MovieWeb",
-    channelImage = RssImage(
+class XmlParserImageFeedTest : XmlParserTestExecutor() {
+
+    private val expectedChannel = RssChannel(
         title = "Movie Reviews",
-        url = "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png",
         link = "https://movieweb.com/movie-reviews/",
-        description = null,
-    ),
-    channelLastBuildDate = "Fri, 17 May 2019 00:24:34 PDT",
-    articleGuid = "https://movieweb.com/the-sun-is-also-a-star-review/",
-    articleTitle = "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance",
-    articleLink = "https://movieweb.com/the-sun-is-also-a-star-review/",
-    articlePubDate = "Wed, 15 May 2019 16:52:24 PDT",
-    articleDescription = "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.",
-    articleImage = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
-    rawEnclosure = RawEnclosure(
-        url = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
-        length = null,
-        type = "image/jpeg",
-    ),
-)
+        description = "Movie Reviews at MovieWeb",
+        image = RssImage(
+            title = "Movie Reviews",
+            url = "https://cdn.movieweb.com/assets/1/sites/movieweb.com/chrome-touch-icon-192x192.png",
+            link = "https://movieweb.com/movie-reviews/",
+            description = null,
+        ),
+        lastBuildDate = "Fri, 17 May 2019 00:24:34 PDT",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                title = "The Sun Is Also a Star Review: Yara Shahidi & Charles Melton Elevate Teen Romance",
+                author = null,
+                link = "https://movieweb.com/the-sun-is-also-a-star-review/",
+                pubDate = "Wed, 15 May 2019 16:52:24 PDT",
+                description = "The Sun Is Also a Star is a diverse romance that bucks Hollywood's YA genre.",
+                content = null,
+                image = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
+                categories = listOf(),
+                guid = "https://movieweb.com/the-sun-is-also-a-star-review/",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = "https://cdn3.movieweb.com/i/article/ABvTB3C2AERsBFALiokUbPAwoYXIC4/1200:100/The-Sun-Is-Also-A-Star-Review.jpg",
+                    length = null,
+                    type = "image/jpeg",
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun testXmlParserImageFeed() = runTest {
+        val feedChannel = parseFeed("feed-test-image.xml")
+        assertEquals(expectedChannel, feedChannel)
+    }
+}

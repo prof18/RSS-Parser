@@ -1,13 +1,25 @@
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserDcDate : BaseXmlParserTest(
-    feedPath = "feed-dcdate.xml",
-    channelTitle = "Reporterre, le média de l'écologie - Indépendant et en accès libre",
-    channelLink = "https://reporterre.net/",
-    channelDescription = """
+class XmlParserDcDate : XmlParserTestExecutor() {
+
+    private val expectedChannel = RssChannel(
+        title = "Reporterre, le média de l'écologie - Indépendant et en accès libre",
+        link = "https://reporterre.net/",
+        description = """
 Reporterre est un média indépendant qui publie chaque jour des articles, enquêtes et reportages sur l"écologie. En accès libre, sans publicité, à but non lucratif, Reporterre est financé par les dons de ses lectrices et lecteurs. *****
             Reporterre, environnement, écologie, climat, biodiversité, luttes, alternatives
             *****
@@ -44,18 +56,36 @@ Reporterre est un média indépendant qui publie chaque jour des articles, enqu�
             *****
             Reporterre 16 bd Jules Ferry 75011 Paris
             planete@reporterre.net
-    """.trimIndent(),
-    channelLastBuildDate = "Wed, 26 Feb 2025 18:45:21 +0100",
-    channelImage = RssImage(
-        title = "Reporterre, le média de l'écologie - Indépendant et en accès libre",
-        url = "https://reporterre.net/squelettes/images/logofeed.png",
-        link = "https://reporterre.net/",
-        description = null,
-    ),
-    articleTitle = "Europe : vers un « affaiblissement historique » des normes écologiques ?",
-    articleLink = "https://reporterre.net/Europe-vers-un-affaiblissement-historique-des-normes-ecologiques",
-    articlePubDate = "2025-02-26T16:42:45Z",
-    articleDescription = """<img src='https://reporterre.net/local/cache-vignettes/L700xH467/european_union_flag__4768764591_2_-cc8c4.jpg?1740588172' class='spip_logo' width='700' height='467' alt="" />
+        """.trimIndent(),
+        image = RssImage(
+            title = "Reporterre, le média de l'écologie - Indépendant et en accès libre",
+            url = "https://reporterre.net/squelettes/images/logofeed.png",
+            link = "https://reporterre.net/",
+            description = null,
+        ),
+        lastBuildDate = "Wed, 26 Feb 2025 18:45:21 +0100",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                title = "Europe : vers un « affaiblissement historique » des normes écologiques ?",
+                author = null,
+                link = "https://reporterre.net/Europe-vers-un-affaiblissement-historique-des-normes-ecologiques",
+                pubDate = "2025-02-26T16:42:45Z",
+                description = """<img src='https://reporterre.net/local/cache-vignettes/L700xH467/european_union_flag__4768764591_2_-cc8c4.jpg?1740588172' class='spip_logo' width='700' height='467' alt="" />
 
                 <p>Le 26 février, la Commission européenne a présenté un projet de directive «<small class="fine d-inline"> </small>Omnibus<small class="fine d-inline"> </small>», un ensemble de nouvelles règles destinées à alléger les contraintes administratives pesant sur les entreprises. Sous couvert de leur «<small class="fine d-inline"> </small>simplifier<small class="fine d-inline"> </small>» la vie, «<small class="fine d-inline"> </small>la Commission propose de démanteler nombre d'obligations en matière de durabilité et de protection des droits humains<small class="fine d-inline"> </small>», s'indignent plusieurs <span class="caps">ONG</span> et syndicats dans un communiqué. Ils craignent un «<small class="fine d-inline"> </small>affaiblissement historique des normes (…)</p>
 
@@ -68,6 +98,48 @@ Reporterre est un média indépendant qui publie chaque jour des articles, enqu�
 
                 /
                 <a href=" https://reporterre.net/Europe" rel="tag" >Europe</a>""",
-    articleImage = "https://reporterre.net/local/cache-vignettes/L700xH467/european_union_flag__4768764591_2_-cc8c4.jpg?1740588172",
-    articleGuid = "https://reporterre.net/Europe-vers-un-affaiblissement-historique-des-normes-ecologiques"
-)
+                content = null,
+                image = "https://reporterre.net/local/cache-vignettes/L700xH467/european_union_flag__4768764591_2_-cc8c4.jpg?1740588172",
+                categories = listOf(),
+                guid = "https://reporterre.net/Europe-vers-un-affaiblissement-historique-des-normes-ecologiques",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun testXmlParserDcDate() = runTest {
+        val channel = parseFeed("feed-dcdate.xml")
+        assertEquals(expectedChannel, channel)
+    }
+}
