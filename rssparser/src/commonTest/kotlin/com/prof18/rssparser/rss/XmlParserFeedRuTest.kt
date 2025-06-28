@@ -17,24 +17,91 @@
 
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserFeedRuTest : BaseXmlParserTest(
-    feedPath = "feed-test-ru.xml",
-    channelTitle = "Аргументы и Факты",
-    channelLink = "http://www.aif.ru/",
-    channelDescription = "Аргументы и Факты: объясняем, что происходит",
-    channelLastBuildDate = "2019-05-18 10:58:46 +0300",
-    articleTitle = "СМИ: собака в Таиланде спасла заживо похороненного младенца",
-    articleLink = "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca",
-    articlePubDate = "Sat, 18 May 2019 10:52:50 +0300",
-    articleDescription = "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей",
-    articleImage = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
-    articleCategories = listOf("Происшествия"),
-    rawEnclosure = RawEnclosure(
-        url = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
-        length = 30000,
-        type = "image/jpeg",
-    ),
-)
+class XmlParserFeedRuTest : XmlParserTestExecutor() {
+
+    private val expectedChannel = RssChannel(
+        title = "Аргументы и Факты",
+        link = "http://www.aif.ru/",
+        description = "Аргументы и Факты: объясняем, что происходит",
+        image = null,
+        lastBuildDate = "2019-05-18 10:58:46 +0300",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                title = "СМИ: собака в Таиланде спасла заживо похороненного младенца",
+                author = null,
+                link = "http://www.aif.ru/incidents/smi_sobaka_v_tailande_spasla_zazhivo_pohoronennogo_mladenca",
+                pubDate = "Sat, 18 May 2019 10:52:50 +0300",
+                description = "15-летняя мать ребенка решила избавиться от него, побоявшись гнева родителей",
+                content = null,
+                image = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
+                categories = listOf("Происшествия"),
+                guid = null,
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = "https://images.aif.ru/017/020/025bc5cb4cc5d0f8347bbb27f5e4d13b.jpg",
+                    length = 30000,
+                    type = "image/jpeg",
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun testXmlParserFeedRu() = runTest {
+        val feedChannel = parseFeed("feed-test-ru.xml")
+        assertEquals(expectedChannel, feedChannel)
+    }
+}

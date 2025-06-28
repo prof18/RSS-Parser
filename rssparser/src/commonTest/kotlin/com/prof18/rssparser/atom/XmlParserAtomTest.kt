@@ -1,26 +1,56 @@
 package com.prof18.rssparser.atom
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserAtomTest: BaseXmlParserTest(
-    feedPath = "feed-atom-test.xml",
-    channelTitle = "The Verge -  All Posts",
-    channelLink = "https://www.theverge.com/",
-    channelImage = RssImage(
-        title = null,
-        link = null,
+class XmlParserAtomTest : XmlParserTestExecutor() {
+
+    val expectedChannel = RssChannel(
+        title = "The Verge -  All Posts",
+        link = "https://www.theverge.com/",
         description = null,
-        url = "https://cdn.vox-cdn.com/community_logos/52801/VER_Logomark_32x32..png"
-    ),
-    channelLastBuildDate = "2023-05-26T17:30:31-04:00",
-    channelUpdatePeriod = null,
-    articleGuid = "https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling",
-    articleTitle = "Sonos wins \$32.5 million patent infringement victory over Google",
-    articleAuthor = "Chris Welch",
-    articleLink = "https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling",
-    articlePubDate = "2023-05-26T17:30:31-04:00",
-    articleContent = """
+        image = RssImage(
+            title = null,
+            link = null,
+            description = null,
+            url = "https://cdn.vox-cdn.com/community_logos/52801/VER_Logomark_32x32..png"
+        ),
+        lastBuildDate = "2023-05-26T17:30:31-04:00",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = emptyList(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = emptyList(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                guid = "https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling",
+                title = "Sonos wins \$32.5 million patent infringement victory over Google",
+                author = "Chris Welch",
+                link = "https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling",
+                pubDate = "2023-05-26T17:30:31-04:00",
+                description = null,
+                content = """
 <figure>
             <img alt="A photo of the Sonos Era 300 on a kitchen dining table." src="https://cdn.vox-cdn.com/thumbor/oCea2Vc5FYLWqQXGUmA4O-rRrM0=/0x0:2040x1360/1310x873/cdn.vox-cdn.com/uploads/chorus_image/image/72316887/DSCF0491.0.jpg" />
             <figcaption>Photo by Chris Welch / The Verge</figcaption>
@@ -34,6 +64,47 @@ class XmlParserAtomTest: BaseXmlParserTest(
             <p>
             <a href="https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling">Continue reading&hellip;</a>
             </p>
-    """.trimIndent(),
-    articleImage = "https://cdn.vox-cdn.com/thumbor/oCea2Vc5FYLWqQXGUmA4O-rRrM0=/0x0:2040x1360/1310x873/cdn.vox-cdn.com/uploads/chorus_image/image/72316887/DSCF0491.0.jpg"
-)
+                """.trimIndent(),
+                image = "https://cdn.vox-cdn.com/thumbor/oCea2Vc5FYLWqQXGUmA4O-rRrM0=/0x0:2040x1360/1310x873/cdn.vox-cdn.com/uploads/chorus_image/image/72316887/DSCF0491.0.jpg",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                categories = emptyList(),
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = emptyList(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun channelIsParsedCorrectly() = runTest {
+        val channel = parseFeed("feed-atom-test.xml")
+        assertEquals(expectedChannel, channel)
+    }
+}

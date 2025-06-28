@@ -17,31 +17,91 @@
 
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
-import com.prof18.rssparser.model.RssImage
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserImageEmptyTag : BaseXmlParserTest(
-    feedPath = "feed-test-image-empty-tag.xml",
-    channelTitle = "Hacker Noon",
-    channelLink = "https://hackernoon.com",
-    channelDescription = "How hackers start their afternoons.",
-    channelImage = null,
-    channelLastBuildDate = "Sun, 29 Oct 2023 10:00:20 GMT",
-    channelUpdatePeriod = null,
-    channelItunesData = null,
-    articleGuid = "https://hackernoon.com/miscellaneous-directions?source=rss",
-    articleTitle = "MISCELLANEOUS DIRECTIONS.",
-    articleAuthor = "Catharine Esther Beecher",
-    articleLink = "https://hackernoon.com/miscellaneous-directions?source=rss",
-    articlePubDate = "Sun, 29 Oct 2023 09:00:01 GMT",
-    articleDescription = "Every woman should know how to direct in regard to the proper care of domestic animals.",
-    articleContent = null,
-    articleImage = "https://hackernoon.com/https://cdn.hackernoon.com/images/3cu1ROR1ocaekNNTdramI0w9qNj2-xl93swo.jpeg",
-    articleAudio = null,
-    articleVideo = null,
-    articleSourceName = null,
-    articleSourceUrl = null,
-    articleCategories = listOf("domestic-manuals"),
-    articleCommentsUrl = null,
-    articleItunesData = null,
-)
+class XmlParserImageEmptyTag : XmlParserTestExecutor() {
+
+    val expectedChannel = RssChannel(
+        title = "Hacker Noon",
+        link = "https://hackernoon.com",
+        description = "How hackers start their afternoons.",
+        image = null,
+        lastBuildDate = "Sun, 29 Oct 2023 10:00:20 GMT",
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                guid = "https://hackernoon.com/miscellaneous-directions?source=rss",
+                title = "MISCELLANEOUS DIRECTIONS.",
+                author = "Catharine Esther Beecher",
+                link = "https://hackernoon.com/miscellaneous-directions?source=rss",
+                pubDate = "Sun, 29 Oct 2023 09:00:01 GMT",
+                description = "Every woman should know how to direct in regard to the proper care of domestic animals.",
+                content = null,
+                image = "https://hackernoon.com/https://cdn.hackernoon.com/images/3cu1ROR1ocaekNNTdramI0w9qNj2-xl93swo.jpeg",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                categories = listOf("domestic-manuals"),
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun channelIsParsedCorrectly() = runTest {
+        val channel = parseFeed("feed-test-image-empty-tag.xml")
+        assertEquals(expectedChannel, channel)
+    }
+}

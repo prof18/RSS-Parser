@@ -1,18 +1,48 @@
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserGreekTest : BaseXmlParserTest(
-    feedPath = "feed-test-greek.xml",
-    channelTitle = "Liberal - ΕΠΙΚΑΙΡΟΤΗΤΑ",
-    channelLink = "https://www.liberal.gr/news",
-    channelDescription = "Ενημέρωση με άποψη για την οικονομία, την πολιτική και τις διεθνείς σχέσεις.",
-    articleGuid = "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923",
-    articleTitle = "«Πορτραίτα καραντίνας» για έμπνευση από τη συλλογή Φέλιου",
-    articleLink = "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923",
-    articlePubDate = "Fri, 24 Apr 2020 22:03:00 +0200",
-    articleDescription = """
+class XmlParserGreekTest : XmlParserTestExecutor() {
+
+    private val expectedChannel = RssChannel(
+        title = "Liberal - ΕΠΙΚΑΙΡΟΤΗΤΑ",
+        link = "https://www.liberal.gr/news",
+        description = "Ενημέρωση με άποψη για την οικονομία, την πολιτική και τις διεθνείς σχέσεις.",
+        image = null,
+        lastBuildDate = null,
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                title = "«Πορτραίτα καραντίνας» για έμπνευση από τη συλλογή Φέλιου",
+                author = null,
+                link = "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923",
+                pubDate = "Fri, 24 Apr 2020 22:03:00 +0200",
+                description = """
 Η συνθήκη του αναγκαστικού εγκλεισμού οδήγησε τα μεγάλα μουσεία διεθνώς να βρουν νέους, εναλλακτικούς τρόπους επικοινωνίας με το κοινό. Το διαδίκτυο και τα social media πρόσφεραν το απαραίτητο έδαφος και οι απανταχού φιλότεχνοι ανταποκρίθηκαν αμέσως. Μονάχα το Prado, από τις 12 Μαρτίου που έκλεισε, είχε 2.000.000 επισκέπτες μέσα από ένα ευρύ πρόγραμμα ψηφιακών προβολών και δράσεων που ανέπτυξε. Μία από τις πιο ευφάνταστες ξεκίνησε από το Rijksmuseum και τον λογαριασμό του στο Instagram με την ονομασία &laquo;Between Art and Quarantine&raquo; (Μεταξύ Τέχνης και Καραντίνας). Εκεί, καλούνται οι διαδικτυακοί φίλοι να δημιουργήσουν σέλφις, εμπνευσμένες από έργα τέχνης, με αποτέλεσμα σπουδαίοι ζωγράφοι να &laquo;χρησιμοποιηθούν&raquo; ξανά για να συνθέσουν τη ζωή στις μέρες της καραντίνας.
 
                 Εδώ σε μας, την σκυτάλη από τα ξένα μουσεία πήρε ο διακεκριμένος νομικός Σωτήρης Φέλιος που θέλησε να δώσει χρώμα ελληνικό στην ευφάνταστη πρωτοβουλία. Γνωστός για την εξωστρέφεια με την οποία διαχειρίζεται την συλλογή του με έργα εγχώριας τέχνης, ο Φέλιος προχώρησε ένα βήμα παραπέρα, αφήνοντας πίσω μεγάλα κρατικά ιδρύματα. Δημιούργησε στη νέα ιστοσελίδα του (felioscollection.gr) ένα σύγχρονο ψηφιακό περιβάλλον, παρουσιάζοντας όχι μόνο φωτογραφίες έργων, αλλά δίνοντας &laquo;βήμα&raquo; στους ίδιους τους δημιουργούς. Με μια σειρά από video, οι σύγχρονοι καλλιτέχνες συστήνονται στο κοινό, φιλοτεχνώντας το &laquo;πορτρέτο&raquo; τους. Μιλούν για τη δουλειά τους, τον τρόπο που ζωγραφίζουν κι αυτό που, ίσως, ονειρεύονται ν&rsquo; αφήσουν στην ιστορία της ελληνικής τέχνης. Είναι μια καταγραφή, όχι απλά χρήσιμη για τον υποψιασμένο θεατή, αλλά για το ευρύ κοινό που ενδιαφέρεται να δει το πρόσωπο του δημιουργού πίσω από το έργο.
@@ -32,11 +62,49 @@ class XmlParserGreekTest : BaseXmlParserTest(
                 Πάρτε ένα αγαπημένο πρόσωπο και κοιτάξτε το, όπως δεν το έχετε ξανακάνει. Μπορεί να &laquo;κλέψετε&raquo; και λίγο, κοιτώντας μια φωτογραφία (κανείς δεν πρόκειται να το μάθει). Αν δεν έχετε μοντέλο στη διάθεσή σας, φέρτε έναν καθρέφτη ή τη θύμηση ενός αγαπημένου προσώπου. Το έκτο και τελευταίο βήμα είναι το πιο αποφασιστικό: μην σας αποθαρρύνει το αποτέλεσμα, αλλά σκεφτείτε ότι υπογράψατε ένα έργο τέχνης που &laquo;ανήκει&raquo; σε μία από τις πιο σημαντικές συλλογές. Μοιραστείτε το έργο και δείτε το online στους λογαριασμούς #quarantineportraits και @felioscollection.
 
                 Περισσότερα από χίλια ζωγραφικά έργα,&nbsp; γλυπτά, ανάγλυφα,&nbsp; κατασκευές,&nbsp; χαρακτικά,&nbsp; φωτογραφίες, ψηφιακές εκτυπώσεις και σχέδια των Χρόνη Μπότσογλου, Εδουάρδου Σακαγιάν, Γιώργου Ρόρρη, Χρήστου Μποκόρου, Στέφανου Δασκαλάκη, Τάσου Μισούρα, Μαρίας Φιλοπούλου, Καλλιόπης Ασαργιωτάκη, Κωνσταντίνου Παπαμιχαλόπουλου και τόσων ακόμη κορυφαίων μας περιμένουν να τα ανακαλύψουμε διαδικτυακά, να μας εμπνεύσουν και, γιατί όχι, να αναμετρηθούμε μαζί τους.
-    """.trimIndent(),
-    articleImage = "http://www.liberal.gr/photos/646464564565.jpg",
-    rawEnclosure = RawEnclosure(
-        url = "http://www.liberal.gr/photos/646464564565.jpg",
-        length = 118225,
-        type = "image/jpeg",
-    ),
-)
+                """.trimIndent(),
+                content = null,
+                image = "http://www.liberal.gr/photos/646464564565.jpg",
+                categories = listOf(),
+                guid = "https://www.liberal.gr/news/portraita%2Dkarantinas%2Dgia%2Dempneusi%2Dapo%2Dti%2Dsullogi%2Dfeliou/298923",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                commentsUrl = null,
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = "http://www.liberal.gr/photos/646464564565.jpg",
+                    length = 118225,
+                    type = "image/jpeg",
+                ),
+            )
+        )
+    )
+
+    @Test
+    fun testXmlParserGreek() = runTest {
+        val feedChannel = parseFeed("feed-test-greek.xml")
+        assertEquals(expectedChannel, feedChannel)
+    }
+}

@@ -17,19 +17,91 @@
 
 package com.prof18.rssparser.rss
 
-import com.prof18.rssparser.BaseXmlParserTest
+import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.ItunesChannelData
+import com.prof18.rssparser.model.ItunesItemData
+import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RssChannel
+import com.prof18.rssparser.model.RssItem
+import com.prof18.rssparser.model.YoutubeChannelData
+import com.prof18.rssparser.model.YoutubeItemData
+import com.prof18.rssparser.parseFeed
+import kotlinx.coroutines.test.runTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
-class XmlParserImageLinkTest : BaseXmlParserTest(
-    feedPath = "feed-test-image-link.xml",
-    channelTitle = "Bleacher Report - Front Page",
-    channelLink = "https://bleacherreport.com",
-    channelDescription = "Bleacher Report - The latest articles about sports news, rumors, teams, events, and more.",
-    articleTitle = "Orange Cassidy Retains AEW International Title at Double or Nothing 2023",
-    articleImage = "https://media.bleacherreport.com/image/upload/x_0,y_43,w_1800,h_1200,c_crop/v1685197298/ieh5bpyilj43f4dzpgua.jpg",
-    articlePubDate = "2023-05-29T00:34:27Z",
-    articleLink = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
-    articleGuid = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
-    articleCommentsUrl = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
-    articleDescription = "Orange Cassidy won a 21-man Blackjack Battle Royal at Double or Nothing on Sunday to retain the AEW International Championship. The action-packed opener ended…",
-    articleCategories = listOf("Breaking News", "All Elite Wrestling", "BNT MISC", "Orange Cassidy"),
-)
+class XmlParserImageLinkTest : XmlParserTestExecutor() {
+
+    private val expectedChannel = RssChannel(
+        title = "Bleacher Report - Front Page",
+        link = "https://bleacherreport.com",
+        description = "Bleacher Report - The latest articles about sports news, rumors, teams, events, and more.",
+        image = null,
+        lastBuildDate = null,
+        updatePeriod = null,
+        itunesChannelData = ItunesChannelData(
+            author = null,
+            categories = listOf(),
+            duration = null,
+            explicit = null,
+            image = null,
+            keywords = listOf(),
+            newsFeedUrl = null,
+            owner = null,
+            subtitle = null,
+            summary = null,
+            type = null,
+        ),
+        youtubeChannelData = YoutubeChannelData(channelId = null),
+        items = listOf(
+            RssItem(
+                title = "Orange Cassidy Retains AEW International Title at Double or Nothing 2023",
+                author = null,
+                link = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
+                pubDate = "2023-05-29T00:34:27Z",
+                description = "Orange Cassidy won a 21-man Blackjack Battle Royal at Double or Nothing on Sunday to retain the AEW International Championship. The action-packed opener ended…",
+                content = null,
+                image = "https://media.bleacherreport.com/image/upload/x_0,y_43,w_1800,h_1200,c_crop/v1685197298/ieh5bpyilj43f4dzpgua.jpg",
+                categories = listOf("Breaking News", "All Elite Wrestling", "BNT MISC", "Orange Cassidy"),
+                guid = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
+                audio = null,
+                video = null,
+                sourceName = null,
+                sourceUrl = null,
+                commentsUrl = "https://bleacherreport.com/articles/10077424-orange-cassidy-retains-aew-international-title-at-double-or-nothing-2023",
+                itunesItemData = ItunesItemData(
+                    author = null,
+                    duration = null,
+                    episode = null,
+                    episodeType = null,
+                    explicit = null,
+                    image = null,
+                    keywords = listOf(),
+                    subtitle = null,
+                    summary = null,
+                    season = null,
+                ),
+                youtubeItemData = YoutubeItemData(
+                    videoId = null,
+                    title = null,
+                    videoUrl = null,
+                    thumbnailUrl = null,
+                    description = null,
+                    viewsCount = null,
+                    likesCount = null,
+                ),
+                rawEnclosure = RawEnclosure(
+                    url = null,
+                    length = null,
+                    type = null,
+                )
+            )
+        )
+    )
+
+    @Test
+    fun testXmlParserImageLink() = runTest {
+        val feedChannel = parseFeed("feed-test-image-link.xml")
+        assertEquals(expectedChannel, feedChannel)
+    }
+}
