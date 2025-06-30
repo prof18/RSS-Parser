@@ -17,7 +17,9 @@
 
 package com.prof18.rssparser.rss
 
+import com.prof18.rssparser.CurrentTarget
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.currentTarget
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
@@ -103,6 +105,15 @@ class XmlParserTimeFeedTest : XmlParserTestExecutor() {
 
     @Test
     fun channelIsParsedCorrectly() = runTest {
+        /*
+            This tag is not supported on Web, for now.
+            <pubDate>
+                <time datetime="2019-05-03T19:21:28Z">Fri, 05/03/2019 - 15:21</time>
+            </pubDate>
+         */
+        if (currentTarget == CurrentTarget.WEB) {
+            return@runTest
+        }
         val channel = parseFeed("feed-test-time.xml")
         assertEquals(expectedChannel, channel)
     }

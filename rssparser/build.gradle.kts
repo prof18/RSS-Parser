@@ -1,6 +1,7 @@
-@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
 
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
@@ -8,6 +9,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.com.vanniktech.maven.publish)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 tasks.withType(KotlinJvmCompile::class).configureEach {
@@ -37,11 +39,35 @@ kotlin {
     watchosSimulatorArm64()
     watchosX64()
 
+    listOf(js(), wasmJs()).forEach {
+        it.browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    val name = if (it.targetName == "js") "js" else "wasm"
+                    useConfigDirectory(rootProject.projectDir.resolve("karma.config.d").resolve(name))
+                }
+
+                testLogging {
+                    events("passed", "skipped", "failed", "standardOut", "standardError")
+                    showStandardStreams = true
+                    showStackTraces = true
+                    showExceptions = true
+                }
+            }
+        }
+    }
+
     applyDefaultHierarchyTemplate {
         common {
             group("jvmAndroid") {
                 withAndroidTarget()
                 withJvm()
+            }
+
+            group("web") {
+                withJs()
+                withWasmJs()
             }
         }
     }
@@ -91,6 +117,14 @@ kotlin {
 
         get("jvmAndroidMain").dependencies {
             api(libs.com.squareup.okhttp3)
+        }
+
+        get("webMain").dependencies {
+            implementation(libs.kotlinx.serialization.core)
+            implementation(libs.xmlutil)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.js)
+            implementation(libs.ktor.client.core)
         }
     }
 }

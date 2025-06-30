@@ -94,7 +94,7 @@ internal class ChannelFactory {
 
     private fun extractItunesKeywords(keywords: String?): List<String> =
         keywords?.split(",")?.mapNotNull {
-            it.ifEmpty {
+            it.trim().ifEmpty {
                 null
             }
         } ?: emptyList()

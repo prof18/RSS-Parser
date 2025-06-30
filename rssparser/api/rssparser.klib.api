@@ -1,5 +1,6 @@
 // Klib ABI Dump
-// Targets: [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Targets: [iosArm64, iosSimulatorArm64, iosX64, js, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, wasmJs, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
+// Alias: apple => [iosArm64, iosSimulatorArm64, iosX64, macosArm64, macosX64, tvosArm64, tvosSimulatorArm64, tvosX64, watchosDeviceArm64, watchosSimulatorArm64, watchosX64]
 // Rendering settings:
 // - Signature version: 2
 // - Show manifest properties: true
@@ -326,9 +327,13 @@ final class com.prof18.rssparser/RssParser { // com.prof18.rssparser/RssParser|n
 }
 
 final class com.prof18.rssparser/RssParserBuilder : com.prof18.rssparser/RssParser.Builder { // com.prof18.rssparser/RssParserBuilder|null[0]
+    final fun build(): com.prof18.rssparser/RssParser // com.prof18.rssparser/RssParserBuilder.build|build(){}[0]
+
+    // Targets: [apple]
     constructor <init>(platform.Foundation/NSURLSession = ...) // com.prof18.rssparser/RssParserBuilder.<init>|<init>(platform.Foundation.NSURLSession){}[0]
 
-    final fun build(): com.prof18.rssparser/RssParser // com.prof18.rssparser/RssParserBuilder.build|build(){}[0]
+    // Targets: [js, wasmJs]
+    constructor <init>() // com.prof18.rssparser/RssParserBuilder.<init>|<init>(){}[0]
 }
 
 final fun com.prof18.rssparser/RssParser(): com.prof18.rssparser/RssParser // com.prof18.rssparser/RssParser|RssParser(){}[0]

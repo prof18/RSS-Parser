@@ -4,4 +4,5 @@ enum class CurrentTarget {
     ANDROID,
     JVM,
     APPLE,
+    WEB,
 }

@@ -4,7 +4,6 @@ android-compile-sdk = "34"
 android-min-sdk = "21"
 android-target-sdk = "34"
 kotlin = "2.1.21"
-library-version-name = "6.0.12"
 
 # Library dependencies
 com-squareup-okhttp3 = "4.12.0"
@@ -12,6 +11,10 @@ com-vanniktech-maven-publish="0.32.0"
 org-robolectric = "4.15.1"
 binary-compatibility-validator = "0.17.0"
 coroutines = "1.10.2"
+kotlinx-serialization = "1.8.1"
+xmlutil = "0.90.3"
+ktor = "3.2.0"
+library-version-name = "6.0.12"
 
 # Sample dependencies
 androidx-activity = "1.9.3"
@@ -36,6 +39,10 @@ org-robolectric = { module = "org.robolectric:robolectric", version.ref = "org-r
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+xmlutil = { module = "io.github.pdvrieze.xmlutil:serialization", version.ref = "xmlutil" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 
 # Sample dependencies
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidx-activity" }
@@ -68,6 +75,7 @@ com-vanniktech-maven-publish = { id = "com.vanniktech.maven.publish", version.re
 binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility-validator" }
 compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [bundles]
 compose = [

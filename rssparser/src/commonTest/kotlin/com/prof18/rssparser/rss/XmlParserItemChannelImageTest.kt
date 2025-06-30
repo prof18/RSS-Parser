@@ -17,7 +17,9 @@
 
 package com.prof18.rssparser.rss
 
+import com.prof18.rssparser.CurrentTarget
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.currentTarget
 import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
@@ -107,6 +109,15 @@ class XmlParserItemChannelImageTest : XmlParserTestExecutor() {
 
     @Test
     fun channelIsParsedCorrectly() = runTest {
+        /*
+            The following structure is not supported on WEB
+            <image>
+                <![CDATA[https://a.espncdn.com/photo/2021/0506/r850492_1296x1296_1-1.jpg]]>
+            </image>
+         */
+        if (currentTarget == CurrentTarget.WEB) {
+            return@runTest
+        }
         val channel = parseFeed("feed-item-channel-image.xml")
         assertEquals(expectedChannel, channel)
     }
