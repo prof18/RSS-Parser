@@ -53,6 +53,9 @@ class XmlParserAtomExampleTest : XmlParserTestExecutor() {
                     CurrentTarget.APPLE -> {
                         ""
                     }
+                    CurrentTarget.WEB -> {
+                        "This is the entry content."
+                    }
                     else -> {
                         null
                     }

@@ -91,7 +91,7 @@ class XmlParserCharsetFeedTest : XmlParserTestExecutor() {
                     episodeType = null,
                     explicit = "no",
                     image = "https://gfx.nrk.no/sMxLsuFaNFBBmKJXuT2L6g6EwwmgKMvBujBOVc4N01pw.png",
-                    keywords = listOf("NRK", " Lørdagsrådet"),
+                    keywords = listOf("NRK", "Lørdagsrådet"),
                     subtitle = null,
                     summary = "Høydepunkter fra 2022 - nr.11. <a\n" +
                         "                href=\"https://radio.nrk.no/podkast/loerdagsraadet/l_e6338d4f-2777-43c4-b38d-4f2777e3c4de?utm_source=thirdparty&utm_medium=rss&utm_content=podcast%3Al_e6338d4f-2777-43c4-b38d-4f2777e3c4de\">Hør\n" +

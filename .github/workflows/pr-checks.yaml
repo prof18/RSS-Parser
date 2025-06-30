@@ -310,3 +310,30 @@ jobs:
 
       - name: Build watchOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination "platform=watchOS Simulator,name=Apple Watch Series 9 (41mm),OS=10.4" -configuration Debug CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
+
+  build-wasm-sample:
+    name: Build Wasm Sample
+    runs-on: ubuntu-latest
+    needs: [ test ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Cache KMP tooling
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.konan
+          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
+
+      - name: Build Wasm Sample
+        run: ./gradlew :samples:multiplatform:webApp:wasmJsBrowserDistribution

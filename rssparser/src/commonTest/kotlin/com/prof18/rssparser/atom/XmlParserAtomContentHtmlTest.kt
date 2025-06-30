@@ -53,6 +53,9 @@ class XmlParserAtomContentHtmlTest : XmlParserTestExecutor() {
                     CurrentTarget.APPLE -> {
                         "This post was published externally on Cash App Code Blog. Read it at"
                     }
+                    CurrentTarget.WEB -> {
+                        "This post was published externally on Cash App Code Blog. Read it at https://code.cash.app/the-state-of-managing-state-with-compose."
+                    }
                     else -> {
                         null
                     }

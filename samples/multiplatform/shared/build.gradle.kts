@@ -1,3 +1,8 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
+
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
@@ -26,6 +31,19 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = true
+        }
+    }
+
+    listOf(js(), wasmJs()).forEach {
+        it.browser()
+    }
+
+    applyDefaultHierarchyTemplate {
+        common {
+            group("web") {
+                withJs()
+                withWasmJs()
+            }
         }
     }
 

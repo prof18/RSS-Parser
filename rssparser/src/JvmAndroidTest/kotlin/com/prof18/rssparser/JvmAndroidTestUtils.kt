@@ -4,7 +4,7 @@ import com.prof18.rssparser.internal.ParserInput
 import java.io.File
 import java.io.FileInputStream
 
-internal actual fun readFileFromResources(
+internal actual suspend fun readFileFromResources(
     resourceName: String,
 ): ParserInput {
     val path = System.getenv("TEST_RESOURCES_ROOT")
@@ -15,7 +15,7 @@ internal actual fun readFileFromResources(
     )
 }
 
-internal actual fun readFileFromResourcesAsString(
+internal actual suspend fun readFileFromResourcesAsString(
     resourceName: String,
 ): String {
     val path = System.getenv("TEST_RESOURCES_ROOT")

@@ -3,11 +3,11 @@ package com.prof18.rssparser
 import com.prof18.rssparser.internal.ParserInput
 import com.prof18.rssparser.model.RssChannel
 
-internal expect fun readFileFromResources(
+internal expect suspend fun readFileFromResources(
     resourceName: String
 ): ParserInput
 
-internal expect fun readFileFromResourcesAsString(
+internal expect suspend fun readFileFromResourcesAsString(
     resourceName: String
 ): String
 

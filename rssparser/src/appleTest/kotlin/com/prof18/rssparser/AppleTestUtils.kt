@@ -12,21 +12,21 @@ import platform.Foundation.dataWithContentsOfFile
 import platform.posix.getenv
 
 @OptIn(ExperimentalForeignApi::class)
-internal actual fun readFileFromResources(
+internal actual suspend fun readFileFromResources(
     resourceName: String,
 ): ParserInput {
     val s = getenv("TEST_RESOURCES_ROOT")?.toKString()
-    val path = "$s/${resourceName}"
+    val path = "$s/$resourceName"
     val data = NSData.dataWithContentsOfFile(path)
     return ParserInput(requireNotNull(value = data), baseUrl = BASE_FEED_URL)
 }
 
 @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
-internal actual fun readFileFromResourcesAsString(
+internal actual suspend fun readFileFromResourcesAsString(
     resourceName: String,
 ): String {
     val s = getenv("TEST_RESOURCES_ROOT")?.toKString()
-    val path = "$s/${resourceName}"
+    val path = "$s/$resourceName"
     val data = requireNotNull(NSData.dataWithContentsOfFile(path))
     return NSString.create(data, NSUTF8StringEncoding).toString()
 }
