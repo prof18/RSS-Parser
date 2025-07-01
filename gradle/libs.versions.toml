@@ -12,7 +12,7 @@ org-robolectric = "4.15.1"
 binary-compatibility-validator = "0.18.0"
 coroutines = "1.10.2"
 kotlinx-serialization = "1.9.0"
-xmlutil = "0.90.3"
+xmlutil = "0.91.1"
 ktor = "3.2.0"
 library-version-name = "6.1.0-alpha01"
 
