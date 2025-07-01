@@ -22,7 +22,7 @@ kotlin {
     jvm()
 
     androidTarget {
-        publishAllLibraryVariants()
+        publishLibraryVariants("release", "debug")
     }
 
     iosArm64()
