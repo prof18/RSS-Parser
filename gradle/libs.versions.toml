@@ -14,7 +14,7 @@ coroutines = "1.10.2"
 kotlinx-serialization = "1.8.1"
 xmlutil = "0.90.3"
 ktor = "3.2.0"
-library-version-name = "6.0.12"
+library-version-name = "6.1.0-alpha01"
 
 # Sample dependencies
 androidx-activity = "1.9.3"
