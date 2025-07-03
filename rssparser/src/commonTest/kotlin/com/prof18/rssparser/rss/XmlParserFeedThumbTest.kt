@@ -1,14 +1,9 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -28,20 +23,8 @@ class XmlParserFeedThumbTest : XmlParserTestExecutor() {
         ),
         lastBuildDate = "Sat, 02 Sep 2023 11:13:55 +0200",
         updatePeriod = "hourly",
-        itunesChannelData = ItunesChannelData(
-            author = null,
-            categories = listOf(),
-            duration = null,
-            explicit = null,
-            image = null,
-            keywords = listOf(),
-            newsFeedUrl = null,
-            owner = null,
-            subtitle = null,
-            summary = null,
-            type = null,
-        ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        itunesChannelData = null,
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 title = "Fairphone 5 è ufficiale: equo, modulare e aggiornato fino al 2031 | Anteprima IFA",
@@ -67,32 +50,9 @@ class XmlParserFeedThumbTest : XmlParserTestExecutor() {
                 sourceName = null,
                 sourceUrl = null,
                 commentsUrl = "https://www.hdblog.it/smartphone/articoli/n573063/fairphone-5-ufficiale-caratteristiche-prezzo/#comments",
-                itunesItemData = ItunesItemData(
-                    author = null,
-                    duration = null,
-                    episode = null,
-                    episodeType = null,
-                    explicit = null,
-                    image = null,
-                    keywords = listOf(),
-                    subtitle = null,
-                    summary = null,
-                    season = null,
-                ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
-                rawEnclosure = RawEnclosure(
-                    url = null,
-                    length = null,
-                    type = null,
-                ),
+                itunesItemData = null,
+                youtubeItemData = null,
+                rawEnclosure = null,
             )
         )
     )

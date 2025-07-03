@@ -8,8 +8,6 @@ import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -45,7 +43,7 @@ class XmlParserItunesSeasonFeedTest : XmlParserTestExecutor() {
             summary = "Nothing says slasher films and horror franchises more than an easy-listening, cozy-cast by two gentle movie lovers like <a href=\"mattgourley.com\" rel=\"noopener noreferrer\" target=\"_blank\">Matt Gourley</a> and <a href=\"twitter.com/paulrust\" rel=\"noopener noreferrer\" target=\"_blank\">Paul Rust</a>. Join them as they take you through the Jasons, the Michaels, the Freddies, and beyond. Get past seasons such as IN MYERS and KRUEGER WE TRUST, lots of bonus content, and regular episodes a week early at patreon.com/withgourleyandrust.<br /><hr><p style='color:grey; font-size:0.75em;'> Hosted on Acast. See <a style='color:grey;' target='_blank' rel='noopener noreferrer' href='https://acast.com/privacy'>acast.com/privacy</a> for more information.</p>",
             type = "episodic",
         ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 title = "RASING CAIN",
@@ -74,15 +72,7 @@ class XmlParserItunesSeasonFeedTest : XmlParserTestExecutor() {
                     summary = "<p>The De Palma Paradox.</p><br><p>With Gourley And Rust bonus content on <a href=\"https://www.patreon.com/withgourleyandrust\" rel=\"noopener noreferrer\" target=\"_blank\">PATREON</a> and merchandise on <a href=\"https://www.redbubble.com/people/gourleyandrust/shop\" rel=\"noopener noreferrer\" target=\"_blank\">REDBUBBLE</a>.</p><br><p>With Gourley and Rust theme song by Matt's band, <a href=\"https://open.spotify.com/artist/53j7Q32qFKfBIuop1BUmOq\" rel=\"noopener noreferrer\" target=\"_blank\">TOWNLAND</a>.</p><br><p>And also check out Paul's band, <a href=\"https://open.spotify.com/artist/3gc8ddHIjroKBbooNKDcP6?si=Cxojj4VxTquMoQcNTpTRwg&amp;dl_branch=1\" rel=\"noopener noreferrer\" target=\"_blank\">DON'T STOP OR WE'LL DIE</a>.</p><br /><hr><p style='color:grey; font-size:0.75em;'> Hosted on Acast. See <a style='color:grey;' target='_blank' rel='noopener noreferrer' href='https://acast.com/privacy'>acast.com/privacy</a> for more information.</p>",
                     season = "11",
                 ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "https://sphinx.acast.com/p/acast/s/with-gourley-and-rust/e/635861df5f0a000012334a6f/media.mp3",
                     length = 342725492,

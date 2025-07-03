@@ -25,8 +25,6 @@ import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -67,7 +65,7 @@ class XmlParserCharsetFeedTest : XmlParserTestExecutor() {
             type = null
 
         ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 title = "Høydepunkter fra 2022 - nr.11",
@@ -98,15 +96,7 @@ class XmlParserCharsetFeedTest : XmlParserTestExecutor() {
                         "                episoden i appen NRK Radio</a>",
                     season = null,
                 ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "https://podkast.nrk.no/fil/loerdagsraadet/23ee45fc-d869-4110-bf97-34138fcfaba6_0_ID192MP3.mp3",
                     length = 91795437,

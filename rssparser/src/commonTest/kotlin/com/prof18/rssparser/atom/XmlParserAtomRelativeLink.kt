@@ -2,13 +2,8 @@ package com.prof18.rssparser.atom
 
 import com.prof18.rssparser.BASE_FEED_URL
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -23,20 +18,8 @@ class XmlParserAtomRelativeLink : XmlParserTestExecutor() {
         image = null,
         lastBuildDate = "2024-12-19T06:13:47+00:00",
         updatePeriod = null,
-        itunesChannelData = ItunesChannelData(
-            author = null,
-            categories = listOf(),
-            duration = null,
-            explicit = null,
-            image = null,
-            keywords = listOf(),
-            newsFeedUrl = null,
-            owner = null,
-            subtitle = null,
-            summary = null,
-            type = null,
-        ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        itunesChannelData = null,
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 guid = "/2024/12/18/What-The-Distribution",
@@ -53,32 +36,9 @@ class XmlParserAtomRelativeLink : XmlParserTestExecutor() {
                 sourceUrl = null,
                 categories = listOf(),
                 commentsUrl = null,
-                itunesItemData = ItunesItemData(
-                    author = null,
-                    duration = null,
-                    episode = null,
-                    episodeType = null,
-                    explicit = null,
-                    image = null,
-                    keywords = listOf(),
-                    subtitle = null,
-                    summary = null,
-                    season = null,
-                ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
-                rawEnclosure = RawEnclosure(
-                    url = null,
-                    length = null,
-                    type = null,
-                ),
+                itunesItemData = null,
+                youtubeItemData = null,
+                rawEnclosure = null,
             )
         )
     )

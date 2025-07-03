@@ -1,9 +1,6 @@
 package com.prof18.rssparser.atom
 
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.model.YoutubeChannelData
@@ -22,19 +19,7 @@ class XmlParserAtomYoutube : XmlParserTestExecutor() {
         image = null,
         lastBuildDate = null,
         updatePeriod = null,
-        itunesChannelData = ItunesChannelData(
-            author = null,
-            categories = listOf(),
-            duration = null,
-            explicit = null,
-            image = null,
-            keywords = listOf(),
-            newsFeedUrl = null,
-            owner = null,
-            subtitle = null,
-            summary = null,
-            type = null,
-        ),
+        itunesChannelData = null,
         youtubeChannelData = YoutubeChannelData(
             channelId = "UCP7uiEZIqci43m22KDl0sNw",
         ),
@@ -54,18 +39,7 @@ class XmlParserAtomYoutube : XmlParserTestExecutor() {
                 sourceUrl = null,
                 categories = listOf(),
                 commentsUrl = null,
-                itunesItemData = ItunesItemData(
-                    author = null,
-                    duration = null,
-                    episode = null,
-                    episodeType = null,
-                    explicit = null,
-                    image = null,
-                    keywords = listOf(),
-                    subtitle = null,
-                    summary = null,
-                    season = null,
-                ),
+                itunesItemData = null,
                 youtubeItemData = YoutubeItemData(
                     videoId = "ULBuIB9lHkc",
                     title = "Multi-dollar String Interpolation in Kotlin | \$\$",
@@ -87,11 +61,7 @@ Kotlin’s string interpolation has been a much-liked feature from the beginning
                     viewsCount = 4689,
                     likesCount = 247,
                 ),
-                rawEnclosure = RawEnclosure(
-                    url = null,
-                    length = null,
-                    type = null,
-                ),
+                rawEnclosure = null,
             )
         )
     )

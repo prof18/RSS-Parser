@@ -7,9 +7,14 @@ public data class YoutubeChannelData(
         private var channelId: String? = null,
     ) {
         fun channelId(channelId: String?) = apply { this.channelId = channelId }
-        fun build() = YoutubeChannelData(
-            channelId = channelId,
-        )
+        fun build(): YoutubeChannelData? {
+            if (channelId.isNullOrBlank()) {
+                return null
+            }
+            return YoutubeChannelData(
+                channelId = channelId,
+            )
+        }
     }
 }
 
@@ -38,14 +43,27 @@ public data class YoutubeItemData(
         fun description(description: String?) = apply { this.description = description }
         fun viewsCount(viewsCount: Int?) = apply { this.viewsCount = viewsCount }
         fun likesCount(likesCount: Int?) = apply { this.likesCount = likesCount }
-        fun build() = YoutubeItemData(
-            videoId = videoId,
-            title = title,
-            videoUrl = videoUrl,
-            thumbnailUrl = thumbnailUrl,
-            description = description,
-            viewsCount = viewsCount,
-            likesCount = likesCount,
-        )
+        fun build(): YoutubeItemData? {
+            if (
+                videoId.isNullOrBlank() &&
+                title.isNullOrBlank() &&
+                videoUrl.isNullOrBlank() &&
+                thumbnailUrl.isNullOrBlank() &&
+                description.isNullOrBlank() &&
+                viewsCount == null &&
+                likesCount == null
+            ) {
+                return null
+            }
+            return YoutubeItemData(
+                videoId = videoId,
+                title = title,
+                videoUrl = videoUrl,
+                thumbnailUrl = thumbnailUrl,
+                description = description,
+                viewsCount = viewsCount,
+                likesCount = likesCount,
+            )
+        }
     }
 }

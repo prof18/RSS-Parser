@@ -8,8 +8,6 @@ import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -61,15 +59,7 @@ class XmlParserImageChannelReverseTest : XmlParserTestExecutor() {
                     season = null,
                 ),
                 commentsUrl = null,
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997",
                     length = 202715961,
@@ -93,9 +83,7 @@ class XmlParserImageChannelReverseTest : XmlParserTestExecutor() {
             summary = "The podcast of Comedian Joe Rogan..",
             type = "episodic"
         ),
-        youtubeChannelData = YoutubeChannelData(
-            channelId = null,
-        )
+        youtubeChannelData = null,
     )
 
     @Test
