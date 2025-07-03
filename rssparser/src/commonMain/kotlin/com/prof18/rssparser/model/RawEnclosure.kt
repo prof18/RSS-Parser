@@ -14,10 +14,19 @@ public data class RawEnclosure(
         fun length(length: Long?) = apply { this.length = length }
         fun type(type: String?) = apply { this.type = type }
 
-        fun build() = RawEnclosure(
-            url = url,
-            length = length,
-            type = type
-        )
+        fun build(): RawEnclosure? {
+            if (
+                url.isNullOrBlank() &&
+                length == null &&
+                type.isNullOrBlank()
+            ) {
+                return null
+            }
+            return RawEnclosure(
+                url = url,
+                length = length,
+                type = type
+            )
+        }
     }
 }

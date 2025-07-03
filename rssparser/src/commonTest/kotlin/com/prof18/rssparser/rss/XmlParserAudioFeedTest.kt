@@ -25,8 +25,6 @@ import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -62,7 +60,7 @@ class XmlParserAudioFeedTest : XmlParserTestExecutor() {
             summary = "If you've ever wanted to know about champagne, satanism, the Stonewall Uprising, chaos theory, LSD, El Nino, true crime and Rosa Parks, then look no further. Josh and Chuck have you covered.",
             type = "episodic"
         ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 title = "SYSK Selects: How Gold Works",
@@ -93,15 +91,7 @@ class XmlParserAudioFeedTest : XmlParserTestExecutor() {
                         "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
                     season = null,
                 ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW3157672398.mp3",
                     length = 0,

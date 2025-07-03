@@ -25,7 +25,7 @@ public data class RssChannel(
         fun title(title: String?) = apply { this.title = title }
         fun link(link: String?) = apply { this.link = link }
         fun description(description: String?) = apply { this.description = description }
-        fun image(image: RssImage) = apply { this.image = image }
+        fun image(image: RssImage?) = apply { this.image = image }
         fun lastBuildDate(lastBuildDate: String?) = apply { this.lastBuildDate = lastBuildDate }
         fun updatePeriod(updatePeriod: String?) = apply { this.updatePeriod = updatePeriod }
         fun addItem(item: RssItem) = apply { this.items.add(item) }

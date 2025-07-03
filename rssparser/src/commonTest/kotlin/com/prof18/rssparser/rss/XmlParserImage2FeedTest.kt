@@ -18,14 +18,10 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -63,28 +59,9 @@ class XmlParserImage2FeedTest : XmlParserTestExecutor() {
                 categories = listOf(
                     "F.C. Barcelona"
                 ),
-                itunesItemData = ItunesItemData(
-                    author = null,
-                    duration = null,
-                    episode = null,
-                    episodeType = null,
-                    explicit = null,
-                    image = null,
-                    keywords = emptyList(),
-                    subtitle = null,
-                    summary = null,
-                    season = null,
-                ),
+                itunesItemData = null,
                 commentsUrl = null,
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "https://www.mundodeportivo.com/ra/thumbnail/GODO/MD/p6/Barca/Imagenes/2019/05/17/Recortada/img_ppunti_20190517-210423_imagenes_md_propias_ppunti_190517fcbfem294_4_6_2298222649-kYlG-U4622983262609eF-980x554@MundoDeportivo-Web.jpg",
                     length = 228,
@@ -92,22 +69,8 @@ class XmlParserImage2FeedTest : XmlParserTestExecutor() {
                 ),
             )
         ),
-        itunesChannelData = ItunesChannelData(
-            author = null,
-            categories = emptyList(),
-            duration = null,
-            explicit = null,
-            image = null,
-            keywords = emptyList(),
-            newsFeedUrl = null,
-            owner = null,
-            subtitle = null,
-            summary = null,
-            type = null,
-        ),
-        youtubeChannelData = YoutubeChannelData(
-            channelId = null,
-        )
+        itunesChannelData = null,
+        youtubeChannelData = null,
     )
 
     @Test

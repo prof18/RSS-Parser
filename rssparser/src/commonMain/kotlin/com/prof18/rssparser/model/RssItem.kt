@@ -108,24 +108,48 @@ public data class RssItem(
 
         fun rawEnclosure(rawEnclosure: RawEnclosure?) = apply { this.rawEnclosure = rawEnclosure }
 
-        fun build() = RssItem(
-            guid = guid,
-            title = title,
-            author = author,
-            link = link,
-            pubDate = pubDate,
-            description = description,
-            content = content,
-            image = image,
-            audio = audio,
-            video = video,
-            sourceName = sourceName,
-            sourceUrl = sourceUrl,
-            categories = categories,
-            itunesItemData = itunesItemData,
-            commentsUrl = commentUrl,
-            youtubeItemData = youtubeItemData,
-            rawEnclosure = rawEnclosure,
-        )
+        fun build(): RssItem? {
+            if (
+                guid.isNullOrBlank() &&
+                title.isNullOrBlank() &&
+                author.isNullOrBlank() &&
+                link.isNullOrBlank() &&
+                pubDate.isNullOrBlank() &&
+                description.isNullOrBlank() &&
+                content.isNullOrBlank() &&
+                image.isNullOrBlank() &&
+                audio.isNullOrBlank() &&
+                video.isNullOrBlank() &&
+                sourceName.isNullOrBlank() &&
+                sourceUrl.isNullOrBlank() &&
+                categories.isEmpty() &&
+                itunesItemData == null &&
+                commentUrl.isNullOrBlank() &&
+                youtubeItemData == null &&
+                rawEnclosure == null
+            ) {
+                return null
+            }
+
+            return RssItem(
+                guid = guid,
+                title = title,
+                author = author,
+                link = link,
+                pubDate = pubDate,
+                description = description,
+                content = content,
+                image = image,
+                audio = audio,
+                video = video,
+                sourceName = sourceName,
+                sourceUrl = sourceUrl,
+                categories = categories,
+                itunesItemData = itunesItemData,
+                commentsUrl = commentUrl,
+                youtubeItemData = youtubeItemData,
+                rawEnclosure = rawEnclosure,
+            )
+        }
     }
 }

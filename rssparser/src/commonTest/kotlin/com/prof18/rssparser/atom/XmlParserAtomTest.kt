@@ -1,14 +1,9 @@
 package com.prof18.rssparser.atom
 
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.model.ItunesChannelData
-import com.prof18.rssparser.model.ItunesItemData
-import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -28,20 +23,8 @@ class XmlParserAtomTest : XmlParserTestExecutor() {
         ),
         lastBuildDate = "2023-05-26T17:30:31-04:00",
         updatePeriod = null,
-        itunesChannelData = ItunesChannelData(
-            author = null,
-            categories = emptyList(),
-            duration = null,
-            explicit = null,
-            image = null,
-            keywords = emptyList(),
-            newsFeedUrl = null,
-            owner = null,
-            subtitle = null,
-            summary = null,
-            type = null,
-        ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        itunesChannelData = null,
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 guid = "https://www.theverge.com/2023/5/26/23739273/google-sonos-smart-speaker-patent-lawsuit-ruling",
@@ -72,32 +55,9 @@ class XmlParserAtomTest : XmlParserTestExecutor() {
                 sourceUrl = null,
                 categories = emptyList(),
                 commentsUrl = null,
-                itunesItemData = ItunesItemData(
-                    author = null,
-                    duration = null,
-                    episode = null,
-                    episodeType = null,
-                    explicit = null,
-                    image = null,
-                    keywords = emptyList(),
-                    subtitle = null,
-                    summary = null,
-                    season = null,
-                ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
-                rawEnclosure = RawEnclosure(
-                    url = null,
-                    length = null,
-                    type = null,
-                ),
+                itunesItemData = null,
+                youtubeItemData = null,
+                rawEnclosure = null,
             )
         )
     )

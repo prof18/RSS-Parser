@@ -30,7 +30,7 @@ internal class ChannelFactory {
         articleBuilder.itunesArticleData(itunesArticleBuilder.build())
         articleBuilder.youtubeItemData(youtubeItemDataBuilder.build())
         articleBuilder.rawEnclosure(rawEnclosureBuilder.build())
-        channelBuilder.addItem(articleBuilder.build())
+        articleBuilder.build()?.let { channelBuilder.addItem(it) }
         // Reset temp data
         imageUrlFromContent = null
         articleBuilder = RssItem.Builder()
@@ -101,7 +101,7 @@ internal class ChannelFactory {
 
     fun build(): RssChannel {
         val channelImage = channelImageBuilder.build()
-        if (channelImage.isNotEmpty()) {
+        if (channelImage?.isNotEmpty() == true) {
             channelBuilder.image(channelImage)
         }
         channelBuilder.itunesChannelData(itunesChannelBuilder.build())

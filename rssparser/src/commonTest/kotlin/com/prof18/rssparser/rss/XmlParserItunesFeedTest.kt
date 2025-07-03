@@ -8,8 +8,6 @@ import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
-import com.prof18.rssparser.model.YoutubeChannelData
-import com.prof18.rssparser.model.YoutubeItemData
 import com.prof18.rssparser.parseFeed
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -45,7 +43,7 @@ class XmlParserItunesFeedTest : XmlParserTestExecutor() {
             summary = "Conduit to the Gaian Mind",
             type = "episodic",
         ),
-        youtubeChannelData = YoutubeChannelData(channelId = null),
+        youtubeChannelData = null,
         items = listOf(
             RssItem(
                 guid = "00a5d989b6b2cd8267cf8239f3b5585c",
@@ -86,15 +84,7 @@ class XmlParserItunesFeedTest : XmlParserTestExecutor() {
                     summary = null,
                     season = null,
                 ),
-                youtubeItemData = YoutubeItemData(
-                    videoId = null,
-                    title = null,
-                    videoUrl = null,
-                    thumbnailUrl = null,
-                    description = null,
-                    viewsCount = null,
-                    likesCount = null,
-                ),
+                youtubeItemData = null,
                 rawEnclosure = RawEnclosure(
                     url = "http://traffic.libsyn.com/joeroganexp/p1109.mp3?dest-id=19997",
                     length = 118001817,

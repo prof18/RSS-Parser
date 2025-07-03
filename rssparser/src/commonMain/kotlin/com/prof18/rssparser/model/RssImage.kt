@@ -20,6 +20,16 @@ public data class RssImage(
         fun url(url: String?) = apply { this.url = url }
         fun link(link: String?) = apply { this.link = link }
         fun description(description: String?) = apply { this.description = description }
-        fun build() = RssImage(title, url, link, description)
+        fun build(): RssImage? {
+            if (
+                title.isNullOrBlank() &&
+                url.isNullOrBlank() &&
+                link.isNullOrBlank() &&
+                description.isNullOrBlank()
+            ) {
+                return null
+            }
+            return RssImage(title, url, link, description)
+        }
     }
 }
