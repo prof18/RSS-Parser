@@ -68,7 +68,7 @@ internal class ChannelFactory {
                 ?.let { urlRegex.find(it) }
                 ?.let {
                     it.value.trim().let { imgUrl ->
-                        if (!imgUrl.contains(EMOJI_WEBSITE)) {
+                        if (!imgUrl.contains(EMOJI_WEBSITE) && !imgUrl.contains("/smilies/")) {
                             imageUrlFromContent = imgUrl
                         }
                     }

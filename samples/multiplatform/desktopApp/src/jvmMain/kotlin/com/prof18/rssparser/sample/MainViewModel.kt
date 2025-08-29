@@ -8,7 +8,7 @@ import com.prof18.rssparser.sample.common.UIState
 
 class MainViewModel {
 
-    private val url = "https://www.androidauthority.com/feed"
+    private val url = "https://bbs.archlinux.org/extern.php?action=feed&fid=32&type=atom"
 
     private val feedRepository = DI.feedRepository
 
