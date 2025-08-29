@@ -309,7 +309,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build watchOS Sample
-        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination "platform=watchOS Simulator,name=Apple Watch Series 9 (41mm),OS=10.4" -configuration Debug CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination "platform=watchOS Simulator,name=Apple Watch SE (40mm) (2nd generation),OS=11.2" -configuration Debug CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
 
   build-wasm-sample:
     name: Build Wasm Sample
