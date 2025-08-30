@@ -166,6 +166,7 @@ internal fun CoroutineScope.extractAtomContent(
                         }
                         if (rel != AtomKeyword.Link.Edit.value &&
                             rel != AtomKeyword.Link.Self.value &&
+                            rel != AtomKeyword.Link.Rel.Replies.value &&
                             rel != AtomKeyword.Link.Rel.Enclosure.value
                         ) {
                             when {

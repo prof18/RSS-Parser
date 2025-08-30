@@ -33,7 +33,8 @@ internal class AtomFeedHandler(
                 if (
                     rel != AtomKeyword.Link.Edit.value &&
                     rel != AtomKeyword.Link.Self.value &&
-                    rel != AtomKeyword.Link.Rel.Enclosure.value
+                    rel != AtomKeyword.Link.Rel.Enclosure.value &&
+                    rel != AtomKeyword.Link.Rel.Replies.value
                 ) {
                     val link = if (baseFeedUrl != null &&
                         rel == AtomKeyword.Link.Rel.Alternate.value &&
