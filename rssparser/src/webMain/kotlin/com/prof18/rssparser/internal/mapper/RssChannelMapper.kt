@@ -174,7 +174,8 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
             entry.links?.forEach { link ->
                 if (link.rel != AtomKeyword.Link.Edit.value &&
                     link.rel != AtomKeyword.Link.Self.value &&
-                    link.rel != AtomKeyword.Link.Rel.Enclosure.value
+                    link.rel != AtomKeyword.Link.Rel.Enclosure.value &&
+                    link.rel != AtomKeyword.Link.Rel.Replies.value
                 ) {
                     link(link.generateLink(baseFeedUrl))
                 }
@@ -213,7 +214,8 @@ private fun AtomLinkEntity.generateLink(baseFeedUrl: String?): String? {
     if (
         rel != AtomKeyword.Link.Edit.value &&
         rel != AtomKeyword.Link.Self.value &&
-        rel != AtomKeyword.Link.Rel.Enclosure.value
+        rel != AtomKeyword.Link.Rel.Enclosure.value &&
+        rel != AtomKeyword.Link.Rel.Replies.value
     ) {
         return if (
             baseFeedUrl != null &&

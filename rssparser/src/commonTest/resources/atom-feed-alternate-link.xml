@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><feed
+    xmlns="http://www.w3.org/2005/Atom"
+    xmlns:thr="http://purl.org/syndication/thread/1.0"
+    xml:lang="en-AU"
+>
+    <title type="text">skribeworks</title>
+    <subtitle type="text">All about stories</subtitle>
+
+    <updated>2025-08-26T14:26:51Z</updated>
+
+    <link rel="alternate" type="text/html" href="https://skribeworks.com" />
+    <id>https://skribeworks.com/feed/atom/</id>
+    <link rel="self" type="application/atom+xml" href="https://skribeworks.com/feed/atom/" />
+
+    <generator uri="https://wordpress.org/" version="6.8.2">WordPress</generator>
+    <icon>https://skribeworks.com/wp-content/uploads/2025/06/cropped-skribe-logo-512-32x32.png</icon>
+    <entry>
+        <author>
+            <name>skribe</name>
+        </author>
+
+        <title type="html"><![CDATA[Populating forms in Symfony]]></title>
+        <link rel="alternate" type="text/html" href="https://skribeworks.com/populating-forms-in-symfony/" />
+
+        <id>https://skribeworks.com/?p=5643</id>
+        <published>2025-08-07T10:43:20Z</published>
+        <updated>2025-08-07T10:43:23Z</updated>
+        <category scheme="https://skribeworks.com" term="Code" />
+        <summary type="html"><![CDATA[I am new at Symfony. I still have a lot to learn. However, one of the things that bugged me for ages was that the docs didn’t describe any means for populating forms when editing an existing record. Yes, it presented a function for editing, and making changes to the database through doctrine, but no way for me to dynamically alter the data in the first place. Well , thanks [&#8230;]]]></summary>
+
+
+        <link rel="replies" type="text/html" href="https://skribeworks.com/populating-forms-in-symfony/#comments" thr:count="0" />
+        <link rel="replies" type="application/atom+xml" href="https://skribeworks.com/populating-forms-in-symfony/feed/atom/" thr:count="0" />
+        <thr:total>0</thr:total>
+    </entry>
+</feed>
