@@ -6,7 +6,7 @@ android-target-sdk = "34"
 kotlin = "2.2.10"
 
 # Library dependencies
-com-squareup-okhttp3 = "4.12.0"
+com-squareup-okhttp3 = "5.1.0"
 com-vanniktech-maven-publish="0.34.0"
 org-robolectric = "4.16"
 binary-compatibility-validator = "0.18.1"
