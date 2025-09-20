@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
 
-**RSS Parser** is a Kotlin Multiplatform library for parsing RSS, Atom and RDF feeds. It supports Android, iOS, macOS, tvOS, watchOS and the JVM.
+**RSS Parser** is a Kotlin Multiplatform library for parsing RSS, Atom and RDF feeds. It supports Android, JVM, iOS, macOS, tvOS, watchOS, wasmJS and JS.
 
 With **RSS Parser**, you can fetch plenty of useful information from any RSS channel, be it a blog, magazine, a YouTube channel or even a podcast feed.
 
@@ -73,6 +73,25 @@ allprojects {
 ```
 
 ### Breaking changes
+
+#### Version 6.1.0
+
+If all the fields of the following classes are `null`:
+
+- RssItem 
+- RssImage 
+- RawEnclosure 
+- YoutubeChannelData 
+- YoutubeItemData 
+- ItunesChannelData 
+- ItunesItemData 
+- ItunesOwner
+
+then the class will be `null`! 
+
+Before, the class was populated with all the fields as null, which is not very clear.
+
+#### Version 6.x
 
 From version 6.0, RSSParser has become Multiplatform. This update brought some breaking changes:
 
