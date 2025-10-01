@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -59,7 +59,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -86,7 +86,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -113,7 +113,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -140,7 +140,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -179,7 +179,7 @@ jobs:
         run: |
           /usr/bin/xcodebuild -version           
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -218,7 +218,7 @@ jobs:
         run: |
           /usr/bin/xcodebuild -version       
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -257,7 +257,7 @@ jobs:
         run: |
           /usr/bin/xcodebuild -version           
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -297,7 +297,7 @@ jobs:
         run: |
           /usr/bin/xcodebuild -version           
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
@@ -324,7 +324,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
         with:
           gradle-home-cache-cleanup: true
 
