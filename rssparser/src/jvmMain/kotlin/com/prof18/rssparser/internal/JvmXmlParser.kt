@@ -72,7 +72,7 @@ private class SaxFeedHandler(
             RssKeyword.Rss.value -> {
                 feedHandler = RssFeedHandler()
             }
-            AtomKeyword.Atom.value -> {
+            AtomKeyword.ATOM.value -> {
                 feedHandler = AtomFeedHandler(feedUrl)
             }
             RdfKeyword.RDF.value -> {

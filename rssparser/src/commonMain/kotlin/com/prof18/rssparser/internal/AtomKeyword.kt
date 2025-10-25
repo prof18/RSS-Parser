@@ -1,54 +1,70 @@
 package com.prof18.rssparser.internal
 
-internal sealed class AtomKeyword(val value: String) {
-    data object Atom : AtomKeyword("feed")
-    data object Title : AtomKeyword("title")
-    data object Icon : AtomKeyword("icon")
-    data object Link : AtomKeyword("link") {
-        data object Href : AtomKeyword("href")
-        data object Rel : AtomKeyword("rel") {
-            data object Alternate : AtomKeyword("alternate")
-            data object Enclosure : AtomKeyword("enclosure")
-            data object Replies : AtomKeyword("replies")
+internal enum class AtomKeyword(val value: String) {
+    // Root/Feed
+    ATOM("feed"),
+    TITLE("title"),
+    ICON("icon"),
+    SUBTITLE("subtitle"),
+    UPDATED("updated"),
+
+    // Link
+    LINK("link"),
+    LINK_HREF("href"),
+    LINK_REL("rel"),
+    LINK_REL_ALTERNATE("alternate"),
+    LINK_REL_ENCLOSURE("enclosure"),
+    LINK_REL_REPLIES("replies"),
+    LINK_EDIT("edit"),
+    LINK_SELF("self"),
+
+    // Entry/Item
+    ENTRY_ITEM("entry"),
+    ENTRY_GUID("id"),
+    ENTRY_CONTENT("content"),
+    ENTRY_PUBLISHED("published"),
+    ENTRY_CATEGORY("category"),
+    ENTRY_TERM("term"),
+    ENTRY_DESCRIPTION("summary"),
+    ENTRY_AUTHOR("name"),
+    ENTRY_EMAIL("email"),
+
+    // YouTube
+    YOUTUBE_CHANNEL_ID("yt:channelId"),
+    YOUTUBE_VIDEO_ID("yt:videoId"),
+    YOUTUBE_MEDIA_GROUP("media:group"),
+    YOUTUBE_MEDIA_GROUP_TITLE("media:title"),
+    YOUTUBE_MEDIA_GROUP_CONTENT("media:content"),
+    YOUTUBE_MEDIA_GROUP_CONTENT_URL("url"),
+    YOUTUBE_MEDIA_GROUP_THUMBNAIL("media:thumbnail"),
+    YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL("url"),
+    YOUTUBE_MEDIA_GROUP_DESCRIPTION("media:description"),
+    YOUTUBE_MEDIA_GROUP_COMMUNITY("media:community"),
+    YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING("media:starRating"),
+    YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT("count"),
+    YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS("media:statistics"),
+    YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS("views");
+
+    companion object {
+        // Pre-computed map for O(1) lookup performance
+        private val valueMap: Map<String, AtomKeyword> = entries.associateBy { it.value.lowercase() }
+
+        /**
+         * Validates and returns the AtomKeyword for the given string value.
+         * @param value the string value to validate
+         * @return the corresponding AtomKeyword if valid, null otherwise
+         */
+        fun fromValue(value: String): AtomKeyword? {
+            return valueMap[value.lowercase()]
         }
-        data object Edit : AtomKeyword("edit")
-        data object Self : AtomKeyword("self")
-    }
 
-    data object Subtitle : AtomKeyword("subtitle")
-    data object Updated : AtomKeyword("updated")
-    data object Entry {
-        data object Item : AtomKeyword("entry")
-        data object Guid : AtomKeyword("id")
-        data object Content : AtomKeyword("content")
-        data object Published : AtomKeyword("published")
-        data object Category : AtomKeyword("category")
-        data object Term : AtomKeyword("term")
-        data object Description : AtomKeyword("summary")
-        data object Author : AtomKeyword("name")
-        data object Email : AtomKeyword("email")
-    }
-
-    data object Youtube {
-        data object ChannelId : AtomKeyword("yt:channelId")
-        data object VideoId : AtomKeyword("yt:videoId")
-        data object MediaGroup : AtomKeyword("media:group") {
-            data object MediaTitle : AtomKeyword("media:title")
-            data object MediaContent : AtomKeyword("media:content") {
-                data object Url : AtomKeyword("url")
-            }
-            data object MediaThumbnail : AtomKeyword("media:thumbnail") {
-                data object Url : AtomKeyword("url")
-            }
-            data object MediaDescription : AtomKeyword("media:description")
-            data object MediaCommunity : AtomKeyword("media:community") {
-                data object MediaStarRating : AtomKeyword("media:starRating") {
-                    data object Count : AtomKeyword("count")
-                }
-                data object MediaStatistics : AtomKeyword("media:statistics") {
-                    data object Views : AtomKeyword("views")
-                }
-            }
+        /**
+         * Checks if the given string value is a valid Atom keyword.
+         * @param value the string value to validate
+         * @return true if valid, false otherwise
+         */
+        fun isValid(value: String): Boolean {
+            return value.lowercase() in valueMap
         }
     }
 }

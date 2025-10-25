@@ -17,27 +17,27 @@ internal class AtomFeedHandler(
 
     override fun onStartRssElement(qName: String?, attributes: Attributes?) {
         when (qName) {
-            AtomKeyword.Atom.value -> isInsideChannel = true
-            AtomKeyword.Entry.Item.value -> isInsideItem = true
+            AtomKeyword.ATOM.value -> isInsideChannel = true
+            AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
 
-            AtomKeyword.Entry.Category.value -> {
+            AtomKeyword.ENTRY_CATEGORY.value -> {
                 if (isInsideItem) {
-                    val category = attributes?.getValue(AtomKeyword.Entry.Term.value)
+                    val category = attributes?.getValue(AtomKeyword.ENTRY_TERM.value)
                     channelFactory.articleBuilder.addCategory(category)
                 }
             }
 
-            AtomKeyword.Link.value -> {
-                val href = attributes?.getValue(AtomKeyword.Link.Href.value)
-                val rel = attributes?.getValue(AtomKeyword.Link.Rel.value)
+            AtomKeyword.LINK.value -> {
+                val href = attributes?.getValue(AtomKeyword.LINK_HREF.value)
+                val rel = attributes?.getValue(AtomKeyword.LINK_REL.value)
                 if (
-                    rel != AtomKeyword.Link.Edit.value &&
-                    rel != AtomKeyword.Link.Self.value &&
-                    rel != AtomKeyword.Link.Rel.Enclosure.value &&
-                    rel != AtomKeyword.Link.Rel.Replies.value
+                    rel != AtomKeyword.LINK_EDIT.value &&
+                    rel != AtomKeyword.LINK_SELF.value &&
+                    rel != AtomKeyword.LINK_REL_ENCLOSURE.value &&
+                    rel != AtomKeyword.LINK_REL_REPLIES.value
                 ) {
                     val link = if (baseFeedUrl != null &&
-                        rel == AtomKeyword.Link.Rel.Alternate.value &&
+                        rel == AtomKeyword.LINK_REL_ALTERNATE.value &&
                         // Some feeds have full links
                         href?.startsWith("/") == true
                     ) {
@@ -52,26 +52,26 @@ internal class AtomFeedHandler(
                 }
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaContent.value -> {
-                val url = attributes?.getValue(AtomKeyword.Youtube.MediaGroup.MediaContent.Url.value)
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT.value -> {
+                val url = attributes?.getValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value)
                 channelFactory.youtubeItemDataBuilder.videoUrl(url)
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.value -> {
-                val url = attributes?.getValue(AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url.value)
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL.value -> {
+                val url = attributes?.getValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL.value)
                 channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.value -> {
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS.value -> {
                 val views = attributes?.getValue(
-                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views.value
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS.value
                 )
                 channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.value -> {
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING.value -> {
                 val count = attributes?.getValue(
-                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count.value
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT.value
                 )
                 channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
             }
@@ -82,34 +82,34 @@ internal class AtomFeedHandler(
         when {
             isInsideItem -> {
                 when (qName) {
-                    AtomKeyword.Entry.Published.value -> channelFactory.articleBuilder.pubDate(text)
-                    AtomKeyword.Updated.value -> channelFactory.articleBuilder.pubDateIfNull(text)
-                    AtomKeyword.Title.value -> channelFactory.articleBuilder.title(text)
-                    AtomKeyword.Entry.Author.value -> channelFactory.articleBuilder.author(text)
-                    AtomKeyword.Entry.Guid.value -> channelFactory.articleBuilder.guid(text)
-                    AtomKeyword.Entry.Content.value -> {
+                    AtomKeyword.ENTRY_PUBLISHED.value -> channelFactory.articleBuilder.pubDate(text)
+                    AtomKeyword.UPDATED.value -> channelFactory.articleBuilder.pubDateIfNull(text)
+                    AtomKeyword.TITLE.value -> channelFactory.articleBuilder.title(text)
+                    AtomKeyword.ENTRY_AUTHOR.value -> channelFactory.articleBuilder.author(text)
+                    AtomKeyword.ENTRY_GUID.value -> channelFactory.articleBuilder.guid(text)
+                    AtomKeyword.ENTRY_CONTENT.value -> {
                         channelFactory.articleBuilder.content(text)
                         channelFactory.setImageFromContent(text)
                     }
-                    AtomKeyword.Entry.Description.value -> {
+                    AtomKeyword.ENTRY_DESCRIPTION.value -> {
                         channelFactory.articleBuilder.description(text)
                         channelFactory.setImageFromContent(text)
                     }
-                    AtomKeyword.Entry.Category.value -> {
+                    AtomKeyword.ENTRY_CATEGORY.value -> {
                         if (isInsideItem) {
                             if (text.isNotEmpty()) {
                                 channelFactory.articleBuilder.addCategory(text)
                             }
                         }
                     }
-                    AtomKeyword.Entry.Item.value -> {
+                    AtomKeyword.ENTRY_ITEM.value -> {
                         channelFactory.buildArticle()
                         isInsideItem = false
                     }
-                    AtomKeyword.Youtube.ChannelId.value -> channelFactory.youtubeChannelDataBuilder.channelId(text)
-                    AtomKeyword.Youtube.VideoId.value -> channelFactory.youtubeItemDataBuilder.videoId(text)
-                    AtomKeyword.Youtube.MediaGroup.MediaTitle.value -> channelFactory.youtubeItemDataBuilder.title(text)
-                    AtomKeyword.Youtube.MediaGroup.MediaDescription.value -> {
+                    AtomKeyword.YOUTUBE_CHANNEL_ID.value -> channelFactory.youtubeChannelDataBuilder.channelId(text)
+                    AtomKeyword.YOUTUBE_VIDEO_ID.value -> channelFactory.youtubeItemDataBuilder.videoId(text)
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value -> channelFactory.youtubeItemDataBuilder.title(text)
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION.value -> {
                         channelFactory.youtubeItemDataBuilder.description(text)
                     }
                 }
@@ -117,11 +117,11 @@ internal class AtomFeedHandler(
 
             isInsideChannel -> {
                 when (qName) {
-                    AtomKeyword.Icon.value -> channelFactory.channelImageBuilder.url(text)
-                    AtomKeyword.Updated.value -> channelFactory.channelBuilder.lastBuildDate(text)
-                    AtomKeyword.Subtitle.value -> channelFactory.channelBuilder.description(text)
-                    AtomKeyword.Title.value -> channelFactory.channelBuilder.title(text)
-                    AtomKeyword.Atom.value -> isInsideChannel = false
+                    AtomKeyword.ICON.value -> channelFactory.channelImageBuilder.url(text)
+                    AtomKeyword.UPDATED.value -> channelFactory.channelBuilder.lastBuildDate(text)
+                    AtomKeyword.SUBTITLE.value -> channelFactory.channelBuilder.description(text)
+                    AtomKeyword.TITLE.value -> channelFactory.channelBuilder.title(text)
+                    AtomKeyword.ATOM.value -> isInsideChannel = false
                 }
             }
         }
