@@ -26,10 +26,10 @@ internal class RssFeedHandler : FeedHandler {
         currentElement = startElement
 
         when (currentElement) {
-            RssKeyword.Channel.Channel.value -> isInsideChannel = true
-            RssKeyword.Item.Item.value -> isInsideItem = true
-            RssKeyword.Channel.Itunes.Owner.value -> isInsideItunesOwner = true
-            RssKeyword.Image.value -> {
+            RssKeyword.CHANNEL.value -> isInsideChannel = true
+            RssKeyword.ITEM.value -> isInsideItem = true
+            RssKeyword.CHANNEL_ITUNES_OWNER.value -> isInsideItunesOwner = true
+            RssKeyword.IMAGE.value -> {
                 when {
                     isInsideItem -> {
                         isInsideItemImage = true
@@ -39,25 +39,25 @@ internal class RssFeedHandler : FeedHandler {
                 }
             }
 
-            RssKeyword.Item.MediaContent.value -> {
+            RssKeyword.ITEM_MEDIA_CONTENT.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValueOrNull(RssKeyword.Url.value) as? String
+                    val url = attributes.getValueOrNull(RssKeyword.URL.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
 
-            RssKeyword.Item.Thumbnail.value -> {
+            RssKeyword.ITEM_THUMBNAIL.value -> {
                 if (isInsideItem) {
-                    val url = attributes.getValueOrNull(RssKeyword.Url.value) as? String
+                    val url = attributes.getValueOrNull(RssKeyword.URL.value) as? String
                     channelFactory.articleBuilder.image(url)
                 }
             }
 
-            RssKeyword.Item.Enclosure.value -> {
+            RssKeyword.ITEM_ENCLOSURE.value -> {
                 if (isInsideItem) {
-                    val type = attributes[RssKeyword.Item.Type.value] as? String
-                    val length = attributes[RssKeyword.Item.Length.value] as? String
-                    val url = attributes[RssKeyword.Url.value] as? String
+                    val type = attributes[RssKeyword.ITEM_TYPE.value] as? String
+                    val length = attributes[RssKeyword.ITEM_LENGTH.value] as? String
+                    val url = attributes[RssKeyword.URL.value] as? String
 
                     channelFactory.rawEnclosureBuilder.length(length?.toLongOrNull())
                     channelFactory.rawEnclosureBuilder.type(type)
@@ -82,25 +82,25 @@ internal class RssFeedHandler : FeedHandler {
                 }
             }
 
-            RssKeyword.Itunes.Image.value -> {
-                val url = attributes.getValueOrNull(RssKeyword.Href.value) as? String
+            RssKeyword.ITUNES_IMAGE.value -> {
+                val url = attributes.getValueOrNull(RssKeyword.HREF.value) as? String
                 when {
                     isInsideItem -> channelFactory.itunesArticleBuilder.image(url)
                     isInsideChannel -> channelFactory.itunesChannelBuilder.image(url)
                 }
             }
 
-            RssKeyword.Item.Source.value -> {
+            RssKeyword.ITEM_SOURCE.value -> {
                 if (isInsideItem) {
-                    val sourceUrl = attributes.getValueOrNull(RssKeyword.Url.value) as? String
+                    val sourceUrl = attributes.getValueOrNull(RssKeyword.URL.value) as? String
                     channelFactory.articleBuilder.sourceUrl(sourceUrl)
                 }
             }
 
-            RssKeyword.Channel.Itunes.Category.value -> {
+            RssKeyword.CHANNEL_ITUNES_CATEGORY.value -> {
                 if (isInsideChannel) {
                     val category =
-                        attributes.getValueOrNull(RssKeyword.Channel.Itunes.Text.value) as? String
+                        attributes.getValueOrNull(RssKeyword.CHANNEL_ITUNES_TEXT.value) as? String
                     channelFactory.itunesChannelBuilder.addCategory(category)
                 }
             }
@@ -115,7 +115,7 @@ internal class RssFeedHandler : FeedHandler {
                 channelFactory.articleBuilder.image(characters.trim())
             }
 
-            isInsideItem && element == RssKeyword.Item.Category.value -> {
+            isInsideItem && element == RssKeyword.ITEM_CATEGORY.value -> {
                 val category = characters.trim()
                 if (category.isNotEmpty()) {
                     channelFactory.articleBuilder.addCategory(category)
@@ -139,166 +139,166 @@ internal class RssFeedHandler : FeedHandler {
 
     override fun didEndElement(endElement: String) {
         when (endElement) {
-            RssKeyword.Channel.Channel.value -> {
+            RssKeyword.CHANNEL.value -> {
                 channelFactory.channelBuilder.title(
-                    channelData[RssKeyword.Title.value]?.trim()
+                    channelData[RssKeyword.TITLE.value]?.trim()
                 )
                 channelFactory.channelBuilder.link(
-                    channelData[RssKeyword.Link.value]?.trim()
+                    channelData[RssKeyword.LINK.value]?.trim()
                 )
                 channelFactory.channelBuilder.description(
-                    channelData[RssKeyword.Description.value]?.trim()
+                    channelData[RssKeyword.DESCRIPTION.value]?.trim()
                 )
                 channelFactory.channelBuilder.lastBuildDate(
-                    channelData[RssKeyword.Channel.LastBuildDate.value]?.trim()
+                    channelData[RssKeyword.CHANNEL_LAST_BUILD_DATE.value]?.trim()
                 )
                 channelFactory.channelBuilder.updatePeriod(
-                    channelData[RssKeyword.Channel.UpdatePeriod.value]?.trim()
+                    channelData[RssKeyword.CHANNEL_UPDATE_PERIOD.value]?.trim()
                 )
 
                 // Itunes Data
                 channelFactory.itunesChannelBuilder.type(
-                    channelData[RssKeyword.Channel.Itunes.Type.value]?.trim()
+                    channelData[RssKeyword.CHANNEL_ITUNES_TYPE.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.explicit(
-                    channelData[RssKeyword.Itunes.Explicit.value]?.trim()
+                    channelData[RssKeyword.ITUNES_EXPLICIT.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.subtitle(
-                    channelData[RssKeyword.Itunes.Subtitle.value]?.trim()
+                    channelData[RssKeyword.ITUNES_SUBTITLE.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.summary(
-                    channelData[RssKeyword.Itunes.Summary.value]?.trim()
+                    channelData[RssKeyword.ITUNES_SUMMARY.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.author(
-                    channelData[RssKeyword.Itunes.Author.value]?.trim()
+                    channelData[RssKeyword.ITUNES_AUTHOR.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.duration(
-                    channelData[RssKeyword.Itunes.Duration.value]?.trim()
+                    channelData[RssKeyword.ITUNES_DURATION.value]?.trim()
                 )
                 channelFactory.setChannelItunesKeywords(
-                    channelData[RssKeyword.Itunes.Keywords.value]?.trim()
+                    channelData[RssKeyword.ITUNES_KEYWORDS.value]?.trim()
                 )
                 channelFactory.itunesChannelBuilder.newsFeedUrl(
-                    channelData[RssKeyword.Channel.Itunes.NewFeedUrl.value]?.trim()
+                    channelData[RssKeyword.CHANNEL_ITUNES_NEW_FEED_URL.value]?.trim()
                 )
 
                 isInsideChannel = false
             }
 
-            RssKeyword.Item.Item.value -> {
+            RssKeyword.ITEM.value -> {
                 channelFactory.articleBuilder.author(
-                    itemData[RssKeyword.Item.Author.value]?.trim()
+                    itemData[RssKeyword.ITEM_AUTHOR.value]?.trim()
                 )
                 channelFactory.articleBuilder.sourceName(
-                    itemData[RssKeyword.Item.Source.value]?.trim()
+                    itemData[RssKeyword.ITEM_SOURCE.value]?.trim()
                 )
 
-                val time = itemData[RssKeyword.Item.Time.value]?.trim()
+                val time = itemData[RssKeyword.ITEM_TIME.value]?.trim()
                 if (time != null) {
                     channelFactory.articleBuilder.pubDate(time)
                 } else {
                     channelFactory.articleBuilder.pubDate(
-                        itemData[RssKeyword.Item.PubDate.value]?.trim()
+                        itemData[RssKeyword.ITEM_PUB_DATE.value]?.trim()
                     )
                 }
 
                 channelFactory.articleBuilder.pubDateIfNull(
-                    itemData[RssKeyword.Item.Date.value]?.trim()
+                    itemData[RssKeyword.ITEM_DATE.value]?.trim()
                 )
 
                 channelFactory.articleBuilder.guid(
-                    itemData[RssKeyword.Item.Guid.value]?.trim()
+                    itemData[RssKeyword.ITEM_GUID.value]?.trim()
                 )
-                itemData[RssKeyword.Item.Content.value]?.trim()?.let { content ->
+                itemData[RssKeyword.ITEM_CONTENT.value]?.trim()?.let { content ->
                     channelFactory.setImageFromContent(content)
                     channelFactory.articleBuilder.content(content)
                 }
                 channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.Item.News.Image.value]?.trim()
+                    itemData[RssKeyword.ITEM_NEWS_IMAGE.value]?.trim()
                 )
                 channelFactory.articleBuilder.commentUrl(
-                    itemData[RssKeyword.Item.Comments.value]?.trim()
+                    itemData[RssKeyword.ITEM_COMMENTS.value]?.trim()
                 )
                 channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.Image.value]?.trim()
+                    itemData[RssKeyword.IMAGE.value]?.trim()
                 )
                 channelFactory.articleBuilder.title(
-                    itemData[RssKeyword.Title.value]?.trim()
+                    itemData[RssKeyword.TITLE.value]?.trim()
                 )
                 channelFactory.articleBuilder.link(
-                    itemData[RssKeyword.Link.value]?.trim()
+                    itemData[RssKeyword.LINK.value]?.trim()
                 )
-                itemData[RssKeyword.Description.value]?.trim()?.let { description ->
+                itemData[RssKeyword.DESCRIPTION.value]?.trim()?.let { description ->
                     channelFactory.setImageFromContent(description)
                     channelFactory.articleBuilder.description(description)
                 }
 
                 channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.Item.Enclosure.value]?.trim()
+                    itemData[RssKeyword.ITEM_ENCLOSURE.value]?.trim()
                 )
                 channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.Item.Thumb.value]?.trim()
+                    itemData[RssKeyword.ITEM_THUMB.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.episode(
-                    itemData[RssKeyword.Item.Itunes.Episode.value]?.trim()
+                    itemData[RssKeyword.ITEM_ITUNES_EPISODE.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.episodeType(
-                    itemData[RssKeyword.Item.Itunes.EpisodeType.value]?.trim()
+                    itemData[RssKeyword.ITEM_ITUNES_EPISODE_TYPE.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.season(
-                    itemData[RssKeyword.Item.Itunes.Season.value]?.trim()
+                    itemData[RssKeyword.ITEM_ITUNES_SEASON.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.explicit(
-                    itemData[RssKeyword.Itunes.Explicit.value]?.trim()
+                    itemData[RssKeyword.ITUNES_EXPLICIT.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.subtitle(
-                    itemData[RssKeyword.Itunes.Subtitle.value]?.trim()
+                    itemData[RssKeyword.ITUNES_SUBTITLE.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.summary(
-                    itemData[RssKeyword.Itunes.Summary.value]?.trim()
+                    itemData[RssKeyword.ITUNES_SUMMARY.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.author(
-                    itemData[RssKeyword.Itunes.Author.value]?.trim()
+                    itemData[RssKeyword.ITUNES_AUTHOR.value]?.trim()
                 )
                 channelFactory.itunesArticleBuilder.duration(
-                    itemData[RssKeyword.Itunes.Duration.value]?.trim()
+                    itemData[RssKeyword.ITUNES_DURATION.value]?.trim()
                 )
                 channelFactory.setArticleItunesKeywords(
-                    itemData[RssKeyword.Itunes.Keywords.value]?.trim()
+                    itemData[RssKeyword.ITUNES_KEYWORDS.value]?.trim()
                 )
                 channelFactory.buildArticle()
                 itemData.clear()
             }
 
-            RssKeyword.Channel.Itunes.Owner.value -> {
+            RssKeyword.CHANNEL_ITUNES_OWNER.value -> {
                 channelFactory.itunesOwnerBuilder.name(
-                    itunesOwnerData[RssKeyword.Channel.Itunes.OwnerName.value]?.trim()
+                    itunesOwnerData[RssKeyword.CHANNEL_ITUNES_OWNER_NAME.value]?.trim()
                 )
                 channelFactory.itunesOwnerBuilder.email(
-                    itunesOwnerData[RssKeyword.Channel.Itunes.OwnerEmail.value]?.trim()
+                    itunesOwnerData[RssKeyword.CHANNEL_ITUNES_OWNER_EMAIL.value]?.trim()
                 )
                 channelFactory.buildItunesOwner()
                 isInsideItunesOwner = false
             }
 
-            RssKeyword.Link.value -> {
+            RssKeyword.LINK.value -> {
                 if (isInsideItem) {
                     isInsideItemImage = false
                 }
             }
 
-            RssKeyword.Image.value -> {
+            RssKeyword.IMAGE.value -> {
                 channelFactory.channelImageBuilder.url(
-                    channelImageData[RssKeyword.Url.value]?.trim()
+                    channelImageData[RssKeyword.URL.value]?.trim()
                 )
                 channelFactory.channelImageBuilder.title(
-                    channelImageData[RssKeyword.Title.value]?.trim()
+                    channelImageData[RssKeyword.TITLE.value]?.trim()
                 )
                 channelFactory.channelImageBuilder.link(
-                    channelImageData[RssKeyword.Link.value]?.trim()
+                    channelImageData[RssKeyword.LINK.value]?.trim()
                 )
                 channelFactory.channelImageBuilder.description(
-                    channelImageData[RssKeyword.Description.value]?.trim()
+                    channelImageData[RssKeyword.DESCRIPTION.value]?.trim()
                 )
                 if (isInsideItem) {
                     isInsideItemImage = false
