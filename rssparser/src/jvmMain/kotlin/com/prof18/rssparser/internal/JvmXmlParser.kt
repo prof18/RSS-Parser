@@ -66,8 +66,6 @@ private class SaxFeedHandler(
         qName: String?,
         attributes: Attributes?,
     ) {
-        textBuilder.setLength(0)
-
         when (qName) {
             RssKeyword.RSS.value -> {
                 feedHandler = RssFeedHandler()
@@ -78,7 +76,14 @@ private class SaxFeedHandler(
             RdfKeyword.RDF.value -> {
                 feedHandler = RdfFeedHandler()
             }
-            else -> feedHandler?.onStartRssElement(qName, attributes)
+            else -> {
+                // Clear text builder only for known RSS/Atom/RDF tags
+                // Don't clear for HTML tags within content to handle mismatched tag cases
+                if (feedHandler?.shouldClearTextBuilder(qName) == true) {
+                    textBuilder.clear()
+                }
+                feedHandler?.onStartRssElement(qName, attributes)
+            }
         }
     }
 

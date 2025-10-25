@@ -59,4 +59,8 @@ internal class RdfFeedHandler : FeedHandler {
 
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
+
+    override fun shouldClearTextBuilder(qName: String?): Boolean {
+        return qName?.let { RdfKeyword.isValid(it) } ?: false
+    }
 }

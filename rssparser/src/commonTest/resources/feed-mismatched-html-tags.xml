@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Lucasdelirium</title>
+    <description>Il fansite italiano dedicato alla LucasArts e ai suoi ex (Double Fine, Telltale)</description>
+    <link>https://www.lucasdelirium.it/</link>
+    <atom:link href="https://www.lucasdelirium.it/download/lucasdelirium.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>AGGIORNAMENTO DEL 28-9-2025</title>
+      <description><em>L'Ordine dei Giganti</em>: è arrivato il DLC di Indy - <em>Keeper</em>, ultimo giro di presentazioni per l'avventura della Double Fine - <em>Dispatch</em> è quasi pronto, <em>The Wolf Among Us 2</em> è assai lontano dall'esserlo - Ron Gilbert si concentra su <EM>Death By Scrolling</EM>, pausa dalle avventure grafiche</description>
+      <pubDate>Sun, 28 Sep 2025 12:00:00 GMT</pubDate>
+      <link>https://www.lucasdelirium.it/</link>
+    </item>
+
+  </channel>
+</rss>

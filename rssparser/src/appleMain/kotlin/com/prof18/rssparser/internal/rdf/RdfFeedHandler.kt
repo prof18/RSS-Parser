@@ -7,19 +7,13 @@ import com.prof18.rssparser.model.RssChannel
 
 internal class RdfFeedHandler : FeedHandler {
 
-    private var currentElement: String? = null
-
     private var channelFactory = ChannelFactory()
-    private var itemData: MutableMap<String, String> = mutableMapOf()
-    private var channelData: MutableMap<String, String> = mutableMapOf()
 
     private var isInsideItem = false
     private var isInsideChannel = true
 
     override fun didStartElement(startElement: String, attributes: Map<Any?, *>) {
-        currentElement = startElement
-
-        when (currentElement) {
+        when (startElement) {
             RdfKeyword.RDF.value -> isInsideChannel = true
             RdfKeyword.ITEM.value -> isInsideItem = true
 
@@ -30,42 +24,69 @@ internal class RdfFeedHandler : FeedHandler {
         }
     }
 
-    override fun foundCharacters(characters: String) {
-        val element = currentElement ?: return
-
-        when {
-            isInsideItem -> itemData[element] = (itemData[element].orEmpty()) + characters
-            isInsideChannel -> channelData[element] = (channelData[element].orEmpty()) + characters
-        }
-    }
-
-    override fun didEndElement(endElement: String) {
+    override fun didEndElement(endElement: String, text: String) {
         when (endElement) {
             RdfKeyword.RDF.value -> {
-                channelFactory.channelBuilder.title(channelData[RdfKeyword.TITLE.value]?.trim())
-                channelFactory.channelBuilder.link(channelData[RdfKeyword.LINK.value]?.trim())
-                channelFactory.channelBuilder.description(channelData[RdfKeyword.DESCRIPTION.value]?.trim())
-                channelFactory.channelBuilder.lastBuildDate(channelData[RdfKeyword.DC_DATE.value]?.trim())
-                channelFactory.channelBuilder.updatePeriod(channelData[RdfKeyword.CHANNEL_UPDATE_PERIOD.value]?.trim())
-
                 isInsideChannel = false
             }
 
             RdfKeyword.ITEM.value -> {
-                channelFactory.articleBuilder.title(itemData[RdfKeyword.TITLE.value]?.trim())
-                channelFactory.articleBuilder.link(itemData[RdfKeyword.LINK.value]?.trim())
-                channelFactory.articleBuilder.description(itemData[RdfKeyword.DESCRIPTION.value]?.trim())
-                channelFactory.articleBuilder.pubDate(itemData[RdfKeyword.DC_DATE.value]?.trim())
-                channelFactory.articleBuilder.author(itemData[RdfKeyword.ITEM_DC_CREATOR.value]?.trim())
-                channelFactory.articleBuilder.addCategory(itemData[RdfKeyword.ITEM_DC_SUBJECT.value]?.trim())
-
                 isInsideItem = false
                 channelFactory.buildArticle()
-                itemData.clear()
+            }
+
+            RdfKeyword.TITLE.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.title(text)
+                    isInsideChannel -> channelFactory.channelBuilder.title(text)
+                }
+            }
+
+            RdfKeyword.LINK.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.link(text)
+                    isInsideChannel -> channelFactory.channelBuilder.link(text)
+                }
+            }
+
+            RdfKeyword.DESCRIPTION.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.description(text)
+                    isInsideChannel -> channelFactory.channelBuilder.description(text)
+                }
+            }
+
+            RdfKeyword.DC_DATE.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.pubDate(text)
+                    isInsideChannel -> channelFactory.channelBuilder.lastBuildDate(text)
+                }
+            }
+
+            RdfKeyword.ITEM_DC_CREATOR.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.author(text)
+                }
+            }
+
+            RdfKeyword.ITEM_DC_SUBJECT.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.addCategory(text)
+                }
+            }
+
+            RdfKeyword.CHANNEL_UPDATE_PERIOD.value -> {
+                if (isInsideChannel) {
+                    channelFactory.channelBuilder.updatePeriod(text)
+                }
             }
         }
     }
 
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
+
+    override fun shouldClearTextBuilder(qName: String): Boolean {
+        return RdfKeyword.isValid(qName)
+    }
 }

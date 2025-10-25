@@ -1,8 +1,6 @@
 package com.prof18.rssparser.atom
 
-import com.prof18.rssparser.CurrentTarget
 import com.prof18.rssparser.XmlParserTestExecutor
-import com.prof18.rssparser.currentTarget
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.parseFeed
@@ -29,20 +27,7 @@ class XmlParserAtomExampleTest : XmlParserTestExecutor() {
                 link = "http://example.org/2003/12/13/atom03.html",
                 pubDate = "2003-12-13T18:30:02Z",
                 description = "Some text.",
-                content = when (currentTarget) {
-                    CurrentTarget.JVM -> {
-                        "This is the entry content."
-                    }
-                    CurrentTarget.APPLE -> {
-                        ""
-                    }
-                    CurrentTarget.WEB -> {
-                        "This is the entry content."
-                    }
-                    else -> {
-                        null
-                    }
-                },
+                content = "This is the entry content.",
                 image = null,
                 audio = null,
                 video = null,
