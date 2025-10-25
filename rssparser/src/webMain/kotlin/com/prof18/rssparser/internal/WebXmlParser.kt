@@ -40,17 +40,27 @@ internal class WebXmlParser(
         val feedEntity = try {
             xml.decodeFromString<FeedEntity>(input.data)
         } catch (_: Throwable) {
-            // Fallback to handle XHTML/HTML content in content tags
-            val cleanedData = input.data.replace(Regex("<content([^>]*?)>([\\s\\S]*?)</content>")) { matchResult ->
-                val attributes = matchResult.groupValues[1]
-                val content = matchResult.groupValues[2]
-                val cleanedContent = content
-                    .replace(Regex("<[^>]*>"), "") // Remove all XML/HTML tags
-                    .replace(Regex("&[^;]+;"), "") // Remove HTML entities
-                    .replace(Regex("\\s+"), " ") // Normalize whitespace
-                    .trim()
-                "<content$attributes>$cleanedContent</content>"
-            }
+            // Fallback to handle XHTML/HTML content and mismatched HTML tags in content/description tags
+            val cleanedData = input.data
+                .replace(Regex("<content([^>]*?)>([\\s\\S]*?)</content>")) { matchResult ->
+                    val attributes = matchResult.groupValues[1]
+                    val content = matchResult.groupValues[2]
+                    val cleanedContent = content
+                        .replace(Regex("<[^>]*>"), "") // Remove all XML/HTML tags
+                        .replace(Regex("&[^;]+;"), "") // Remove HTML entities
+                        .replace(Regex("\\s+"), " ") // Normalize whitespace
+                        .trim()
+                    "<content$attributes>$cleanedContent</content>"
+                }
+                .replace(Regex("<description>([\\s\\S]*?)</description>")) { matchResult ->
+                    val content = matchResult.groupValues[1]
+                    val cleanedContent = content
+                        .replace(Regex("<[^>]*>"), "") // Remove all XML/HTML tags (including mismatched ones)
+                        .replace(Regex("&[^;]+;"), "") // Remove HTML entities
+                        .replace(Regex("\\s+"), " ") // Normalize whitespace
+                        .trim()
+                    "<description>$cleanedContent</description>"
+                }
             try {
                 xml.decodeFromString<FeedEntity>(cleanedData)
             } catch (exception: Exception) {

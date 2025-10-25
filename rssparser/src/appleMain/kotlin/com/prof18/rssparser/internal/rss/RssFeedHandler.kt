@@ -8,24 +8,16 @@ import com.prof18.rssparser.model.RssChannel
 
 internal class RssFeedHandler : FeedHandler {
 
-    private var currentElement: String? = null
-
-    private var channelFactory = ChannelFactory()
-    private var itemData: MutableMap<String, String> = mutableMapOf()
-    private var itunesOwnerData: MutableMap<String, String> = mutableMapOf()
-    private var channelImageData: MutableMap<String, String> = mutableMapOf()
-    private var channelData: MutableMap<String, String> = mutableMapOf()
-
     private var isInsideItem = false
     private var isInsideChannel = true
     private var isInsideChannelImage = false
     private var isInsideItunesOwner = false
     private var isInsideItemImage = false
 
-    override fun didStartElement(startElement: String, attributes: Map<Any?, *>) {
-        currentElement = startElement
+    private var channelFactory = ChannelFactory()
 
-        when (currentElement) {
+    override fun didStartElement(startElement: String, attributes: Map<Any?, *>) {
+        when (startElement) {
             RssKeyword.CHANNEL.value -> isInsideChannel = true
             RssKeyword.ITEM.value -> isInsideItem = true
             RssKeyword.CHANNEL_ITUNES_OWNER.value -> isInsideItunesOwner = true
@@ -34,7 +26,6 @@ internal class RssFeedHandler : FeedHandler {
                     isInsideItem -> {
                         isInsideItemImage = true
                     }
-
                     isInsideChannel -> isInsideChannelImage = true
                 }
             }
@@ -107,203 +98,179 @@ internal class RssFeedHandler : FeedHandler {
         }
     }
 
-    override fun foundCharacters(characters: String) {
-        val element = currentElement ?: return
-
+    override fun didEndElement(
+        endElement: String,
+        text: String,
+    ) {
         when {
             isInsideItemImage -> {
-                channelFactory.articleBuilder.image(characters.trim())
-            }
-
-            isInsideItem && element == RssKeyword.ITEM_CATEGORY.value -> {
-                val category = characters.trim()
-                if (category.isNotEmpty()) {
-                    channelFactory.articleBuilder.addCategory(category)
+                when (endElement) {
+                    RssKeyword.LINK.value -> {
+                        channelFactory.articleBuilder.image(text)
+                    }
+                    RssKeyword.IMAGE.value -> {
+                        channelFactory.articleBuilder.image(text)
+                        isInsideItemImage = false
+                    }
                 }
             }
 
             isInsideItem -> {
-                itemData[element] = (itemData[element].orEmpty()) + characters
+                when (endElement) {
+                    RssKeyword.ITEM_AUTHOR.value -> channelFactory.articleBuilder.author(text)
+                    RssKeyword.ITEM_DATE.value -> channelFactory.articleBuilder.pubDateIfNull(text)
+                    RssKeyword.ITEM_CATEGORY.value -> channelFactory.articleBuilder.addCategory(text)
+                    RssKeyword.ITEM_SOURCE.value -> channelFactory.articleBuilder.sourceName(text)
+                    RssKeyword.ITEM_TIME.value -> channelFactory.articleBuilder.pubDate(text)
+                    RssKeyword.ITEM_GUID.value -> channelFactory.articleBuilder.guid(text)
+                    RssKeyword.ITEM_CONTENT.value -> {
+                        channelFactory.articleBuilder.content(text)
+                        channelFactory.setImageFromContent(text)
+                    }
+
+                    RssKeyword.ITEM_PUB_DATE.value -> {
+                        channelFactory.articleBuilder.pubDate(text)
+                    }
+
+                    RssKeyword.ITEM_NEWS_IMAGE.value -> channelFactory.articleBuilder.image(text)
+                    RssKeyword.ITEM_COMMENTS.value -> channelFactory.articleBuilder.commentUrl(text)
+                    RssKeyword.IMAGE.value -> channelFactory.articleBuilder.image(text)
+                    RssKeyword.TITLE.value -> channelFactory.articleBuilder.title(text)
+                    RssKeyword.LINK.value -> {
+                        if (!isInsideItemImage) {
+                            channelFactory.articleBuilder.link(text)
+                        }
+                    }
+                    RssKeyword.DESCRIPTION.value -> {
+                        channelFactory.setImageFromContent(text)
+                        channelFactory.articleBuilder.description(text)
+                    }
+
+                    RssKeyword.ITEM_ENCLOSURE.value -> {
+                        channelFactory.articleBuilder.image(text)
+                    }
+
+                    RssKeyword.ITEM_THUMB.value -> {
+                        channelFactory.articleBuilder.image(text)
+                    }
+
+                    RssKeyword.ITEM_ITUNES_EPISODE_TYPE.value -> {
+                        channelFactory.itunesArticleBuilder.episodeType(text)
+                    }
+
+                    RssKeyword.ITEM_ITUNES_EPISODE.value -> {
+                        channelFactory.itunesArticleBuilder.episode(text)
+                    }
+
+                    RssKeyword.ITEM_ITUNES_SEASON.value -> {
+                        channelFactory.itunesArticleBuilder.season(text)
+                    }
+
+                    RssKeyword.ITUNES_EXPLICIT.value -> {
+                        channelFactory.itunesArticleBuilder.explicit(text)
+                    }
+
+                    RssKeyword.ITUNES_SUBTITLE.value -> {
+                        channelFactory.itunesArticleBuilder.subtitle(text)
+                    }
+
+                    RssKeyword.ITUNES_SUMMARY.value -> {
+                        channelFactory.itunesArticleBuilder.summary(text)
+                    }
+
+                    RssKeyword.ITUNES_AUTHOR.value -> {
+                        channelFactory.itunesArticleBuilder.author(text)
+                    }
+
+                    RssKeyword.ITUNES_DURATION.value -> {
+                        channelFactory.itunesArticleBuilder.duration(text)
+                    }
+
+                    RssKeyword.ITUNES_KEYWORDS.value -> channelFactory.setArticleItunesKeywords(text)
+
+                    RssKeyword.ITEM.value -> {
+                        channelFactory.buildArticle()
+                        isInsideItem = false
+                    }
+                }
             }
+
             isInsideItunesOwner -> {
-                itunesOwnerData[element] = (itunesOwnerData[element].orEmpty()) + characters
+                when (endElement) {
+                    RssKeyword.CHANNEL_ITUNES_OWNER_NAME.value -> {
+                        channelFactory.itunesOwnerBuilder.name(text)
+                    }
+
+                    RssKeyword.CHANNEL_ITUNES_OWNER_EMAIL.value -> {
+                        channelFactory.itunesOwnerBuilder.email(text)
+                    }
+
+                    RssKeyword.CHANNEL_ITUNES_OWNER.value -> {
+                        channelFactory.buildItunesOwner()
+                        isInsideItunesOwner = false
+                    }
+                }
             }
+
             isInsideChannelImage -> {
-                channelImageData[element] = (channelImageData[element].orEmpty()) + characters
+                when (endElement) {
+                    RssKeyword.URL.value -> channelFactory.channelImageBuilder.url(text)
+                    RssKeyword.TITLE.value -> channelFactory.channelImageBuilder.title(text)
+                    RssKeyword.LINK.value -> channelFactory.channelImageBuilder.link(text)
+                    RssKeyword.DESCRIPTION.value -> {
+                        channelFactory.channelImageBuilder.description(text)
+                    }
+
+                    RssKeyword.IMAGE.value -> isInsideChannelImage = false
+                }
             }
+
             isInsideChannel -> {
-                channelData[element] = (channelData[element].orEmpty()) + characters
-            }
-        }
-    }
+                when (endElement) {
+                    RssKeyword.TITLE.value -> channelFactory.channelBuilder.title(text)
+                    RssKeyword.LINK.value -> channelFactory.channelBuilder.link(text)
+                    RssKeyword.DESCRIPTION.value -> channelFactory.channelBuilder.description(text)
+                    RssKeyword.CHANNEL_LAST_BUILD_DATE.value -> {
+                        channelFactory.channelBuilder.lastBuildDate(text)
+                    }
 
-    override fun didEndElement(endElement: String) {
-        when (endElement) {
-            RssKeyword.CHANNEL.value -> {
-                channelFactory.channelBuilder.title(
-                    channelData[RssKeyword.TITLE.value]?.trim()
-                )
-                channelFactory.channelBuilder.link(
-                    channelData[RssKeyword.LINK.value]?.trim()
-                )
-                channelFactory.channelBuilder.description(
-                    channelData[RssKeyword.DESCRIPTION.value]?.trim()
-                )
-                channelFactory.channelBuilder.lastBuildDate(
-                    channelData[RssKeyword.CHANNEL_LAST_BUILD_DATE.value]?.trim()
-                )
-                channelFactory.channelBuilder.updatePeriod(
-                    channelData[RssKeyword.CHANNEL_UPDATE_PERIOD.value]?.trim()
-                )
+                    RssKeyword.CHANNEL_UPDATE_PERIOD.value -> {
+                        channelFactory.channelBuilder.updatePeriod(text)
+                    }
 
-                // Itunes Data
-                channelFactory.itunesChannelBuilder.type(
-                    channelData[RssKeyword.CHANNEL_ITUNES_TYPE.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.explicit(
-                    channelData[RssKeyword.ITUNES_EXPLICIT.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.subtitle(
-                    channelData[RssKeyword.ITUNES_SUBTITLE.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.summary(
-                    channelData[RssKeyword.ITUNES_SUMMARY.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.author(
-                    channelData[RssKeyword.ITUNES_AUTHOR.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.duration(
-                    channelData[RssKeyword.ITUNES_DURATION.value]?.trim()
-                )
-                channelFactory.setChannelItunesKeywords(
-                    channelData[RssKeyword.ITUNES_KEYWORDS.value]?.trim()
-                )
-                channelFactory.itunesChannelBuilder.newsFeedUrl(
-                    channelData[RssKeyword.CHANNEL_ITUNES_NEW_FEED_URL.value]?.trim()
-                )
+                    RssKeyword.CHANNEL_ITUNES_TYPE.value -> {
+                        channelFactory.itunesChannelBuilder.type(text)
+                    }
 
-                isInsideChannel = false
-            }
+                    RssKeyword.ITUNES_EXPLICIT.value -> {
+                        channelFactory.itunesChannelBuilder.explicit(text)
+                    }
 
-            RssKeyword.ITEM.value -> {
-                channelFactory.articleBuilder.author(
-                    itemData[RssKeyword.ITEM_AUTHOR.value]?.trim()
-                )
-                channelFactory.articleBuilder.sourceName(
-                    itemData[RssKeyword.ITEM_SOURCE.value]?.trim()
-                )
+                    RssKeyword.ITUNES_SUBTITLE.value -> {
+                        channelFactory.itunesChannelBuilder.subtitle(text)
+                    }
 
-                val time = itemData[RssKeyword.ITEM_TIME.value]?.trim()
-                if (time != null) {
-                    channelFactory.articleBuilder.pubDate(time)
-                } else {
-                    channelFactory.articleBuilder.pubDate(
-                        itemData[RssKeyword.ITEM_PUB_DATE.value]?.trim()
-                    )
-                }
+                    RssKeyword.ITUNES_SUMMARY.value -> {
+                        channelFactory.itunesChannelBuilder.summary(text)
+                    }
 
-                channelFactory.articleBuilder.pubDateIfNull(
-                    itemData[RssKeyword.ITEM_DATE.value]?.trim()
-                )
+                    RssKeyword.ITUNES_AUTHOR.value -> {
+                        channelFactory.itunesChannelBuilder.author(text)
+                    }
 
-                channelFactory.articleBuilder.guid(
-                    itemData[RssKeyword.ITEM_GUID.value]?.trim()
-                )
-                itemData[RssKeyword.ITEM_CONTENT.value]?.trim()?.let { content ->
-                    channelFactory.setImageFromContent(content)
-                    channelFactory.articleBuilder.content(content)
-                }
-                channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.ITEM_NEWS_IMAGE.value]?.trim()
-                )
-                channelFactory.articleBuilder.commentUrl(
-                    itemData[RssKeyword.ITEM_COMMENTS.value]?.trim()
-                )
-                channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.IMAGE.value]?.trim()
-                )
-                channelFactory.articleBuilder.title(
-                    itemData[RssKeyword.TITLE.value]?.trim()
-                )
-                channelFactory.articleBuilder.link(
-                    itemData[RssKeyword.LINK.value]?.trim()
-                )
-                itemData[RssKeyword.DESCRIPTION.value]?.trim()?.let { description ->
-                    channelFactory.setImageFromContent(description)
-                    channelFactory.articleBuilder.description(description)
-                }
+                    RssKeyword.ITUNES_DURATION.value -> {
+                        channelFactory.itunesChannelBuilder.duration(text)
+                    }
 
-                channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.ITEM_ENCLOSURE.value]?.trim()
-                )
-                channelFactory.articleBuilder.image(
-                    itemData[RssKeyword.ITEM_THUMB.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.episode(
-                    itemData[RssKeyword.ITEM_ITUNES_EPISODE.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.episodeType(
-                    itemData[RssKeyword.ITEM_ITUNES_EPISODE_TYPE.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.season(
-                    itemData[RssKeyword.ITEM_ITUNES_SEASON.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.explicit(
-                    itemData[RssKeyword.ITUNES_EXPLICIT.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.subtitle(
-                    itemData[RssKeyword.ITUNES_SUBTITLE.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.summary(
-                    itemData[RssKeyword.ITUNES_SUMMARY.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.author(
-                    itemData[RssKeyword.ITUNES_AUTHOR.value]?.trim()
-                )
-                channelFactory.itunesArticleBuilder.duration(
-                    itemData[RssKeyword.ITUNES_DURATION.value]?.trim()
-                )
-                channelFactory.setArticleItunesKeywords(
-                    itemData[RssKeyword.ITUNES_KEYWORDS.value]?.trim()
-                )
-                channelFactory.buildArticle()
-                itemData.clear()
-            }
+                    RssKeyword.ITUNES_KEYWORDS.value -> {
+                        channelFactory.setChannelItunesKeywords(text)
+                    }
 
-            RssKeyword.CHANNEL_ITUNES_OWNER.value -> {
-                channelFactory.itunesOwnerBuilder.name(
-                    itunesOwnerData[RssKeyword.CHANNEL_ITUNES_OWNER_NAME.value]?.trim()
-                )
-                channelFactory.itunesOwnerBuilder.email(
-                    itunesOwnerData[RssKeyword.CHANNEL_ITUNES_OWNER_EMAIL.value]?.trim()
-                )
-                channelFactory.buildItunesOwner()
-                isInsideItunesOwner = false
-            }
+                    RssKeyword.CHANNEL_ITUNES_NEW_FEED_URL.value -> {
+                        channelFactory.itunesChannelBuilder.newsFeedUrl(text)
+                    }
 
-            RssKeyword.LINK.value -> {
-                if (isInsideItem) {
-                    isInsideItemImage = false
-                }
-            }
-
-            RssKeyword.IMAGE.value -> {
-                channelFactory.channelImageBuilder.url(
-                    channelImageData[RssKeyword.URL.value]?.trim()
-                )
-                channelFactory.channelImageBuilder.title(
-                    channelImageData[RssKeyword.TITLE.value]?.trim()
-                )
-                channelFactory.channelImageBuilder.link(
-                    channelImageData[RssKeyword.LINK.value]?.trim()
-                )
-                channelFactory.channelImageBuilder.description(
-                    channelImageData[RssKeyword.DESCRIPTION.value]?.trim()
-                )
-                if (isInsideItem) {
-                    isInsideItemImage = false
-                } else {
-                    isInsideChannelImage = false
+                    RssKeyword.CHANNEL.value -> isInsideChannel = false
                 }
             }
         }
@@ -311,4 +278,8 @@ internal class RssFeedHandler : FeedHandler {
 
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
+
+    override fun shouldClearTextBuilder(qName: String): Boolean {
+        return RssKeyword.isValid(qName)
+    }
 }

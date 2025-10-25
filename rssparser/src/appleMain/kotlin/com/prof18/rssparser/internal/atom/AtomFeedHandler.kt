@@ -10,19 +10,13 @@ internal class AtomFeedHandler(
     private val baseFeedUrl: String?,
 ) : FeedHandler {
 
-    private var currentElement: String? = null
-
     private var channelFactory = ChannelFactory()
-    private var itemData: MutableMap<String, String> = mutableMapOf()
-    private var channelData: MutableMap<String, String> = mutableMapOf()
 
     private var isInsideItem = false
     private var isInsideChannel = true
 
     override fun didStartElement(startElement: String, attributes: Map<Any?, *>) {
-        currentElement = startElement
-
-        when (currentElement) {
+        when (startElement) {
             AtomKeyword.ATOM.value -> isInsideChannel = true
             AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
 
@@ -87,86 +81,109 @@ internal class AtomFeedHandler(
         }
     }
 
-    override fun foundCharacters(characters: String) {
-        val element = currentElement ?: return
-
-        when {
-            isInsideItem -> itemData[element] = (itemData[element].orEmpty()) + characters
-            isInsideChannel -> channelData[element] = (channelData[element].orEmpty()) + characters
-        }
-    }
-
-    override fun didEndElement(endElement: String) {
+    override fun didEndElement(endElement: String, text: String) {
         when (endElement) {
             AtomKeyword.ATOM.value -> {
-                channelFactory.channelImageBuilder.url(
-                    channelData[AtomKeyword.ICON.value]?.trim()
-                )
-                channelFactory.channelBuilder.lastBuildDate(
-                    channelData[AtomKeyword.UPDATED.value]?.trim()
-                )
-                channelFactory.channelBuilder.description(
-                    channelData[AtomKeyword.SUBTITLE.value]?.trim()
-                )
-                channelFactory.channelBuilder.title(
-                    channelData[AtomKeyword.TITLE.value]?.trim()
-                )
-
                 isInsideChannel = false
             }
 
             AtomKeyword.ENTRY_ITEM.value -> {
-                val pubDate = if (itemData[AtomKeyword.ENTRY_PUBLISHED.value] != null) {
-                    itemData[AtomKeyword.ENTRY_PUBLISHED.value]?.trim()
-                } else {
-                    itemData[AtomKeyword.UPDATED.value]?.trim()
-                }
-                channelFactory.articleBuilder.pubDate(
-                    pubDate
-                )
-                channelFactory.articleBuilder.title(
-                    itemData[AtomKeyword.TITLE.value]?.trim()
-                )
-                channelFactory.articleBuilder.author(
-                    itemData[AtomKeyword.ENTRY_AUTHOR.value]?.trim()
-                )
-                channelFactory.articleBuilder.guid(
-                    itemData[AtomKeyword.ENTRY_GUID.value]?.trim()
-                )
-
-                val content = itemData[AtomKeyword.ENTRY_CONTENT.value]?.trim()
-                channelFactory.articleBuilder.content(content)
-                channelFactory.setImageFromContent(content)
-
-                val description = itemData[AtomKeyword.ENTRY_DESCRIPTION.value]?.trim()
-                channelFactory.articleBuilder.description(description)
-                channelFactory.setImageFromContent(description)
-
-                val category = itemData[AtomKeyword.ENTRY_CATEGORY.value]?.trim()
-                if (!category.isNullOrEmpty()) {
-                    channelFactory.articleBuilder.addCategory(category)
-                }
-
-                // Youtube
-
-                val channelId = itemData[AtomKeyword.YOUTUBE_CHANNEL_ID.value]?.trim()
-                channelFactory.youtubeChannelDataBuilder.channelId(channelId)
-
-                val videoId = itemData[AtomKeyword.YOUTUBE_VIDEO_ID.value]?.trim()
-                channelFactory.youtubeItemDataBuilder.videoId(videoId)
-
-                val title = itemData[AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value]?.trim()
-                channelFactory.youtubeItemDataBuilder.title(title)
-
-                val videoDescription = itemData[AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION.value]?.trim()
-                channelFactory.youtubeItemDataBuilder.description(videoDescription)
-
                 channelFactory.buildArticle()
-                itemData.clear()
+                isInsideItem = false
+            }
+
+            AtomKeyword.ICON.value -> {
+                if (isInsideChannel) {
+                    channelFactory.channelImageBuilder.url(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_PUBLISHED.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.pubDate(text)
+                }
+            }
+
+            AtomKeyword.UPDATED.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.pubDateIfNull(text)
+                    isInsideChannel -> channelFactory.channelBuilder.lastBuildDate(text)
+                }
+            }
+
+            AtomKeyword.SUBTITLE.value -> {
+                if (isInsideChannel) {
+                    channelFactory.channelBuilder.description(text)
+                }
+            }
+
+            AtomKeyword.TITLE.value -> {
+                when {
+                    isInsideItem -> channelFactory.articleBuilder.title(text)
+                    isInsideChannel -> channelFactory.channelBuilder.title(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_AUTHOR.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.author(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_GUID.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.guid(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_CONTENT.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.content(text)
+                    channelFactory.setImageFromContent(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_DESCRIPTION.value -> {
+                if (isInsideItem) {
+                    channelFactory.articleBuilder.description(text)
+                    channelFactory.setImageFromContent(text)
+                }
+            }
+
+            AtomKeyword.ENTRY_CATEGORY.value -> {
+                if (isInsideItem && text.isNotEmpty()) {
+                    channelFactory.articleBuilder.addCategory(text)
+                }
+            }
+
+            AtomKeyword.YOUTUBE_CHANNEL_ID.value -> {
+                channelFactory.youtubeChannelDataBuilder.channelId(text)
+            }
+
+            AtomKeyword.YOUTUBE_VIDEO_ID.value -> {
+                if (isInsideItem) {
+                    channelFactory.youtubeItemDataBuilder.videoId(text)
+                }
+            }
+
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value -> {
+                if (isInsideItem) {
+                    channelFactory.youtubeItemDataBuilder.title(text)
+                }
+            }
+
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION.value -> {
+                if (isInsideItem) {
+                    channelFactory.youtubeItemDataBuilder.description(text)
+                }
             }
         }
     }
 
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
+
+    override fun shouldClearTextBuilder(qName: String): Boolean {
+        return AtomKeyword.isValid(qName)
+    }
 }

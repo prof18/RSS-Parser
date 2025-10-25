@@ -281,4 +281,7 @@ internal class RssFeedHandler : FeedHandler {
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
 
+    override fun shouldClearTextBuilder(qName: String?): Boolean {
+        return qName?.let { RssKeyword.isValid(it) } ?: false
+    }
 }

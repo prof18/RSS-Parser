@@ -30,17 +30,13 @@ class XmlParserAtomContentHtmlTest : XmlParserTestExecutor() {
                 pubDate = "2021-11-11T00:00:00+00:00",
                 description = null,
                 content = when (currentTarget) {
-                    CurrentTarget.JVM -> {
+                    CurrentTarget.ANDROID -> {
+                        // When nextText() throws due to nested tags, it consumes text before the exception,
+                        // and we can only collect text after
                         "https://code.cash.app/the-state-of-managing-state-with-compose."
                     }
-                    CurrentTarget.APPLE -> {
-                        "This post was published externally on Cash App Code Blog. Read it at"
-                    }
-                    CurrentTarget.WEB -> {
-                        "This post was published externally on Cash App Code Blog. Read it at https://code.cash.app/the-state-of-managing-state-with-compose."
-                    }
                     else -> {
-                        null
+                        "This post was published externally on Cash App Code Blog. Read it at https://code.cash.app/the-state-of-managing-state-with-compose."
                     }
                 },
                 image = null,

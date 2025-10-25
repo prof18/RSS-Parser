@@ -97,12 +97,7 @@ internal fun CoroutineScope.extractAtomContent(
 
                 xmlPullParser.contains(AtomKeyword.ENTRY_CONTENT) -> {
                     if (insideItem) {
-                        val content = try {
-                            xmlPullParser.nextTrimmedText()
-                        } catch (_: XmlPullParserException) {
-                            // If there's some html not escaped, the parsing is going to fail
-                            null
-                        }
+                        val content = xmlPullParser.nextTrimmedText()
                         channelFactory.articleBuilder.content(content)
                         channelFactory.setImageFromContent(content)
                     }

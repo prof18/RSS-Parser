@@ -129,4 +129,7 @@ internal class AtomFeedHandler(
 
     override fun buildRssChannel(): RssChannel =
         channelFactory.build()
+
+    override fun shouldClearTextBuilder(qName: String?): Boolean =
+        qName?.let { AtomKeyword.isValid(it) } ?: false
 }

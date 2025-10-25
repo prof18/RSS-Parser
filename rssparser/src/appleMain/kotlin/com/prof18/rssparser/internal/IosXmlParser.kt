@@ -68,6 +68,7 @@ private class NSXMLParserDelegate(
 ) : NSObject(), NSXMLParserDelegateProtocol {
 
     private var feedHandler: FeedHandler? = null
+    private val textBuilder: StringBuilder = StringBuilder()
 
     override fun parser(
         parser: NSXMLParser,
@@ -95,13 +96,18 @@ private class NSXMLParserDelegate(
                         "The provided XML is not supported. Only RSS and Atom feeds are supported",
                     )
                 }
+                // Clear text builder only for known RSS/Atom/RDF tags
+                // Don't clear for HTML tags within content to handle mismatched tag cases
+                if (feedHandler?.shouldClearTextBuilder(didStartElement) == true) {
+                    textBuilder.clear()
+                }
                 feedHandler?.didStartElement(didStartElement, attributes)
             }
         }
     }
 
     override fun parser(parser: NSXMLParser, foundCharacters: String) {
-        feedHandler?.foundCharacters(foundCharacters)
+        textBuilder.append(foundCharacters)
     }
 
     override fun parser(
@@ -110,7 +116,8 @@ private class NSXMLParserDelegate(
         namespaceURI: String?,
         qualifiedName: String?,
     ) {
-        feedHandler?.didEndElement(didEndElement)
+        val text = textBuilder.toString().trim()
+        feedHandler?.didEndElement(didEndElement, text)
     }
 
     override fun parserDidEndDocument(parser: NSXMLParser) {
