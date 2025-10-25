@@ -75,7 +75,7 @@ private class SaxFeedHandler(
             AtomKeyword.Atom.value -> {
                 feedHandler = AtomFeedHandler(feedUrl)
             }
-            RdfKeyword.Rdf.value -> {
+            RdfKeyword.RDF.value -> {
                 feedHandler = RdfFeedHandler()
             }
             else -> feedHandler?.onStartRssElement(qName, attributes)

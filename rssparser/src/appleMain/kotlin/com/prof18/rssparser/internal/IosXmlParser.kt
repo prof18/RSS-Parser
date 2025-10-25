@@ -85,7 +85,7 @@ private class NSXMLParserDelegate(
                 feedHandler = AtomFeedHandler(baseFeedUrl)
             }
 
-            RdfKeyword.Rdf.value -> {
+            RdfKeyword.RDF.value -> {
                 feedHandler = RdfFeedHandler()
             }
 

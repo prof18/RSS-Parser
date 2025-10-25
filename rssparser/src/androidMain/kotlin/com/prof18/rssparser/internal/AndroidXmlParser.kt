@@ -57,7 +57,7 @@ internal class AndroidXmlParser(
                         xmlPullParser.contains(AtomKeyword.Atom) -> {
                             rssChannel = extractAtomContent(xmlPullParser, input)
                         }
-                        xmlPullParser.contains(RdfKeyword.Rdf) -> {
+                        xmlPullParser.contains(RdfKeyword.RDF) -> {
                             rssChannel = extractRdfContent(xmlPullParser)
                         }
                     }
