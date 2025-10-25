@@ -77,7 +77,7 @@ private class NSXMLParserDelegate(
         attributes: Map<Any?, *>,
     ) {
         when (didStartElement) {
-            RssKeyword.Rss.value -> {
+            RssKeyword.RSS.value -> {
                 feedHandler = RssFeedHandler()
             }
 

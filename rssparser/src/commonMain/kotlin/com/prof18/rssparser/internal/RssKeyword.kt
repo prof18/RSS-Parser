@@ -1,66 +1,71 @@
 package com.prof18.rssparser.internal
 
-internal sealed class RssKeyword(val value: String) {
-    data object Rss : RssKeyword("rss")
-    data object Title : RssKeyword("title")
-    data object Image : RssKeyword("image")
-    data object Link : RssKeyword("link")
-    data object Href : RssKeyword("href")
-    data object Url : RssKeyword("url")
-    data object Description : RssKeyword("description")
+internal enum class RssKeyword(val value: String) {
+    // Root
+    RSS("rss"),
 
-    object Itunes {
-        data object Author : RssKeyword("itunes:author")
-        data object Duration : RssKeyword("itunes:duration")
-        data object Keywords : RssKeyword("itunes:keywords")
-        data object Image : RssKeyword("itunes:image")
-        data object Explicit : RssKeyword("itunes:explicit")
-        data object Subtitle : RssKeyword("itunes:subtitle")
-        data object Summary : RssKeyword("itunes:summary")
-    }
+    // Shared between Channel and Item
+    TITLE("title"),
+    IMAGE("image"),
+    LINK("link"),
+    HREF("href"),
+    URL("url"),
+    DESCRIPTION("description"),
 
-    object Channel {
-        data object Channel : RssKeyword("channel")
-        data object UpdatePeriod : RssKeyword("sy:updatePeriod")
-        data object LastBuildDate : RssKeyword("lastBuildDate")
+    // iTunes (shared)
+    ITUNES_AUTHOR("itunes:author"),
+    ITUNES_DURATION("itunes:duration"),
+    ITUNES_KEYWORDS("itunes:keywords"),
+    ITUNES_IMAGE("itunes:image"),
+    ITUNES_EXPLICIT("itunes:explicit"),
+    ITUNES_SUBTITLE("itunes:subtitle"),
+    ITUNES_SUMMARY("itunes:summary"),
 
-        object Itunes {
-            data object Category : RssKeyword("itunes:category")
-            data object Owner : RssKeyword("itunes:owner")
-            data object OwnerName : RssKeyword("itunes:name")
-            data object OwnerEmail : RssKeyword("itunes:email")
-            data object Type : RssKeyword("itunes:type")
-            data object NewFeedUrl : RssKeyword("itunes:new-feed-url")
-            data object Text : RssKeyword("text")
-        }
-    }
+    // Channel
+    CHANNEL("channel"),
+    CHANNEL_UPDATE_PERIOD("sy:updatePeriod"),
+    CHANNEL_LAST_BUILD_DATE("lastBuildDate"),
 
-    object Item {
-        data object Item : RssKeyword("item")
-        data object Author : RssKeyword("dc:creator")
-        data object Date : RssKeyword("dc:date")
-        data object Category : RssKeyword("category")
-        data object Thumbnail : RssKeyword("media:thumbnail")
-        data object MediaContent : RssKeyword("media:content")
-        data object Enclosure : RssKeyword("enclosure")
-        data object Content : RssKeyword("content:encoded")
-        data object PubDate : RssKeyword("pubDate")
-        data object Time : RssKeyword("time")
-        data object Type : RssKeyword("type")
-        data object Length : RssKeyword("length")
-        data object Guid : RssKeyword("guid")
-        data object Source : RssKeyword("source")
-        data object Comments : RssKeyword("comments")
-        data object Thumb : RssKeyword("thumb")
+    // Channel iTunes
+    CHANNEL_ITUNES_CATEGORY("itunes:category"),
+    CHANNEL_ITUNES_OWNER("itunes:owner"),
+    CHANNEL_ITUNES_OWNER_NAME("itunes:name"),
+    CHANNEL_ITUNES_OWNER_EMAIL("itunes:email"),
+    CHANNEL_ITUNES_TYPE("itunes:type"),
+    CHANNEL_ITUNES_NEW_FEED_URL("itunes:new-feed-url"),
+    CHANNEL_ITUNES_TEXT("text"),
 
-        object News {
-            data object Image : RssKeyword("News:Image")
-        }
+    // Item
+    ITEM("item"),
+    ITEM_AUTHOR("dc:creator"),
+    ITEM_DATE("dc:date"),
+    ITEM_CATEGORY("category"),
+    ITEM_THUMBNAIL("media:thumbnail"),
+    ITEM_MEDIA_CONTENT("media:content"),
+    ITEM_ENCLOSURE("enclosure"),
+    ITEM_CONTENT("content:encoded"),
+    ITEM_PUB_DATE("pubDate"),
+    ITEM_TIME("time"),
+    ITEM_TYPE("type"),
+    ITEM_LENGTH("length"),
+    ITEM_GUID("guid"),
+    ITEM_SOURCE("source"),
+    ITEM_COMMENTS("comments"),
+    ITEM_THUMB("thumb"),
 
-        object Itunes {
-            data object Episode : RssKeyword("itunes:episode")
-            data object Season : RssKeyword("itunes:season")
-            data object EpisodeType : RssKeyword("itunes:episodeType")
+    // Item News
+    ITEM_NEWS_IMAGE("News:Image"),
+
+    // Item iTunes
+    ITEM_ITUNES_EPISODE("itunes:episode"),
+    ITEM_ITUNES_SEASON("itunes:season"),
+    ITEM_ITUNES_EPISODE_TYPE("itunes:episodeType");
+
+    internal companion object {
+        private val valueMap: Map<String, RssKeyword> = entries.associateBy { it.value.lowercase() }
+
+        fun isValid(value: String): Boolean {
+            return value.lowercase() in valueMap
         }
     }
 }
