@@ -14,12 +14,12 @@ internal class RdfFeedHandler : FeedHandler {
 
     override fun onStartRssElement(qName: String?, attributes: Attributes?) {
         when (qName) {
-            RdfKeyword.Channel.value -> isInsideChannel = true
-            RdfKeyword.Item.value -> isInsideItem = true
+            RdfKeyword.CHANNEL.value -> isInsideChannel = true
+            RdfKeyword.ITEM.value -> isInsideItem = true
 
-            RdfKeyword.Channel.Image.value -> {
+            RdfKeyword.IMAGE.value -> {
                 if (isInsideChannel) {
-                    val imageUrl = attributes?.getValue(RdfKeyword.Channel.Image.Resource.value)
+                    val imageUrl = attributes?.getValue(RdfKeyword.RESOURCE.value)
                     channelFactory.channelImageBuilder.url(imageUrl)
                 }
             }
@@ -30,28 +30,28 @@ internal class RdfFeedHandler : FeedHandler {
         when {
             isInsideItem -> {
                 when (qName) {
-                    RdfKeyword.Item.value -> {
+                    RdfKeyword.ITEM.value -> {
                         channelFactory.buildArticle()
                         isInsideItem = false
                     }
 
-                    RdfKeyword.Title.value -> channelFactory.articleBuilder.title(text)
-                    RdfKeyword.Description.value -> channelFactory.articleBuilder.description(text)
-                    RdfKeyword.Link.value -> channelFactory.articleBuilder.link(text)
-                    RdfKeyword.DcDate.value -> channelFactory.articleBuilder.pubDate(text)
-                    RdfKeyword.Item.DcCreator.value -> channelFactory.articleBuilder.author(text)
-                    RdfKeyword.Item.DcSubject.value -> channelFactory.articleBuilder.addCategory(text)
+                    RdfKeyword.TITLE.value -> channelFactory.articleBuilder.title(text)
+                    RdfKeyword.DESCRIPTION.value -> channelFactory.articleBuilder.description(text)
+                    RdfKeyword.LINK.value -> channelFactory.articleBuilder.link(text)
+                    RdfKeyword.DC_DATE.value -> channelFactory.articleBuilder.pubDate(text)
+                    RdfKeyword.DC_CREATOR.value -> channelFactory.articleBuilder.author(text)
+                    RdfKeyword.DC_SUBJECT.value -> channelFactory.articleBuilder.addCategory(text)
                 }
             }
 
             isInsideChannel -> {
                 when (qName) {
-                    RdfKeyword.Channel.value -> isInsideChannel = false
-                    RdfKeyword.Title.value -> channelFactory.channelBuilder.title(text)
-                    RdfKeyword.Description.value -> channelFactory.channelBuilder.description(text)
-                    RdfKeyword.Link.value -> channelFactory.channelBuilder.link(text)
-                    RdfKeyword.DcDate.value -> channelFactory.channelBuilder.lastBuildDate(text)
-                    RdfKeyword.Channel.UpdatePeriod.value -> channelFactory.channelBuilder.updatePeriod(text)
+                    RdfKeyword.CHANNEL.value -> isInsideChannel = false
+                    RdfKeyword.TITLE.value -> channelFactory.channelBuilder.title(text)
+                    RdfKeyword.DESCRIPTION.value -> channelFactory.channelBuilder.description(text)
+                    RdfKeyword.LINK.value -> channelFactory.channelBuilder.link(text)
+                    RdfKeyword.DC_DATE.value -> channelFactory.channelBuilder.lastBuildDate(text)
+                    RdfKeyword.UPDATE_PERIOD.value -> channelFactory.channelBuilder.updatePeriod(text)
                 }
             }
         }
