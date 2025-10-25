@@ -1,21 +1,36 @@
 package com.prof18.rssparser.internal
 
-internal sealed class RdfKeyword(val value: String) {
-    data object Rdf : RdfKeyword("rdf:RDF")
-    data object Title : RdfKeyword("title")
-    data object Description : RdfKeyword("description")
-    data object Link : RdfKeyword("link")
-    data object DcDate : RdfKeyword("dc:date")
-    data object Channel : RdfKeyword("channel") {
-        data object Image : RdfKeyword("image") {
-            data object Resource : RdfKeyword("rdf:resource")
+internal enum class RdfKeyword(val value: String) {
+    RDF("rdf:RDF"),
+    TITLE("title"),
+    DESCRIPTION("description"),
+    LINK("link"),
+    DC_DATE("dc:date"),
+    CHANNEL("channel"),
+    IMAGE("image"),
+    RESOURCE("rdf:resource"),
+    UPDATE_PERIOD("sy:updatePeriod"),
+    ITEM("item"),
+    DC_CREATOR("dc:creator"),
+    DC_SUBJECT("dc:subject");
+
+    companion object {
+        /**
+         * Validates if the given string is a valid RDF keyword.
+         * @param keyword The keyword string to validate
+         * @return true if the keyword is valid, false otherwise
+         */
+        fun isValid(keyword: String): Boolean {
+            return entries.any { it.value.equals(keyword, ignoreCase = true) }
         }
 
-        data object UpdatePeriod : RdfKeyword("sy:updatePeriod")
-    }
-
-    data object Item : RdfKeyword("item") {
-        data object DcCreator : RdfKeyword("dc:creator")
-        data object DcSubject : RdfKeyword("dc:subject")
+        /**
+         * Finds the RdfKeyword enum entry for the given keyword string.
+         * @param keyword The keyword string to find
+         * @return The matching RdfKeyword or null if not found
+         */
+        fun fromValue(keyword: String): RdfKeyword? {
+            return entries.find { it.value.equals(keyword, ignoreCase = true) }
+        }
     }
 }

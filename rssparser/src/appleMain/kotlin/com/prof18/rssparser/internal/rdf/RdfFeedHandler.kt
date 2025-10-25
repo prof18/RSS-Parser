@@ -20,11 +20,11 @@ internal class RdfFeedHandler : FeedHandler {
         currentElement = startElement
 
         when (currentElement) {
-            RdfKeyword.Rdf.value -> isInsideChannel = true
-            RdfKeyword.Item.value -> isInsideItem = true
+            RdfKeyword.RDF.value -> isInsideChannel = true
+            RdfKeyword.ITEM.value -> isInsideItem = true
 
-            RdfKeyword.Channel.Image.value -> {
-                val url = attributes[RdfKeyword.Channel.Image.Resource.value] as? String
+            RdfKeyword.IMAGE.value -> {
+                val url = attributes[RdfKeyword.RESOURCE.value] as? String
                 channelFactory.channelImageBuilder.url(url?.trim())
             }
         }
@@ -41,23 +41,23 @@ internal class RdfFeedHandler : FeedHandler {
 
     override fun didEndElement(endElement: String) {
         when (endElement) {
-            RdfKeyword.Rdf.value -> {
-                channelFactory.channelBuilder.title(channelData[RdfKeyword.Title.value]?.trim())
-                channelFactory.channelBuilder.link(channelData[RdfKeyword.Link.value]?.trim())
-                channelFactory.channelBuilder.description(channelData[RdfKeyword.Description.value]?.trim())
-                channelFactory.channelBuilder.lastBuildDate(channelData[RdfKeyword.DcDate.value]?.trim())
-                channelFactory.channelBuilder.updatePeriod(channelData[RdfKeyword.Channel.UpdatePeriod.value]?.trim())
+            RdfKeyword.RDF.value -> {
+                channelFactory.channelBuilder.title(channelData[RdfKeyword.TITLE.value]?.trim())
+                channelFactory.channelBuilder.link(channelData[RdfKeyword.LINK.value]?.trim())
+                channelFactory.channelBuilder.description(channelData[RdfKeyword.DESCRIPTION.value]?.trim())
+                channelFactory.channelBuilder.lastBuildDate(channelData[RdfKeyword.DC_DATE.value]?.trim())
+                channelFactory.channelBuilder.updatePeriod(channelData[RdfKeyword.UPDATE_PERIOD.value]?.trim())
 
                 isInsideChannel = false
             }
 
-            RdfKeyword.Item.value -> {
-                channelFactory.articleBuilder.title(itemData[RdfKeyword.Title.value]?.trim())
-                channelFactory.articleBuilder.link(itemData[RdfKeyword.Link.value]?.trim())
-                channelFactory.articleBuilder.description(itemData[RdfKeyword.Description.value]?.trim())
-                channelFactory.articleBuilder.pubDate(itemData[RdfKeyword.DcDate.value]?.trim())
-                channelFactory.articleBuilder.author(itemData[RdfKeyword.Item.DcCreator.value]?.trim())
-                channelFactory.articleBuilder.addCategory(itemData[RdfKeyword.Item.DcSubject.value]?.trim())
+            RdfKeyword.ITEM.value -> {
+                channelFactory.articleBuilder.title(itemData[RdfKeyword.TITLE.value]?.trim())
+                channelFactory.articleBuilder.link(itemData[RdfKeyword.LINK.value]?.trim())
+                channelFactory.articleBuilder.description(itemData[RdfKeyword.DESCRIPTION.value]?.trim())
+                channelFactory.articleBuilder.pubDate(itemData[RdfKeyword.DC_DATE.value]?.trim())
+                channelFactory.articleBuilder.author(itemData[RdfKeyword.DC_CREATOR.value]?.trim())
+                channelFactory.articleBuilder.addCategory(itemData[RdfKeyword.DC_SUBJECT.value]?.trim())
 
                 isInsideItem = false
                 channelFactory.buildArticle()
