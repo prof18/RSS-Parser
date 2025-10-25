@@ -15,13 +15,16 @@ internal enum class RdfKeyword(val value: String) {
     DC_SUBJECT("dc:subject");
 
     companion object {
+        // Pre-computed map for O(1) lookup performance
+        private val valueMap: Map<String, RdfKeyword> = entries.associateBy { it.value.lowercase() }
+
         /**
          * Validates and returns the RdfKeyword for the given string value.
          * @param value the string value to validate
          * @return the corresponding RdfKeyword if valid, null otherwise
          */
         fun fromValue(value: String): RdfKeyword? {
-            return entries.firstOrNull { it.value.equals(value, ignoreCase = true) }
+            return valueMap[value.lowercase()]
         }
 
         /**
@@ -30,7 +33,7 @@ internal enum class RdfKeyword(val value: String) {
          * @return true if valid, false otherwise
          */
         fun isValid(value: String): Boolean {
-            return fromValue(value) != null
+            return value.lowercase() in valueMap
         }
     }
 }
