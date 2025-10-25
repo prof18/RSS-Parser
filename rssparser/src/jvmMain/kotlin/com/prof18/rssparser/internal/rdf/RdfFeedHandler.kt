@@ -17,9 +17,9 @@ internal class RdfFeedHandler : FeedHandler {
             RdfKeyword.CHANNEL.value -> isInsideChannel = true
             RdfKeyword.ITEM.value -> isInsideItem = true
 
-            RdfKeyword.IMAGE.value -> {
+            RdfKeyword.CHANNEL_IMAGE.value -> {
                 if (isInsideChannel) {
-                    val imageUrl = attributes?.getValue(RdfKeyword.RESOURCE.value)
+                    val imageUrl = attributes?.getValue(RdfKeyword.CHANNEL_IMAGE_RESOURCE.value)
                     channelFactory.channelImageBuilder.url(imageUrl)
                 }
             }
@@ -39,8 +39,8 @@ internal class RdfFeedHandler : FeedHandler {
                     RdfKeyword.DESCRIPTION.value -> channelFactory.articleBuilder.description(text)
                     RdfKeyword.LINK.value -> channelFactory.articleBuilder.link(text)
                     RdfKeyword.DC_DATE.value -> channelFactory.articleBuilder.pubDate(text)
-                    RdfKeyword.DC_CREATOR.value -> channelFactory.articleBuilder.author(text)
-                    RdfKeyword.DC_SUBJECT.value -> channelFactory.articleBuilder.addCategory(text)
+                    RdfKeyword.ITEM_DC_CREATOR.value -> channelFactory.articleBuilder.author(text)
+                    RdfKeyword.ITEM_DC_SUBJECT.value -> channelFactory.articleBuilder.addCategory(text)
                 }
             }
 
@@ -51,7 +51,7 @@ internal class RdfFeedHandler : FeedHandler {
                     RdfKeyword.DESCRIPTION.value -> channelFactory.channelBuilder.description(text)
                     RdfKeyword.LINK.value -> channelFactory.channelBuilder.link(text)
                     RdfKeyword.DC_DATE.value -> channelFactory.channelBuilder.lastBuildDate(text)
-                    RdfKeyword.UPDATE_PERIOD.value -> channelFactory.channelBuilder.updatePeriod(text)
+                    RdfKeyword.CHANNEL_UPDATE_PERIOD.value -> channelFactory.channelBuilder.updatePeriod(text)
                 }
             }
         }

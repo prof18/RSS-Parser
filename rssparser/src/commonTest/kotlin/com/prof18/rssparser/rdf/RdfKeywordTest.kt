@@ -19,12 +19,12 @@ class RdfKeywordTest {
         assertEquals(RdfKeyword.LINK, RdfKeyword.fromValue("link"))
         assertEquals(RdfKeyword.DC_DATE, RdfKeyword.fromValue("dc:date"))
         assertEquals(RdfKeyword.CHANNEL, RdfKeyword.fromValue("channel"))
-        assertEquals(RdfKeyword.IMAGE, RdfKeyword.fromValue("image"))
-        assertEquals(RdfKeyword.RESOURCE, RdfKeyword.fromValue("rdf:resource"))
-        assertEquals(RdfKeyword.UPDATE_PERIOD, RdfKeyword.fromValue("sy:updatePeriod"))
+        assertEquals(RdfKeyword.CHANNEL_IMAGE, RdfKeyword.fromValue("image"))
+        assertEquals(RdfKeyword.CHANNEL_IMAGE_RESOURCE, RdfKeyword.fromValue("rdf:resource"))
+        assertEquals(RdfKeyword.CHANNEL_UPDATE_PERIOD, RdfKeyword.fromValue("sy:updatePeriod"))
         assertEquals(RdfKeyword.ITEM, RdfKeyword.fromValue("item"))
-        assertEquals(RdfKeyword.DC_CREATOR, RdfKeyword.fromValue("dc:creator"))
-        assertEquals(RdfKeyword.DC_SUBJECT, RdfKeyword.fromValue("dc:subject"))
+        assertEquals(RdfKeyword.ITEM_DC_CREATOR, RdfKeyword.fromValue("dc:creator"))
+        assertEquals(RdfKeyword.ITEM_DC_SUBJECT, RdfKeyword.fromValue("dc:subject"))
     }
 
     @Test
@@ -91,12 +91,12 @@ class RdfKeywordTest {
         assertNotNull(values.find { it == RdfKeyword.LINK })
         assertNotNull(values.find { it == RdfKeyword.DC_DATE })
         assertNotNull(values.find { it == RdfKeyword.CHANNEL })
-        assertNotNull(values.find { it == RdfKeyword.IMAGE })
-        assertNotNull(values.find { it == RdfKeyword.RESOURCE })
-        assertNotNull(values.find { it == RdfKeyword.UPDATE_PERIOD })
+        assertNotNull(values.find { it == RdfKeyword.CHANNEL_IMAGE })
+        assertNotNull(values.find { it == RdfKeyword.CHANNEL_IMAGE_RESOURCE })
+        assertNotNull(values.find { it == RdfKeyword.CHANNEL_UPDATE_PERIOD })
         assertNotNull(values.find { it == RdfKeyword.ITEM })
-        assertNotNull(values.find { it == RdfKeyword.DC_CREATOR })
-        assertNotNull(values.find { it == RdfKeyword.DC_SUBJECT })
+        assertNotNull(values.find { it == RdfKeyword.ITEM_DC_CREATOR })
+        assertNotNull(values.find { it == RdfKeyword.ITEM_DC_SUBJECT })
     }
 
     @Test
@@ -107,11 +107,11 @@ class RdfKeywordTest {
         assertEquals("link", RdfKeyword.LINK.value)
         assertEquals("dc:date", RdfKeyword.DC_DATE.value)
         assertEquals("channel", RdfKeyword.CHANNEL.value)
-        assertEquals("image", RdfKeyword.IMAGE.value)
-        assertEquals("rdf:resource", RdfKeyword.RESOURCE.value)
-        assertEquals("sy:updatePeriod", RdfKeyword.UPDATE_PERIOD.value)
+        assertEquals("image", RdfKeyword.CHANNEL_IMAGE.value)
+        assertEquals("rdf:resource", RdfKeyword.CHANNEL_IMAGE_RESOURCE.value)
+        assertEquals("sy:updatePeriod", RdfKeyword.CHANNEL_UPDATE_PERIOD.value)
         assertEquals("item", RdfKeyword.ITEM.value)
-        assertEquals("dc:creator", RdfKeyword.DC_CREATOR.value)
-        assertEquals("dc:subject", RdfKeyword.DC_SUBJECT.value)
+        assertEquals("dc:creator", RdfKeyword.ITEM_DC_CREATOR.value)
+        assertEquals("dc:subject", RdfKeyword.ITEM_DC_SUBJECT.value)
     }
 }

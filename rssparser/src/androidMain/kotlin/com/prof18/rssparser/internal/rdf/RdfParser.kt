@@ -59,24 +59,24 @@ internal fun CoroutineScope.extractRdfContent(
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.DC_SUBJECT) -> {
+                xmlPullParser.contains(RdfKeyword.ITEM_DC_SUBJECT) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.DC_CREATOR) -> {
+                xmlPullParser.contains(RdfKeyword.ITEM_DC_CREATOR) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.IMAGE) -> {
-                    val url = xmlPullParser.getAttributeValue(null, RdfKeyword.RESOURCE.value)
+                xmlPullParser.contains(RdfKeyword.CHANNEL_IMAGE) -> {
+                    val url = xmlPullParser.getAttributeValue(null, RdfKeyword.CHANNEL_IMAGE_RESOURCE.value)
                     channelFactory.channelImageBuilder.url(url)
                 }
 
-                xmlPullParser.contains(RdfKeyword.UPDATE_PERIOD) -> {
+                xmlPullParser.contains(RdfKeyword.CHANNEL_UPDATE_PERIOD) -> {
                     if (insideChannel) {
                         channelFactory.channelBuilder.updatePeriod(xmlPullParser.nextTrimmedText())
                     }

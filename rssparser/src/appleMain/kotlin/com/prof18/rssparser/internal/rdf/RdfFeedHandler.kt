@@ -23,8 +23,8 @@ internal class RdfFeedHandler : FeedHandler {
             RdfKeyword.RDF.value -> isInsideChannel = true
             RdfKeyword.ITEM.value -> isInsideItem = true
 
-            RdfKeyword.IMAGE.value -> {
-                val url = attributes[RdfKeyword.RESOURCE.value] as? String
+            RdfKeyword.CHANNEL_IMAGE.value -> {
+                val url = attributes[RdfKeyword.CHANNEL_IMAGE_RESOURCE.value] as? String
                 channelFactory.channelImageBuilder.url(url?.trim())
             }
         }
@@ -46,7 +46,7 @@ internal class RdfFeedHandler : FeedHandler {
                 channelFactory.channelBuilder.link(channelData[RdfKeyword.LINK.value]?.trim())
                 channelFactory.channelBuilder.description(channelData[RdfKeyword.DESCRIPTION.value]?.trim())
                 channelFactory.channelBuilder.lastBuildDate(channelData[RdfKeyword.DC_DATE.value]?.trim())
-                channelFactory.channelBuilder.updatePeriod(channelData[RdfKeyword.UPDATE_PERIOD.value]?.trim())
+                channelFactory.channelBuilder.updatePeriod(channelData[RdfKeyword.CHANNEL_UPDATE_PERIOD.value]?.trim())
 
                 isInsideChannel = false
             }
@@ -56,8 +56,8 @@ internal class RdfFeedHandler : FeedHandler {
                 channelFactory.articleBuilder.link(itemData[RdfKeyword.LINK.value]?.trim())
                 channelFactory.articleBuilder.description(itemData[RdfKeyword.DESCRIPTION.value]?.trim())
                 channelFactory.articleBuilder.pubDate(itemData[RdfKeyword.DC_DATE.value]?.trim())
-                channelFactory.articleBuilder.author(itemData[RdfKeyword.DC_CREATOR.value]?.trim())
-                channelFactory.articleBuilder.addCategory(itemData[RdfKeyword.DC_SUBJECT.value]?.trim())
+                channelFactory.articleBuilder.author(itemData[RdfKeyword.ITEM_DC_CREATOR.value]?.trim())
+                channelFactory.articleBuilder.addCategory(itemData[RdfKeyword.ITEM_DC_SUBJECT.value]?.trim())
 
                 isInsideItem = false
                 channelFactory.buildArticle()

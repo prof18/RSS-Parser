@@ -1,18 +1,25 @@
 package com.prof18.rssparser.internal
 
 internal enum class RdfKeyword(val value: String) {
+    // Root
     RDF("rdf:RDF"),
+
+    // Shared between Channel and Item
     TITLE("title"),
     DESCRIPTION("description"),
     LINK("link"),
     DC_DATE("dc:date"),
+
+    // Channel
     CHANNEL("channel"),
-    IMAGE("image"),
-    RESOURCE("rdf:resource"),
-    UPDATE_PERIOD("sy:updatePeriod"),
+    CHANNEL_IMAGE("image"),
+    CHANNEL_IMAGE_RESOURCE("rdf:resource"),
+    CHANNEL_UPDATE_PERIOD("sy:updatePeriod"),
+
+    // Item
     ITEM("item"),
-    DC_CREATOR("dc:creator"),
-    DC_SUBJECT("dc:subject");
+    ITEM_DC_CREATOR("dc:creator"),
+    ITEM_DC_SUBJECT("dc:subject");
 
     companion object {
         // Pre-computed map for O(1) lookup performance
