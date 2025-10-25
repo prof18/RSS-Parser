@@ -160,9 +160,9 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
         lastBuildDate(updated)
         description(subtitle?.trim())
         links?.forEach { link ->
-            if (link.rel != AtomKeyword.Link.Edit.value &&
-                link.rel != AtomKeyword.Link.Self.value &&
-                link.rel != AtomKeyword.Link.Rel.Enclosure.value
+            if (link.rel != AtomKeyword.LINK_EDIT.value &&
+                link.rel != AtomKeyword.LINK_SELF.value &&
+                link.rel != AtomKeyword.LINK_REL_ENCLOSURE.value
             ) {
                 link(link.generateLink(baseFeedUrl))
             }
@@ -172,10 +172,10 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
     entries?.forEach { entry ->
         with(channelFactory.articleBuilder) {
             entry.links?.forEach { link ->
-                if (link.rel != AtomKeyword.Link.Edit.value &&
-                    link.rel != AtomKeyword.Link.Self.value &&
-                    link.rel != AtomKeyword.Link.Rel.Enclosure.value &&
-                    link.rel != AtomKeyword.Link.Rel.Replies.value
+                if (link.rel != AtomKeyword.LINK_EDIT.value &&
+                    link.rel != AtomKeyword.LINK_SELF.value &&
+                    link.rel != AtomKeyword.LINK_REL_ENCLOSURE.value &&
+                    link.rel != AtomKeyword.LINK_REL_REPLIES.value
                 ) {
                     link(link.generateLink(baseFeedUrl))
                 }
@@ -212,14 +212,14 @@ private fun AtomLinkEntity.generateLink(baseFeedUrl: String?): String? {
     val rel = this.rel
     val href = this.href
     if (
-        rel != AtomKeyword.Link.Edit.value &&
-        rel != AtomKeyword.Link.Self.value &&
-        rel != AtomKeyword.Link.Rel.Enclosure.value &&
-        rel != AtomKeyword.Link.Rel.Replies.value
+        rel != AtomKeyword.LINK_EDIT.value &&
+        rel != AtomKeyword.LINK_SELF.value &&
+        rel != AtomKeyword.LINK_REL_ENCLOSURE.value &&
+        rel != AtomKeyword.LINK_REL_REPLIES.value
     ) {
         return if (
             baseFeedUrl != null &&
-            rel == AtomKeyword.Link.Rel.Alternate.value &&
+            rel == AtomKeyword.LINK_REL_ALTERNATE.value &&
             href?.startsWith("/") == true
         ) {
             baseFeedUrl + href

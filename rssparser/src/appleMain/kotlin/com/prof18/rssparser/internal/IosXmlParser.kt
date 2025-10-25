@@ -81,7 +81,7 @@ private class NSXMLParserDelegate(
                 feedHandler = RssFeedHandler()
             }
 
-            AtomKeyword.Atom.value -> {
+            AtomKeyword.ATOM.value -> {
                 feedHandler = AtomFeedHandler(baseFeedUrl)
             }
 

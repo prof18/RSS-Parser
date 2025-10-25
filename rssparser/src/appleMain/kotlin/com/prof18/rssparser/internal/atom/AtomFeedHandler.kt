@@ -23,24 +23,24 @@ internal class AtomFeedHandler(
         currentElement = startElement
 
         when (currentElement) {
-            AtomKeyword.Atom.value -> isInsideChannel = true
-            AtomKeyword.Entry.Item.value -> isInsideItem = true
+            AtomKeyword.ATOM.value -> isInsideChannel = true
+            AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
 
-            AtomKeyword.Entry.Category.value -> {
+            AtomKeyword.ENTRY_CATEGORY.value -> {
                 if (isInsideItem) {
                     val category = attributes.getValueOrNull(
-                        AtomKeyword.Entry.Term.value,
+                        AtomKeyword.ENTRY_TERM.value,
                     ) as? String
                     channelFactory.articleBuilder.addCategory(category)
                 }
             }
 
-            AtomKeyword.Link.value -> {
-                val href = attributes.getValueOrNull(AtomKeyword.Link.Href.value) as? String
-                val rel = attributes.getValueOrNull(AtomKeyword.Link.Rel.value) as? String
+            AtomKeyword.LINK.value -> {
+                val href = attributes.getValueOrNull(AtomKeyword.LINK_HREF.value) as? String
+                val rel = attributes.getValueOrNull(AtomKeyword.LINK_REL.value) as? String
                 val link = if (
                     baseFeedUrl != null &&
-                    rel == AtomKeyword.Link.Rel.Alternate.value &&
+                    rel == AtomKeyword.LINK_REL_ALTERNATE.value &&
                     // Some feeds have full links
                     href?.startsWith("/") == true
                 ) {
@@ -49,10 +49,10 @@ internal class AtomFeedHandler(
                     href
                 }
                 if (
-                    rel != AtomKeyword.Link.Edit.value &&
-                    rel != AtomKeyword.Link.Self.value &&
-                    rel != AtomKeyword.Link.Rel.Enclosure.value &&
-                    rel != AtomKeyword.Link.Rel.Replies.value
+                    rel != AtomKeyword.LINK_EDIT.value &&
+                    rel != AtomKeyword.LINK_SELF.value &&
+                    rel != AtomKeyword.LINK_REL_ENCLOSURE.value &&
+                    rel != AtomKeyword.LINK_REL_REPLIES.value
                 ) {
                     when {
                         isInsideItem -> channelFactory.articleBuilder.link(link)
@@ -61,26 +61,26 @@ internal class AtomFeedHandler(
                 }
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaContent.value -> {
-                val url = attributes.getValueOrNull(AtomKeyword.Youtube.MediaGroup.MediaContent.Url.value) as? String
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT.value -> {
+                val url = attributes.getValueOrNull(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value) as? String
                 channelFactory.youtubeItemDataBuilder.videoUrl(url)
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.value -> {
-                val url = attributes.getValueOrNull(AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url.value) as? String
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL.value -> {
+                val url = attributes.getValueOrNull(AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL.value) as? String
                 channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.value -> {
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS.value -> {
                 val views = attributes.getValueOrNull(
-                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views.value,
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS.value,
                 ) as? String
                 channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
             }
 
-            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.value -> {
+            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING.value -> {
                 val count = attributes.getValueOrNull(
-                    AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count.value,
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT.value,
                 ) as? String
                 channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
             }
@@ -98,67 +98,67 @@ internal class AtomFeedHandler(
 
     override fun didEndElement(endElement: String) {
         when (endElement) {
-            AtomKeyword.Atom.value -> {
+            AtomKeyword.ATOM.value -> {
                 channelFactory.channelImageBuilder.url(
-                    channelData[AtomKeyword.Icon.value]?.trim()
+                    channelData[AtomKeyword.ICON.value]?.trim()
                 )
                 channelFactory.channelBuilder.lastBuildDate(
-                    channelData[AtomKeyword.Updated.value]?.trim()
+                    channelData[AtomKeyword.UPDATED.value]?.trim()
                 )
                 channelFactory.channelBuilder.description(
-                    channelData[AtomKeyword.Subtitle.value]?.trim()
+                    channelData[AtomKeyword.SUBTITLE.value]?.trim()
                 )
                 channelFactory.channelBuilder.title(
-                    channelData[AtomKeyword.Title.value]?.trim()
+                    channelData[AtomKeyword.TITLE.value]?.trim()
                 )
 
                 isInsideChannel = false
             }
 
-            AtomKeyword.Entry.Item.value -> {
-                val pubDate = if (itemData[AtomKeyword.Entry.Published.value] != null) {
-                    itemData[AtomKeyword.Entry.Published.value]?.trim()
+            AtomKeyword.ENTRY_ITEM.value -> {
+                val pubDate = if (itemData[AtomKeyword.ENTRY_PUBLISHED.value] != null) {
+                    itemData[AtomKeyword.ENTRY_PUBLISHED.value]?.trim()
                 } else {
-                    itemData[AtomKeyword.Updated.value]?.trim()
+                    itemData[AtomKeyword.UPDATED.value]?.trim()
                 }
                 channelFactory.articleBuilder.pubDate(
                     pubDate
                 )
                 channelFactory.articleBuilder.title(
-                    itemData[AtomKeyword.Title.value]?.trim()
+                    itemData[AtomKeyword.TITLE.value]?.trim()
                 )
                 channelFactory.articleBuilder.author(
-                    itemData[AtomKeyword.Entry.Author.value]?.trim()
+                    itemData[AtomKeyword.ENTRY_AUTHOR.value]?.trim()
                 )
                 channelFactory.articleBuilder.guid(
-                    itemData[AtomKeyword.Entry.Guid.value]?.trim()
+                    itemData[AtomKeyword.ENTRY_GUID.value]?.trim()
                 )
 
-                val content = itemData[AtomKeyword.Entry.Content.value]?.trim()
+                val content = itemData[AtomKeyword.ENTRY_CONTENT.value]?.trim()
                 channelFactory.articleBuilder.content(content)
                 channelFactory.setImageFromContent(content)
 
-                val description = itemData[AtomKeyword.Entry.Description.value]?.trim()
+                val description = itemData[AtomKeyword.ENTRY_DESCRIPTION.value]?.trim()
                 channelFactory.articleBuilder.description(description)
                 channelFactory.setImageFromContent(description)
 
-                val category = itemData[AtomKeyword.Entry.Category.value]?.trim()
+                val category = itemData[AtomKeyword.ENTRY_CATEGORY.value]?.trim()
                 if (!category.isNullOrEmpty()) {
                     channelFactory.articleBuilder.addCategory(category)
                 }
 
                 // Youtube
 
-                val channelId = itemData[AtomKeyword.Youtube.ChannelId.value]?.trim()
+                val channelId = itemData[AtomKeyword.YOUTUBE_CHANNEL_ID.value]?.trim()
                 channelFactory.youtubeChannelDataBuilder.channelId(channelId)
 
-                val videoId = itemData[AtomKeyword.Youtube.VideoId.value]?.trim()
+                val videoId = itemData[AtomKeyword.YOUTUBE_VIDEO_ID.value]?.trim()
                 channelFactory.youtubeItemDataBuilder.videoId(videoId)
 
-                val title = itemData[AtomKeyword.Youtube.MediaGroup.MediaTitle.value]?.trim()
+                val title = itemData[AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value]?.trim()
                 channelFactory.youtubeItemDataBuilder.title(title)
 
-                val videoDescription = itemData[AtomKeyword.Youtube.MediaGroup.MediaDescription.value]?.trim()
+                val videoDescription = itemData[AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION.value]?.trim()
                 channelFactory.youtubeItemDataBuilder.description(videoDescription)
 
                 channelFactory.buildArticle()
