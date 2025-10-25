@@ -1,21 +1,31 @@
 package com.prof18.rssparser.internal
 
-internal sealed class RdfKeyword(val value: String) {
-    data object Rdf : RdfKeyword("rdf:RDF")
-    data object Title : RdfKeyword("title")
-    data object Description : RdfKeyword("description")
-    data object Link : RdfKeyword("link")
-    data object DcDate : RdfKeyword("dc:date")
-    data object Channel : RdfKeyword("channel") {
-        data object Image : RdfKeyword("image") {
-            data object Resource : RdfKeyword("rdf:resource")
+internal enum class RdfKeyword(val value: String) {
+    // Root
+    RDF("rdf:RDF"),
+
+    // Shared between Channel and Item
+    TITLE("title"),
+    DESCRIPTION("description"),
+    LINK("link"),
+    DC_DATE("dc:date"),
+
+    // Channel
+    CHANNEL("channel"),
+    CHANNEL_IMAGE("image"),
+    CHANNEL_IMAGE_RESOURCE("rdf:resource"),
+    CHANNEL_UPDATE_PERIOD("sy:updatePeriod"),
+
+    // Item
+    ITEM("item"),
+    ITEM_DC_CREATOR("dc:creator"),
+    ITEM_DC_SUBJECT("dc:subject");
+
+    internal companion object {
+        private val valueMap: Map<String, RdfKeyword> = entries.associateBy { it.value.lowercase() }
+
+        fun isValid(value: String): Boolean {
+            return value.lowercase() in valueMap
         }
-
-        data object UpdatePeriod : RdfKeyword("sy:updatePeriod")
-    }
-
-    data object Item : RdfKeyword("item") {
-        data object DcCreator : RdfKeyword("dc:creator")
-        data object DcSubject : RdfKeyword("dc:subject")
     }
 }

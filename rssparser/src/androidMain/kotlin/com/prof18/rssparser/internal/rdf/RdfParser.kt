@@ -23,60 +23,60 @@ internal fun CoroutineScope.extractRdfContent(
         when {
             // Entering conditions
             eventType == XmlPullParser.START_TAG -> when {
-                xmlPullParser.contains(RdfKeyword.Channel) -> {
+                xmlPullParser.contains(RdfKeyword.CHANNEL) -> {
                     insideChannel = true
                 }
 
-                xmlPullParser.contains(RdfKeyword.Item) -> {
+                xmlPullParser.contains(RdfKeyword.ITEM) -> {
                     insideItem = true
                 }
 
-                xmlPullParser.contains(RdfKeyword.Title) -> {
+                xmlPullParser.contains(RdfKeyword.TITLE) -> {
                     when {
                         insideChannel -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                         insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.Link) -> {
+                xmlPullParser.contains(RdfKeyword.LINK) -> {
                     when {
                         insideChannel -> channelFactory.channelBuilder.link(xmlPullParser.nextTrimmedText())
                         insideItem -> channelFactory.articleBuilder.link(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.Description) -> {
+                xmlPullParser.contains(RdfKeyword.DESCRIPTION) -> {
                     when {
                         insideChannel -> channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
                         insideItem -> channelFactory.articleBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.DcDate) -> {
+                xmlPullParser.contains(RdfKeyword.DC_DATE) -> {
                     when {
                         insideChannel -> channelFactory.channelBuilder.lastBuildDate(xmlPullParser.nextTrimmedText())
                         insideItem -> channelFactory.articleBuilder.pubDate(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.Item.DcSubject) -> {
+                xmlPullParser.contains(RdfKeyword.ITEM_DC_SUBJECT) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.addCategory(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.Item.DcCreator) -> {
+                xmlPullParser.contains(RdfKeyword.ITEM_DC_CREATOR) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(RdfKeyword.Channel.Image) -> {
-                    val url = xmlPullParser.getAttributeValue(null, RdfKeyword.Channel.Image.Resource.value)
+                xmlPullParser.contains(RdfKeyword.CHANNEL_IMAGE) -> {
+                    val url = xmlPullParser.getAttributeValue(null, RdfKeyword.CHANNEL_IMAGE_RESOURCE.value)
                     channelFactory.channelImageBuilder.url(url)
                 }
 
-                xmlPullParser.contains(RdfKeyword.Channel.UpdatePeriod) -> {
+                xmlPullParser.contains(RdfKeyword.CHANNEL_UPDATE_PERIOD) -> {
                     if (insideChannel) {
                         channelFactory.channelBuilder.updatePeriod(xmlPullParser.nextTrimmedText())
                     }
@@ -86,13 +86,13 @@ internal fun CoroutineScope.extractRdfContent(
             // Parsing conditions
 
             // Exit conditions
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RdfKeyword.Item) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RdfKeyword.ITEM) -> {
                 // The item is correctly parsed
                 insideItem = false
                 channelFactory.buildArticle()
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RdfKeyword.Channel) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RdfKeyword.CHANNEL) -> {
                 // The channel is correctly parsed
                 insideChannel = false
             }
