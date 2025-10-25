@@ -47,17 +47,17 @@ internal fun CoroutineScope.extractAtomContent(
         when {
             eventType == XmlPullParser.START_TAG -> when {
                 // Entering conditions
-                xmlPullParser.contains(AtomKeyword.Atom) -> {
+                xmlPullParser.contains(AtomKeyword.ATOM) -> {
                     insideChannel = true
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_ITEM) -> {
                     insideItem = true
                 }
                 //endregion
 
                 //region Channel tags
-                xmlPullParser.contains(AtomKeyword.Icon) -> {
+                xmlPullParser.contains(AtomKeyword.ICON) -> {
                     if (insideChannel) {
                         channelFactory.channelImageBuilder.url(xmlPullParser.nextTrimmedText())
                     }
@@ -65,16 +65,16 @@ internal fun CoroutineScope.extractAtomContent(
                 //endregion
 
                 //region Item tags
-                xmlPullParser.contains(AtomKeyword.Entry.Author) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_AUTHOR) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.author(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Category) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_CATEGORY) -> {
                     if (insideItem) {
                         val nextText = xmlPullParser.nextTrimmedText()
-                        val termAttributeValue = xmlPullParser.attributeValue(AtomKeyword.Entry.Term)
+                        val termAttributeValue = xmlPullParser.attributeValue(AtomKeyword.ENTRY_TERM)
 
                         /**
                          * We want to look at the 'term' attribute and use that if no text is present
@@ -89,13 +89,13 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Guid) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_GUID) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.guid(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Content) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_CONTENT) -> {
                     if (insideItem) {
                         val content = try {
                             xmlPullParser.nextTrimmedText()
@@ -108,7 +108,7 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Updated) -> {
+                xmlPullParser.contains(AtomKeyword.UPDATED) -> {
                     when {
                         insideItem -> {
                             channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
@@ -120,19 +120,19 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Published) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_PUBLISHED) -> {
                     if (insideItem) {
                         channelFactory.articleBuilder.pubDateIfNull(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Subtitle) -> {
+                xmlPullParser.contains(AtomKeyword.SUBTITLE) -> {
                     if (insideChannel) {
                         channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Entry.Description) -> {
+                xmlPullParser.contains(AtomKeyword.ENTRY_DESCRIPTION) -> {
                     if (insideItem) {
                         val description = xmlPullParser.nextTrimmedText()
                         channelFactory.articleBuilder.description(description)
@@ -140,23 +140,23 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
                 //region Mixed tags
-                xmlPullParser.contains(AtomKeyword.Title) -> {
+                xmlPullParser.contains(AtomKeyword.TITLE) -> {
                     when {
                         insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
                         insideChannel -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Link) -> {
+                xmlPullParser.contains(AtomKeyword.LINK) -> {
                     if (insideChannel) {
                         val href = xmlPullParser.attributeValue(
-                            AtomKeyword.Link.Href
+                            AtomKeyword.LINK_HREF
                         )
                         val rel = xmlPullParser.attributeValue(
-                            AtomKeyword.Link.Rel
+                            AtomKeyword.LINK_REL
                         )
                         val link = if (input.baseUrl != null &&
-                            rel == AtomKeyword.Link.Rel.Alternate.value &&
+                            rel == AtomKeyword.LINK_REL_ALTERNATE.value &&
                             // Some feeds have full links
                             href?.startsWith("/") == true
                         ) {
@@ -164,10 +164,10 @@ internal fun CoroutineScope.extractAtomContent(
                         } else {
                             href
                         }
-                        if (rel != AtomKeyword.Link.Edit.value &&
-                            rel != AtomKeyword.Link.Self.value &&
-                            rel != AtomKeyword.Link.Rel.Replies.value &&
-                            rel != AtomKeyword.Link.Rel.Enclosure.value
+                        if (rel != AtomKeyword.LINK_EDIT.value &&
+                            rel != AtomKeyword.LINK_SELF.value &&
+                            rel != AtomKeyword.LINK_REL_REPLIES.value &&
+                            rel != AtomKeyword.LINK_REL_ENCLOSURE.value
                         ) {
                             when {
                                 insideItem -> channelFactory.articleBuilder.link(link)
@@ -177,59 +177,59 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.ChannelId) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_CHANNEL_ID) -> {
                     if (insideItem) {
                         channelFactory.youtubeChannelDataBuilder.channelId(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.VideoId) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_VIDEO_ID) -> {
                     if (insideItem) {
                         channelFactory.youtubeItemDataBuilder.videoId(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaTitle) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE) -> {
                     if (insideItem) {
                         channelFactory.youtubeItemDataBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaDescription) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION) -> {
                     if (insideItem) {
                         channelFactory.youtubeItemDataBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaContent) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT) -> {
                     if (insideItem) {
-                        val videoUrl = xmlPullParser.attributeValue(AtomKeyword.Youtube.MediaGroup.MediaContent.Url)
+                        val videoUrl = xmlPullParser.attributeValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL)
                         channelFactory.youtubeItemDataBuilder.videoUrl(videoUrl)
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaThumbnail) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL) -> {
                     if (insideItem) {
                         val thumbnailUrl = xmlPullParser.attributeValue(
-                            AtomKeyword.Youtube.MediaGroup.MediaThumbnail.Url
+                            AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL
                         )
                         channelFactory.youtubeItemDataBuilder.thumbnailUrl(thumbnailUrl)
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS) -> {
                     if (insideItem) {
                         val views = xmlPullParser.attributeValue(
-                            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStatistics.Views
+                            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS
                         )
                         channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating) -> {
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING) -> {
                     if (insideItem) {
                         val count = xmlPullParser.attributeValue(
-                            AtomKeyword.Youtube.MediaGroup.MediaCommunity.MediaStarRating.Count
+                            AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT
                         )
                         channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
                     }
@@ -237,13 +237,13 @@ internal fun CoroutineScope.extractAtomContent(
             }
 
             // Exit conditions
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Entry.Item) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ENTRY_ITEM) -> {
                 // The item is correctly parsed
                 insideItem = false
                 channelFactory.buildArticle()
             }
 
-            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.Atom) -> {
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ATOM) -> {
                 // The channel is correctly parsed
                 insideChannel = false
             }
