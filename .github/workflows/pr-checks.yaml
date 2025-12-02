@@ -269,7 +269,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build tvOS Sample
-        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'platform=tvOS Simulator,name=Apple TV' build | xcbeautify --renderer github-actions
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'generic/platform=tvOS Simulator' build | xcbeautify --renderer github-actions
 
 
   build-watchOS-sample:
