@@ -191,7 +191,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build iOS Sample
-        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphoneos -destination name='iPhone 16 Pro' build | xcbeautify --renderer github-actions
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=Any iOS Simulator Device' build | xcbeautify --renderer github-actions
 
   build-macos-sample:
     name: Build macOS Sample
