@@ -70,7 +70,7 @@ class XmlParserAudioFeedTest : XmlParserTestExecutor() {
                 description = "As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.\n" +
                     "                Learn more about your ad-choices at https://news.iheart.com/podcast-advertisers",
                 content = "<p>As of early 2013, only 161,00 metric tons of gold had been mined in the entire history of the world. Considering about 85 percent of it is recycled, there's a decent chance your jewelry may once have been part of an Incan headdress or Mycenaean face mask. Dive in to gold in this classic episode.</p><p> </p> Learn more about your ad-choices at <a href=\"https://news.iheart.com/podcast-advertisers\">https://news.iheart.com/podcast-advertisers</a>",
-                image = null,
+                image = "http://megaphone-prod.s3.amazonaws.com/podcasts/c41042ae-5460-11e8-b38c-5f5faf9dd0c5/image/uploads_2F1583260134090-ua5pbey0yx-25644ab8bbd946b90180c8601dbe70c1_2FSKSKLogo-FINAL-iHR-3000x3000.png",
                 categories = listOf(),
                 guid = "c41042ae-5460-11e8-b38c-5f5faf9dd0c5",
                 audio = "https://www.podtrac.com/pts/redirect.mp3/chtbl.com/track/5899E/traffic.megaphone.fm/HSW3157672398.mp3",

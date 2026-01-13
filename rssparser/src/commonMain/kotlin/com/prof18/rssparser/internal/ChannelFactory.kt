@@ -26,8 +26,11 @@ internal class ChannelFactory {
     private var imageUrlFromContent: String? = null
 
     fun buildArticle() {
+        val itunesItemData = itunesArticleBuilder.build()
+        // Use iTunes image as fallback if no other image is set
         articleBuilder.image(imageUrlFromContent)
-        articleBuilder.itunesArticleData(itunesArticleBuilder.build())
+        articleBuilder.image(itunesItemData?.image)
+        articleBuilder.itunesArticleData(itunesItemData)
         articleBuilder.youtubeItemData(youtubeItemDataBuilder.build())
         articleBuilder.rawEnclosure(rawEnclosureBuilder.build())
         articleBuilder.build()?.let { channelBuilder.addItem(it) }
@@ -100,11 +103,22 @@ internal class ChannelFactory {
         } ?: emptyList()
 
     fun build(): RssChannel {
+        val itunesChannelData = itunesChannelBuilder.build()
         val channelImage = channelImageBuilder.build()
         if (channelImage?.isNotEmpty() == true) {
             channelBuilder.image(channelImage)
+        } else if (itunesChannelData?.image != null) {
+            // Use iTunes image as fallback if no standard RSS image is set
+            channelBuilder.image(
+                RssImage(
+                    title = null,
+                    url = itunesChannelData.image,
+                    link = null,
+                    description = null
+                )
+            )
         }
-        channelBuilder.itunesChannelData(itunesChannelBuilder.build())
+        channelBuilder.itunesChannelData(itunesChannelData)
         channelBuilder.youtubeChannelData(youtubeChannelDataBuilder.build())
         return channelBuilder.build()
     }

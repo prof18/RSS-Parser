@@ -53,7 +53,7 @@ class XmlParserItunesFeedTest : XmlParserTestExecutor() {
                 pubDate = "Wed, 25 Apr 2018 22:37:10 +0000",
                 description = "Matthew Walker is Professor of Neuroscience and Psychology at the University of California, Berkeley, and Founder and Director of the Center for Human Sleep Science. Check out his book \"\" on Amazon.",
                 content = "Matthew Walker is Professor of Neuroscience and Psychology at the University of California, Berkeley, and Founder and Director of the Center for Human Sleep Science. Check out his book \"\" on Amazon.",
-                image = null,
+                image = "http://static.libsyn.com/p/assets/6/f/b/6/6fb68f57fbe00fb1/JRE1109.jpg",
                 audio = "http://traffic.libsyn.com/joeroganexp/p1109.mp3?dest-id=19997",
                 video = null,
                 sourceName = null,

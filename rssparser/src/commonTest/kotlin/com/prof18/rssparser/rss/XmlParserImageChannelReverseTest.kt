@@ -36,7 +36,7 @@ class XmlParserImageChannelReverseTest : XmlParserTestExecutor() {
                 pubDate = "Tue, 24 Dec 2019 20:00:00 +0000",
                 description = "Joe is joined by\u00A0Ari Shaffir, Bert Kreischer & Tom Segura\u00A0to recap their 3rd annual Sober October challenge.",
                 content = "Joe is joined by\u00A0Ari Shaffir, Bert Kreischer & Tom Segura\u00A0to recap their 3rd annual Sober October challenge.",
-                image = null,
+                image = "http://static.libsyn.com/p/assets/2/8/7/9/28797cc6f284596e/JRE1405.jpg",
                 audio = "http://traffic.libsyn.com/joeroganexp/p1405.mp3?dest-id=19997",
                 video = null,
                 sourceName = null,

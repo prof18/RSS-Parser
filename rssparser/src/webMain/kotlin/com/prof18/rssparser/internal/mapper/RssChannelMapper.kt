@@ -80,8 +80,13 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
             channelFactory.setImageFromContent(entry.description?.trim())
             entry.enclosures?.forEach { enclosure ->
                 val type = enclosure.type?.trim()
-                val url = enclosure.url?.trim()
+                var url = enclosure.url?.trim()
                 val length = enclosure.length?.trim()
+
+                // If no url attribute, try to get URL from text content
+                if (url == null) {
+                    url = enclosure.value?.trim()
+                }
 
                 channelFactory.rawEnclosureBuilder.length(length?.toLongOrNull())
                 channelFactory.rawEnclosureBuilder.type(type)
@@ -102,8 +107,12 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
                         // If there are multiple elements, we take only the first
                         channelFactory.articleBuilder.videoIfNull(url)
                     }
+
+                    type == null && url != null -> {
+                        // If there's no type attribute but we have a URL, assume it's an image
+                        channelFactory.articleBuilder.image(url)
+                    }
                 }
-                image(enclosure.value?.trim())
             }
         }
 
