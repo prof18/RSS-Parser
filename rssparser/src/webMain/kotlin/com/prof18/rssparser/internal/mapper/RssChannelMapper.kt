@@ -201,6 +201,8 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
             }
             channelFactory.setImageFromContent(entry.content)
             channelFactory.setImageFromContent(entry.summary)
+            image(entry.mediaThumbnail?.url)
+            image(entry.mediaContent?.url)
             channelFactory.youtubeChannelDataBuilder.channelId(entry.youtubeChannelId)
             with(channelFactory.youtubeItemDataBuilder) {
                 videoId(entry.youtubeVideoId)

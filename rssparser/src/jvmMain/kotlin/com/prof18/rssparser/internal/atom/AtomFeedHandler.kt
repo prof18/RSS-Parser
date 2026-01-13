@@ -12,6 +12,7 @@ internal class AtomFeedHandler(
 
     private var isInsideItem = false
     private var isInsideChannel = true
+    private var isInsideYoutubeMediaGroup = false
 
     private var channelFactory = ChannelFactory()
 
@@ -19,6 +20,12 @@ internal class AtomFeedHandler(
         when (qName) {
             AtomKeyword.ATOM.value -> isInsideChannel = true
             AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
+
+            AtomKeyword.YOUTUBE_MEDIA_GROUP.value -> {
+                if (isInsideItem) {
+                    isInsideYoutubeMediaGroup = true
+                }
+            }
 
             AtomKeyword.ENTRY_CATEGORY.value -> {
                 if (isInsideItem) {
@@ -53,27 +60,39 @@ internal class AtomFeedHandler(
             }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT.value -> {
-                val url = attributes?.getValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value)
-                channelFactory.youtubeItemDataBuilder.videoUrl(url)
+                if (isInsideItem && isInsideYoutubeMediaGroup) {
+                    val url = attributes?.getValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value)
+                    channelFactory.youtubeItemDataBuilder.videoUrl(url)
+                }
             }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL.value -> {
                 val url = attributes?.getValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL.value)
-                channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
+                if (isInsideItem) {
+                    if (isInsideYoutubeMediaGroup) {
+                        channelFactory.youtubeItemDataBuilder.thumbnailUrl(url)
+                    } else {
+                        channelFactory.articleBuilder.image(url)
+                    }
+                }
             }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS.value -> {
-                val views = attributes?.getValue(
-                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS.value
-                )
-                channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
+                if (isInsideItem && isInsideYoutubeMediaGroup) {
+                    val views = attributes?.getValue(
+                        AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS.value
+                    )
+                    channelFactory.youtubeItemDataBuilder.viewsCount(views?.toIntOrNull())
+                }
             }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING.value -> {
-                val count = attributes?.getValue(
-                    AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT.value
-                )
-                channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
+                if (isInsideItem && isInsideYoutubeMediaGroup) {
+                    val count = attributes?.getValue(
+                        AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT.value
+                    )
+                    channelFactory.youtubeItemDataBuilder.likesCount(count?.toIntOrNull())
+                }
             }
         }
     }
@@ -105,12 +124,20 @@ internal class AtomFeedHandler(
                     AtomKeyword.ENTRY_ITEM.value -> {
                         channelFactory.buildArticle()
                         isInsideItem = false
+                        isInsideYoutubeMediaGroup = false
                     }
                     AtomKeyword.YOUTUBE_CHANNEL_ID.value -> channelFactory.youtubeChannelDataBuilder.channelId(text)
                     AtomKeyword.YOUTUBE_VIDEO_ID.value -> channelFactory.youtubeItemDataBuilder.videoId(text)
-                    AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value -> channelFactory.youtubeItemDataBuilder.title(text)
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP.value -> isInsideYoutubeMediaGroup = false
+                    AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE.value -> {
+                        if (isInsideYoutubeMediaGroup) {
+                            channelFactory.youtubeItemDataBuilder.title(text)
+                        }
+                    }
                     AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION.value -> {
-                        channelFactory.youtubeItemDataBuilder.description(text)
+                        if (isInsideYoutubeMediaGroup) {
+                            channelFactory.youtubeItemDataBuilder.description(text)
+                        }
                     }
                 }
             }

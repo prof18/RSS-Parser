@@ -38,6 +38,7 @@ internal fun CoroutineScope.extractAtomContent(
     // A flag just to be sure of the correct parsing
     var insideItem = false
     var insideChannel = false
+    var insideYoutubeMediaGroup = false
 
     var eventType = xmlPullParser.eventType
 
@@ -53,6 +54,12 @@ internal fun CoroutineScope.extractAtomContent(
 
                 xmlPullParser.contains(AtomKeyword.ENTRY_ITEM) -> {
                     insideItem = true
+                }
+
+                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP) -> {
+                    if (insideItem) {
+                        insideYoutubeMediaGroup = true
+                    }
                 }
                 //endregion
 
@@ -185,19 +192,19 @@ internal fun CoroutineScope.extractAtomContent(
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_TITLE) -> {
-                    if (insideItem) {
+                    if (insideItem && insideYoutubeMediaGroup) {
                         channelFactory.youtubeItemDataBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_DESCRIPTION) -> {
-                    if (insideItem) {
+                    if (insideItem && insideYoutubeMediaGroup) {
                         channelFactory.youtubeItemDataBuilder.description(xmlPullParser.nextTrimmedText())
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT) -> {
-                    if (insideItem) {
+                    if (insideItem && insideYoutubeMediaGroup) {
                         val videoUrl = xmlPullParser.attributeValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL)
                         channelFactory.youtubeItemDataBuilder.videoUrl(videoUrl)
                     }
@@ -208,12 +215,16 @@ internal fun CoroutineScope.extractAtomContent(
                         val thumbnailUrl = xmlPullParser.attributeValue(
                             AtomKeyword.YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL
                         )
-                        channelFactory.youtubeItemDataBuilder.thumbnailUrl(thumbnailUrl)
+                        if (insideYoutubeMediaGroup) {
+                            channelFactory.youtubeItemDataBuilder.thumbnailUrl(thumbnailUrl)
+                        } else {
+                            channelFactory.articleBuilder.image(thumbnailUrl)
+                        }
                     }
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS) -> {
-                    if (insideItem) {
+                    if (insideItem && insideYoutubeMediaGroup) {
                         val views = xmlPullParser.attributeValue(
                             AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STATISTICS_VIEWS
                         )
@@ -222,7 +233,7 @@ internal fun CoroutineScope.extractAtomContent(
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING) -> {
-                    if (insideItem) {
+                    if (insideItem && insideYoutubeMediaGroup) {
                         val count = xmlPullParser.attributeValue(
                             AtomKeyword.YOUTUBE_MEDIA_GROUP_COMMUNITY_STAR_RATING_COUNT
                         )
@@ -232,9 +243,14 @@ internal fun CoroutineScope.extractAtomContent(
             }
 
             // Exit conditions
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP) -> {
+                insideYoutubeMediaGroup = false
+            }
+
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ENTRY_ITEM) -> {
                 // The item is correctly parsed
                 insideItem = false
+                insideYoutubeMediaGroup = false
                 channelFactory.buildArticle()
             }
 

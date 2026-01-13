@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed
+    xmlns="http://www.w3.org/2005/Atom" xml:lang="it">
+    <generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator>
+    <link href="https://idea.ricir.net/feed.xml" rel="self" type="application/atom+xml" />
+    <link href="https://idea.ricir.net/" rel="alternate" type="text/html" hreflang="it" />
+    <updated>2025-12-31T18:28:09+01:00</updated>
+    <id>https://idea.ricir.net/feed.xml</id>
+    <title type="html">IDEA - scintille informatiche</title>
+    <subtitle>Un piccolo blog dove condivido qualche IDEA   per facilitare il mio, e vostro, uso delle tecnologie informatiche, e magari (se avrò tempo) qualche spunto di riflessione.</subtitle>
+    <entry>
+        <title type="html">Avvisi automatici: scopri i nuovi articoli in tempo reale</title>
+        <link href="https://idea.ricir.net/Ricevere-notifiche-per-nuovi-articoli/" rel="alternate" type="text/html" title="Avvisi automatici: scopri i nuovi articoli in tempo reale" />
+        <published>2025-12-31T00:00:00+01:00</published>
+        <updated>2025-12-31T00:00:00+01:00</updated>
+        <id>https://idea.ricir.net/Ricevere-notifiche-per-nuovi-articoli</id>
+        <content type="html" xml:base="https://idea.ricir.net/Ricevere-notifiche-per-nuovi-articoli/">
+            <![CDATA[content]]>
+        </content>
+        <author>
+            <name>Riccardo</name>
+        </author>
+        <summary type="html">
+            <![CDATA[Dopo tanti mesi di pausa, torno ad aggiornare il sito con un articolo dedicato proprio all’uscita di nuovi contenuti. Ti spiego qui sotto come puoi restare aggiornato su nuovi articoli dei siti che ti interessano, usando una semplice app, e - solo per il mio sito - un canale Telegram. Per il mio sito Come avrai visto, non ti chiedo l’indirizzo e-mail per avvisarti dei nuovi articoli: desidero però che tu possa seguire le nuove uscite con facilità, e per questo ti propongo due soluzioni semplici. Prima soluzione - canale La soluzione più veloce, se hai un utente su Telegram, è iscriverti al mio canale. Basta che clicchi qua a fianco: Canale Telegram Il mio canale si aggiungerà ai canali che segui. E riceverai una notifica di Telegram quando pubblicherò un articolo. Seconda soluzione - App FeedFlow La seconda soluzione è l’app FeedFlow. La trovi su Google Play (se invece hai un iPhone, su Apple Store) cercando “Feedflow”: Una volta installata, torna qui e clicca qui a fianco Clicca a lungo (su cellulare) Segui poi questi passaggi sulla App (vedi figura sotto): clicca Condividi Link clicca su FeedFlow (può essere che devi scorrere a destra per trovarlo) ti arriva un breve messaggio: Feed IDEA - scintille informatiche aggiunto → Fatto! Ma cosa vuol dire Feed? Un Feed non è altro che un collegamento alla lista degli articoli di un sito.]]>
+        </summary>
+        <media:thumbnail
+            xmlns:media="http://search.yahoo.com/mrss/" url="https://idea.ricir.net/assets/ComeSeguireAggiornamenti-social.png" />
+        <media:content medium="image" url="https://idea.ricir.net/assets/ComeSeguireAggiornamenti-social.png"
+                       xmlns:media="http://search.yahoo.com/mrss/" />
+    </entry>
+</feed>
