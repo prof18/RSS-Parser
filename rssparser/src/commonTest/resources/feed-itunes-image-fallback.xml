@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+    <channel>
+        <title>Swift by Sundell</title>
+        <description>In-depth conversations about Swift and software development in general, hosted by John Sundell.</description>
+        <link>https://www.swiftbysundell.com/podcast</link>
+        <language>en-us</language>
+        <lastBuildDate>Mon, 2 Jan 2023 11:37:11 +0100</lastBuildDate>
+        <pubDate>Mon, 2 Jan 2023 11:37:11 +0100</pubDate>
+        <itunes:author>John Sundell</itunes:author>
+        <itunes:subtitle>Answering your questions about Swift development and beyond.</itunes:subtitle>
+        <itunes:summary>In-depth conversations about Swift and software development in general, hosted by John Sundell.</itunes:summary>
+        <itunes:explicit>no</itunes:explicit>
+        <itunes:owner>
+            <itunes:name>John Sundell</itunes:name>
+            <itunes:email>john@swiftbysundell.com</itunes:email>
+        </itunes:owner>
+        <itunes:category text="Technology"/>
+        <itunes:type>episodic</itunes:type>
+        <itunes:image href="https://www.swiftbysundell.com/images/podcastArtwork.png"/>
+        <itunes:new-feed-url>https://swiftbysundell.com/podcast/feed.rss</itunes:new-feed-url>
+        <item>
+            <guid isPermaLink="true">https://www.swiftbysundell.com/podcast/123</guid>
+            <title>123: "The evolution of Swift", with special guest Nick Lockwood</title>
+            <description>On this final episode of 2022, Nick Lockwood returns to the show to discuss the overall evolution of Swift and its ecosystem of tools and libraries.</description>
+            <link>https://www.swiftbysundell.com/podcast/123</link>
+            <pubDate>Mon, 19 Dec 2022 16:05:00 +0100</pubDate>
+            <itunes:author>John Sundell</itunes:author>
+            <itunes:subtitle>The evolution of Swift</itunes:subtitle>
+            <itunes:summary>On this final episode of 2022, Nick Lockwood returns to the show to discuss the overall evolution of Swift and its ecosystem of tools and libraries.</itunes:summary>
+            <itunes:explicit>no</itunes:explicit>
+            <itunes:duration>01:23:45</itunes:duration>
+            <itunes:image href="https://www.swiftbysundell.com/images/podcastArtwork.png"/>
+            <itunes:season>1</itunes:season>
+            <itunes:episode>123</itunes:episode>
+            <itunes:episodeType>full</itunes:episodeType>
+            <enclosure url="https://traffic.libsyn.com/secure/swiftbysundell/Episode_123.mp3" length="120456789" type="audio/mpeg"/>
+        </item>
+    </channel>
+</rss>

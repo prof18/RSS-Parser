@@ -52,7 +52,7 @@ class XmlParserItunesSeasonFeedTest : XmlParserTestExecutor() {
                 pubDate = "Fri, 04 Nov 2022 07:00:46 GMT",
                 description = "<p>The De Palma Paradox.</p><br><p>With Gourley And Rust bonus content on <a href=\"https://www.patreon.com/withgourleyandrust\" rel=\"noopener noreferrer\" target=\"_blank\">PATREON</a> and merchandise on <a href=\"https://www.redbubble.com/people/gourleyandrust/shop\" rel=\"noopener noreferrer\" target=\"_blank\">REDBUBBLE</a>.</p><br><p>With Gourley and Rust theme song by Matt's band, <a href=\"https://open.spotify.com/artist/53j7Q32qFKfBIuop1BUmOq\" rel=\"noopener noreferrer\" target=\"_blank\">TOWNLAND</a>.</p><br><p>And also check out Paul's band, <a href=\"https://open.spotify.com/artist/3gc8ddHIjroKBbooNKDcP6?si=Cxojj4VxTquMoQcNTpTRwg&amp;dl_branch=1\" rel=\"noopener noreferrer\" target=\"_blank\">DON'T STOP OR WE'LL DIE</a>.</p><br /><hr><p style='color:grey; font-size:0.75em;'> Hosted on Acast. See <a style='color:grey;' target='_blank' rel='noopener noreferrer' href='https://acast.com/privacy'>acast.com/privacy</a> for more information.</p>",
                 content = null,
-                image = null,
+                image = "https://assets.pippa.io/shows/6217ecbc4b795a924efd3b6f/1666735987433-0c7f8a23c84a67257190c040b06b4490.jpeg",
                 categories = listOf(),
                 guid = "635861df5f0a000012334a6f",
                 audio = "https://sphinx.acast.com/p/acast/s/with-gourley-and-rust/e/635861df5f0a000012334a6f/media.mp3",

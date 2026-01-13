@@ -74,7 +74,7 @@ class XmlParserCharsetFeedTest : XmlParserTestExecutor() {
                 pubDate = "Sat, 31 Dec 2022 08:00:00 GMT",
                 description = "Høydepunkter fra 2022 - nr.11. <a href=\"https://radio.nrk.no/podkast/loerdagsraadet/l_e6338d4f-2777-43c4-b38d-4f2777e3c4de?utm_source=thirdparty&utm_medium=rss&utm_content=podcast%3Al_e6338d4f-2777-43c4-b38d-4f2777e3c4de\">Hør episoden i appen NRK Radio</a>",
                 content = null,
-                image = null,
+                image = "https://gfx.nrk.no/sMxLsuFaNFBBmKJXuT2L6g6EwwmgKMvBujBOVc4N01pw.png",
                 categories = listOf(),
                 guid = "l_e6338d4f-2777-43c4-b38d-4f2777e3c4de",
                 audio = "https://podkast.nrk.no/fil/loerdagsraadet/23ee45fc-d869-4110-bf97-34138fcfaba6_0_ID192MP3.mp3",

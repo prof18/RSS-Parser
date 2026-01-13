@@ -137,8 +137,13 @@ internal fun CoroutineScope.extractRSSContent(
                 xmlPullParser.contains(RssKeyword.ITEM_ENCLOSURE) -> {
                     if (insideItem) {
                         val type = xmlPullParser.attributeValue(RssKeyword.ITEM_TYPE)
-                        val url = xmlPullParser.attributeValue(RssKeyword.URL)
+                        var url = xmlPullParser.attributeValue(RssKeyword.URL)
                         val length = xmlPullParser.attributeValue(RssKeyword.ITEM_LENGTH)
+
+                        // If no url attribute, try to get URL from text content
+                        if (url == null) {
+                            url = xmlPullParser.nextTrimmedText()
+                        }
 
                         channelFactory.rawEnclosureBuilder.length(length?.toLongOrNull())
                         channelFactory.rawEnclosureBuilder.type(type)
@@ -160,9 +165,10 @@ internal fun CoroutineScope.extractRSSContent(
                                 channelFactory.articleBuilder.videoIfNull(url)
                             }
 
-                            else -> channelFactory.articleBuilder.image(
-                                xmlPullParser.nextText().trim()
-                            )
+                            type == null && url != null -> {
+                                // If there's no type attribute but we have a URL, assume it's an image
+                                channelFactory.articleBuilder.image(url)
+                            }
                         }
                     }
                 }

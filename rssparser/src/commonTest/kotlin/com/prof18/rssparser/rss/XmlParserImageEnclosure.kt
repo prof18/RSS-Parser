@@ -1,6 +1,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.RawEnclosure
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
@@ -43,7 +44,11 @@ class XmlParserImageEnclosure : XmlParserTestExecutor() {
                 commentsUrl = null,
                 itunesItemData = null,
                 youtubeItemData = null,
-                rawEnclosure = null,
+                rawEnclosure = RawEnclosure(
+                    url = "https://cdv.cz/image/rss-placeholder-image/",
+                    length = null,
+                    type = null,
+                ),
             )
         )
     )

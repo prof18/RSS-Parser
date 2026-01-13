@@ -69,6 +69,11 @@ internal class RssFeedHandler : FeedHandler {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.videoIfNull(url)
                         }
+
+                        type == null && url != null -> {
+                            // If there's no type attribute but we have a URL, assume it's an image
+                            channelFactory.articleBuilder.image(url)
+                        }
                     }
                 }
             }
@@ -147,7 +152,11 @@ internal class RssFeedHandler : FeedHandler {
                     }
 
                     RssKeyword.ITEM_ENCLOSURE.value -> {
-                        channelFactory.articleBuilder.image(text)
+                        // Handle enclosures with text content (no attributes)
+                        if (text.isNotBlank()) {
+                            channelFactory.rawEnclosureBuilder.url(text)
+                            channelFactory.articleBuilder.image(text)
+                        }
                     }
 
                     RssKeyword.ITEM_THUMB.value -> {
