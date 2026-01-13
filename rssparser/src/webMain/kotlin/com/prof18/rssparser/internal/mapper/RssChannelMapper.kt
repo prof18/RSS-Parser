@@ -50,8 +50,8 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
     }
 
     if (channel.itunesOwner != null) {
-        channelFactory.itunesOwnerBuilder.name(channel.itunesOwner?.name?.trim())
-        channelFactory.itunesOwnerBuilder.email(channel.itunesOwner?.email?.trim())
+        channelFactory.itunesOwnerBuilder.name(channel.itunesOwner.name?.trim())
+        channelFactory.itunesOwnerBuilder.email(channel.itunesOwner.email?.trim())
         channelFactory.buildItunesOwner()
     }
     channel.items?.forEach { entry ->
