@@ -61,6 +61,12 @@ internal data class AtomEntryEntity(
     @XmlElement
     @XmlSerialName(value = "channelId", prefix = "yt", namespace = "http://www.youtube.com/xml/schemas/2015")
     val youtubeChannelId: String? = null,
+    @XmlElement
+    @XmlSerialName(value = "thumbnail", prefix = "media", namespace = "http://search.yahoo.com/mrss/")
+    val mediaThumbnail: MediaThumbnailEntity? = null,
+    @XmlElement
+    @XmlSerialName(value = "content", prefix = "media", namespace = "http://search.yahoo.com/mrss/")
+    val mediaContent: AtomMediaContentEntity? = null,
 )
 
 @XmlSerialName(value = "author")
