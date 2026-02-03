@@ -164,13 +164,13 @@ public data class RssItem(
     }
 
     private companion object {
-        const val LINK_PRIORITY_NONE = -1
-        const val LINK_PRIORITY_RELATED = 0
-        const val LINK_PRIORITY_OTHER = 1
-        const val LINK_PRIORITY_MISSING_REL = 2
-        const val LINK_PRIORITY_ALTERNATE = 3
+        private const val LINK_PRIORITY_NONE = -1
+        private const val LINK_PRIORITY_RELATED = 0
+        private const val LINK_PRIORITY_OTHER = 1
+        private const val LINK_PRIORITY_MISSING_REL = 2
+        private const val LINK_PRIORITY_ALTERNATE = 3
 
-        fun linkPriorityFor(rel: String?): Int {
+        private fun linkPriorityFor(rel: String?): Int {
             val normalized = rel?.lowercase()
             return when {
                 normalized == "alternate" -> LINK_PRIORITY_ALTERNATE
