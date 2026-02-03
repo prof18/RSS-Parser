@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>Visual Studio Code - Code Editing. Redefined.</title>
+    <link rel="self" type="application/atom+xml" href="https://code.visualstudio.com/feed.xml" />
+    <link rel="alternate" type="text/html" href="https://code.visualstudio.com/" />
+    <updated>2026-02-04T17:00:00.000Z</updated>
+    <id>https://code.visualstudio.com/</id>
+
+    <entry>
+        <title>January 2026 Insiders (version 1.109)</title>
+        <link rel="related" href="https://code.visualstudio.com/assets/updates/1_109/vscode-insiders-header.webp" />
+        <link href="https://code.visualstudio.com/updates/v1_109" />
+        <updated>2026-02-04T17:00:00.000Z</updated>
+        <id>https://code.visualstudio.com/updates/v1_109</id>
+        <content type="html">Learn what is new.</content>
+    </entry>
+</feed>

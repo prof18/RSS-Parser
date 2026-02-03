@@ -55,10 +55,20 @@ public data class RssItem(
         private var youtubeItemData: YoutubeItemData? = null,
         private var rawEnclosure: RawEnclosure? = null,
     ) {
+        private var linkPriority: Int = LINK_PRIORITY_NONE
+
         fun guid(guid: String?) = apply { this.guid = guid }
         fun title(title: String?) = apply { this.title = title }
         fun author(author: String?) = apply { this.author = author }
-        fun link(link: String?) = apply { this.link = link }
+
+        fun link(link: String?, rel: String? = null) = apply {
+            val candidate = link?.takeIf { it.isNotBlank() } ?: return@apply
+            val priority = linkPriorityFor(rel)
+            if (priority > linkPriority) {
+                this.link = candidate
+                linkPriority = priority
+            }
+        }
         fun pubDate(pubDate: String?) = apply {
             this.pubDate = pubDate
         }
@@ -150,6 +160,24 @@ public data class RssItem(
                 youtubeItemData = youtubeItemData,
                 rawEnclosure = rawEnclosure,
             )
+        }
+    }
+
+    private companion object {
+        const val LINK_PRIORITY_NONE = -1
+        const val LINK_PRIORITY_RELATED = 0
+        const val LINK_PRIORITY_OTHER = 1
+        const val LINK_PRIORITY_MISSING_REL = 2
+        const val LINK_PRIORITY_ALTERNATE = 3
+
+        fun linkPriorityFor(rel: String?): Int {
+            val normalized = rel?.lowercase()
+            return when {
+                normalized == "alternate" -> LINK_PRIORITY_ALTERNATE
+                normalized.isNullOrBlank() -> LINK_PRIORITY_MISSING_REL
+                normalized == "related" -> LINK_PRIORITY_RELATED
+                else -> LINK_PRIORITY_OTHER
+            }
         }
     }
 }

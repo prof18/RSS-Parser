@@ -186,7 +186,7 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
                     link.rel != AtomKeyword.LINK_REL_ENCLOSURE.value &&
                     link.rel != AtomKeyword.LINK_REL_REPLIES.value
                 ) {
-                    link(link.generateLink(baseFeedUrl))
+                    link(link.generateLink(baseFeedUrl), link.rel)
                 }
             }
             pubDate(entry.published)

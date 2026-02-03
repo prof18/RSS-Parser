@@ -56,7 +56,7 @@ internal class AtomFeedHandler(
                     rel != AtomKeyword.LINK_REL_REPLIES.value
                 ) {
                     when {
-                        isInsideItem -> channelFactory.articleBuilder.link(link)
+                        isInsideItem -> channelFactory.articleBuilder.link(link, rel)
                         else -> channelFactory.channelBuilder.link(link)
                     }
                 }

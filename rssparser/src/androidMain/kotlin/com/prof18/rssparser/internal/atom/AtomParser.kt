@@ -172,8 +172,8 @@ internal fun CoroutineScope.extractAtomContent(
                             rel != AtomKeyword.LINK_REL_ENCLOSURE.value
                         ) {
                             when {
-                                insideItem -> channelFactory.articleBuilder.link(link)
-                                else -> channelFactory.channelBuilder.link(link)
+                                insideItem -> channelFactory.articleBuilder.link(link, rel)
+                                !insideItem -> channelFactory.channelBuilder.link(link)
                             }
                         }
                     }
