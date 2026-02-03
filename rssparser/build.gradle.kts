@@ -1,13 +1,14 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class, ExperimentalWasmDsl::class)
 
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.com.vanniktech.maven.publish)
     alias(libs.plugins.kotlinx.serialization)
 }
@@ -21,8 +22,15 @@ tasks.withType(KotlinJvmCompile::class).configureEach {
 kotlin {
     jvm()
 
-    androidTarget {
-        publishLibraryVariants("release", "debug")
+    androidLibrary {
+        namespace = "com.prof18.rssparser"
+        compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
+        minSdk = libs.versions.android.min.sdk.get().toInt()
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_1_8)
+
+        withHostTest {
+            isIncludeAndroidResources = true
+        }
     }
 
     iosArm64()
@@ -58,14 +66,7 @@ kotlin {
         }
     }
 
-    applyDefaultHierarchyTemplate {
-        common {
-            group("jvmAndroid") {
-                withAndroidTarget()
-                withJvm()
-            }
-        }
-    }
+    applyDefaultHierarchyTemplate()
 
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
@@ -80,6 +81,14 @@ kotlin {
             }
         }
 
+        val jvmAndroidMain by creating {
+            dependsOn(commonMain.get())
+        }
+
+        val jvmAndroidTest by creating {
+            dependsOn(commonTest.get())
+        }
+
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
         }
@@ -91,26 +100,33 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
         }
 
+        jvmMain {
+            dependsOn(jvmAndroidMain)
+        }
+
         jvmTest {
+            dependsOn(jvmAndroidTest)
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
 
         androidMain {
+            dependsOn(jvmAndroidMain)
             dependencies {
                 implementation(libs.kotlinx.coroutines.android)
             }
         }
 
-        androidUnitTest {
+        getByName("androidHostTest") {
+            dependsOn(jvmAndroidTest)
             dependencies {
                 implementation(libs.org.robolectric)
                 implementation(kotlin("test-junit"))
             }
         }
 
-        get("jvmAndroidMain").dependencies {
+        jvmAndroidMain.dependencies {
             api(libs.com.squareup.okhttp3)
         }
 
@@ -124,21 +140,3 @@ kotlin {
     }
 }
 
-android {
-    namespace = "com.prof18.rssparser"
-
-    compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
-
-    defaultConfig {
-        minSdk = libs.versions.android.min.sdk.get().toInt()
-    }
-
-    testOptions.unitTests {
-        isIncludeAndroidResources = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-}
