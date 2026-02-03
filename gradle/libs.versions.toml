@@ -13,7 +13,7 @@ binary-compatibility-validator = "0.18.1"
 coroutines = "1.10.2"
 kotlinx-serialization = "1.10.0"
 xmlutil = "0.91.3"
-ktor = "3.3.3"
+ktor = "3.4.0"
 library-version-name = "6.1.2"
 
 # Sample dependencies
