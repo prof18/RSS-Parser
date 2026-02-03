@@ -112,6 +112,7 @@ kotlin {
 
         get("jvmAndroidMain").dependencies {
             api(libs.com.squareup.okhttp3)
+            implementation(libs.com.squareup.okhttp3.coroutines)
         }
 
         get("webMain").dependencies {
