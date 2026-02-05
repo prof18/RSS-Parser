@@ -3,7 +3,7 @@ android-gradle-plugin = "8.13.2"
 android-compile-sdk = "34"
 android-min-sdk = "21"
 android-target-sdk = "34"
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 
 # Library dependencies
 com-squareup-okhttp3 = "5.3.2"
