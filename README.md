@@ -2,7 +2,7 @@
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.prof18.rssparser/rssparser/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.prof18.rssparser/rssparser)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)
+![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)
 
 **RSS Parser** is a Kotlin Multiplatform library for parsing RSS, Atom and RDF feeds. It supports Android, JVM, iOS, macOS, tvOS, watchOS, wasmJS and JS.
 
@@ -21,8 +21,10 @@ With **RSS Parser**, you can fetch plenty of useful information from any RSS cha
     - [RSS Parsing from URL](#rss-parsing-from-url)
     - [RSS Parsing from string](#rss-parsing-from-string)
     - [Using the library in a Java project](#using-the-library-in-a-java-project)
+- [Error handling](#error-handling)
+- [Parser behavior notes](#parser-behavior-notes)
+- [Sample projects](#sample-projects)
 - [Migration from version 5](#migration-from-version-5)
-- [Sample project](#sample-project)
 - [Changelog](#changelog)
 - [License](#license)
 - [Apps using RSS Parser](#apps-using-rss-parser)
@@ -109,7 +111,7 @@ The [`RssChannel` result object](https://github.com/prof18/RSS-Parser/blob/maste
 - Description
 - Link
 - Items
-- Image (Title, Url and Link)
+- Image (Title, Url, Link and Description)
 - Last build data
 - Update period
 - Itunes Data:
@@ -142,6 +144,7 @@ Items support the following attributes:
 - GUID
 - Video
 - Comments URL
+- Raw enclosure (URL, length and type)
 - Itunes Data:
   - Author
   - Duration
@@ -224,7 +227,9 @@ You can transform a Coroutine into a `CompletableFuture` using the `future` exte
 the `kotlinx-coroutines-core` library. 
 
 ```kotlin
-fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> = GlobalScope.future {
+private val bridgeScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+
+fun parseFeed(parser: RssParser, url: String): CompletableFuture<RssChannel> = bridgeScope.future {
     parser.getRssChannel(url)
 }
 ```
@@ -249,6 +254,33 @@ If you prefer Guava's `ListenableFuture`, you can use the `listenableFuture` ext
 from the `kotlinx-coroutines-guava` library. 
 More info in the official documentation [here](https://github.com/Kotlin/kotlinx.coroutines/blob/master/integration/kotlinx-coroutines-guava/README.md).
 
+## Error handling
+
+When loading feeds from a URL, handle parsing and network failures explicitly:
+
+```kotlin
+try {
+    val channel = rssParser.getRssChannel("https://example.com/feed.xml")
+    // Use parsed channel
+} catch (e: HttpException) {
+    // Non-success HTTP status
+    println("HTTP error ${e.code}: ${e.message}")
+} catch (e: RssParsingException) {
+    // XML could not be parsed even after fallback cleanup
+    println("Parsing error: ${e.message}")
+} catch (e: Throwable) {
+    // I/O and platform-specific errors
+    println("Unexpected error: ${e.message}")
+}
+```
+
+## Parser behavior notes
+
+- If parsing fails with a `RssParsingException`, the parser retries with an additional malformed-XML cleanup pass.
+- Item and channel image extraction uses fallbacks. For example, iTunes image values are used when RSS image tags are missing.
+- For Atom links, entry links prioritize `rel="alternate"` and avoid non-article relations like `related` media links.
+- YouTube metadata for `YoutubeItemData` is only extracted from the proper `media:group` scope.
+
 ## Sample projects
 
 The repository contains three samples projects: a [multiplatform](/samples/multiplatform), 
@@ -265,7 +297,7 @@ Version 6 of the library introduced the following breaking changes:
 - `com.prof.rssparser.Channel` has been moved and renamed to `com.prof18.rssparser.model.RssChannel`;
 - `com.prof.rssparser.Article` has been moved and renamed to `com.prof18.rssparser.model.RssItem`;
 - `com.prof.rssparser.HTTPException` has been moved and renamed to `com.prof18.rssparser.exception.HttpException`;
-- `com.prof.rssparser.Image` has been moved and renamed to `com.prof18.rssparser.RssImage`;
+- `com.prof.rssparser.Image` has been moved and renamed to `com.prof18.rssparser.model.RssImage`;
 - `com.prof.rssparser.ItunesOwner` has been moved to `com.prof18.rssparser.model.ItunesOwner`;
 - `com.prof.rssparser.ItunesArticleData` has been moved and renamed to `com.prof18.rssparser.model.ItunesItemData`;
 - `com.prof.rssparser.ItunesChannelData` has been moved to `com.prof18.rssparser.model.ItunesChannelData`;
@@ -285,7 +317,7 @@ From version 1.4.4 and above, the changelog is available in the [release section
 ## License
 
 ```
-Copyright 2016-2023 Marco Gomiero
+Copyright 2016-2026 Marco Gomiero
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -311,4 +343,3 @@ If you are using RSS Parser in your app and would like to be listed here, please
 * [CapyReader](https://capyreader.com/)
 
 </details>
-
