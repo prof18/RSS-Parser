@@ -5,11 +5,9 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.request
 
-internal class WebXmlFetcher : XmlFetcher {
-
-    private val client by lazy {
-        HttpClient()
-    }
+internal class WebXmlFetcher(
+    private val client: HttpClient,
+) : XmlFetcher {
 
     override suspend fun fetchXml(url: String): ParserInput =
         fetchFeed(url)

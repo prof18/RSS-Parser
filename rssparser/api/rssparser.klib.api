@@ -333,7 +333,7 @@ final class com.prof18.rssparser/RssParserBuilder : com.prof18.rssparser/RssPars
     constructor <init>(platform.Foundation/NSURLSession = ...) // com.prof18.rssparser/RssParserBuilder.<init>|<init>(platform.Foundation.NSURLSession){}[0]
 
     // Targets: [js, wasmJs]
-    constructor <init>() // com.prof18.rssparser/RssParserBuilder.<init>|<init>(){}[0]
+    constructor <init>(io.ktor.client/HttpClient = ...) // com.prof18.rssparser/RssParserBuilder.<init>|<init>(io.ktor.client.HttpClient){}[0]
 }
 
 final fun com.prof18.rssparser/RssParser(): com.prof18.rssparser/RssParser // com.prof18.rssparser/RssParser|RssParser(){}[0]

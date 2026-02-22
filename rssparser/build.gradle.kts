@@ -135,9 +135,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.xmlutil)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.client.js)
-            implementation(libs.ktor.client.core)
+            api(libs.ktor.client.js)
+            api(libs.ktor.client.core)
         }
     }
 }
-
