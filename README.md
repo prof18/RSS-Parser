@@ -202,6 +202,15 @@ val builder = RssParserBuilder(
 val rssParser = builder.build() 
 ```
 
+**On Web (JS/Wasm)**, a custom Ktor `HttpClient` instance can be provided. If a `HttpClient` instance is not provided, the library will create one.
+
+```kotlin
+val builder = RssParserBuilder(
+    httpClient = HttpClient(),
+)
+val rssParser = builder.build()
+```
+
 ### RSS Parsing from URL
 To parse an RSS feed from a URL, the suspending `getRssChannel` function can be used.
 
