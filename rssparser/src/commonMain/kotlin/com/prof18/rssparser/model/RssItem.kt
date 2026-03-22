@@ -35,6 +35,7 @@ public data class RssItem(
     val commentsUrl: String?,
     val youtubeItemData: YoutubeItemData?,
     val rawEnclosure: RawEnclosure?,
+    val rawMediaContent: RawMediaContent? = null,
 ) {
     internal data class Builder(
         private var guid: String? = null,
@@ -54,6 +55,7 @@ public data class RssItem(
         private var commentUrl: String? = null,
         private var youtubeItemData: YoutubeItemData? = null,
         private var rawEnclosure: RawEnclosure? = null,
+        private var rawMediaContent: RawMediaContent? = null,
     ) {
         private var linkPriority: Int = LINK_PRIORITY_NONE
 
@@ -118,6 +120,8 @@ public data class RssItem(
 
         fun rawEnclosure(rawEnclosure: RawEnclosure?) = apply { this.rawEnclosure = rawEnclosure }
 
+        fun rawMediaContent(rawMediaContent: RawMediaContent?) = apply { this.rawMediaContent = rawMediaContent }
+
         fun build(): RssItem? {
             if (
                 guid.isNullOrBlank() &&
@@ -136,7 +140,8 @@ public data class RssItem(
                 itunesItemData == null &&
                 commentUrl.isNullOrBlank() &&
                 youtubeItemData == null &&
-                rawEnclosure == null
+                rawEnclosure == null &&
+                rawMediaContent == null
             ) {
                 return null
             }
@@ -159,6 +164,7 @@ public data class RssItem(
                 commentsUrl = commentUrl,
                 youtubeItemData = youtubeItemData,
                 rawEnclosure = rawEnclosure,
+                rawMediaContent = rawMediaContent,
             )
         }
     }

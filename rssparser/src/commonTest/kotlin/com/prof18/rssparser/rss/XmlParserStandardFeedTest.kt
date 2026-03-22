@@ -18,6 +18,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.RawMediaContent
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.parseFeed
@@ -66,6 +67,11 @@ class XmlParserStandardFeedTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
+                rawMediaContent = RawMediaContent(
+                    url = "https://cdn57.androidauthority.net/wp-content/uploads/2019/02/Whats-next-with-5g--500x260.jpg",
+                    type = null,
+                    medium = "image",
+                ),
             )
         )
     )

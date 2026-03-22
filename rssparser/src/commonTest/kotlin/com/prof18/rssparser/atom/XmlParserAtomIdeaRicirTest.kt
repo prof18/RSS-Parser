@@ -1,6 +1,7 @@
 package com.prof18.rssparser.atom
 
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.RawMediaContent
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssItem
 import com.prof18.rssparser.parseFeed
@@ -38,6 +39,11 @@ class XmlParserAtomIdeaRicirTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
+                rawMediaContent = RawMediaContent(
+                    url = "https://idea.ricir.net/assets/ComeSeguireAggiornamenti-social.png",
+                    type = null,
+                    medium = "image",
+                ),
             )
         ),
     )

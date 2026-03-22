@@ -52,6 +52,7 @@ internal enum class RssKeyword(val value: String) {
     ITEM_SOURCE("source"),
     ITEM_COMMENTS("comments"),
     ITEM_THUMB("thumb"),
+    ITEM_MEDIUM("medium"),
 
     // Item News
     ITEM_NEWS_IMAGE("News:Image"),
