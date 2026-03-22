@@ -105,6 +105,8 @@ internal data class MediaGroupEntity(
 @Serializable
 internal data class AtomMediaContentEntity(
     val url: String? = null,
+    val type: String? = null,
+    val medium: String? = null,
 )
 
 @XmlSerialName(value = "thumbnail", prefix = "media", namespace = "http://search.yahoo.com/mrss/")

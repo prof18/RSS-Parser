@@ -4,6 +4,7 @@ import com.prof18.rssparser.model.ItunesChannelData
 import com.prof18.rssparser.model.ItunesItemData
 import com.prof18.rssparser.model.ItunesOwner
 import com.prof18.rssparser.model.RawEnclosure
+import com.prof18.rssparser.model.RawMediaContent
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
@@ -20,6 +21,7 @@ internal class ChannelFactory {
     var youtubeChannelDataBuilder = YoutubeChannelData.Builder()
     var youtubeItemDataBuilder = YoutubeItemData.Builder()
     var rawEnclosureBuilder = RawEnclosure.Builder()
+    var rawMediaContentBuilder = RawMediaContent.Builder()
 
     // This image url is extracted from the content and the description of the rss item.
     // It's a fallback just in case there aren't any images in the enclosure tag.
@@ -33,6 +35,7 @@ internal class ChannelFactory {
         articleBuilder.itunesArticleData(itunesItemData)
         articleBuilder.youtubeItemData(youtubeItemDataBuilder.build())
         articleBuilder.rawEnclosure(rawEnclosureBuilder.build())
+        articleBuilder.rawMediaContent(rawMediaContentBuilder.build())
         articleBuilder.build()?.let { channelBuilder.addItem(it) }
         // Reset temp data
         imageUrlFromContent = null
@@ -40,6 +43,7 @@ internal class ChannelFactory {
         itunesArticleBuilder = ItunesItemData.Builder()
         youtubeItemDataBuilder = YoutubeItemData.Builder()
         rawEnclosureBuilder = RawEnclosure.Builder()
+        rawMediaContentBuilder = RawMediaContent.Builder()
     }
 
     fun buildItunesOwner() {

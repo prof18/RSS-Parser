@@ -3,6 +3,7 @@ package com.prof18.rssparser.internal.atom
 import com.prof18.rssparser.internal.AtomKeyword
 import com.prof18.rssparser.internal.ChannelFactory
 import com.prof18.rssparser.internal.FeedHandler
+import com.prof18.rssparser.internal.RssKeyword
 import com.prof18.rssparser.internal.getValueOrNull
 import com.prof18.rssparser.model.RssChannel
 
@@ -62,10 +63,33 @@ internal class AtomFeedHandler(
                 }
             }
 
-            AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT.value -> {
-                if (isInsideItem && isInsideYoutubeMediaGroup) {
-                    val url = attributes.getValueOrNull(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value) as? String
-                    channelFactory.youtubeItemDataBuilder.videoUrl(url)
+            AtomKeyword.MEDIA_GROUP_CONTENT.value -> {
+                if (isInsideItem) {
+                    if (isInsideYoutubeMediaGroup) {
+                        val url = attributes.getValueOrNull(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL.value) as? String
+                        channelFactory.youtubeItemDataBuilder.videoUrl(url)
+                    } else {
+                        val url = attributes[RssKeyword.URL.value] as? String
+                        val type = attributes[RssKeyword.ITEM_TYPE.value] as? String
+                        val medium = attributes[RssKeyword.ITEM_MEDIUM.value] as? String
+
+                        channelFactory.rawMediaContentBuilder.url(url)
+                        channelFactory.rawMediaContentBuilder.type(type)
+                        channelFactory.rawMediaContentBuilder.medium(medium)
+
+                        when {
+                            !medium.isNullOrBlank() -> when {
+                                medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                            }
+                            !type.isNullOrBlank() -> when {
+                                type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                            }
+                        }
+                    }
                 }
             }
 

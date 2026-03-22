@@ -28,13 +28,13 @@ internal enum class AtomKeyword(val value: String) {
     ENTRY_DESCRIPTION("summary"),
     ENTRY_AUTHOR("name"),
     ENTRY_EMAIL("email"),
+    MEDIA_GROUP_CONTENT("media:content"),
 
     // YouTube
     YOUTUBE_CHANNEL_ID("yt:channelId"),
     YOUTUBE_VIDEO_ID("yt:videoId"),
     YOUTUBE_MEDIA_GROUP("media:group"),
     YOUTUBE_MEDIA_GROUP_TITLE("media:title"),
-    YOUTUBE_MEDIA_GROUP_CONTENT("media:content"),
     YOUTUBE_MEDIA_GROUP_CONTENT_URL("url"),
     YOUTUBE_MEDIA_GROUP_THUMBNAIL("media:thumbnail"),
     YOUTUBE_MEDIA_GROUP_THUMBNAIL_URL("url"),

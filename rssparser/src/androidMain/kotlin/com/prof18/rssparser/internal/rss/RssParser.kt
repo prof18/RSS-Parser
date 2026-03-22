@@ -126,11 +126,26 @@ internal fun CoroutineScope.extractRSSContent(
 
                 xmlPullParser.contains(RssKeyword.ITEM_MEDIA_CONTENT) -> {
                     if (insideItem) {
-                        channelFactory.articleBuilder.image(
-                            xmlPullParser.attributeValue(
-                                RssKeyword.URL
-                            )
-                        )
+                        val url = xmlPullParser.attributeValue(RssKeyword.URL)
+                        val type = xmlPullParser.attributeValue(RssKeyword.ITEM_TYPE)
+                        val medium = xmlPullParser.attributeValue(RssKeyword.ITEM_MEDIUM)
+
+                        channelFactory.rawMediaContentBuilder.url(url)
+                        channelFactory.rawMediaContentBuilder.type(type)
+                        channelFactory.rawMediaContentBuilder.medium(medium)
+
+                        when {
+                            !medium.isNullOrBlank() -> when {
+                                medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                            }
+                            !type.isNullOrBlank() -> when {
+                                type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                            }
+                        }
                     }
                 }
 
@@ -150,17 +165,17 @@ internal fun CoroutineScope.extractRSSContent(
                         channelFactory.rawEnclosureBuilder.url(url)
 
                         when {
-                            type != null && type.contains("image") -> {
+                            type != null && type.contains("image", ignoreCase = true) -> {
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.image(url)
                             }
 
-                            type != null && type.contains("audio") -> {
+                            type != null && type.contains("audio", ignoreCase = true) -> {
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.audioIfNull(url)
                             }
 
-                            type != null && type.contains("video") -> {
+                            type != null && type.contains("video", ignoreCase = true) -> {
                                 // If there are multiple elements, we take only the first
                                 channelFactory.articleBuilder.videoIfNull(url)
                             }

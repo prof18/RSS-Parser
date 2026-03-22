@@ -36,7 +36,25 @@ internal class RssFeedHandler : FeedHandler {
             RssKeyword.ITEM_MEDIA_CONTENT.value -> {
                 if (isInsideItem) {
                     val url = attributes?.getValue(RssKeyword.URL.value)
-                    channelFactory.articleBuilder.image(url)
+                    val type = attributes?.getValue(RssKeyword.ITEM_TYPE.value)
+                    val medium = attributes?.getValue(RssKeyword.ITEM_MEDIUM.value)
+
+                    channelFactory.rawMediaContentBuilder.url(url)
+                    channelFactory.rawMediaContentBuilder.type(type)
+                    channelFactory.rawMediaContentBuilder.medium(medium)
+
+                    when {
+                        !medium.isNullOrBlank() -> when {
+                            medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                            medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                            medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                        }
+                        !type.isNullOrBlank() -> when {
+                            type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                            type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                            type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                        }
+                    }
                 }
             }
 
@@ -58,17 +76,17 @@ internal class RssFeedHandler : FeedHandler {
                     channelFactory.rawEnclosureBuilder.url(url)
 
                     when {
-                        type != null && type.contains("image") -> {
+                        type != null && type.contains("image", ignoreCase = true) -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.image(url)
                         }
 
-                        type != null && type.contains("audio") -> {
+                        type != null && type.contains("audio", ignoreCase = true) -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.audioIfNull(url)
                         }
 
-                        type != null && type.contains("video") -> {
+                        type != null && type.contains("video", ignoreCase = true) -> {
                             // If there are multiple elements, we take only the first
                             channelFactory.articleBuilder.videoIfNull(url)
                         }

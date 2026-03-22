@@ -20,6 +20,7 @@ package com.prof18.rssparser.internal.atom
 import com.prof18.rssparser.internal.AtomKeyword
 import com.prof18.rssparser.internal.ChannelFactory
 import com.prof18.rssparser.internal.ParserInput
+import com.prof18.rssparser.internal.RssKeyword
 import com.prof18.rssparser.internal.attributeValue
 import com.prof18.rssparser.internal.contains
 import com.prof18.rssparser.internal.nextTrimmedText
@@ -27,7 +28,6 @@ import com.prof18.rssparser.model.RssChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.isActive
 import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserException
 
 internal fun CoroutineScope.extractAtomContent(
     xmlPullParser: XmlPullParser,
@@ -203,10 +203,33 @@ internal fun CoroutineScope.extractAtomContent(
                     }
                 }
 
-                xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT) -> {
-                    if (insideItem && insideYoutubeMediaGroup) {
-                        val videoUrl = xmlPullParser.attributeValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL)
-                        channelFactory.youtubeItemDataBuilder.videoUrl(videoUrl)
+                xmlPullParser.contains(AtomKeyword.MEDIA_GROUP_CONTENT) -> {
+                    if (insideItem) {
+                        if (insideYoutubeMediaGroup) {
+                            val videoUrl = xmlPullParser.attributeValue(AtomKeyword.YOUTUBE_MEDIA_GROUP_CONTENT_URL)
+                            channelFactory.youtubeItemDataBuilder.videoUrl(videoUrl)
+                        } else {
+                            val url = xmlPullParser.attributeValue(RssKeyword.URL)
+                            val type = xmlPullParser.attributeValue(RssKeyword.ITEM_TYPE)
+                            val medium = xmlPullParser.attributeValue(RssKeyword.ITEM_MEDIUM)
+
+                            channelFactory.rawMediaContentBuilder.url(url)
+                            channelFactory.rawMediaContentBuilder.type(type)
+                            channelFactory.rawMediaContentBuilder.medium(medium)
+
+                            when {
+                                !medium.isNullOrBlank() -> when {
+                                    medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                    medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                    medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                                }
+                                !type.isNullOrBlank() -> when {
+                                    type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+                                    type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+                                    type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+                                }
+                            }
+                        }
                     }
                 }
 

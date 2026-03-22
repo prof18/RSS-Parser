@@ -3,9 +3,11 @@ package com.prof18.rssparser.internal.mapper
 import com.prof18.rssparser.internal.AtomKeyword
 import com.prof18.rssparser.internal.ChannelFactory
 import com.prof18.rssparser.internal.entity.AtomFeedEntity
+import com.prof18.rssparser.internal.entity.AtomMediaContentEntity
 import com.prof18.rssparser.internal.entity.AtomLinkEntity
 import com.prof18.rssparser.internal.entity.FeedEntity
 import com.prof18.rssparser.internal.entity.RdfFeedEntity
+import com.prof18.rssparser.internal.entity.RssMediaContentEntity
 import com.prof18.rssparser.internal.entity.RssFeedEntity
 import com.prof18.rssparser.model.RssChannel
 
@@ -65,8 +67,8 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
             link(entry.link?.trim())
             description(entry.description?.trim())
             commentUrl(entry.comments?.trim())
-            image(entry.mediaContent?.url?.trim())
-            image(entry.mediaContent2?.url?.trim())
+            generateMediaContent(entry.mediaContent, channelFactory)
+            generateMediaContent(entry.mediaContent2, channelFactory)
             image(entry.newsImage?.link?.trim())
             image(entry.thumb?.trim())
             image(entry.image?.link?.trim())
@@ -93,17 +95,17 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
                 channelFactory.rawEnclosureBuilder.url(url)
 
                 when {
-                    type != null && type.contains("image") -> {
+                    type != null && type.contains("image", ignoreCase = true) -> {
                         // If there are multiple elements, we take only the first
                         channelFactory.articleBuilder.image(url)
                     }
 
-                    type != null && type.contains("audio") -> {
+                    type != null && type.contains("audio", ignoreCase = true) -> {
                         // If there are multiple elements, we take only the first
                         channelFactory.articleBuilder.audioIfNull(url)
                     }
 
-                    type != null && type.contains("video") -> {
+                    type != null && type.contains("video", ignoreCase = true) -> {
                         // If there are multiple elements, we take only the first
                         channelFactory.articleBuilder.videoIfNull(url)
                     }
@@ -202,7 +204,7 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
             channelFactory.setImageFromContent(entry.content)
             channelFactory.setImageFromContent(entry.summary)
             image(entry.mediaThumbnail?.url)
-            image(entry.mediaContent?.url)
+            generateAtomMediaContent(entry.mediaContent, channelFactory)
             channelFactory.youtubeChannelDataBuilder.channelId(entry.youtubeChannelId)
             with(channelFactory.youtubeItemDataBuilder) {
                 videoId(entry.youtubeVideoId)
@@ -217,6 +219,54 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
         channelFactory.buildArticle()
     }
     return channelFactory.build()
+}
+
+private fun generateMediaContent(mediaContent: RssMediaContentEntity?, channelFactory: ChannelFactory) {
+    if (mediaContent == null) return
+    val url = mediaContent.url?.trim()
+    val type = mediaContent.type?.trim()
+    val medium = mediaContent.medium?.trim()
+
+    channelFactory.rawMediaContentBuilder.url(url)
+    channelFactory.rawMediaContentBuilder.type(type)
+    channelFactory.rawMediaContentBuilder.medium(medium)
+
+    when {
+        !medium.isNullOrBlank() -> when {
+            medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+            medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+            medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+        }
+        !type.isNullOrBlank() -> when {
+            type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+            type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+            type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+        }
+    }
+}
+
+private fun generateAtomMediaContent(mediaContent: AtomMediaContentEntity?, channelFactory: ChannelFactory) {
+    if (mediaContent == null) return
+    val url = mediaContent.url
+    val type = mediaContent.type?.trim()
+    val medium = mediaContent.medium?.trim()
+
+    channelFactory.rawMediaContentBuilder.url(url)
+    channelFactory.rawMediaContentBuilder.type(type)
+    channelFactory.rawMediaContentBuilder.medium(medium)
+
+    when {
+        !medium.isNullOrBlank() -> when {
+            medium.equals("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+            medium.equals("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+            medium.equals("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+        }
+        !type.isNullOrBlank() -> when {
+            type.contains("image", ignoreCase = true) -> channelFactory.articleBuilder.image(url)
+            type.contains("audio", ignoreCase = true) -> channelFactory.articleBuilder.audioIfNull(url)
+            type.contains("video", ignoreCase = true) -> channelFactory.articleBuilder.videoIfNull(url)
+        }
+    }
 }
 
 private fun AtomLinkEntity.generateLink(baseFeedUrl: String?): String? {

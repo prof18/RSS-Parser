@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>Test Media Content Types</title>
+        <link>https://example.com</link>
+        <description>Feed testing media:content type filtering</description>
+        <item>
+            <title>Non-image archive file</title>
+            <link>https://example.com/files/large-file.zip/download</link>
+            <guid>https://example.com/files/large-file.zip/download</guid>
+            <description>Item with application/java-archive media:content</description>
+            <media:content type="application/java-archive; charset=binary"
+                           url="https://example.com/files/large-file.zip/download"
+                           filesize="3397423133">
+                <media:hash algo="md5">298613a475d5b4aabd8f8590995a4de1</media:hash>
+            </media:content>
+        </item>
+        <item>
+            <title>Image with type and medium</title>
+            <link>https://example.com/item2</link>
+            <guid>https://example.com/item2</guid>
+            <description>Item with image/jpeg type and medium=image</description>
+            <media:content type="image/jpeg"
+                           url="https://example.com/images/photo.jpg"
+                           medium="image"
+                           width="640"
+                           height="480"/>
+        </item>
+        <item>
+            <title>Video with medium</title>
+            <link>https://example.com/item3</link>
+            <guid>https://example.com/item3</guid>
+            <description>Item with medium=video</description>
+            <media:content type="video/mp4"
+                           url="https://example.com/videos/clip.mp4"
+                           medium="video"/>
+        </item>
+        <item>
+            <title>Audio with medium</title>
+            <link>https://example.com/item4</link>
+            <guid>https://example.com/item4</guid>
+            <description>Item with medium=audio</description>
+            <media:content type="audio/mpeg"
+                           url="https://example.com/audio/track.mp3"
+                           medium="audio"/>
+        </item>
+        <item>
+            <title>No type or medium</title>
+            <link>https://example.com/item5</link>
+            <guid>https://example.com/item5</guid>
+            <description>Item with media:content but no type or medium</description>
+            <media:content url="https://example.com/images/untyped.jpg"/>
+        </item>
+        <item>
+            <title>Document medium</title>
+            <link>https://example.com/item6</link>
+            <guid>https://example.com/item6</guid>
+            <description>Item with medium=document</description>
+            <media:content url="https://example.com/files/doc.pdf"
+                           medium="document"/>
+        </item>
+    </channel>
+</rss>

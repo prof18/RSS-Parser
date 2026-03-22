@@ -1,6 +1,7 @@
 package com.prof18.rssparser.rss
 
 import com.prof18.rssparser.XmlParserTestExecutor
+import com.prof18.rssparser.model.RawMediaContent
 import com.prof18.rssparser.model.RssChannel
 import com.prof18.rssparser.model.RssImage
 import com.prof18.rssparser.model.RssItem
@@ -93,6 +94,11 @@ Reporterre est un média indépendant qui publie chaque jour des articles, enqu�
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
+                rawMediaContent = RawMediaContent(
+                    url = "https://reporterre.net/local/cache-vignettes/L700xH467/european_union_flag__4768764591_2_-cc8c4.jpg?1740588172",
+                    type = "image/jpeg",
+                    medium = "image",
+                ),
             )
         )
     )
