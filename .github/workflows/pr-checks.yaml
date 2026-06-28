@@ -188,7 +188,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
+          key: ${{ runner.os }}-xcode-16.4-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build iOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' build | xcbeautify --renderer github-actions
@@ -227,7 +227,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
+          key: ${{ runner.os }}-xcode-16.4-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build macOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
@@ -266,7 +266,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
+          key: ${{ runner.os }}-xcode-16.4-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build tvOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'generic/platform=tvOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build | xcbeautify --renderer github-actions
@@ -306,7 +306,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
+          key: ${{ runner.os }}-xcode-16.4-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build watchOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination 'generic/platform=watchOS Simulator' -configuration Debug ARCHS=arm64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
