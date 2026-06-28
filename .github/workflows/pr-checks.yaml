@@ -195,7 +195,7 @@ jobs:
 
   build-macos-sample:
     name: Build macOS Sample
-    runs-on: macos-15
+    runs-on: macos-26
     needs: [test]
     steps:
       - uses: actions/checkout@v6
@@ -212,7 +212,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 26.5
 
       - name: Xcode version
         run: |
@@ -227,7 +227,7 @@ jobs:
         with:
           path: |
             ~/.konan
-          key: ${{ runner.os }}-xcode-26-v1-${{ hashFiles('**/libs.versions.toml') }}
+          key: ${{ runner.os }}-xcode-26.5-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build macOS Sample
         run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme iosApp -destination 'platform=macOS,arch=arm64' CODE_SIGNING_ALLOWED=NO MACOSX_DEPLOYMENT_TARGET=26.0 build | xcbeautify --renderer github-actions
