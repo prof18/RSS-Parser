@@ -26,6 +26,13 @@
         "androidx.activity:activity-compose",
         "androidx.compose:compose-bom",
         "org.jetbrains.compose:compose-multiplatform",
+        "org.jetbrains.compose:org.jetbrains.compose.gradle.plugin",
+        "org.jetbrains.compose"
+      ],
+      "enabled": false
+    },
+    {
+      "matchDepNames": [
         "org.jetbrains.compose"
       ],
       "enabled": false
