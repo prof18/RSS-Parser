@@ -12,7 +12,7 @@ plugins {
 kotlin {
     jvmToolchain(17)
 
-    androidLibrary {
+    android {
         namespace = "com.prof18.rssparser.sample"
         compileSdk = libs.versions.android.compile.sdk.get().toInt()
         minSdk = libs.versions.android.min.sdk.get().toInt()
@@ -26,13 +26,10 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64(),
         macosArm64(),
-        macosX64(),
         tvosArm64(),
         tvosSimulatorArm64(),
-        tvosX64(),
         watchosDeviceArm64(),
         watchosSimulatorArm64(),
-        watchosX64(),
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
@@ -60,4 +57,3 @@ kotlin {
         }
     }
 }
-
