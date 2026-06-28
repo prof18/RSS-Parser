@@ -156,7 +156,7 @@ jobs:
 
   build-ios-sample:
     name: Build iOS Sample
-    runs-on: macos-latest
+    runs-on: macos-15
     needs: [test]
     steps:
       - uses: actions/checkout@v6
@@ -173,7 +173,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.4
 
       - name: Xcode version
         run: |
@@ -195,7 +195,7 @@ jobs:
 
   build-macos-sample:
     name: Build macOS Sample
-    runs-on: macos-latest
+    runs-on: macos-15
     needs: [test]
     steps:
       - uses: actions/checkout@v6
@@ -212,7 +212,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.4
 
       - name: Xcode version
         run: |
@@ -234,7 +234,7 @@ jobs:
 
   build-tvos-sample:
     name: Build tvOS Sample
-    runs-on: macos-latest
+    runs-on: macos-15
     needs: [test]
     steps:
       - uses: actions/checkout@v6
@@ -251,7 +251,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.4
 
       - name: Xcode version
         run: |
@@ -269,12 +269,12 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build tvOS Sample
-        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'generic/platform=tvOS Simulator' build | xcbeautify --renderer github-actions
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -configuration Debug -scheme 'iosApp' -destination 'generic/platform=tvOS Simulator' ARCHS=arm64 ONLY_ACTIVE_ARCH=YES build | xcbeautify --renderer github-actions
 
 
   build-watchOS-sample:
     name: Build watchOS Sample
-    runs-on: macos-latest
+    runs-on: macos-15
     needs: [test]
     steps:
       - uses: actions/checkout@v6
@@ -291,7 +291,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 16.4
 
       - name: Xcode version
         run: |
@@ -309,7 +309,7 @@ jobs:
           key: ${{ runner.os }}-v1-${{ hashFiles('**/libs.versions.toml') }}
 
       - name: Build watchOS Sample
-        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination 'generic/platform=watchOS Simulator' -configuration Debug CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
+        run: set -o pipefail && xcodebuild -project samples/multiplatform/iosApp/iosApp.xcodeproj -scheme 'RssParserDemo Watch App' -destination 'generic/platform=watchOS Simulator' -configuration Debug ARCHS=arm64 ONLY_ACTIVE_ARCH=YES CODE_SIGNING_ALLOWED=NO build | xcbeautify --renderer github-actions
 
   build-wasm-sample:
     name: Build Wasm Sample
