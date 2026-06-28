@@ -27,6 +27,7 @@ internal enum class AtomKeyword(val value: String) {
     ENTRY_TERM("term"),
     ENTRY_DESCRIPTION("summary"),
     ENTRY_AUTHOR("name"),
+    ENTRY_AUTHOR_METADATA("author"),
     ENTRY_EMAIL("email"),
     MEDIA_GROUP_CONTENT("media:content"),
 

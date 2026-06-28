@@ -16,11 +16,17 @@ internal class AtomFeedHandler(
     private var isInsideItem = false
     private var isInsideChannel = true
     private var isInsideYoutubeMediaGroup = false
+    private var isInsideAuthorMetadata = false
 
     override fun didStartElement(startElement: String, attributes: Map<Any?, *>) {
         when (startElement) {
             AtomKeyword.ATOM.value -> isInsideChannel = true
             AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
+            AtomKeyword.ENTRY_AUTHOR_METADATA.value -> {
+                if (isInsideItem) {
+                    isInsideAuthorMetadata = true
+                }
+            }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP.value -> {
                 if (isInsideItem) {
@@ -167,8 +173,8 @@ internal class AtomFeedHandler(
 
             AtomKeyword.TITLE.value -> {
                 when {
-                    isInsideItem -> channelFactory.articleBuilder.title(text)
-                    isInsideChannel -> channelFactory.channelBuilder.title(text)
+                    isInsideItem && !isInsideAuthorMetadata -> channelFactory.articleBuilder.title(text)
+                    isInsideChannel && !isInsideItem -> channelFactory.channelBuilder.title(text)
                 }
             }
 
@@ -225,6 +231,10 @@ internal class AtomFeedHandler(
                     channelFactory.youtubeItemDataBuilder.description(text)
                 }
             }
+        }
+
+        if (endElement == AtomKeyword.ENTRY_AUTHOR_METADATA.value) {
+            isInsideAuthorMetadata = false
         }
     }
 

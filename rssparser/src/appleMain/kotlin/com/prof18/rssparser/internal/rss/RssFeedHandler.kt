@@ -13,6 +13,8 @@ internal class RssFeedHandler : FeedHandler {
     private var isInsideChannelImage = false
     private var isInsideItunesOwner = false
     private var isInsideItemImage = false
+    private var isInsideAuthorMetadata = false
+    private var isInsideOpenGraphMetadata = false
 
     private var channelFactory = ChannelFactory()
 
@@ -20,6 +22,16 @@ internal class RssFeedHandler : FeedHandler {
         when (startElement) {
             RssKeyword.CHANNEL.value -> isInsideChannel = true
             RssKeyword.ITEM.value -> isInsideItem = true
+            RssKeyword.ITEM_AUTHOR_METADATA.value -> {
+                if (isInsideItem) {
+                    isInsideAuthorMetadata = true
+                }
+            }
+            RssKeyword.ITEM_OPEN_GRAPH_METADATA.value -> {
+                if (isInsideItem) {
+                    isInsideOpenGraphMetadata = true
+                }
+            }
             RssKeyword.CHANNEL_ITUNES_OWNER.value -> isInsideItunesOwner = true
             RssKeyword.IMAGE.value -> {
                 when {
@@ -158,15 +170,21 @@ internal class RssFeedHandler : FeedHandler {
                     RssKeyword.ITEM_NEWS_IMAGE.value -> channelFactory.articleBuilder.image(text)
                     RssKeyword.ITEM_COMMENTS.value -> channelFactory.articleBuilder.commentUrl(text)
                     RssKeyword.IMAGE.value -> channelFactory.articleBuilder.image(text)
-                    RssKeyword.TITLE.value -> channelFactory.articleBuilder.title(text)
+                    RssKeyword.TITLE.value -> {
+                        if (!isInsideAuthorMetadata && !isInsideOpenGraphMetadata) {
+                            channelFactory.articleBuilder.title(text)
+                        }
+                    }
                     RssKeyword.LINK.value -> {
                         if (!isInsideItemImage) {
                             channelFactory.articleBuilder.link(text)
                         }
                     }
                     RssKeyword.DESCRIPTION.value -> {
-                        channelFactory.setImageFromContent(text)
-                        channelFactory.articleBuilder.description(text)
+                        if (!isInsideAuthorMetadata && !isInsideOpenGraphMetadata) {
+                            channelFactory.setImageFromContent(text)
+                            channelFactory.articleBuilder.description(text)
+                        }
                     }
 
                     RssKeyword.ITEM_ENCLOSURE.value -> {
@@ -300,6 +318,11 @@ internal class RssFeedHandler : FeedHandler {
                     RssKeyword.CHANNEL.value -> isInsideChannel = false
                 }
             }
+        }
+
+        when (endElement) {
+            RssKeyword.ITEM_AUTHOR_METADATA.value -> isInsideAuthorMetadata = false
+            RssKeyword.ITEM_OPEN_GRAPH_METADATA.value -> isInsideOpenGraphMetadata = false
         }
     }
 
