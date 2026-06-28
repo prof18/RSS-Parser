@@ -156,7 +156,7 @@ jobs:
 
   build-ios-sample:
     name: Build iOS Sample
-    runs-on: macos-15
+    runs-on: macos-26
     needs: [test]
     steps:
       - uses: actions/checkout@v7
@@ -234,7 +234,7 @@ jobs:
 
   build-tvos-sample:
     name: Build tvOS Sample
-    runs-on: macos-15
+    runs-on: macos-26
     needs: [test]
     steps:
       - uses: actions/checkout@v7
@@ -274,7 +274,7 @@ jobs:
 
   build-watchOS-sample:
     name: Build watchOS Sample
-    runs-on: macos-15
+    runs-on: macos-26
     needs: [test]
     steps:
       - uses: actions/checkout@v7
