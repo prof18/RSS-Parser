@@ -36,12 +36,15 @@ kotlin {
     iosX64()
     iosSimulatorArm64()
     macosArm64()
+    macosX64()
     tvosArm64()
     tvosSimulatorArm64()
+    tvosX64()
 
     // From S8 processor, only full 64-bit processors
     watchosDeviceArm64()
     watchosSimulatorArm64()
+    watchosX64()
 
     listOf(js(), wasmJs()).forEach {
         it.browser {
