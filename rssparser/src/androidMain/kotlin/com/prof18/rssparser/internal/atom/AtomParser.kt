@@ -39,6 +39,7 @@ internal fun CoroutineScope.extractAtomContent(
     var insideItem = false
     var insideChannel = false
     var insideYoutubeMediaGroup = false
+    var insideAuthorMetadata = false
 
     var eventType = xmlPullParser.eventType
 
@@ -54,6 +55,12 @@ internal fun CoroutineScope.extractAtomContent(
 
                 xmlPullParser.contains(AtomKeyword.ENTRY_ITEM) -> {
                     insideItem = true
+                }
+
+                xmlPullParser.contains(AtomKeyword.ENTRY_AUTHOR_METADATA) -> {
+                    if (insideItem) {
+                        insideAuthorMetadata = true
+                    }
                 }
 
                 xmlPullParser.contains(AtomKeyword.YOUTUBE_MEDIA_GROUP) -> {
@@ -144,8 +151,10 @@ internal fun CoroutineScope.extractAtomContent(
                 //region Mixed tags
                 xmlPullParser.contains(AtomKeyword.TITLE) -> {
                     when {
-                        insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
-                        insideChannel -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
+                        insideItem && !insideAuthorMetadata -> {
+                            channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
+                        }
+                        insideChannel && !insideItem -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                     }
                 }
 
@@ -275,6 +284,10 @@ internal fun CoroutineScope.extractAtomContent(
                 insideItem = false
                 insideYoutubeMediaGroup = false
                 channelFactory.buildArticle()
+            }
+
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ENTRY_AUTHOR_METADATA) -> {
+                insideAuthorMetadata = false
             }
 
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(AtomKeyword.ATOM) -> {

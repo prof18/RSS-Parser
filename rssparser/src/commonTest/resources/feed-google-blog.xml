@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
+    <channel>
+        <title>The Official Google Blog</title>
+        <link>https://blog.google/</link>
+        <description>Insights from Googlers into our products, technology, and the Google culture.</description>
+        <atom:link href="https://blog.google/rss/" rel="self"/>
+        <language>en-us</language>
+        <lastBuildDate>Fri, 26 Jun 2026 16:00:00 +0000</lastBuildDate>
+        <image>
+            <url>https://blog.google/static/blogv2/images/google.png</url>
+            <title>The Keyword</title>
+            <link>https://blog.google/</link>
+        </image>
+        <item>
+            <title>Investing in Ukraine’s AI leadership and economic future</title>
+            <link>https://blog.google/company-news/inside-google/around-the-globe/google-europe/investing-in-ukraines-ai-leadership-and-economic-future/</link>
+            <description>Google.org is providing a $5 million grant to scale Obrii, Ukraine’s national AI job platform. This contributes to Ukraine's AI adoption, following sustained investment …</description>
+            <pubDate>Thu, 25 Jun 2026 17:40:00 +0000</pubDate>
+            <guid>https://blog.google/company-news/inside-google/around-the-globe/google-europe/investing-in-ukraines-ai-leadership-and-economic-future/</guid>
+            <category>Google in Europe</category>
+            <og xmlns:og="http://ogp.me/ns#">
+                <type>article</type>
+                <title>Investing in Ukraine’s AI leadership and economic future</title>
+                <description></description>
+                <site_name>Google</site_name>
+                <url>https://blog.google/company-news/inside-google/around-the-globe/google-europe/investing-in-ukraines-ai-leadership-and-economic-future/</url>
+            </og>
+            <author xmlns:author="http://www.w3.org/2005/Atom">
+                <name>Annette Kroeber-Riel</name>
+                <title>Vice President</title>
+                <department>Government Affairs and Public Policy for Europe</department>
+                <company/>
+            </author>
+        </item>
+        <item>
+            <title>Try these 3 Google AI tools to help find your next job.</title>
+            <link>https://blog.google/products-and-platforms/products/gemini/find-job-with-google-ai-tools/</link>
+            <media:content height="540" medium="image" url="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_AI_Tools_CC_social.max-600x600.format-webp.webp" width="540"/>
+            <description>&lt;img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Google_AI_Tools_CC_social.max-600x600.format-webp.webp"&gt;Use Google AI tools — like Career Dreamer, NotebookLM and Gemini Live — for resumes, cover letters, interview prep and more.</description>
+            <pubDate>Thu, 25 Jun 2026 17:00:00 +0000</pubDate>
+            <guid>https://blog.google/products-and-platforms/products/gemini/find-job-with-google-ai-tools/</guid>
+            <category>NotebookLM</category>
+            <category>Gemini</category>
+            <category>Grow with Google</category>
+            <og xmlns:og="http://ogp.me/ns#">
+                <type>article</type>
+                <title>Try these 3 Google AI tools to help find your next job.</title>
+                <description></description>
+                <site_name>Google</site_name>
+                <url>https://blog.google/products-and-platforms/products/gemini/find-job-with-google-ai-tools/</url>
+            </og>
+            <author xmlns:author="http://www.w3.org/2005/Atom">
+                <name>Lindsey Lanquist</name>
+                <title>Contributor</title>
+                <department>The Keyword</department>
+                <company/>
+            </author>
+        </item>
+    </channel>
+</rss>

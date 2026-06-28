@@ -37,11 +37,15 @@ internal fun CoroutineScope.extractRSSContent(
     var insideChannel = false
     var insideChannelImage = false
     var insideItunesOwner = false
+    var insideAuthorMetadata = false
+    var insideOpenGraphMetadata = false
 
     var eventType = xmlPullParser.eventType
 
     // Start parsing the xml
     loop@ while (eventType != XmlPullParser.END_DOCUMENT && isActive) {
+        val shouldParseItemMetadata = insideItem && !insideAuthorMetadata && !insideOpenGraphMetadata
+
         // Start parsing the item
         when {
             eventType == XmlPullParser.START_TAG -> when {
@@ -52,6 +56,18 @@ internal fun CoroutineScope.extractRSSContent(
 
                 xmlPullParser.contains(RssKeyword.ITEM) -> {
                     insideItem = true
+                }
+
+                xmlPullParser.contains(RssKeyword.ITEM_AUTHOR_METADATA) -> {
+                    if (insideItem) {
+                        insideAuthorMetadata = true
+                    }
+                }
+
+                xmlPullParser.contains(RssKeyword.ITEM_OPEN_GRAPH_METADATA) -> {
+                    if (insideItem) {
+                        insideOpenGraphMetadata = true
+                    }
                 }
 
                 xmlPullParser.contains(RssKeyword.CHANNEL_ITUNES_OWNER) -> {
@@ -306,8 +322,8 @@ internal fun CoroutineScope.extractRSSContent(
                                 channelFactory.channelImageBuilder.title(xmlPullParser.nextTrimmedText())
                             }
 
-                            insideItem -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
-                            else -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
+                            shouldParseItemMetadata -> channelFactory.articleBuilder.title(xmlPullParser.nextTrimmedText())
+                            !insideItem -> channelFactory.channelBuilder.title(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
@@ -319,8 +335,8 @@ internal fun CoroutineScope.extractRSSContent(
                                 channelFactory.channelImageBuilder.link(xmlPullParser.nextTrimmedText())
                             }
 
-                            insideItem -> channelFactory.articleBuilder.link(xmlPullParser.nextTrimmedText())
-                            else -> channelFactory.channelBuilder.link(xmlPullParser.nextTrimmedText())
+                            shouldParseItemMetadata -> channelFactory.articleBuilder.link(xmlPullParser.nextTrimmedText())
+                            !insideItem -> channelFactory.channelBuilder.link(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
@@ -328,7 +344,7 @@ internal fun CoroutineScope.extractRSSContent(
                 xmlPullParser.contains(RssKeyword.DESCRIPTION) -> {
                     if (insideChannel) {
                         when {
-                            insideItem -> {
+                            shouldParseItemMetadata -> {
                                 val description = xmlPullParser.nextTrimmedText()
                                 channelFactory.articleBuilder.description(description)
                                 channelFactory.setImageFromContent(description)
@@ -338,7 +354,7 @@ internal fun CoroutineScope.extractRSSContent(
                                 channelFactory.channelImageBuilder.description(xmlPullParser.nextTrimmedText())
                             }
 
-                            else -> channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
+                            !insideItem -> channelFactory.channelBuilder.description(xmlPullParser.nextTrimmedText())
                         }
                     }
                 }
@@ -398,6 +414,14 @@ internal fun CoroutineScope.extractRSSContent(
                 insideItem = false
                 // Set data
                 channelFactory.buildArticle()
+            }
+
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.ITEM_AUTHOR_METADATA) -> {
+                insideAuthorMetadata = false
+            }
+
+            eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.ITEM_OPEN_GRAPH_METADATA) -> {
+                insideOpenGraphMetadata = false
             }
 
             eventType == XmlPullParser.END_TAG && xmlPullParser.contains(RssKeyword.CHANNEL) -> {

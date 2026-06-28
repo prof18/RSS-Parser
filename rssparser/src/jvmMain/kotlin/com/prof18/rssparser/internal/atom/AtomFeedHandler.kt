@@ -14,6 +14,7 @@ internal class AtomFeedHandler(
     private var isInsideItem = false
     private var isInsideChannel = true
     private var isInsideYoutubeMediaGroup = false
+    private var isInsideAuthorMetadata = false
 
     private var channelFactory = ChannelFactory()
 
@@ -21,6 +22,11 @@ internal class AtomFeedHandler(
         when (qName) {
             AtomKeyword.ATOM.value -> isInsideChannel = true
             AtomKeyword.ENTRY_ITEM.value -> isInsideItem = true
+            AtomKeyword.ENTRY_AUTHOR_METADATA.value -> {
+                if (isInsideItem) {
+                    isInsideAuthorMetadata = true
+                }
+            }
 
             AtomKeyword.YOUTUBE_MEDIA_GROUP.value -> {
                 if (isInsideItem) {
@@ -127,7 +133,11 @@ internal class AtomFeedHandler(
                 when (qName) {
                     AtomKeyword.ENTRY_PUBLISHED.value -> channelFactory.articleBuilder.pubDate(text)
                     AtomKeyword.UPDATED.value -> channelFactory.articleBuilder.pubDateIfNull(text)
-                    AtomKeyword.TITLE.value -> channelFactory.articleBuilder.title(text)
+                    AtomKeyword.TITLE.value -> {
+                        if (!isInsideAuthorMetadata) {
+                            channelFactory.articleBuilder.title(text)
+                        }
+                    }
                     AtomKeyword.ENTRY_AUTHOR.value -> channelFactory.articleBuilder.author(text)
                     AtomKeyword.ENTRY_GUID.value -> channelFactory.articleBuilder.guid(text)
                     AtomKeyword.ENTRY_CONTENT.value -> {
@@ -175,6 +185,10 @@ internal class AtomFeedHandler(
                     AtomKeyword.ATOM.value -> isInsideChannel = false
                 }
             }
+        }
+
+        if (qName == AtomKeyword.ENTRY_AUTHOR_METADATA.value) {
+            isInsideAuthorMetadata = false
         }
     }
 
