@@ -63,41 +63,30 @@ public class RssParser internal constructor(
      * - Escapes standalone ampersands that aren't part of valid entity references
      * - Fixes self-closing or unclosed tags that should be properly closed
      * - Fixes duplicate closing tags with content between them
-     * - Handles special cases for ampersands in URLs and text content
      */
-    private fun escapeInvalidXmlEntities(xml: String): String {
+    internal fun escapeInvalidXmlEntities(xml: String): String {
         return xml
             // Fix standalone ampersands in URLs and text
-            .replace(
-                Regex("&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))"),
-                "&amp;"
-            )
+            .replace(STANDALONE_AMPERSAND_REGEX, "&amp;")
             // Fix duplicate closing tags with content between them
             // Example: <category></category><![CDATA[News]]></category> -> <category><![CDATA[News]]></category>
-            .replace(
-                Regex("<([^>]+)></\\1>([^<]+|<!\\[CDATA\\[.+?\\]\\]>)</\\1>"),
-                "<$1>$2</$1>"
-            )
+            .replace(DUPLICATE_CLOSING_TAG_REGEX, "<$1>$2</$1>")
             // Fix self-closing tags, but only if they don't already have content
             // This regex checks that there's no content between the opening and closing tags
-            .replace(
-                Regex("<(link|source|category|guid|enclosure|media:content|media:thumbnail)([^>]*?)>\\s*</\\1>"),
-                "<$1$2></$1>"
-            )
+            .replace(EMPTY_FEED_TAG_REGEX, "<$1$2></$1>")
             // Fix other common HTML tags that might be self-closing
-            .replace(
-                Regex("<(meta|img|br|hr|input|area|base|col|embed|keygen|param|track|wbr)([^>]*?)/?>(?!</\\1>)"),
-                "<$1$2></$1>"
-            )
-            // Additional pass to catch any ampersands in CDATA sections or attribute values that might have been missed
-            .replace(
-                Regex("(<!\\[CDATA\\[.*?)&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))(.*?\\]\\]>)"),
-                "$1&amp;$3"
-            )
-            .replace(
-                Regex("=\"(.*?)&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))(.*?)\""),
-                "=\"$1&amp;$3\""
-            )
+            .replace(VOID_HTML_TAG_REGEX, "<$1$2></$1>")
+    }
+
+    private companion object {
+        private val STANDALONE_AMPERSAND_REGEX =
+            Regex("&(?!(amp;|lt;|gt;|quot;|apos;|#[0-9]+;|#x[0-9a-fA-F]+;))")
+        private val DUPLICATE_CLOSING_TAG_REGEX =
+            Regex("<([^>]+)></\\1>([^<]+|<!\\[CDATA\\[.+?\\]\\]>)</\\1>")
+        private val EMPTY_FEED_TAG_REGEX =
+            Regex("<(link|source|category|guid|enclosure|media:content|media:thumbnail)([^>]*?)>\\s*</\\1>")
+        private val VOID_HTML_TAG_REGEX =
+            Regex("<(meta|img|br|hr|input|area|base|col|embed|keygen|param|track|wbr)([^>]*?)/?>(?!</\\1>)")
     }
 }
 
