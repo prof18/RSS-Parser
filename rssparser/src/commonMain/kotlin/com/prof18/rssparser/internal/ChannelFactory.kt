@@ -54,8 +54,11 @@ internal class ChannelFactory {
     /**
      * Finds the first img tag and gets the src as the featured image.
      *
+     * Matching bare urls by file extension is kept as a fallback for content that references an
+     * image without wrapping it in a tag, but it can't be the primary source: extension-less
+     * image endpoints (`.../image-service/images/urn:ard:image:abc?w=432`) would never match.
+     *
      * @param content The content in which to search for the tag
-     * @return The url, if there is one
      */
     fun setImageFromContent(content: String?) {
         try {
@@ -65,25 +68,39 @@ internal class ChannelFactory {
                 ?.replace("&quot;", "\"")
                 ?.replace("&lt;", "<")
                 ?.replace("&gt;", ">")
+                ?: return
 
-            val urlRegex = Regex(
-                pattern = """https?://[^\s<>"']+\.(?:jpg|jpeg|png|gif|bmp|webp)(?:\?[^\s<>"']*)?""",
-                options = setOf(RegexOption.IGNORE_CASE)
-            )
-
-            decoded
-                ?.let { urlRegex.find(it) }
-                ?.let {
-                    it.value.trim().let { imgUrl ->
-                        if (!imgUrl.contains(EMOJI_WEBSITE) && !imgUrl.contains("/smilies/")) {
-                            imageUrlFromContent = imgUrl
-                        }
-                    }
-                }
+            val imageUrl = decoded.firstImageTagSource() ?: decoded.firstBareImageUrl()
+            if (imageUrl != null) {
+                imageUrlFromContent = imageUrl
+            }
         } catch (_: Throwable) {
             // Do nothing, on iOS it could fail for too much recursion
         }
     }
+
+    // Deliberately no `contains("<img")` pre-check: on Kotlin/Native a case-insensitive
+    // substring scan costs about as much as the regex pass it would guard, so it only slows
+    // down the common case where the tag is present.
+    private fun String.firstImageTagSource(): String? =
+        IMG_TAG_REGEX.findAll(this)
+            .flatMap { tag -> IMG_SOURCE_ATTRIBUTE_REGEX.findAll(tag.value) }
+            // Only one of the quoting alternatives captures, the others come back empty.
+            .mapNotNull { match -> match.groupValues.drop(1).firstOrNull { it.isNotEmpty() } }
+            .map { it.trim() }
+            .firstOrNull { it.isUsableImageUrl() }
+
+    private fun String.firstBareImageUrl(): String? =
+        IMAGE_URL_REGEX.findAll(this)
+            .map { it.value.trim() }
+            .firstOrNull { it.isUsableImageUrl() }
+
+    private fun String.isUsableImageUrl(): Boolean =
+        // Relative and data: sources can't be resolved without the item base url, and lazy
+        // loading placeholders live there, so only absolute http(s) sources are accepted.
+        (startsWith("http://", ignoreCase = true) || startsWith("https://", ignoreCase = true)) &&
+            !contains(EMOJI_WEBSITE) &&
+            !contains("/smilies/")
 
     fun setChannelItunesKeywords(keywords: String?) {
         val keywordList = extractItunesKeywords(keywords)
@@ -129,5 +146,23 @@ internal class ChannelFactory {
 
     private companion object {
         const val EMOJI_WEBSITE = "https://s.w.org/images/core/emoji"
+
+        val IMG_TAG_REGEX = Regex(
+            pattern = """<img\b[^>]*>""",
+            options = setOf(RegexOption.IGNORE_CASE)
+        )
+
+        // The leading delimiter keeps "src" from matching the tail of "data-src", so both
+        // attributes stay separate candidates instead of the first one swallowing the second.
+        val IMG_SOURCE_ATTRIBUTE_REGEX = Regex(
+            pattern = """[\s"'](?:src|data-src|data-original|data-lazy-src)\s*=\s*""" +
+                """(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))""",
+            options = setOf(RegexOption.IGNORE_CASE)
+        )
+
+        val IMAGE_URL_REGEX = Regex(
+            pattern = """https?://[^\s<>"']+\.(?:jpg|jpeg|png|gif|bmp|webp)(?:\?[^\s<>"']*)?""",
+            options = setOf(RegexOption.IGNORE_CASE)
+        )
     }
 }

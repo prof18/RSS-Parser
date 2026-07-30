@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+  <title type="text">NANO Doku</title>
+  <link rel="alternate" type="text/html" href="https://www.ardmediathek.de"/>
+  <id>https://rss-bridge.org/bridge01/?action=display&amp;bridge=ARDMediathekBridge</id>
+  <updated>2026-07-30T07:04:08+00:00</updated>
+  <author>
+    <name>RSS-Bridge</name>
+  </author>
+  <entry>
+    <title type="html">NANO Doku: Wie viel Wald braucht der Mensch?</title>
+    <published>2026-05-21T18:15:00+00:00</published>
+    <updated>2026-05-21T18:15:00+00:00</updated>
+    <id>urn:sha1:fa6373cda12c584310313a835fbb81d57d01fe24</id>
+    <link rel="alternate" type="text/html" href="https://www.ardmediathek.de/video/Y3JpZDovLzNzYXQuZGU/"/>
+    <author>
+      <name>3sat</name>
+    </author>
+    <content type="html">&lt;img src="https://api.ardmediathek.de/image-service/images/urn:ard:image:c9c909df6f5a4b3f?w=432&amp;ch=ce51a6b849fde683" /&gt;&lt;p&gt;Eine Dokumentation.&lt;/p&gt;</content>
+    <link rel="enclosure" type="application/octet-stream" href="https://api.ardmediathek.de/image-service/images/urn:ard:image:c9c909df6f5a4b3f?w=432&amp;ch=ce51a6b849fde683"/>
+  </entry>
+</feed>
