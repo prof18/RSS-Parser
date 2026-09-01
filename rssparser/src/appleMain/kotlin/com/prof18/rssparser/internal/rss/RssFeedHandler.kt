@@ -47,10 +47,11 @@ internal class RssFeedHandler : FeedHandler {
                     val url = attributes.getValueOrNull(RssKeyword.URL.value) as? String
                     val type = attributes[RssKeyword.ITEM_TYPE.value] as? String
                     val medium = attributes[RssKeyword.ITEM_MEDIUM.value] as? String
-
-                    channelFactory.rawMediaContentBuilder.url(url)
-                    channelFactory.rawMediaContentBuilder.type(type)
-                    channelFactory.rawMediaContentBuilder.medium(medium)
+                    channelFactory.addRawMediaContent(
+                        url, type, medium,
+                        (attributes[RssKeyword.ITEM_WIDTH.value] as? String)?.toIntOrNull(),
+                        (attributes[RssKeyword.ITEM_HEIGHT.value] as? String)?.toIntOrNull(),
+                    )
 
                     when {
                         !medium.isNullOrBlank() -> when {
