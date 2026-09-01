@@ -221,10 +221,11 @@ internal fun CoroutineScope.extractAtomContent(
                             val url = xmlPullParser.attributeValue(RssKeyword.URL)
                             val type = xmlPullParser.attributeValue(RssKeyword.ITEM_TYPE)
                             val medium = xmlPullParser.attributeValue(RssKeyword.ITEM_MEDIUM)
-
-                            channelFactory.rawMediaContentBuilder.url(url)
-                            channelFactory.rawMediaContentBuilder.type(type)
-                            channelFactory.rawMediaContentBuilder.medium(medium)
+                            channelFactory.addRawMediaContent(
+                                url, type, medium,
+                                xmlPullParser.attributeValue(RssKeyword.ITEM_WIDTH)?.toIntOrNull(),
+                                xmlPullParser.attributeValue(RssKeyword.ITEM_HEIGHT)?.toIntOrNull(),
+                            )
 
                             when {
                                 !medium.isNullOrBlank() -> when {

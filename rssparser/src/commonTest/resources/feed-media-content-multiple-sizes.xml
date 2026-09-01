@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>Multiple media sizes</title>
+        <link>https://example.com</link>
+        <description>Three renditions of one image</description>
+        <item>
+            <title>Article</title>
+            <media:content url="https://example.com/image-140.jpg" type="image/jpeg" medium="image" width="140" height="79"/>
+            <media:content url="https://example.com/image-460.jpg" type="image/jpeg" medium="image" width="460" height="259"/>
+            <media:content url="https://example.com/image-700.jpg" type="image/jpeg" medium="image" width="700" height="394"/>
+        </item>
+    </channel>
+</rss>

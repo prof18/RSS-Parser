@@ -75,10 +75,11 @@ internal class AtomFeedHandler(
                         val url = attributes?.getValue(RssKeyword.URL.value)
                         val type = attributes?.getValue(RssKeyword.ITEM_TYPE.value)
                         val medium = attributes?.getValue(RssKeyword.ITEM_MEDIUM.value)
-
-                        channelFactory.rawMediaContentBuilder.url(url)
-                        channelFactory.rawMediaContentBuilder.type(type)
-                        channelFactory.rawMediaContentBuilder.medium(medium)
+                        channelFactory.addRawMediaContent(
+                            url, type, medium,
+                            attributes?.getValue(RssKeyword.ITEM_WIDTH.value)?.toIntOrNull(),
+                            attributes?.getValue(RssKeyword.ITEM_HEIGHT.value)?.toIntOrNull(),
+                        )
 
                         when {
                             !medium.isNullOrBlank() -> when {

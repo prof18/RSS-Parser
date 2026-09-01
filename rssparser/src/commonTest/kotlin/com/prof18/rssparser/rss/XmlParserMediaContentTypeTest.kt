@@ -69,6 +69,8 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                     url = "https://example.com/images/photo.jpg",
                     type = "image/jpeg",
                     medium = "image",
+                    width = 640,
+                    height = 480,
                 ),
             ),
             // video/mp4 with medium=video: assigned to video, NOT image

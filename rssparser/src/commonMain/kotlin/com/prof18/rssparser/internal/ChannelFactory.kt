@@ -21,7 +21,6 @@ internal class ChannelFactory {
     var youtubeChannelDataBuilder = YoutubeChannelData.Builder()
     var youtubeItemDataBuilder = YoutubeItemData.Builder()
     var rawEnclosureBuilder = RawEnclosure.Builder()
-    var rawMediaContentBuilder = RawMediaContent.Builder()
 
     // This image url is extracted from the content and the description of the rss item.
     // It's a fallback just in case there aren't any images in the enclosure tag.
@@ -35,7 +34,6 @@ internal class ChannelFactory {
         articleBuilder.itunesArticleData(itunesItemData)
         articleBuilder.youtubeItemData(youtubeItemDataBuilder.build())
         articleBuilder.rawEnclosure(rawEnclosureBuilder.build())
-        articleBuilder.rawMediaContent(rawMediaContentBuilder.build())
         articleBuilder.build()?.let { channelBuilder.addItem(it) }
         // Reset temp data
         imageUrlFromContent = null
@@ -43,7 +41,25 @@ internal class ChannelFactory {
         itunesArticleBuilder = ItunesItemData.Builder()
         youtubeItemDataBuilder = YoutubeItemData.Builder()
         rawEnclosureBuilder = RawEnclosure.Builder()
-        rawMediaContentBuilder = RawMediaContent.Builder()
+    }
+
+    fun addRawMediaContent(
+        url: String?,
+        type: String?,
+        medium: String?,
+        width: Int?,
+        height: Int?,
+    ) {
+        if (url.isNullOrBlank() && type.isNullOrBlank() && medium.isNullOrBlank()) return
+        articleBuilder.addRawMediaContent(
+            RawMediaContent(
+                url = url,
+                type = type,
+                medium = medium,
+                width = width,
+                height = height,
+            )
+        )
     }
 
     fun buildItunesOwner() {

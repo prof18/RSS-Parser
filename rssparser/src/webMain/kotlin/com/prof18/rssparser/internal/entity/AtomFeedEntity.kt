@@ -66,7 +66,7 @@ internal data class AtomEntryEntity(
     val mediaThumbnail: MediaThumbnailEntity? = null,
     @XmlElement
     @XmlSerialName(value = "content", prefix = "media", namespace = "http://search.yahoo.com/mrss/")
-    val mediaContent: AtomMediaContentEntity? = null,
+    val mediaContent: List<AtomMediaContentEntity>? = null,
 )
 
 @XmlSerialName(value = "author")
@@ -107,6 +107,8 @@ internal data class AtomMediaContentEntity(
     val url: String? = null,
     val type: String? = null,
     val medium: String? = null,
+    val width: String? = null,
+    val height: String? = null,
 )
 
 @XmlSerialName(value = "thumbnail", prefix = "media", namespace = "http://search.yahoo.com/mrss/")
