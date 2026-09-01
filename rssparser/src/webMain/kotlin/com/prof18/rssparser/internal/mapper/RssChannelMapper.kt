@@ -67,8 +67,8 @@ private fun RssFeedEntity.toRssChannel(): RssChannel {
             link(entry.link?.trim())
             description(entry.description?.trim())
             commentUrl(entry.comments?.trim())
-            generateMediaContent(entry.mediaContent, channelFactory)
-            generateMediaContent(entry.mediaContent2, channelFactory)
+            entry.mediaContent?.forEach { generateMediaContent(it, channelFactory) }
+            entry.mediaContent2?.forEach { generateMediaContent(it, channelFactory) }
             image(entry.newsImage?.link?.trim())
             image(entry.thumb?.trim())
             image(entry.image?.link?.trim())
@@ -204,7 +204,7 @@ private fun AtomFeedEntity.toRssChannel(baseFeedUrl: String?): RssChannel {
             channelFactory.setImageFromContent(entry.content)
             channelFactory.setImageFromContent(entry.summary)
             image(entry.mediaThumbnail?.url)
-            generateAtomMediaContent(entry.mediaContent, channelFactory)
+            entry.mediaContent?.forEach { generateAtomMediaContent(it, channelFactory) }
             channelFactory.youtubeChannelDataBuilder.channelId(entry.youtubeChannelId)
             with(channelFactory.youtubeItemDataBuilder) {
                 videoId(entry.youtubeVideoId)
@@ -227,9 +227,11 @@ private fun generateMediaContent(mediaContent: RssMediaContentEntity?, channelFa
     val type = mediaContent.type?.trim()
     val medium = mediaContent.medium?.trim()
 
-    channelFactory.rawMediaContentBuilder.url(url)
-    channelFactory.rawMediaContentBuilder.type(type)
-    channelFactory.rawMediaContentBuilder.medium(medium)
+    channelFactory.addRawMediaContent(
+        url, type, medium,
+        mediaContent.width?.trim()?.toIntOrNull(),
+        mediaContent.height?.trim()?.toIntOrNull(),
+    )
 
     when {
         !medium.isNullOrBlank() -> when {
@@ -251,9 +253,11 @@ private fun generateAtomMediaContent(mediaContent: AtomMediaContentEntity?, chan
     val type = mediaContent.type?.trim()
     val medium = mediaContent.medium?.trim()
 
-    channelFactory.rawMediaContentBuilder.url(url)
-    channelFactory.rawMediaContentBuilder.type(type)
-    channelFactory.rawMediaContentBuilder.medium(medium)
+    channelFactory.addRawMediaContent(
+        url, type, medium,
+        mediaContent.width?.trim()?.toIntOrNull(),
+        mediaContent.height?.trim()?.toIntOrNull(),
+    )
 
     when {
         !medium.isNullOrBlank() -> when {

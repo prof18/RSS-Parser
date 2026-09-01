@@ -96,10 +96,10 @@ internal data class RssItemEntity(
     val contentEncoded: RssContentEncodedEntity? = null,
     @XmlElement
     @XmlSerialName(value = "content", prefix = "media", namespace = "https://search.yahoo.com/mrss/")
-    val mediaContent: RssMediaContentEntity? = null,
+    val mediaContent: List<RssMediaContentEntity>? = null,
     @XmlElement
     @XmlSerialName(value = "content", prefix = "media", namespace = "http://search.yahoo.com/mrss/")
-    val mediaContent2: RssMediaContentEntity? = null,
+    val mediaContent2: List<RssMediaContentEntity>? = null,
     @XmlElement
     @XmlSerialName(value = "image", prefix = "itunes", namespace = "http://www.itunes.com/dtds/podcast-1.0.dtd")
     val itunesImage: ItunesImageEntity? = null,
