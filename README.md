@@ -76,6 +76,12 @@ allprojects {
 
 ### Breaking changes
 
+#### Version 6.2.0
+
+`RssItem` now exposes every `media:content` element through `rawMediaContents: List<RawMediaContent>`, and `RawMediaContent` gained `width` and `height`.
+The last constructor and `copy` parameter of `RssItem` changed from `RawMediaContent?` to `List<RawMediaContent>`, so code that builds or destructures an `RssItem` by position must be updated.
+`rawMediaContent` is still available, now deprecated and derived from `rawMediaContents.firstOrNull()`.
+
 #### Version 6.1.0
 
 If all the fields of the following classes are `null`:
@@ -145,6 +151,7 @@ Items support the following attributes:
 - Video
 - Comments URL
 - Raw enclosure (URL, length and type)
+- Raw media contents (URL, type, medium, width and height of every `media:content`)
 - Itunes Data:
   - Author
   - Duration
