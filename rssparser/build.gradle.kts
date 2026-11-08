@@ -139,3 +139,8 @@ kotlin {
         }
     }
 }
+
+// Robolectric 4.17+ needs access to JDK internals on Java 17+: https://robolectric.org/getting-started/
+tasks.withType<Test>().matching { it.name == "testAndroidHostTest" }.configureEach {
+    jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
+}
