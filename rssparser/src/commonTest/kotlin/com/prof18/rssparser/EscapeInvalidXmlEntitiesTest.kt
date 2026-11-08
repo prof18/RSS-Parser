@@ -50,6 +50,73 @@ class EscapeInvalidXmlEntitiesTest : XmlParserTestExecutor() {
         assertEquals(xml, rssParser().escapeInvalidXmlEntities(xml))
     }
 
+    @Test
+    fun htmlNamedEntitiesAreTurnedIntoNumericReferences() = runTest {
+        val xml = "<title>Myrskyl&auml; &Auml;&Ouml; caf&eacute;&nbsp;&mdash; 5&euro; &hellip;</title>"
+
+        val escaped = rssParser().escapeInvalidXmlEntities(xml)
+
+        assertEquals(
+            "<title>Myrskyl&#228; &#196;&#214; caf&#233;&#160;&#8212; 5&#8364; &#8230;</title>",
+            escaped,
+        )
+    }
+
+    @Test
+    fun unknownNamedEntitiesAreEscapedAsText() = runTest {
+        val xml = "<title>&notanentity; &AUML;</title>"
+
+        val escaped = rssParser().escapeInvalidXmlEntities(xml)
+
+        assertEquals("<title>&amp;notanentity; &amp;AUML;</title>", escaped)
+    }
+
+    @Test
+    fun aFeedWithHtmlNamedEntitiesIsParsedWithTheRightCharacters() = runTest {
+        val xml = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0">
+                <channel>
+                    <title>Myrskyl&auml;</title>
+                    <link>https://myrskyla.fi</link>
+                    <description>Kunta</description>
+                    <item>
+                        <title>&Auml;&auml;nestys &ndash; tulokset</title>
+                        <link>https://myrskyla.fi/a?x=1&y=2</link>
+                        <description>Caf&eacute; &amp; ravintola</description>
+                    </item>
+                </channel>
+            </rss>
+        """.trimIndent()
+
+        val channel = rssParser().parse(xml)
+
+        assertEquals("Myrskylä", channel.title)
+        val item = channel.items.single()
+        assertEquals("Äänestys – tulokset", item.title)
+        assertEquals("https://myrskyla.fi/a?x=1&y=2", item.link)
+        assertEquals("Café & ravintola", item.description)
+    }
+
+    @Test
+    fun aFeedWithABareAmpersandIsParsedOnEveryPlatform() = runTest {
+        val xml = """
+            <?xml version="1.0" encoding="UTF-8"?>
+            <rss version="2.0">
+                <channel>
+                    <title>Tom & Jerry</title>
+                    <item><title>First</title></item>
+                    <item><title>Second</title></item>
+                </channel>
+            </rss>
+        """.trimIndent()
+
+        val channel = rssParser().parse(xml)
+
+        assertEquals("Tom & Jerry", channel.title)
+        assertEquals(listOf("First", "Second"), channel.items.map { it.title })
+    }
+
     private fun rssParser(): RssParser = RssParser(
         xmlFetcher = object : XmlFetcher {
             override suspend fun fetchXml(url: String): ParserInput =
