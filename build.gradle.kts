@@ -1,5 +1,7 @@
 import kotlinx.validation.ExperimentalBCVApi
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootExtension
+import org.jetbrains.kotlin.gradle.targets.wasm.nodejs.WasmNodeJsRootPlugin
 
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -27,6 +29,12 @@ apiValidation {
         enabled = true
         strictValidation = true
     }
+}
+
+// webpack 5.108.x, bundled with Kotlin 2.4.21, leaves a bare `import.meta` from kotlinx-io in the
+// non-module wasm test bundle, which breaks wasmJsBrowserTest. Later webpack versions rewrite it.
+plugins.withType<WasmNodeJsRootPlugin> {
+    the<WasmNodeJsRootExtension>().versions.webpack.version = "5.112.2"
 }
 
 allprojects {
