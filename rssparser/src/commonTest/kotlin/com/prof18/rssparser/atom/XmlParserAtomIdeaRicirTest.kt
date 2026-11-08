@@ -39,10 +39,12 @@ class XmlParserAtomIdeaRicirTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://idea.ricir.net/assets/ComeSeguireAggiornamenti-social.png",
-                    type = null,
-                    medium = "image",
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://idea.ricir.net/assets/ComeSeguireAggiornamenti-social.png",
+                        type = null,
+                        medium = "image",
+                    ),
                 ),
             )
         ),

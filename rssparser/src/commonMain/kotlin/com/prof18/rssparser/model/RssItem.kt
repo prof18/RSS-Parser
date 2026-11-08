@@ -36,13 +36,21 @@ public data class RssItem(
     val youtubeItemData: YoutubeItemData?,
     val rawEnclosure: RawEnclosure?,
     /**
-     * The first `media:content` element, retained for source compatibility.
-     * Use [rawMediaContents] to access every element and its dimensions.
+     * Every `media:content` element of the item, in document order.
      */
-    @Deprecated("Use rawMediaContents instead")
-    val rawMediaContent: RawMediaContent? = null,
-    val rawMediaContents: List<RawMediaContent> = rawMediaContent?.let(::listOf) ?: emptyList(),
+    val rawMediaContents: List<RawMediaContent> = emptyList(),
 ) {
+    /**
+     * The first `media:content` element, retained for source compatibility.
+     * It is always derived from [rawMediaContents], so the two never disagree.
+     */
+    @Deprecated(
+        message = "Use rawMediaContents instead",
+        replaceWith = ReplaceWith("rawMediaContents.firstOrNull()"),
+    )
+    val rawMediaContent: RawMediaContent?
+        get() = rawMediaContents.firstOrNull()
+
     internal data class Builder(
         private var guid: String? = null,
         private var title: String? = null,
@@ -172,7 +180,6 @@ public data class RssItem(
                 commentsUrl = commentUrl,
                 youtubeItemData = youtubeItemData,
                 rawEnclosure = rawEnclosure,
-                rawMediaContent = rawMediaContents.firstOrNull(),
                 rawMediaContents = rawMediaContents.toList(),
             )
         }
