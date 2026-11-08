@@ -1,6 +1,7 @@
 package com.prof18.rssparser
 
 import com.prof18.rssparser.exception.RssParsingException
+import com.prof18.rssparser.internal.HtmlNamedEntities
 import com.prof18.rssparser.internal.XmlFetcher
 import com.prof18.rssparser.internal.XmlParser
 import com.prof18.rssparser.model.RssChannel
@@ -59,12 +60,15 @@ public class RssParser internal constructor(
 
     /**
      * Escapes invalid XML entities in the input string and fixes common XML issues.
+     * - Replaces HTML named entities (`&Auml;`, `&nbsp;`) with numeric character references
      * - Escapes standalone ampersands that aren't part of valid entity references
      * - Fixes self-closing or unclosed tags that should be properly closed
      * - Fixes duplicate closing tags with content between them
      */
     internal fun escapeInvalidXmlEntities(xml: String): String {
-        return xml
+        // HTML named entities (&Auml;, &nbsp;) are unknown to XML: turn them into numeric
+        // references first, so the ampersand escaping below doesn't make them literal text
+        return HtmlNamedEntities.toNumericReferences(xml)
             // Fix standalone ampersands in URLs and text
             .replace(STANDALONE_AMPERSAND_REGEX, "&amp;")
             // Fix duplicate closing tags with content between them

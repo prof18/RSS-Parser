@@ -4,9 +4,16 @@ import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 
 internal fun XmlPullParser.nextTrimmedText(): String? {
+    val startDepth = this.depth
     return try {
         this.nextText()?.trim()
-    } catch (_: XmlPullParserException) {
+    } catch (exception: XmlPullParserException) {
+        // Only a child tag is recovered here: nextText() stopped on it, one level deeper. An error
+        // in the text itself (a bare `&`, an HTML entity like `&auml;`) leaves the depth unchanged
+        // and has to reach the caller, which parses the feed again with the XML escaped. Recovering
+        // from it would drop the text before the error and read on past the closing tag.
+        if (this.depth <= startDepth) throw exception
+
         // Handle malformed HTML content (e.g., mismatched tag cases like <em>...</EM>) or HTML tags in content
         // When nextText() throws, there are nested tags, so we manually parse and collect all text
         // Note: nextText() may have consumed some text before throwing, so we start fresh from current position
