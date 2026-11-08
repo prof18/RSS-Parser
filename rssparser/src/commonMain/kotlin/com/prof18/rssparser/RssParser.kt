@@ -5,7 +5,6 @@ import com.prof18.rssparser.internal.XmlFetcher
 import com.prof18.rssparser.internal.XmlParser
 import com.prof18.rssparser.model.RssChannel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
@@ -14,8 +13,8 @@ public class RssParser internal constructor(
     private val xmlParser: XmlParser,
 ) {
 
-    private val coroutineContext: CoroutineContext =
-        SupervisorJob() + Dispatchers.Default
+    // No Job of its own, so cancelling the caller also cancels the fetch and the parsing.
+    private val coroutineContext: CoroutineContext = Dispatchers.Default
 
     internal interface Builder {
         /**
