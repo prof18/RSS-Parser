@@ -40,10 +40,12 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/files/large-file.zip/download",
-                    type = "application/java-archive; charset=binary",
-                    medium = null,
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/files/large-file.zip/download",
+                        type = "application/java-archive; charset=binary",
+                        medium = null,
+                    ),
                 ),
             ),
             // image/jpeg with medium=image: assigned to image
@@ -65,12 +67,14 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/images/photo.jpg",
-                    type = "image/jpeg",
-                    medium = "image",
-                    width = 640,
-                    height = 480,
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/images/photo.jpg",
+                        type = "image/jpeg",
+                        medium = "image",
+                        width = 640,
+                        height = 480,
+                    ),
                 ),
             ),
             // video/mp4 with medium=video: assigned to video, NOT image
@@ -92,10 +96,12 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/videos/clip.mp4",
-                    type = "video/mp4",
-                    medium = "video",
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/videos/clip.mp4",
+                        type = "video/mp4",
+                        medium = "video",
+                    ),
                 ),
             ),
             // audio/mpeg with medium=audio: assigned to audio
@@ -117,10 +123,12 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/audio/track.mp3",
-                    type = "audio/mpeg",
-                    medium = "audio",
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/audio/track.mp3",
+                        type = "audio/mpeg",
+                        medium = "audio",
+                    ),
                 ),
             ),
             // No type or medium: NOT assigned to image (safety)
@@ -142,10 +150,12 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/images/untyped.jpg",
-                    type = null,
-                    medium = null,
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/images/untyped.jpg",
+                        type = null,
+                        medium = null,
+                    ),
                 ),
             ),
             // medium=document: must NOT be assigned to image
@@ -167,10 +177,12 @@ class XmlParserMediaContentTypeTest : XmlParserTestExecutor() {
                 itunesItemData = null,
                 youtubeItemData = null,
                 rawEnclosure = null,
-                rawMediaContent = RawMediaContent(
-                    url = "https://example.com/files/doc.pdf",
-                    type = null,
-                    medium = "document",
+                rawMediaContents = listOf(
+                    RawMediaContent(
+                        url = "https://example.com/files/doc.pdf",
+                        type = null,
+                        medium = "document",
+                    ),
                 ),
             ),
         ),

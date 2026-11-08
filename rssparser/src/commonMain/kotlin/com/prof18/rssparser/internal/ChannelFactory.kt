@@ -50,7 +50,15 @@ internal class ChannelFactory {
         width: Int?,
         height: Int?,
     ) {
-        if (url.isNullOrBlank() && type.isNullOrBlank() && medium.isNullOrBlank()) return
+        if (
+            url.isNullOrBlank() &&
+            type.isNullOrBlank() &&
+            medium.isNullOrBlank() &&
+            width == null &&
+            height == null
+        ) {
+            return
+        }
         articleBuilder.addRawMediaContent(
             RawMediaContent(
                 url = url,

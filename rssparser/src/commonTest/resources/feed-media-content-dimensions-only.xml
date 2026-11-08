@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+    <channel>
+        <title>Dimensions only media</title>
+        <link>https://example.com</link>
+        <description>A media:content element with only width and height</description>
+        <item>
+            <title>Article</title>
+            <media:content width="640" height="360"/>
+        </item>
+    </channel>
+</rss>
